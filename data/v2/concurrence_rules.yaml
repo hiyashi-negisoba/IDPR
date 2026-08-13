@@ -28,14 +28,20 @@ rules:
     # `offense.seal_forgery_or_misuse`가 이미 두 형태를 한 정의에 담고 있으므로 조건도 그
     # authored offense 범위와 맞춘다. 조건이 가르는 것은 위조냐 부정사용이냐가 아니라
     # **그 인영이 바로 그 문서의 구성부분인가**다.
+    #
+    # 조건문은 **관계만** 진다. 권한 없는 위조·부정사용이었는지는 흡수되는 쪽 instance의
+    # elements가 이미 판단했고, 해소 시점에는 그 instance가 established라는 것이 그것을
+    # 보장한다. 조건이 권한 유무를 다시 물으면 하나의 neural target이 자기 몫의 atomic
+    # proposition 하나만 판단한다는 v2 원칙이 깨지고, 같은 질문에 두 곳이 다르게 답할 수 있다.
+    # ref 이름의 `unauthorized`는 내부 ID로 유지하되 조건문에는 싣지 않는다.
     condition_ref: condition.unauthorized_seal_impression_is_constituent_part_of_document
     condition_statement: >-
-      타인의 인장에 관하여 권한 없이 현출되거나 부정사용된 인영이 바로 해당 문서에 찍혀
-      그 문서의 구성부분을 이루는가.
+      첫 번째 행위에서 문제된 인영이 두 번째 행위의 그 문서에 현출되어 그 문서의 구성부분을
+      이루는가.
     legal_standard: >-
-      타인의 인장에 관한 위조 또는 권한 없는 사용으로 현출된 인영이 바로 그 문서에 찍혀
-      그 문서의 기명·날인 부분을 이루는지를 본다. 인장 자체를 별도로 제작·보유하였을 뿐
-      그 인영이 해당 문서에 현출되지 않았다면 해당하지 않는다.
+      그 인영이 바로 그 문서에 찍혀 그 문서의 기명·날인 부분을 이루었는지만 본다. 그 인영을
+      얻거나 사용할 권한이 있었는지는 여기서 판단하지 않는다. 인장 자체를 별도로 제작·보유
+      하였을 뿐 그 인영이 해당 문서에 현출되지 않았다면 해당하지 않는다.
     legacy_rule_id: art231_sec6.seal_forgery_absorbed
     source_card_ids: []
     basis: >-

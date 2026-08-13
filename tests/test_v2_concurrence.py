@@ -246,11 +246,15 @@ def test_authored_rules_must_state_the_actor_constraint_and_condition_meaning() 
                 load_concurrence_rules(_write(payload, root / f"{missing}.yaml"))
 
 
-def test_the_authored_absorption_condition_is_offense_subtype_neutral() -> None:
-    """The condition splits constituent-part from separate seal-making, not 위조 from 부정사용.
+def test_the_authored_absorption_condition_asks_only_the_pair_relation() -> None:
+    """The condition carries one atomic proposition: is that impression part of that document?
 
-    `offense.seal_forgery_or_misuse` carries both subtypes in one definition, so a condition that
-    only reached forged impressions would silently drop Article 239 misuse out of the rule.
+    Two things it must *not* carry.  It must not split 위조 from 부정사용 --
+    `offense.seal_forgery_or_misuse` holds both subtypes in one definition, so a condition reaching
+    only forged impressions would silently drop Article 239 misuse out of the rule.  And it must not
+    re-ask whether the impression was unauthorized: that is the absorbed instance's own element, and
+    at resolution time its establishment already guarantees it.  A pair target that judged authority
+    again would let one question be answered differently in two places.
     """
     rules = load_concurrence_rules(Path("data/v2/concurrence_rules.yaml"))
     rule = next(
@@ -259,9 +263,10 @@ def test_the_authored_absorption_condition_is_offense_subtype_neutral() -> None:
         if value.rule_id == "absorption.seal_forgery_by_private_document_forgery"
     )
     assert rule.actor_constraint == ACTOR_SAME
-    assert rule.condition_ref.endswith("unauthorized_seal_impression_is_constituent_part_of_document")
     assert "구성부분" in rule.condition_statement
-    assert "위조" in rule.legal_standard and "권한 없는 사용" in rule.legal_standard
+    for element_word in ("위조", "부정사용", "권한"):
+        assert element_word not in rule.condition_statement
+    assert "권한이 있었는지는 여기서 판단하지 않는다" in rule.legal_standard
 
 
 def _specialty_registry() -> DefinitionRegistry:
