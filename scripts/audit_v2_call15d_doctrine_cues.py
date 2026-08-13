@@ -36,6 +36,9 @@ RISKY_CUE_IDS = (
     "cue.victim_permission_stated",
     "cue.legal_or_occupational_basis_stated",
     "cue.competing_duty_stated",
+    # 첫 실행의 거부된 raw 출력에서 "협박" 낱말만 보고 피해자를 주체로 TRUE를 낸 사례가
+    # 있었다. 강요된 행위는 행위자가 협박을 받은 경우이므로 여기도 위험 cue다.
+    "cue.coercion_against_actor_stated",
 )
 
 

@@ -161,13 +161,25 @@ def cue_request_payload(
     }
 
 
-def cue_output_schema(cues: Sequence[DoctrineCue], actor_labels: Sequence[str]) -> dict[str, Any]:
+def cue_output_schema(
+    cues: Sequence[DoctrineCue],
+    actor_labels: Sequence[str],
+    *,
+    factual_episode_id: str,
+) -> dict[str, Any]:
+    """Guided-decoding schema. episode 식별자는 `const`로 못 박는다.
+
+    첫 실행에서 43/43이 계약 위반으로 떨어졌고 원인이 전부 이것이었다 -- 모델이
+    `factual_episode:001`을 `:001`로 되돌려 주었다. 자유 문자열로 두면 계약이 "정확히 되받아
+    적어라"라는 지시의 준수 여부에 걸리는데, 그것은 이 호출이 답해야 할 질문이 아니다.
+    `const`로 고정하면 디코딩 단계에서 값이 강제되어 실패 종류 하나가 통째로 사라진다.
+    """
     return {
         "type": "object",
         "additionalProperties": False,
         "required": ["factual_episode_id", "cue_assessments"],
         "properties": {
-            "factual_episode_id": {"type": "string"},
+            "factual_episode_id": {"const": factual_episode_id},
             "cue_assessments": {
                 "type": "array",
                 "minItems": len(cues),

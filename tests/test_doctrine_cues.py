@@ -227,6 +227,14 @@ def test_the_planner_join_key_groups_by_actor_and_episode(cues) -> None:
     )
 
 
+def test_the_schema_pins_the_episode_identifier(cues) -> None:
+    """첫 실행 43/43 실패의 원인. 모델이 `factual_episode:001`을 `:001`로 되돌려 주었다."""
+    from idpr.v2.doctrine_cues import cue_output_schema
+
+    schema = cue_output_schema(cues, ("甲",), factual_episode_id="factual_episode:001")
+    assert schema["properties"]["factual_episode_id"] == {"const": "factual_episode:001"}
+
+
 def test_an_unapproved_catalog_cannot_be_loaded(tmp_path) -> None:
     path = tmp_path / "cues.yaml"
     path.write_text(

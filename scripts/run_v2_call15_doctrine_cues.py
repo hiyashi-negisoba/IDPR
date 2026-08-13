@@ -180,7 +180,11 @@ def main() -> None:
                             user_template=user_prompt,
                             payload=attempt_payload,
                             schema_name="v2_call15d_doctrine_cue",
-                            schema=cue_output_schema(cues, actor_labels),
+                            schema=cue_output_schema(
+                                cues,
+                                actor_labels,
+                                factual_episode_id=episode.factual_episode_id,
+                            ),
                             max_tokens=args.max_tokens,
                             temperature=(
                                 args.temperature
