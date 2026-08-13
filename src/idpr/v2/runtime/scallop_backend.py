@@ -27,6 +27,7 @@ from idpr.v2.expressions import SLOT_NAMES, CanonicalExpr, canonical_leaf_refs
 from idpr.v2.registry import DefinitionEntry, DefinitionRegistry
 from idpr.v2.runtime import completion as completion_mod
 from idpr.v2.runtime import pipeline
+from idpr.v2.runtime.excess import ExcessAssessment
 from idpr.v2.runtime.identity import OffenseInstanceKey, RuntimeRelationKey
 from idpr.v2.runtime.indirect_principal_grounding import IndirectPrincipalDependency
 from idpr.v2.runtime.stages import (
@@ -68,6 +69,8 @@ ELEMENTS_RELATION_OBLIGATION_QUERY_RELATION = "v2_elements_relation_obligation_t
 COMPLETION_REQUIREMENT_OBLIGATION_QUERY_RELATION = "v2_completion_requirement_obligation_truth"
 ARTICLE_263_STATUTORY_DEEMING_QUERY_RELATION = "v2_article_263_statutory_deeming_truth"
 INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION = "v2_indirect_principal_dependency_truth"
+
+ACCESSORY_EXCESS_QUERY_RELATION = "v2_accessory_excess_effect"
 _TRUTHS = frozenset({"TRUE", "FALSE", "UNKNOWN"})
 _DERIVATIVE_MODES = frozenset({"instigator", "aider"})
 _ARTICLE_263_PROBE_REFS = frozenset({
@@ -1832,6 +1835,130 @@ def validate_indirect_principal_dependency_rows(
     return actual
 
 
+def compile_accessory_excess_program() -> str:
+    """Compile the dedicated 공범의 초과 fold.
+
+    Deliberately disjoint from ``v2_derivative_link``: excess is not a participation mode but a
+    comparison between the offense that was instigated and the one the principal realized, and its
+    output is a liability *scope*, not a truth value.
+
+    The rule set has no catch-all. An input classification the program does not enumerate simply
+    produces no row, and :func:`validate_accessory_excess_rows` then reports an incomplete result
+    rather than letting a silently-dropped case read as "no excess".
+    """
+
+    lines = [
+        "// v2 dedicated accessory-excess scope",
+        "type v2_accessory_excess_input(String, String, String, String, String, String, String)",
+        (
+            f"rel {ACCESSORY_EXCESS_QUERY_RELATION}(c, a, o, i, g, \"liable_for_instigated_scope\") = "
+            "v2_accessory_excess_input(c, a, o, i, g, \"quantitative_ordinary_qualification\", f)"
+        ),
+        (
+            f"rel {ACCESSORY_EXCESS_QUERY_RELATION}(c, a, o, i, g, \"liable_for_aggravated_result\") = "
+            "v2_accessory_excess_input(c, a, o, i, g, \"quantitative_result_aggravated\", \"TRUE\")"
+        ),
+        (
+            f"rel {ACCESSORY_EXCESS_QUERY_RELATION}(c, a, o, i, g, \"liable_for_instigated_scope\") = "
+            "v2_accessory_excess_input(c, a, o, i, g, \"quantitative_result_aggravated\", \"FALSE\")"
+        ),
+        (
+            f"rel {ACCESSORY_EXCESS_QUERY_RELATION}(c, a, o, i, g, \"unresolved\") = "
+            "v2_accessory_excess_input(c, a, o, i, g, \"quantitative_result_aggravated\", \"UNKNOWN\")"
+        ),
+        (
+            f"rel {ACCESSORY_EXCESS_QUERY_RELATION}(c, a, o, i, g, \"no_liability_for_excess\") = "
+            "v2_accessory_excess_input(c, a, o, i, g, \"qualitative\", f)"
+        ),
+        # 검수 ③-a. 저작되지 않은 관계는 질적 초과가 아니라 미해결이며, Scallop에서도 그렇다.
+        (
+            f"rel {ACCESSORY_EXCESS_QUERY_RELATION}(c, a, o, i, g, \"unresolved\") = "
+            "v2_accessory_excess_input(c, a, o, i, g, \"UNRESOLVED_EXCESS_RELATION\", f)"
+        ),
+        f"query {ACCESSORY_EXCESS_QUERY_RELATION}",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def render_accessory_excess_edb(
+    accessory_instances: Iterable[tuple[OffenseInstanceKey, str, ExcessAssessment, TruthValue]],
+) -> str:
+    """Lower (accessory instance, instigated offense, host assessment, foreseeability) rows."""
+    values = tuple(accessory_instances)
+    if not values:
+        raise ScallopBackendContractError("accessory-excess rows must be nonempty")
+    rows: list[tuple[str, ...]] = []
+    seen: set[tuple[str, ...]] = set()
+    for instance, instigated_ref, assessment, foreseeability in values:
+        _validate_truth(foreseeability, ACCESSORY_EXCESS_QUERY_RELATION)
+        row = (
+            *_instance_fields(instance),
+            instigated_ref,
+            assessment.classification,
+            foreseeability,
+        )
+        key = row[:5]
+        if key in seen:
+            raise ScallopBackendContractError("duplicate accessory-excess endpoint")
+        seen.add(key)
+        rows.append(row)
+    return _render_edb_relation("v2_accessory_excess_input", rows)
+
+
+def validate_accessory_excess_rows(
+    rows: Iterable[Sequence[str]],
+    accessory_instances: Iterable[tuple[OffenseInstanceKey, str, ExcessAssessment, TruthValue]],
+) -> Mapping[tuple[OffenseInstanceKey, str], str]:
+    """Check exact correspondence and effect parity with the host classifier."""
+    values = tuple(accessory_instances)
+    expected = {
+        (*_instance_fields(instance), instigated_ref): assessment
+        for instance, instigated_ref, assessment, _ in values
+    }
+    if len(expected) != len(values):
+        raise ScallopBackendContractError("duplicate expected accessory-excess key")
+    by_instance = {_instance_fields(instance): instance for instance, _, _, _ in values}
+    actual: dict[tuple[OffenseInstanceKey, str], str] = {}
+    for raw in rows:
+        row = tuple(raw)
+        instance = by_instance.get(row[:4]) if len(row) == 6 else None
+        key = (*row[:4], row[4]) if instance is not None else None
+        assessment = expected.get(key) if key is not None else None
+        if assessment is None or (instance, row[4]) in actual:
+            raise ScallopBackendContractError("unexpected or duplicate accessory-excess query row")
+        if row[5] != assessment.effect:
+            raise ScallopBackendContractError(
+                "Scallop accessory-excess effect disagrees with host classifier: "
+                f"{row[5]!r} vs {assessment.effect!r}"
+            )
+        actual[(instance, row[4])] = row[5]
+    if len(actual) != len(expected):
+        raise ScallopBackendContractError("incomplete accessory-excess query rows")
+    return actual
+
+
+def run_accessory_excess_program(
+    accessory_instances: Iterable[tuple[OffenseInstanceKey, str, ExcessAssessment, TruthValue]],
+    *,
+    work_dir: Path,
+) -> Mapping[tuple[OffenseInstanceKey, str], str]:
+    values = tuple(accessory_instances)
+    program = compile_accessory_excess_program()
+    edb = render_accessory_excess_edb(values)
+    output = run_program(
+        program + edb,
+        (ACCESSORY_EXCESS_QUERY_RELATION,),
+        work_dir,
+        name="v2_accessory_excess",
+    )
+    rows = tuple(
+        tuple(_decode_query_string(value) for value in row)
+        for row in output[ACCESSORY_EXCESS_QUERY_RELATION]
+    )
+    return validate_accessory_excess_rows(rows, values)
+
+
 def run_indirect_principal_liability_parity_program(
     registry: DefinitionRegistry,
     dependency: IndirectPrincipalDependency,
@@ -3545,6 +3672,7 @@ __all__ = [
     "ELEMENTS_COMPONENT_SLOT_OBLIGATION_QUERY_RELATION",
     "ELEMENTS_RELATION_OBLIGATION_QUERY_RELATION",
     "ELEMENTS_SLOT_OBLIGATION_QUERY_RELATION",
+    "ACCESSORY_EXCESS_QUERY_RELATION",
     "INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION",
     "OFFENSE_ELEMENTS_QUERY_RELATION",
     "QUERY_RELATION",
@@ -3560,22 +3688,26 @@ __all__ = [
     "canonical_expression_serialization",
     "compile_completion_program",
     "compile_expression_program",
+    "compile_accessory_excess_program",
     "compile_indirect_principal_dependency_program",
     "compile_offense_elements_program",
     "compile_participation_stage_program",
     "render_case_truths_edb",
     "render_completion_edb",
+    "render_accessory_excess_edb",
     "render_indirect_principal_dependency_edb",
     "render_offense_elements_edb",
     "render_participation_stage_edb",
     "run_article_263_liability_parity_program",
     "run_expression_parity_program",
+    "run_accessory_excess_program",
     "run_indirect_principal_liability_parity_program",
     "run_liability_chain_parity_program",
     "run_offense_elements_parity_program",
     "run_participation_stage_parity_program",
     "validate_completion_query_rows",
     "validate_expression_query_rows",
+    "validate_accessory_excess_rows",
     "validate_indirect_principal_dependency_rows",
     "validate_offense_elements_query_rows",
     "validate_participation_stage_query_rows",
