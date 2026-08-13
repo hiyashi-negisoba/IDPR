@@ -10,57 +10,105 @@
 # 저작 경계:
 #   - factual_cue는 현상적 사실이어야 한다. "정당방위 상황", "부당한 침해"처럼 법적
 #     평가를 담은 문구는 금지한다. 그 평가는 leaf predicate가 Call 2에서 한다.
-#   - 한 단서가 여러 doctrine을 열 수 있다. 배타적으로 만들지 않는다.
+#   - 동시에 단순 등장만으로 TRUE가 되는 lexical cue도 피한다. 공무원이 나온다는 이유로
+#     정당행위가 열리면 안 된다. 문제된 행위와 연결하여 서술되었는지를 묻는다.
+#   - 한 단서가 여러 doctrine을 열 수 있고, 한 doctrine이 여러 단서로 열릴 수 있다.
 #   - doctrine을 추가 저작하면 여기에도 단서를 붙여야 활성화 경로가 생긴다.
+#
+# `scope` (2026-08-13 검수 신설):
+#   - `actor`   그 행위자의 지속적 속성이므로 사건 전체의 그 행위자 instance에 미친다.
+#               사건 앞머리에 한 번 적히는 나이·장애가 뒤 episode의 죄에 닿아야 한다.
+#   - `episode` 그 episode의 사실이므로 같은 episode의 그 행위자 instance에만 미친다.
+#
+#   음주·약물을 정신질환과 한 cue에 묶어 actor scope로 두면 episode 1의 만취가 episode 7의
+#   별개 범행까지 번진다. 그래서 지속적 정신상태와 일시적 상태를 두 cue로 분리했다.
+#   actor scope cue를 다른 episode에 투영할 때 host는 관찰된 episode와 평가되는 episode를
+#   분리해 provenance로 보존한다.
 
-version: 1
-status: awaiting_legal_review
+version: 2
+status: awaiting_final_read
+# 2026-08-13 조건부 승인. 아래 세 수정을 반영했다.
+#   - competing_duty / legal_or_occupational_basis 문구를 좁혔다.
+#   - actor_mental_condition 을 지속적/일시적 두 cue로 분리했다.
+#   - 위전착(mistaken_justifying_circumstance) cue를 신설했다.
+# 남은 게이트는 이 수정본과 Call 1.5-D 프롬프트 전문의 최종 열람이다.
 
 cues:
   - id: cue.actor_age_stated
+    scope: actor
     factual_cue: "행위자의 나이 또는 출생 시점이 사건 사실에 적혀 있다"
     raises: [doctrine.juvenile_defeat]
 
-  - id: cue.actor_mental_condition_stated
-    factual_cue: "행위자의 정신질환, 정신적 장애, 음주 또는 약물 복용 상태가 사건 사실에 적혀 있다"
+  - id: cue.actor_persistent_mental_disorder_stated
+    scope: actor
+    factual_cue: "행위자가 정신질환이나 정신적 장애를 가지고 있다는 사실이 적혀 있다"
+    raises: [doctrine.insanity_defeat]
+
+  - id: cue.actor_transient_intoxication_stated
+    scope: episode
+    # 지속적 정신상태와 분리한다. 일시적 상태는 그 episode의 사실이다.
+    factual_cue: "행위자가 그 행위 당시 음주, 약물 복용 등으로 일시적으로 취하거나 정상적이지 않은 상태였다는 사실이 적혀 있다"
     raises: [doctrine.insanity_defeat]
 
   - id: cue.actor_hearing_or_speech_impairment_stated
+    scope: actor
     factual_cue: "행위자가 듣거나 말하는 기능을 갖추지 못하였다는 사실이 적혀 있다"
     raises: [doctrine.deaf_mute_mandatory_reduction]
 
   - id: cue.coercion_against_actor_stated
+    scope: episode
     factual_cue: "행위자가 다른 사람의 폭력이나 협박을 받고 그 행위를 하였다는 사실이 적혀 있다"
     raises: [doctrine.coerced_act_defeat]
 
   - id: cue.actor_belief_of_permission_stated
+    scope: episode
     factual_cue: "행위자가 자기 행위가 허용된다고 믿었다는 사정, 또는 그렇게 믿을 만한 안내·질의·회신이 있었다는 사실이 적혀 있다"
     raises: [doctrine.mistake_of_law_defeat]
 
   - id: cue.legal_or_occupational_basis_stated
-    factual_cue: "그 행위가 법령, 직무 또는 업무에 따라 이루어졌다는 사실이 적혀 있다"
+    scope: episode
+    # 좁힘(2026-08-13). 공무원·직업인의 등장 자체로는 TRUE가 아니다. 문제된 행위가 특정
+    # 근거에 따라 행해졌다고 연결하여 서술되었는지를 묻는다.
+    factual_cue: "문제된 행위가 특정 법령, 직무상 권한이나 명령, 또는 업무상 절차에 근거하여 행해졌다고 연결하여 서술되어 있다"
     raises: [doctrine.justifiable_act_defeat]
 
   - id: cue.prior_force_by_other_stated
+    scope: episode
     factual_cue: "상대방이 먼저 행위자나 제3자에게 유형력을 행사하거나 위해를 가하였다는 사실이 적혀 있다"
     raises: [doctrine.self_defense]
 
   - id: cue.imminent_danger_stated
+    scope: episode
     factual_cue: "사람의 생명·신체나 재산에 급박한 위험 또는 재난이 있었다는 사실이 적혀 있다"
     raises: [doctrine.necessity_defeat]
 
   - id: cue.competing_duty_stated
-    factual_cue: "행위자가 같은 시점에 이행해야 할 다른 의무나 요구가 함께 있었다는 사실이 적혀 있다"
+    scope: episode
+    # 좁힘(2026-08-13). 단순히 다른 요구가 있었다는 사실이 아니라, 같은 시점에 이행이
+    # 요구되는 둘 이상의 구체적 의무가 함께 서술된 경우로 한정한다. 법적 의미의 의무 충돌
+    # 여부는 leaf가 판단한다.
+    factual_cue: "행위자에게 같은 시점에 이행이 요구되는 둘 이상의 구체적 의무가 함께 서술되어 있다"
     raises: [doctrine.conflict_of_duties_defeat]
 
   - id: cue.claim_enforcement_obstacle_stated
+    scope: episode
     factual_cue: "행위자가 자기 권리나 청구권을 가지고 있고, 그것을 나중에 실현하기 어려워질 사정이 있었다는 사실이 적혀 있다"
     raises: [doctrine.self_help_defeat]
 
   - id: cue.victim_permission_stated
+    scope: episode
     factual_cue: "피해자가 그 행위를 허락하거나 동의하였다는 사실이 적혀 있다"
     raises: [doctrine.victim_consent_defeat]
 
   - id: cue.victim_permission_unobtainable_stated
+    scope: episode
     factual_cue: "피해자가 부재하거나 의식이 없는 등 그 자리에서 허락을 받을 수 없는 상황이었다는 사실이 적혀 있다"
     raises: [doctrine.presumed_consent_defeat]
+
+  - id: cue.justifying_premise_belief_mismatch_stated
+    scope: episode
+    # 신설(2026-08-13). 위전착에 단서가 없어 구조적으로 영원히 raised되지 않던 것을 닫는다.
+    # 모델은 인식과 실제 사실관계의 불일치가 적혀 있는지만 탐지한다. 그것이 위법성조각사유의
+    # 전제사실 착오인지, 정당한 이유가 있는지는 기존 doctrine leaf가 판단한다.
+    factual_cue: "행위자가 공격·위험·승낙 등 자신의 행위를 허용할 수 있는 사실이 존재한다고 인식하였으나, 실제 사실관계에는 그 전제가 없거나 불분명하다는 서술이 있다"
+    raises: [doctrine.mistaken_justifying_circumstance]

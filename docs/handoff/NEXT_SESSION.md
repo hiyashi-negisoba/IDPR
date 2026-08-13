@@ -663,3 +663,46 @@ Call 3는 이 typed 결과를 **설명만** 한다 -- "乙의 상해는 甲의 �
 
 그 뒤가 Call 1.5-D 프롬프트 승인과 222907 라이브 실행이다. 프롬프트는 아직 작성하지 않았고,
 활성 프롬프트이므로 전문 승인이 필요하다. IssuePlanner/Call3/judge는 계속 보류한다.
+
+## 2026-08-13 Call 1.5-D doctrine activation: cue catalog / contract 저작
+
+active doctrine 0의 dead loop를 닫는 경로를 설계 검수까지 마치고 앞단 두 모듈을 구현했다.
+**모델은 아직 부르지 않았다.**
+
+- 설계 정본: `docs/analysis/v2_call15d_doctrine_activation_design_ko.md` (카드 A~E 검수 완료).
+- 프롬프트 전문: `docs/analysis/v2_call15d_prompt_review_ko.md` (카드 F 검수 대기, 미설치).
+- cue 카탈로그: `data/v2/doctrine_raising_cues.yaml` v2, cue 14개 / doctrine 13개 / leaf 32개.
+
+### 검수로 바뀐 것
+
+1. `competing_duty_stated`와 `legal_or_occupational_basis_stated` 문구를 좁혔다. 단순 등장으로
+   TRUE가 되는 lexical cue를 피하되 법적 판단은 넣지 않는다.
+2. **`actor_mental_condition_stated`를 두 cue로 분리했다.** 지속적 정신질환·장애는 `actor`
+   scope, 음주·약물 등 일시적 상태는 `episode` scope다. 합쳐 두면 episode 1의 만취가
+   episode 7의 별개 범행까지 번진다 -- 초과에서 닫은 문제를 반대 방향으로 다시 만드는 것이었다.
+   actor scope는 age / persistent mental disorder / hearing-speech impairment 셋뿐이고 테스트가
+   그 집합을 고정한다.
+3. 위전착 cue를 신설했다. registry의 13개 doctrine이 전부 raising path를 갖게 됐고,
+   `test_every_authored_doctrine_has_a_raising_path`가 회귀로 지킨다.
+4. v1은 top-level 87개 instance에만 leaf를 연다. 참가 후보 45개는 link 확정 후 후속
+   materialize가 맞는 구조이고 지금은 deferred다.
+5. Call 2 증분 재검수 게이트는 `Δtarget ≤ 300`이다. 비용만이 아니라 semantic safety gate다.
+
+### 구현 상태
+
+- `src/idpr/v2/doctrine_cues.py` -- 카탈로그 파서, 요청 payload, 출력 schema/검증. 완료.
+  payload에 doctrine ref·조문·scope가 들어가지 않는 것을 테스트가 확인한다.
+- `src/idpr/v2/runtime/doctrine_raising.py` -- cue -> `RaisedDoctrine`. actor scope 투영 시
+  `source_episode_id`/`target_episode_id`를 분리해 provenance를 보존한다. 완료.
+- planner target 확장과 러너 스크립트는 Call 1.5-D 실행 후 착수한다.
+- `tests/test_doctrine_cues.py` 14개. 전체 `274 passed, 16 skipped`.
+
+### 다음 세션
+
+1. 카드 F(프롬프트 전문) 승인 -> `prompts/v2_call15d_doctrine_cue.md` / `_user.md` 설치.
+2. `scripts/run_v2_call15_doctrine_cues.py` 작성 후 43회 실행(episode 본문 총 9천 자 수준).
+3. raised set과 exact 증분 target 목록·수 보고 -> `Δtarget ≤ 300`이면 Call 2 증분 실행.
+4. 그 뒤 흡수 조건 assessment 채널.
+
+freeze 유지: §33 probe wiring, participation prompt/model tuning, live Call 2 재실행,
+optional excess foreseeability probe, co_principal unreachable mode(marker 보존).
