@@ -77,6 +77,9 @@
     necessary_counterpart_offense_refs:
       - offense.bribe_giving
       - offense.bribe_delivery_receipt
+    # 형법 제33조 본문. 수뢰죄는 공무원·중재인을 신분자로 하는 진정신분범이므로,
+    # 비신분자가 공동정범으로 가담한 경우 신분 요건은 obligation으로만 충족된다.
+    constitutive_status_refs: [legal_element.official_or_arbitrator_status]
   elements:
     subject: {op: ref, ref: legal_element.official_or_arbitrator_status}
     circumstance:
@@ -166,6 +169,9 @@
 
 - id: offense.perjury
   identity: {name: "위증죄", statutory_refs: ["형법 제152조 제1항"]}
+  participation_constraints:
+    # 형법 제33조 본문. 위증죄는 법률에 의하여 선서한 증인만이 주체가 되는 진정신분범이다.
+    constitutive_status_refs: [legal_element.witness_took_lawful_oath]
   elements:
     subject: {op: ref, ref: legal_element.witness_took_lawful_oath}
     circumstance: {op: ref, ref: legal_element.proceeding_commenced}
@@ -194,6 +200,9 @@
 - id: offense.false_public_document_creation
   identity: {name: "허위공문서작성죄", statutory_refs: ["형법 제227조"]}
   indirect_principal_capability: {legally_possible: true}
+  participation_constraints:
+    # 형법 제33조 본문. 작성 권한 있는 공무원만이 주체가 되는 진정신분범이다.
+    constitutive_status_refs: [legal_element.official_with_writing_authority]
   elements:
     subject: {op: ref, ref: legal_element.official_with_writing_authority}
     object: {op: ref, ref: legal_element.public_document_object}
