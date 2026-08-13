@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 from idpr.v2.gold_factual_identity import load_gold_article263_pairs, load_gold_occurrences
+from idpr.v2.question_assumptions import load_question_assumptions
 
 ROOT = Path(__file__).resolve().parents[1]
 PLAN = ROOT / "experiments/v2_gold_restart_26/evaluation_instance_plan.jsonl"
@@ -26,12 +27,26 @@ def test_gold_is_exact_factual_identity_for_all_frozen_cases() -> None:
     assert len(gold) == 26
     assert sum(len(value.occurrences) for value in gold.values()) == 67
     pairs = load_gold_article263_pairs(
-        ROOT / "data/v2/gold_article263_pairs.jsonl", occurrences_by_id=gold
+        ROOT / "data/v2/gold_article263_pairs.jsonl",
+        occurrences_by_id=gold,
+        case_text_by_id={key: value["question_text"] for key, value in inventory.items()},
     )
     assert len(pairs) == 1
+    assert "판명되지 않았다" in pairs[0].relation_source_text
+
+    assumptions = load_question_assumptions(
+        ROOT / "data/v2/question_assumptions.jsonl",
+        question_prompt_by_id={
+            key: str(value["question_prompt"]) for key, value in inventory.items()
+        },
+    )
+    assert set(assumptions) == {
+        "kcl_criminal_r10_p2_q3",
+        "kcl_criminal_r14_p2_q4",
+    }
 
 
-def test_plan_top_level_is_exact_occurrence_actor_offense_product() -> None:
+def test_rejected_plan_artifact_documents_the_cartesian_failure() -> None:
     for row in _rows(PLAN):
         case_id = row["sub_question_id"]
         expected = [
@@ -44,6 +59,7 @@ def test_plan_top_level_is_exact_occurrence_actor_offense_product() -> None:
             for key in row["top_level_instances"]
         ]
         assert actual == expected
+        assert len(actual) == len(row["occurrences"]) * len(row["candidate_offense_refs"])
         targets = [
             (
                 value["instance_key"]["case_id"],

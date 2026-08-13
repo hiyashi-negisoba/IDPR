@@ -53,6 +53,73 @@ _STANDALONE_SCOPE = re.compile(
     r"사실관계\s*\((\d+)\)\s*(?:과|와)\s*관련하여,?"
 )
 _NUMBERED_FACT = re.compile(r"(?m)^\s*\((\d+)\)\s*")
+_COUNTERFACTUAL_REPLACEMENT = re.compile(
+    r"밑줄친\s*부분을\s*<u>\s*(.*?)\s*</u>\s*로\s*바꿀\s*경우",
+    re.DOTALL,
+)
+_UNDERLINED_TEXT = re.compile(r"<u>.*?</u>", re.DOTALL)
+_DIRECT_SCOPE_PREFIX = re.compile(
+    r"^(?:(?:사실관계\s*)?\(\d+\)\s*(?:과|와)\s*관련하여,?|"
+    r"(?:사실관계\s*|위\s*사례\s*)?\(\d+\)"
+    r"(?:\s*(?:과|와)\s*\(\d+\))*\s*에서)\s*"
+)
+_RESPONSIBILITY_ACTOR = re.compile(r"[甲乙丙丁戊己庚辛壬癸]")
+
+
+def _direct_question_prompt(question_prompt: str) -> str:
+    replacement = _COUNTERFACTUAL_REPLACEMENT.search(question_prompt)
+    if replacement:
+        return question_prompt[replacement.end() :].strip()
+    return _DIRECT_SCOPE_PREFIX.sub("", question_prompt, count=1).strip()
+
+
+def _apply_counterfactual_replacement(scope: str, question_prompt: str) -> str:
+    """Turn an explicitly authored fact replacement into a direct fact question."""
+    match = _COUNTERFACTUAL_REPLACEMENT.search(question_prompt)
+    if not match:
+        return scope
+
+    replacement = match.group(1).strip()
+    for opening, closing in (("'", "'"), ('"', '"'), ("‘", "’"), ("“", "”")):
+        if replacement.startswith(opening) and replacement.endswith(closing):
+            replacement = replacement[len(opening) : -len(closing)].strip()
+            break
+
+    normalized = _UNDERLINED_TEXT.sub(f"<u>{replacement}</u>", scope, count=1)
+    return normalized
+
+
+def _compose_scope(facts: List[str], question_prompt: str) -> str:
+    direct_prompt = _direct_question_prompt(question_prompt)
+    scope = "\n\n".join([*facts, direct_prompt] if direct_prompt else facts)
+    return _apply_counterfactual_replacement(scope, question_prompt)
+
+
+def _expand_explicit_fact_dependencies(
+    blocks: Dict[int, str], references: tuple[int, ...]
+) -> tuple[int, ...]:
+    """Include numbered facts explicitly presupposed by a selected fact block."""
+    selected = set(references)
+    changed = True
+    while changed:
+        changed = False
+        for number in tuple(selected):
+            block = blocks.get(number, "")
+            dependencies = {
+                int(value) for value in _SCOPE_REFERENCE.findall(block)
+                if int(value) != number
+            }
+            if (
+                number > 1
+                and re.match(rf"^\s*\({number}\)\s*다음\s*날", block)
+                and "위 범행" in block
+            ):
+                dependencies.add(number - 1)
+            for dependency in dependencies:
+                if dependency in blocks and dependency not in selected:
+                    selected.add(dependency)
+                    changed = True
+    return tuple(sorted(selected))
 
 
 def scoped_question_text(question_text: str, question_prompt: str) -> str:
@@ -64,10 +131,29 @@ def scoped_question_text(question_text: str, question_prompt: str) -> str:
     references = tuple(
         dict.fromkeys(int(value) for value in _SCOPE_REFERENCE.findall(question_prompt))
     )
-    if not references:
-        return question_text
-
     parts = [part.strip() for part in re.split(r"\n\s*\n", question_text) if part.strip()]
+    if not references:
+        if question_text.rstrip().endswith(question_prompt.strip()):
+            fact_body = question_text.rstrip()[: -len(question_prompt.strip())].strip()
+            markers = list(_NUMBERED_FACT.finditer(fact_body))
+            actors = tuple(dict.fromkeys(_RESPONSIBILITY_ACTOR.findall(question_prompt)))
+            if markers and actors:
+                blocks = [
+                    fact_body[
+                        marker.start() : (
+                            markers[position + 1].start()
+                            if position + 1 < len(markers)
+                            else len(fact_body)
+                        )
+                    ].strip()
+                    for position, marker in enumerate(markers)
+                ]
+                selected = [block for block in blocks if any(actor in block for actor in actors)]
+                if selected:
+                    return _compose_scope(selected, question_prompt)
+            return _compose_scope([fact_body], question_prompt)
+        return _apply_counterfactual_replacement(question_text, question_prompt)
+
     for index, part in enumerate(parts):
         match = _STANDALONE_SCOPE.fullmatch(part)
         if match and int(match.group(1)) in references:
@@ -79,7 +165,7 @@ def scoped_question_text(question_text: str, question_prompt: str) -> str:
             ]
             if narrative and max(references) <= len(narrative):
                 selected = [narrative[number - 1] for number in references]
-                return "\n\n".join([*selected, *parts[index:]])
+                return _compose_scope(selected, question_prompt)
 
     leading_scope = _STANDALONE_SCOPE.match(question_prompt)
     if leading_scope and len(parts) >= 2:
@@ -91,14 +177,14 @@ def scoped_question_text(question_text: str, question_prompt: str) -> str:
         ]
         if narrative and max(references) <= len(narrative):
             selected = [narrative[number - 1] for number in references]
-            return "\n\n".join([*selected, parts[-1]])
+            return _compose_scope(selected, question_prompt)
 
     if len(parts) < 2:
-        return question_text
+        return _apply_counterfactual_replacement(question_text, question_prompt)
     fact_body = "\n\n".join(parts[:-1])
     markers = list(_NUMBERED_FACT.finditer(fact_body))
     if not markers:
-        return question_text
+        return _apply_counterfactual_replacement(question_text, question_prompt)
     blocks = {
         int(marker.group(1)): fact_body[
             marker.start() : (
@@ -110,8 +196,49 @@ def scoped_question_text(question_text: str, question_prompt: str) -> str:
         for position, marker in enumerate(markers)
     }
     if not all(reference in blocks for reference in references):
-        return question_text
-    return "\n\n".join([*(blocks[reference] for reference in references), parts[-1]])
+        return _apply_counterfactual_replacement(question_text, question_prompt)
+    expanded = _expand_explicit_fact_dependencies(blocks, references)
+    return _compose_scope([blocks[reference] for reference in expanded], question_prompt)
+
+
+def target_fact_source_spans(
+    question_text: str, question_prompt: str
+) -> tuple[tuple[int, int], ...] | None:
+    """Locate only the numbered facts explicitly selected by the question.
+
+    Dependency closure remains available as factual context, but is deliberately
+    excluded here so an earlier episode cannot silently become an independent
+    liability target. ``None`` means no safe numbered boundary was recoverable.
+    """
+    references = tuple(
+        dict.fromkeys(int(value) for value in _SCOPE_REFERENCE.findall(question_prompt))
+    )
+    if not references:
+        return None
+    stripped = question_text.rstrip()
+    prompt = question_prompt.strip()
+    fact_end = len(stripped) - len(prompt) if stripped.endswith(prompt) else len(question_text)
+    markers = list(_NUMBERED_FACT.finditer(question_text[:fact_end]))
+    if not markers:
+        return None
+    spans = {
+        int(marker.group(1)): (
+            marker.start(),
+            markers[position + 1].start()
+            if position + 1 < len(markers)
+            else fact_end,
+        )
+        for position, marker in enumerate(markers)
+    }
+    if not all(reference in spans for reference in references):
+        return None
+    selected = tuple(spans[reference] for reference in references)
+    prompt_start = stripped.rfind(prompt)
+    if prompt_start >= 0:
+        # The prompt may itself author a new hypothesis or replacement fact.  It is
+        # target evidence, whereas dependency-closure blocks remain context-only.
+        selected = (*selected, (prompt_start, prompt_start + len(prompt)))
+    return selected
 
 
 def assert_no_leaked_fields(formatted_input: Dict[str, Any]) -> None:

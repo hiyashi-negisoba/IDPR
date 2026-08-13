@@ -25,6 +25,57 @@
         "mental": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" }
       },
       "description": "Same shape as OffenseDef.elements — the materialized slot set after applying the qualifier/compose derivation. This is a cache of the derivation's effect, not a second source of truth; the compiler (step 4) must regenerate it from 'derivation', never hand-author it independently. The Type checker (step 2) verifies this by full semantic-equality replay of 'derivation', not by hand-authoring rules here."
+    },
+    "indirect_principal_capability": {
+      "type": "object",
+      "required": ["legally_possible"],
+      "additionalProperties": false,
+      "properties": {
+        "legally_possible": {
+          "const": true,
+          "description": "Static authoring opt-in only. Derived offenses do not inherit this capability from a base or component: every enabled derived offense is authored explicitly."
+        }
+      },
+      "description": "Candidate-scope metadata only. It cannot create a utilization relation or an indirect-principal liability conclusion. Absence is unauthored, not a negative legal conclusion."
+    },
+    "candidate_materialization": {
+      "type": "object",
+      "required": ["episode_constraint"],
+      "additionalProperties": false,
+      "anyOf": [
+        { "required": ["binding_sets"] },
+        { "required": ["distinct_actor_binding_sets"] }
+      ],
+      "properties": {
+        "episode_constraint": {
+          "const": "same",
+          "description": "Every supporting binding must have the same factual_episode_id and actor_id."
+        },
+        "binding_sets": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" }
+          },
+          "description": "OR-of-AND typed binding requirements. A base binding alone is structurally forbidden. This metadata only opens a Call 2 candidate and never establishes its predicates."
+        },
+        "distinct_actor_binding_sets": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "uniqueItems": true,
+            "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" }
+          },
+          "description": "OR-of-AND requirements that each named binding ref exists for the candidate actor and for at least one distinct actor in the same factual episode. The two physical bindings satisfy the no-base-only rule."
+        }
+      }
     }
   },
   "$defs": {

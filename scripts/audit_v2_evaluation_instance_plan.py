@@ -15,7 +15,6 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from run_v2_evaluation_instance_planner import (
     FROZEN_CLOSURE_SHA256,
-    FROZEN_STEP7_COMMIT,
     _case_ids,
     _read_json,
     _read_jsonl,
@@ -24,7 +23,6 @@ from run_v2_evaluation_instance_planner import (
     build_plan_rows,
 )
 
-from idpr.v2.gold_factual_identity import load_gold_occurrences
 from idpr.v2.registry import load_definitions
 
 DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
@@ -42,11 +40,17 @@ def _verify_manifest(
     expected = {
         "step": "v2_evaluation_instance_planner",
         "status": "SUCCEEDED",
-        "frozen_step7_commit": FROZEN_STEP7_COMMIT,
-        "frozen_closure_sha256": FROZEN_CLOSURE_SHA256,
-        "frontier_seed_rule": "normalized_seeds[:10]",
-        "factual_identity_rule": "manual KCL-26 gold occurrence and actor only",
-        "occurrence_rule": "manual gocc IDs; no model-generated identity path",
+        "binding_rule": (
+            "one validated direct binding plus registry-authored evidence-gated derived "
+            "candidates requiring at least two same-episode same-actor bindings"
+        ),
+        "factual_identity_rule": (
+            "Call 1.5 binding_id and source fragments only; offline gold occurrence and "
+            "participant annotations are not production inputs"
+        ),
+        "occurrence_rule": (
+            "binding_id is case-time candidate identity; source fragments remain auditable"
+        ),
         "registry_sha256": _registry_sha256(definitions),
         "inventory_sha256": _sha256(inventory),
         "case_list_sha256": _sha256(case_list),
@@ -54,8 +58,7 @@ def _verify_manifest(
     for field, value in expected.items():
         if manifest.get(field) != value:
             _error(errors, f"manifest {field!r} mismatch: expected {value!r}, got {manifest.get(field)!r}")
-    closure_sha = _sha256(ROOT / "src/idpr/v2/closure.py")
-    if closure_sha != FROZEN_CLOSURE_SHA256:
+    if _sha256(ROOT / "src/idpr/v2/closure.py") != FROZEN_CLOSURE_SHA256:
         _error(errors, "current frozen closure source hash differs from approved hash")
 
 
@@ -77,35 +80,26 @@ def main() -> None:
         _error(errors, "manifest case ids differ from frozen case list")
 
     call1_path = Path(str(manifest.get("call1_artifact", "")))
-    gold_path = Path(str(manifest.get("gold_occurrences", "")))
+    call15_path = Path(str(manifest.get("call15_artifact", "")))
     if not call1_path.is_file():
         _error(errors, "Call 1 artifact is unavailable")
         expected_rows: list[dict[str, Any]] = []
     elif manifest.get("call1_artifact_sha256") != _sha256(call1_path):
         _error(errors, "Call 1 artifact hash mismatch")
         expected_rows = []
-    elif not gold_path.is_file():
-        _error(errors, "gold occurrence file is unavailable")
+    elif not call15_path.is_file():
+        _error(errors, "Call 1.5 artifact is unavailable")
         expected_rows = []
-    elif manifest.get("gold_occurrences_sha256") != _sha256(gold_path):
-        _error(errors, "gold occurrence file hash mismatch")
+    elif manifest.get("call15_artifact_sha256") != _sha256(call15_path):
+        _error(errors, "Call 1.5 artifact hash mismatch")
         expected_rows = []
     else:
         try:
             inventory_rows = _read_jsonl(args.inventory)
-            inventory_by_id = {
-                str(value["sub_question_id"]): str(value["question_text"])
-                for value in inventory_rows
-            }
-            gold_by_id = load_gold_occurrences(
-                gold_path,
-                case_text_by_id=inventory_by_id,
-                required_case_ids=case_ids,
-            )
             expected_rows = build_plan_rows(
                 registry=load_definitions(args.definitions),
                 call1_rows=_read_jsonl(call1_path),
-                gold_by_id=gold_by_id,
+                call15_rows=_read_jsonl(call15_path),
                 inventory_rows=inventory_rows,
                 case_ids=case_ids,
             )
@@ -126,8 +120,16 @@ def main() -> None:
             "predicate_scope_instance_count",
             "assessment_instance_count",
             "final_assessment_target_count",
+            "neural_predicate_request_target_count",
             "relation_assessment_target_count",
-            "participation_route_target_count",
+            "participation_local_target_count",
+            "factual_utilization_target_count",
+            "utilized_participant_outcome_target_count",
+            "utilized_participant_predicate_target_count",
+            "derived_binding_candidate_count",
+            "unbound_seed_count",
+            "article263_pair_candidate_count",
+            "context_only_binding_count",
         )
     }
     if expected_rows and manifest.get("aggregate_counts") != expected_counts:

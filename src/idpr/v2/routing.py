@@ -9,6 +9,8 @@ at ten normalized candidates.
 
 from __future__ import annotations
 
+import hashlib
+import json
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any
@@ -93,6 +95,17 @@ def router_catalog(registry: DefinitionRegistry) -> tuple[RouterCatalogEntry, ..
                 )
             )
     return tuple(sorted(entries, key=lambda entry: entry.definition_id))
+
+
+def router_catalog_fingerprint(catalog: Iterable[RouterCatalogEntry]) -> str:
+    """Hash exactly the catalog metadata visible to the frozen Call 1 router."""
+    encoded = json.dumps(
+        [entry.as_dict() for entry in catalog],
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    ).encode("utf-8")
+    return hashlib.sha256(encoded).hexdigest()
 
 
 def router_schema(catalog: Iterable[RouterCatalogEntry]) -> dict[str, Any]:
@@ -205,6 +218,7 @@ __all__ = [
     "RouterSeedNormalization",
     "normalize_router_seeds",
     "router_catalog",
+    "router_catalog_fingerprint",
     "router_request_payload",
     "router_schema",
     "validate_router_output",

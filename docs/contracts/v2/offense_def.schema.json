@@ -56,6 +56,18 @@
       "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
       "description": "QualifierDef ids that may legitimately QUALIFY this offense (e.g. embezzlement listing occupational_status). This is a menu of applicable qualifiers declared at the base offense, not an application — QUALIFY itself happens in DerivedOffenseDef."
     },
+    "indirect_principal_capability": {
+      "type": "object",
+      "required": ["legally_possible"],
+      "additionalProperties": false,
+      "properties": {
+        "legally_possible": {
+          "const": true,
+          "description": "Static authoring opt-in only: this offense can legally be committed through an indirect principal in at least one factual configuration. It is not a case fact, relation truth, participation mode, or liability conclusion. Absence means unauthored/out of the current capability scope, never legally impossible."
+        }
+      },
+      "description": "Candidate-scope metadata for Article 34 grounding. Runtime establishment still requires a separately assessed factual utilization relation and the utilised participant's typed outcome; this metadata alone must never activate an indirect-principal route."
+    },
     "participation_constraints": {
       "type": "object",
       "additionalProperties": false,
@@ -79,6 +91,13 @@
           "uniqueItems": true,
           "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
           "description": "Phase 5.1, Article 33 only: existing actor-specific status leaves that a co-principal may satisfy through a CoPrincipalConstitutiveStatusObligation. They are never added to attributable_slots and never OR-merged into the target's CaseTruths. The participation runtime supplies the obligation truth only while evaluating this offense's Elements."
+        },
+        "necessary_counterpart_offense_refs": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+          "description": "Static candidate exclusion for necessary/opposed participation. When a proposed ordinary instigator/aider/co-principal member already has a same-case active binding for one of these counterpart offenses, the factual participation compiler must not reinterpret that opposed statutory role as an ordinary participation route in this offense. This metadata only suppresses a probe; it never establishes either offense or legal role."
         },
         "statutory_deeming": {
           "type": "object",

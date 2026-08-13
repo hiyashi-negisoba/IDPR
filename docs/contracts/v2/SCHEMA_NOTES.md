@@ -86,10 +86,16 @@
 "공범론을 shared General Part structure로 둔다"는 의도와 어긋난다. 지금은
 `{id, modes}`(offense 필드 없음)로 바꾸고, 정말 특정 범죄가 공범형태에 제한을
 갖는 경우에만 `OffenseDef.participation_constraints`(옵션, `disabled_modes`/
-`attributable_slots` 두 필드만)로 좁게 override하게 했다. 보통의 범죄는 아무
+`attributable_slots` 및 typed participation constraint metadata)로 좁게 override하게 했다. 보통의 범죄는 아무
 것도 안 씀 — `examples/participation_policies.yaml`의
 `participation_policy.standard`가 이 기본 정책이고, `offense.robbery`는
 override 없이 그대로 쓴다.
+
+`necessary_counterpart_offense_refs`는 필요적·대향적 참가를 ordinary
+instigator/aider/co-principal probe로 재해석하지 않기 위한 candidate-scope metadata다.
+제안된 member가 이미 열거된 counterpart offense의 active binding을 가진 경우에만 probe를
+억제하며, 어느 offense나 법적 역할도 성립시키지 않는다. 양쪽 모두 동일 수뢰죄 binding을
+가진 공동수뢰 후보처럼 counterpart binding이 없는 ordinary route는 그대로 남는다.
 
 또한 `derivative_mode.requires_conclusion`을 `conclusion_type`(3개 값 중
 자유 선택) enum에서 **`offense_realization` const로 고정**했다. 15.3이 명시하는

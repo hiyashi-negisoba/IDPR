@@ -6,8 +6,24 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import sys
 from pathlib import Path
 from typing import Any
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+from idpr.v2.registry import load_definitions
+from idpr.v2.runtime.grounding import AssessmentTarget, grounding_request_targets
+from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.participation_grounding import (
+    ParticipationGroundingError,
+    ParticipationLocalAssessment,
+    ParticipationLocalTarget,
+    compile_participation_bindings,
+)
+
+DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
 
 
 def _sha256(path: Path) -> str:
@@ -57,29 +73,71 @@ def _relation_key(value: dict[str, Any]) -> tuple[Any, ...]:
 
 
 def _participation_key(value: dict[str, Any]) -> tuple[Any, ...]:
-    participant = value["participant_instance"]
-    options = tuple(
-        (
-            str(option["option_id"]),
-            str(option["mode"]),
-            tuple(
-                (
-                    str(source["case_id"]),
-                    str(source["actor_id"]),
-                    str(source["offense_ref"]),
-                    str(source["occurrence_id"]),
-                )
-                for source in option["source_instances"]
-            ),
-        )
-        for option in value["route_options"]
+    group = value["group_key"]
+    return (
+        str(value["relation_kind"]),
+        str(group["case_id"]),
+        str(group["offense_ref"]),
+        tuple(
+            (
+                str(member["case_id"]),
+                str(member["actor_id"]),
+                str(member["offense_ref"]),
+                str(member["occurrence_id"]),
+            )
+            for member in value["member_instances"]
+        ),
     )
+
+
+def _utilization_key(value: dict[str, Any]) -> tuple[str, ...]:
+    action = value["utilizer_action"]
+    participant = value["utilized_participant"]
+    return (
+        str(value["relation_kind"]),
+        str(action["case_id"]),
+        str(action["actor_id"]),
+        str(action["occurrence_id"]),
+        str(participant["case_id"]),
+        str(participant["participant_id"]),
+    )
+
+
+def _utilized_outcome_key(value: dict[str, Any]) -> tuple[str, str, str]:
+    participant = value["participant"]
     return (
         str(participant["case_id"]),
-        str(participant["actor_id"]),
-        str(participant["offense_ref"]),
-        str(participant["occurrence_id"]),
-        options,
+        str(participant["participant_id"]),
+        str(value["offense_ref"]),
+    )
+
+
+def _utilized_predicate_key(value: dict[str, Any]) -> tuple[str, str, str, str]:
+    return (*_utilized_outcome_key(value), str(value["predicate_ref"]))
+
+
+def _parse_instance(value: dict[str, Any]) -> OffenseInstanceKey:
+    return OffenseInstanceKey(
+        str(value["case_id"]),
+        str(value["actor_id"]),
+        str(value["offense_ref"]),
+        str(value["occurrence_id"]),
+    )
+
+
+def _parse_participation_target(value: dict[str, Any]) -> ParticipationLocalTarget:
+    return ParticipationLocalTarget(
+        str(value["relation_kind"]),
+        tuple(_parse_instance(member) for member in value["member_instances"]),
+    )
+
+
+def _parse_participation_assessment(
+    value: dict[str, Any],
+) -> ParticipationLocalAssessment:
+    return ParticipationLocalAssessment(
+        _parse_participation_target(value),
+        str(value["truth"]),
     )
 
 
@@ -88,6 +146,7 @@ def main() -> None:
     parser.add_argument("--artifact", type=Path, required=True)
     parser.add_argument("--manifest", type=Path, required=True)
     parser.add_argument("--plan-artifact", type=Path, required=True)
+    parser.add_argument("--definitions", type=Path, default=DEFAULT_DEFINITIONS)
     parser.add_argument("--out", type=Path)
     args = parser.parse_args()
     output = args.out or args.artifact.with_suffix(".audit.json")
@@ -103,7 +162,13 @@ def main() -> None:
         errors.append("artifact order differs from manifest case_ids")
     if manifest.get("plan_artifact_sha256") != _sha256(args.plan_artifact):
         errors.append("plan artifact hash mismatch")
-    physical = general_targets = relation_targets = participation_targets = truth_count = article263_pairs = 0
+    diagnostic_mode = bool(
+        manifest.get("diagnostic_continue_participation_errors", False)
+    )
+    registry = load_definitions(args.definitions)
+    physical = general_targets = neural_predicate_targets = relation_targets = participation_targets = 0
+    utilization_targets = utilized_outcome_targets = utilized_predicate_targets = 0
+    truth_count = article263_pairs = rejected_participation_cases = 0
     for row in rows:
         case_id = str(row.get("sub_question_id"))
         plan = plans.get(case_id)
@@ -114,6 +179,18 @@ def main() -> None:
         if smoke_limit is not None:
             expected_values = expected_values[:smoke_limit]
         expected = tuple(_target_key(value) for value in expected_values)
+        semantic_targets = tuple(
+            AssessmentTarget(
+                OffenseInstanceKey(*_target_key(value)[:4]),
+                _target_key(value)[4],
+            )
+            for value in expected_values
+        )
+        expected_neural_count = len(
+            grounding_request_targets(registry, semantic_targets)
+        )
+        if row.get("neural_predicate_request_target_count") != expected_neural_count:
+            errors.append(f"{case_id}: neural predicate request target count mismatch")
         actual = tuple(_target_key(value) for value in row.get("assessments", []))
         if actual != expected:
             errors.append(f"{case_id}: general assessments do not exactly equal planner targets")
@@ -135,52 +212,205 @@ def main() -> None:
             errors.append(f"{case_id}: relation truths do not exactly equal planner targets")
         if len(actual_relations) != len(set(actual_relations)):
             errors.append(f"{case_id}: duplicate relation truth key")
-        expected_participation_values = plan.get("participation_route_targets", [])
+        expected_participation_values = plan.get("participation_local_targets", [])
         if smoke_limit is not None:
             expected_participation_values = expected_participation_values[:smoke_limit]
         expected_participation = tuple(
             _participation_key(value) for value in expected_participation_values
         )
+        participation_assessments = tuple(
+            value for value in row.get("participation_local_assessments", [])
+        )
         actual_participation = tuple(
-            _participation_key(value)
-            for value in row.get("participation_route_assessments", [])
+            _participation_key(value) for value in participation_assessments
         )
         if actual_participation != expected_participation:
             errors.append(
                 f"{case_id}: participation assessments do not exactly equal planner targets"
             )
         if len(actual_participation) != len(set(actual_participation)):
-            errors.append(f"{case_id}: duplicate participation assessment key")
+            errors.append(f"{case_id}: duplicate participation local assessment")
+        expected_utilization_values = plan.get("factual_utilization_targets", [])
+        if smoke_limit is not None:
+            expected_utilization_values = expected_utilization_values[:smoke_limit]
+        expected_utilization = tuple(
+            _utilization_key(value) for value in expected_utilization_values
+        )
+        actual_utilization = tuple(
+            _utilization_key(value)
+            for value in row.get("factual_utilization_assessments", [])
+        )
+        if actual_utilization != expected_utilization:
+            errors.append(
+                f"{case_id}: factual utilization assessments do not exactly equal planner targets"
+            )
+        if len(actual_utilization) != len(set(actual_utilization)):
+            errors.append(f"{case_id}: duplicate factual utilization assessment")
+        expected_outcome_values = plan.get("utilized_participant_outcome_targets", [])
+        if smoke_limit is not None:
+            expected_outcome_values = expected_outcome_values[:smoke_limit]
+        expected_outcomes = tuple(
+            _utilized_outcome_key(value) for value in expected_outcome_values
+        )
+        expected_participant_predicates = tuple(
+            (*_utilized_outcome_key(value), str(ref))
+            for value in expected_outcome_values
+            for ref in value.get("predicate_refs", [])
+        )
+        actual_participant_predicates = tuple(
+            _utilized_predicate_key(value)
+            for value in row.get("utilized_participant_predicate_assessments", [])
+        )
+        if actual_participant_predicates != expected_participant_predicates:
+            errors.append(
+                f"{case_id}: utilized participant predicates do not exactly equal planner targets"
+            )
+        if len(actual_participant_predicates) != len(set(actual_participant_predicates)):
+            errors.append(f"{case_id}: duplicate utilized participant predicate assessment")
+        actual_outcomes = tuple(
+            _utilized_outcome_key(value)
+            for value in row.get("utilized_participant_outcomes", [])
+        )
+        if actual_outcomes != expected_outcomes:
+            errors.append(
+                f"{case_id}: utilized participant outcomes do not exactly equal planner targets"
+            )
+        if len(actual_outcomes) != len(set(actual_outcomes)):
+            errors.append(f"{case_id}: duplicate utilized participant outcome")
+        dependency_keys = tuple(
+            (
+                str(value["utilizer_instance"]["case_id"]),
+                str(value["utilizer_instance"]["actor_id"]),
+                str(value["utilizer_instance"]["offense_ref"]),
+                str(value["utilizer_instance"]["occurrence_id"]),
+                str(value["utilized_participant"]["participant_id"]),
+            )
+            for value in row.get("indirect_principal_dependencies", [])
+        )
+        if smoke_limit is not None and dependency_keys:
+            errors.append(f"{case_id}: partial smoke must not compile indirect dependencies")
+        if len(dependency_keys) != len(set(dependency_keys)):
+            errors.append(f"{case_id}: duplicate indirect-principal dependency")
+        compile_error: ParticipationGroundingError | None = None
+        try:
+            compile_participation_bindings(
+                tuple(
+                    _parse_participation_assessment(value)
+                    for value in participation_assessments
+                ),
+                expected_targets=tuple(
+                    _parse_participation_target(value)
+                    for value in expected_participation_values
+                ),
+            )
+        except ParticipationGroundingError as exc:
+            compile_error = exc
+        except (KeyError, TypeError) as exc:
+            errors.append(f"{case_id}: malformed participation assessment: {exc}")
+        recorded_status = row.get("participation_compile_status")
+        recorded_errors = row.get("participation_compile_errors")
+        if compile_error is None:
+            if recorded_status != "SUCCEEDED" or recorded_errors != []:
+                errors.append(f"{case_id}: successful participation compile status mismatch")
+        elif not diagnostic_mode:
+            errors.append(
+                f"{case_id}: invalid compiled participation graph: {compile_error}"
+            )
+        else:
+            rejected_participation_cases += 1
+            if recorded_status != "REJECTED":
+                errors.append(f"{case_id}: rejected participation status is missing")
+            if recorded_errors != list(compile_error.errors):
+                errors.append(f"{case_id}: rejected participation errors differ from compiler")
         dedicated = row.get("article263_assessments", [])
         if not isinstance(dedicated, list):
             errors.append(f"{case_id}: invalid Article263 assessment container")
             dedicated = []
-        expected_truth_count = len(actual) + 6 * len(dedicated)
-        if len(truths) != expected_truth_count:
+        expected_truth_keys = set(actual)
+        for assessment in dedicated:
+            if not isinstance(assessment, dict):
+                errors.append(f"{case_id}: malformed Article263 assessment")
+                continue
+            statutory = assessment.get("statutory_truths", assessment.get("truths", []))
+            shared = assessment.get("shared_result_truths", [])
+            if not isinstance(statutory, list) or not isinstance(shared, list):
+                errors.append(f"{case_id}: malformed Article263 truth arrays")
+                continue
+            pair = assessment.get("pair", {})
+            for endpoint in ("left_instance_key", "right_instance_key"):
+                instance = pair.get(endpoint)
+                if not isinstance(instance, dict):
+                    errors.append(f"{case_id}: malformed Article263 endpoint")
+                    continue
+                prefix = (
+                    str(instance.get("case_id")),
+                    str(instance.get("actor_id")),
+                    str(instance.get("offense_ref")),
+                    str(instance.get("occurrence_id")),
+                )
+                for value in (*statutory, *shared):
+                    if not isinstance(value, dict) or "predicate_ref" not in value:
+                        errors.append(f"{case_id}: malformed Article263 truth")
+                        continue
+                    expected_truth_keys.add((*prefix, str(value["predicate_ref"])))
+        if set(truths) != expected_truth_keys:
             errors.append(
-                f"{case_id}: CaseTruths count {len(truths)} != {expected_truth_count}"
+                f"{case_id}: CaseTruths keys differ from general + Article263 projections"
             )
         physical += int(row.get("physical_request_count", 0))
         general_targets += len(actual)
+        neural_predicate_targets += expected_neural_count
         relation_targets += len(actual_relations)
         participation_targets += len(actual_participation)
+        utilization_targets += len(actual_utilization)
+        utilized_outcome_targets += len(actual_outcomes)
+        utilized_predicate_targets += len(actual_participant_predicates)
         truth_count += len(truths)
         article263_pairs += len(dedicated)
     if physical != manifest.get("physical_request_count"):
         errors.append("physical request aggregate mismatch")
     if general_targets != manifest.get("assessment_target_count"):
         errors.append("general target aggregate mismatch")
+    if neural_predicate_targets != manifest.get("neural_predicate_request_target_count"):
+        errors.append("neural predicate request target aggregate mismatch")
     if relation_targets != manifest.get("relation_assessment_target_count"):
         errors.append("relation target aggregate mismatch")
-    if participation_targets != manifest.get("participation_route_target_count"):
+    if participation_targets != manifest.get("participation_local_target_count"):
         errors.append("participation target aggregate mismatch")
+    if utilization_targets != manifest.get("factual_utilization_target_count"):
+        errors.append("factual utilization target aggregate mismatch")
+    if utilized_outcome_targets != manifest.get(
+        "utilized_participant_outcome_target_count"
+    ):
+        errors.append("utilized participant outcome target aggregate mismatch")
+    if utilized_predicate_targets != manifest.get(
+        "utilized_participant_predicate_target_count"
+    ):
+        errors.append("utilized participant predicate target aggregate mismatch")
+    if rejected_participation_cases != manifest.get(
+        "participation_rejected_case_count"
+    ):
+        errors.append("rejected participation case aggregate mismatch")
+    if diagnostic_mode and manifest.get("status") != "DEGRADED_DIAGNOSTIC":
+        errors.append("diagnostic manifest status mismatch")
     report = {
         "step": "v2_gold_occurrence_call2_audit",
-        "run_status": "SUCCEEDED" if not errors else "FAILED",
+        "run_status": (
+            "DEGRADED_DIAGNOSTIC"
+            if diagnostic_mode and not errors
+            else "SUCCEEDED"
+            if not errors
+            else "FAILED"
+        ),
         "case_count": len(rows),
         "general_assessment_target_count": general_targets,
+        "neural_predicate_request_target_count": neural_predicate_targets,
         "relation_assessment_target_count": relation_targets,
-        "participation_route_target_count": participation_targets,
+        "participation_local_target_count": participation_targets,
+        "factual_utilization_target_count": utilization_targets,
+        "utilized_participant_outcome_target_count": utilized_outcome_targets,
+        "utilized_participant_predicate_target_count": utilized_predicate_targets,
+        "participation_rejected_case_count": rejected_participation_cases,
         "case_truth_count": truth_count,
         "article263_pair_count": article263_pairs,
         "physical_request_count": physical,

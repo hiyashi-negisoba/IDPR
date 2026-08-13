@@ -37,6 +37,7 @@
         - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
 
 - id: derived_offense.fraud
+  indirect_principal_capability: {legally_possible: true}
   derivation:
     kind: compose
     components:
@@ -378,6 +379,10 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.special_theft
+  candidate_materialization:
+    episode_constraint: same
+    distinct_actor_binding_sets:
+      - [offense.theft]
   derivation:
     kind: qualify
     base: offense.theft
@@ -444,6 +449,10 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.quasi_robbery
+  candidate_materialization:
+    episode_constraint: same
+    binding_sets:
+      - [offense.theft, offense.injury]
   derivation:
     kind: compose
     components:
@@ -495,6 +504,10 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.arson_causing_death
+  candidate_materialization:
+    episode_constraint: same
+    binding_sets:
+      - [offense.arson_of_occupied_structure, offense.homicide]
   derivation:
     kind: compose
     components:
@@ -514,6 +527,10 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.injury_causing_death
+  candidate_materialization:
+    episode_constraint: same
+    binding_sets:
+      - [offense.injury, offense.homicide]
   derivation:
     kind: compose
     components:
@@ -543,6 +560,10 @@
           arg: {op: ref, ref: legal_element.homicide_intent}
 
 - id: derived_offense.rape_causing_injury_by_aggravated_result
+  candidate_materialization:
+    episode_constraint: same
+    binding_sets:
+      - [offense.rape, offense.injury]
   derivation:
     kind: compose
     components:
@@ -583,6 +604,11 @@
           arg: {op: ref, ref: legal_element.injury_intent}
 
 - id: derived_offense.robbery_causing_injury_by_aggravated_result
+  candidate_materialization:
+    episode_constraint: same
+    binding_sets:
+      - [offense.robbery, offense.injury]
+      - [derived_offense.quasi_robbery, offense.injury]
   derivation:
     kind: compose
     components:

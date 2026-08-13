@@ -29,14 +29,18 @@ participation) is unrelated to execution order.
 
 from __future__ import annotations
 
-from typing import Iterator, Mapping
+from collections.abc import Iterator, Mapping
 
 from idpr.v2.compile import CompiledOffense
 from idpr.v2.evaluate import FALSE, TRUE, TruthValue, evaluate, fold_all
 from idpr.v2.expressions import SLOT_NAMES
 from idpr.v2.registry import DefinitionRegistry
 from idpr.v2.relations import evaluate_relation, iter_relation_instances
-from idpr.v2.runtime.completion import CompletionResult, component_instance_for
+from idpr.v2.runtime.completion import (
+    CompletionResult,
+    component_instance_for,
+    expression_after_component_suspensions,
+)
 from idpr.v2.runtime.effects import ActiveDoctrineRefs, resolve_stage
 from idpr.v2.runtime.identity import OffenseInstanceKey, RuntimeRelationKey
 from idpr.v2.runtime.stages import (
@@ -357,6 +361,25 @@ def _iter_component_scoped_slot_obligations(
     existing OffenseInstanceKey predicate view.  No component truth store or general nested
     completion framework is introduced.
     """
+    offense_family_only = all(
+        component.component_kind == "offense"
+        and component.resolved_kind in ("offense", "derived_offense")
+        for component in compiled.components
+    )
+    if not offense_family_only:
+        predicate_view = truths.predicate_view(instance)
+        for slot in SLOT_NAMES:
+            if slot in completion.suspended_slots:
+                continue
+            expression = expression_after_component_suspensions(
+                compiled, slot, completion.component_suspended_slots
+            )
+            yield ObligationOutcome(
+                obligation=SlotObligation(slot=slot),
+                truth=evaluate(expression, predicate_view),
+            )
+        return
+
     for component in compiled.components:
         if (
             component.component_kind != "offense"

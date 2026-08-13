@@ -26,7 +26,7 @@ compile.compile_offense() itself, and skips entries that fail to compile (axes 2
 
 from __future__ import annotations
 
-from typing import Mapping
+from collections.abc import Mapping
 
 from idpr.v2 import compile, expressions
 from idpr.v2.compile import CompiledOffense
@@ -36,12 +36,6 @@ from idpr.v2.registry import DefinitionEntry, DefinitionRegistry
 from idpr.v2.relations import iter_relation_instances
 
 _AXIS = "completion"
-
-_ART339_OFFENSES = frozenset({
-    "derived_offense.robbery_rape",
-    "derived_offense.special_robbery_rape",
-    "derived_offense.quasi_robbery_rape",
-})
 
 DERIVABLE_STATES: tuple[str, ...] = (
     "completed",
@@ -154,11 +148,11 @@ def _check_component_scopes(
     compiled: CompiledOffense,
     offense_entry: DefinitionEntry | None,
 ) -> list[Finding]:
-    """The deliberately narrow Article 339 completion extension.
+    """Validate explicitly authored component-local completion on a direct COMPOSE.
 
-    A local key has legal meaning only inside the governed Art.339 COMPOSE derivation.  This checker
-    refuses all other placements rather than turning the field into a reusable component-program
-    language.
+    Local keys never escape the governed derivation.  Only offense-family components may supply
+    a predicate view or have their slot contribution suspended; primitive and bundle components
+    remain unavailable as independent completion programs.
     """
     when_scope = state.get("when_component")
     suspensions = tuple(state.get("component_suspends") or ())
@@ -166,12 +160,6 @@ def _check_component_scopes(
         return []
 
     findings: list[Finding] = []
-    if entry.payload["offense"] not in _ART339_OFFENSES:
-        return [Finding(
-            _AXIS, "component_completion_scope_not_art339", entry.id, f"states.{name}",
-            "component-local completion is restricted to the three Article 339 robbery-side variants",
-        )]
-
     derivation = (offense_entry.payload.get("derivation") or {}) if offense_entry else {}
     if derivation.get("kind") != "compose":
         return [Finding(
@@ -185,12 +173,6 @@ def _check_component_scopes(
         if component.component_kind == "offense"
         and component.resolved_kind in ("offense", "derived_offense")
     }
-    if len(offense_components) != len(compiled.components):
-        findings.append(Finding(
-            _AXIS, "component_completion_scope_not_direct_compose", entry.id, f"states.{name}",
-            "every top-level component must be an offense-family component",
-        ))
-
     def validate(scope: Mapping[str, object], field_path: str):
         component = offense_components.get(scope["local_key"])
         if component is None or component.source_ref != scope["offense"]:

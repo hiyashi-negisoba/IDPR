@@ -730,7 +730,7 @@
 - id: legal_element.forgery_without_authority
   arguments: [{name: actor, type: entity}, {name: document, type: entity}]
   canonical_meaning: "권한 없는 명의사용 작성·현출"
-  legal_standard: "권한 없이 타인의 명의를 사용하여 문서·도화 또는 인장 등을 작성·현출하였는지 여부"
+  legal_standard: "작성권한 없는 자가 작성명의인의 의사에 반하여 타인 명의의 문서·도화 또는 인장 등을 작성·현출하였는지 여부. 명의자가 직접 작성하거나 명시적·묵시적으로 승낙·위임한 경우에는 해당하지 않으며, 내용의 허위만으로는 명의모용이 되지 않는다."
   authority_refs: [{authority_basis: statute_text, citation: "형법 제225조; 제231조; 제239조"}]
 
 - id: legal_element.alteration_of_genuine_document

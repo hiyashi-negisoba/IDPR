@@ -22,19 +22,28 @@ from idpr.v2.runtime.grounding import (
     PredicateAssessment,
     case_truths_from_assessments,
 )
-from idpr.v2.runtime.identity import OffenseInstanceKey, RuntimeRelationKey
+from idpr.v2.runtime.identity import (
+    FactualParticipantKey,
+    OffenseInstanceKey,
+    RuntimeRelationKey,
+)
+from idpr.v2.runtime.indirect_principal_grounding import IndirectPrincipalDependency
 from idpr.v2.runtime.participation_grounding import (
-    ParticipationRouteAssessment,
-    ParticipationRouteOption,
-    ParticipationRouteTarget,
-    participation_bindings_from_assessments,
+    ParticipationLocalAssessment,
+    ParticipationLocalTarget,
+    compile_participation_bindings,
 )
 from idpr.v2.runtime.relation_grounding import (
     RelationAssessment,
     RelationAssessmentTarget,
     add_relation_assessments,
 )
-from idpr.v2.runtime.scallop_backend import run_liability_chain_parity_program
+from idpr.v2.runtime.scallop_backend import (
+    run_article_263_liability_parity_program,
+    run_indirect_principal_liability_parity_program,
+    run_liability_chain_parity_program,
+)
+from idpr.v2.runtime.stages import UtilizedParticipantOutcome
 
 
 def _json_value(value: Any) -> Any:
@@ -78,6 +87,27 @@ def _instance(value: dict[str, Any]) -> OffenseInstanceKey:
     )
 
 
+def _article263_instances(row: dict[str, Any]) -> tuple[OffenseInstanceKey, ...]:
+    output: list[OffenseInstanceKey] = []
+    seen: set[OffenseInstanceKey] = set()
+    for assessment in row.get("article263_assessments", []):
+        pair = assessment.get("pair")
+        if not isinstance(pair, dict):
+            raise TypeError("malformed Article 263 assessment pair")
+        for field in ("left_instance_key", "right_instance_key"):
+            raw = pair.get(field)
+            if not isinstance(raw, dict):
+                raise TypeError(f"Article 263 pair missing {field}")
+            instance = _instance(raw)
+            if instance.offense_ref != "offense.injury":
+                raise ValueError("Article 263 endpoint must be an injury instance")
+            if instance in seen:
+                raise ValueError("duplicate Article 263 endpoint instance")
+            seen.add(instance)
+            output.append(instance)
+    return tuple(output)
+
+
 def _relation_assessment(value: dict[str, Any]) -> RelationAssessment:
     raw_instance = value["instance_key"]
     instance = OffenseInstanceKey(
@@ -106,20 +136,56 @@ def _relation_assessment(value: dict[str, Any]) -> RelationAssessment:
     )
 
 
-def _participation_assessment(value: dict[str, Any]) -> ParticipationRouteAssessment:
-    return ParticipationRouteAssessment(
-        ParticipationRouteTarget(
-            _instance(value["participant_instance"]),
-            tuple(
-                ParticipationRouteOption(
-                    str(option["option_id"]),
-                    str(option["mode"]),
-                    tuple(_instance(source) for source in option["source_instances"]),
-                )
-                for option in value["route_options"]
-            ),
-        ),
-        str(value["option_id"]),
+def _participation_target(value: dict[str, Any]) -> ParticipationLocalTarget:
+    return ParticipationLocalTarget(
+        str(value["relation_kind"]),
+        tuple(_instance(member) for member in value["member_instances"]),
+    )
+
+
+def _participation_assessment(value: dict[str, Any]) -> ParticipationLocalAssessment:
+    return ParticipationLocalAssessment(
+        _participation_target(value),
+        str(value["truth"]),
+    )
+
+
+def _indirect_dependency(value: dict[str, Any]) -> IndirectPrincipalDependency:
+    truths = {"TRUE", "FALSE", "UNKNOWN"}
+    statuses = {
+        "elements_failure",
+        "unlawfulness_defeat",
+        "culpability_defeat",
+        "punishability_defeat",
+        "different_negligence_offense",
+        "liable_exact_offense",
+        "unresolved",
+    }
+    relation_truth = str(value["relation_truth"])
+    dependency_truth = str(value["dependency_truth"])
+    outcome_status = str(value["utilized_outcome_status"])
+    if relation_truth not in truths or dependency_truth not in truths:
+        raise ValueError("indirect-principal dependency contains an invalid truth value")
+    if outcome_status not in statuses:
+        raise ValueError("indirect-principal dependency contains an invalid outcome status")
+    instance = _instance(value["utilizer_instance"])
+    raw_participant = value["utilized_participant"]
+    participant = FactualParticipantKey(
+        str(raw_participant["case_id"]),
+        str(raw_participant["participant_id"]),
+    )
+    outcome = UtilizedParticipantOutcome(
+        participant,
+        instance.offense_ref,
+        outcome_status,
+    )
+    return IndirectPrincipalDependency(
+        instance,
+        participant,
+        relation_truth,
+        outcome,
+        dependency_truth,
+        str(value["reason"]),
     )
 
 
@@ -129,6 +195,11 @@ def main() -> None:
     parser.add_argument("--definitions", type=Path, default=ROOT / "data/v2/definitions")
     parser.add_argument("--work-dir", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument(
+        "--diagnostic-skip-rejected-participation",
+        action="store_true",
+        help="preserve rejected Call 2 rows as skipped diagnostics instead of executing them",
+    )
     args = parser.parse_args()
     rows = [
         json.loads(line)
@@ -138,6 +209,34 @@ def main() -> None:
     registry = load_definitions(args.definitions)
     output = []
     for row in rows:
+        participation_status = row.get("participation_compile_status")
+        if participation_status == "REJECTED":
+            if not args.diagnostic_skip_rejected_participation:
+                raise ValueError(
+                    f"{row['sub_question_id']}: rejected participation cannot enter Scallop"
+                )
+            output.append(
+                {
+                    "sub_question_id": row["sub_question_id"],
+                    "execution_status": "SKIPPED_REJECTED_PARTICIPATION",
+                    "participation_compile_errors": list(
+                        row.get("participation_compile_errors", [])
+                    ),
+                    "case_truth_count": len(row["case_truths"]),
+                    "case_relation_truth_count": len(row["case_relation_truths"]),
+                    "co_principal_source_count": 0,
+                    "derivative_link_count": 0,
+                    "article263_dedicated_instance_count": 0,
+                    "indirect_principal_instance_count": 0,
+                    "active_doctrines": [],
+                    "liability_results": [],
+                }
+            )
+            continue
+        if participation_status not in {"SUCCEEDED", "UNRESOLVED_CONFLICT"}:
+            raise ValueError(
+                f"{row['sub_question_id']}: missing successful participation compile status"
+            )
         assessments = tuple(_assessment(value) for value in row["case_truths"])
         targets = tuple(value.target for value in assessments)
         truths = case_truths_from_assessments(assessments, expected_targets=targets)
@@ -147,11 +246,60 @@ def main() -> None:
         truths = add_relation_assessments(truths, relation_assessments)
         instances = tuple(_instance(value) for value in row["assessment_instances"])
         top_level_instances = tuple(_instance(value) for value in row["top_level_instances"])
+        if not instances:
+            if (
+                top_level_instances
+                or truths.predicate
+                or truths.relation
+                or row["participation_local_assessments"]
+                or row.get("article263_assessments")
+                or row.get("indirect_principal_dependencies")
+            ):
+                raise ValueError(
+                    f"{row['sub_question_id']}: empty assessment universe has downstream facts"
+                )
+            output.append(
+                {
+                    "sub_question_id": row["sub_question_id"],
+                    "execution_status": "SUCCEEDED",
+                    "result_status": "NO_LIABILITY_TARGET",
+                    "case_truth_count": 0,
+                    "case_relation_truth_count": 0,
+                    "co_principal_source_count": 0,
+                    "derivative_link_count": 0,
+                    "article263_dedicated_instance_count": 0,
+                    "indirect_principal_instance_count": 0,
+                    "active_doctrines": [],
+                    "liability_results": [],
+                }
+            )
+            continue
         participation_assessments = tuple(
             _participation_assessment(value)
-            for value in row["participation_route_assessments"]
+            for value in row["participation_local_assessments"]
         )
-        bindings = participation_bindings_from_assessments(participation_assessments)
+        serialized_participation_targets = row.get(
+            "planned_participation_local_targets"
+        )
+        if serialized_participation_targets is None:
+            planned_count = int(row.get("planned_participation_local_target_count", -1))
+            if planned_count != len(participation_assessments):
+                raise ValueError(
+                    f"{row['sub_question_id']}: Call 2 lacks serialized planned "
+                    "participation targets"
+                )
+            expected_participation_targets = tuple(
+                value.target for value in participation_assessments
+            )
+        else:
+            expected_participation_targets = tuple(
+                _participation_target(value)
+                for value in serialized_participation_targets
+            )
+        bindings = compile_participation_bindings(
+            participation_assessments,
+            expected_targets=expected_participation_targets,
+        )
         derivative_accessories = {
             accessory for accessory, _principal, _mode in bindings.derivative_links
         }
@@ -164,6 +312,7 @@ def main() -> None:
             if not isinstance(value, CompiledOffense):
                 raise TypeError(f"cannot compile {ref!r}")
             compiled.append(value)
+        compiled_by_ref = {value.id: value for value in compiled}
         case_work_dir = args.work_dir / str(row["sub_question_id"])
         active_doctrines = raised_active_doctrines(
             registry,
@@ -171,23 +320,85 @@ def main() -> None:
             tuple(str(value) for value in row["candidate_doctrine_refs"]),
             truths,
         )
-        results = run_liability_chain_parity_program(
-            registry,
-            compiled,
-            instances,
-            truths,
-            work_dir=case_work_dir,
-            completion_targets=completion_targets,
-            co_principal_sources=bindings.co_principal_sources,
-            derivative_links=bindings.derivative_links,
-            active_doctrines=active_doctrines,
+        try:
+            results = dict(run_liability_chain_parity_program(
+                registry,
+                compiled,
+                instances,
+                truths,
+                work_dir=case_work_dir,
+                completion_targets=completion_targets,
+                co_principal_sources=bindings.co_principal_sources,
+                derivative_links=bindings.derivative_links,
+                active_doctrines=active_doctrines,
+            ))
+        except Exception as exc:
+            raise RuntimeError(
+                f"{row['sub_question_id']}: integrated Scallop execution failed"
+            ) from exc
+        article263_instances = _article263_instances(row)
+        for instance in article263_instances:
+            if instance not in top_level_instances:
+                raise ValueError("Article 263 endpoint is outside top-level instances")
+            if instance in derivative_accessories:
+                raise ValueError("Article 263 endpoint cannot be a derivative accessory")
+            compiled_injury = compiled_by_ref.get(instance.offense_ref)
+            if compiled_injury is None:
+                raise ValueError("Article 263 injury offense was not compiled")
+            instance_active_doctrines = tuple(
+                value for value in active_doctrines if value[0] == instance
+            )
+            results[instance] = run_article_263_liability_parity_program(
+                registry,
+                compiled_injury,
+                instance,
+                truths,
+                work_dir=case_work_dir
+                / "article263"
+                / f"{instance.actor_id}_{instance.occurrence_id.replace(':', '_')}",
+                active_doctrines=instance_active_doctrines,
+            )
+        indirect_dependencies = tuple(
+            _indirect_dependency(value)
+            for value in row.get("indirect_principal_dependencies", [])
         )
+        indirect_instances = tuple(
+            value.utilizer_instance for value in indirect_dependencies
+        )
+        if len(indirect_instances) != len(set(indirect_instances)):
+            raise ValueError(
+                "multiple utilized participants for one indirect-principal instance need "
+                "an authored dependency fold"
+            )
+        for dependency in indirect_dependencies:
+            instance = dependency.utilizer_instance
+            if instance not in top_level_instances:
+                raise ValueError("indirect-principal instance is outside top-level instances")
+            if instance in derivative_accessories:
+                raise ValueError("indirect-principal instance cannot be a derivative accessory")
+            instance_active_doctrines = tuple(
+                doctrine_ref
+                for active_instance, doctrine_ref in active_doctrines
+                if active_instance == instance
+            )
+            results[instance] = run_indirect_principal_liability_parity_program(
+                registry,
+                dependency,
+                truths,
+                work_dir=case_work_dir
+                / "indirect_principal"
+                / f"{instance.actor_id}_{instance.occurrence_id.replace(':', '_')}",
+                active_doctrines=instance_active_doctrines,
+            )
         output.append({
             "sub_question_id": row["sub_question_id"],
+            "execution_status": "SUCCEEDED",
             "case_truth_count": len(truths.predicate),
             "case_relation_truth_count": len(truths.relation),
             "co_principal_source_count": len(bindings.co_principal_sources),
             "derivative_link_count": len(bindings.derivative_links),
+            "article263_dedicated_instance_count": len(article263_instances),
+            "indirect_principal_instance_count": len(indirect_dependencies),
             "active_doctrines": [
                 {"instance_key": _json_value(instance), "doctrine_ref": doctrine_ref}
                 for instance, doctrine_ref in active_doctrines

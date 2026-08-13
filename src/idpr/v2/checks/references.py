@@ -5,7 +5,8 @@ kind) are always distinguished, never conflated into one generic error.
 
 from __future__ import annotations
 
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from idpr.v2 import expressions
 from idpr.v2.findings import Finding
@@ -156,6 +157,19 @@ def _check_offense(registry: DefinitionRegistry, entry: DefinitionEntry) -> list
             f"participation_constraints.constitutive_status_refs[{index}]",
             ref,
             frozenset({"legal_element"}),
+        ))
+    for index, ref in enumerate(
+        (entry.payload.get("participation_constraints") or {}).get(
+            "necessary_counterpart_offense_refs"
+        )
+        or ()
+    ):
+        findings.extend(_check_ref(
+            registry,
+            entry,
+            f"participation_constraints.necessary_counterpart_offense_refs[{index}]",
+            ref,
+            frozenset({"offense"}),
         ))
     statutory_deeming = (entry.payload.get("participation_constraints") or {}).get("statutory_deeming")
     if statutory_deeming is not None:

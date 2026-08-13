@@ -94,3 +94,367 @@
         - {relation: relation.occasion_identity, left: robbery_part, right: rape_part, disposition: retain}
         - {path: [robbery_part], relation: relation.occasion_identity, left: theft_part, right: violence, disposition: retain}
       requires: {op: ref, ref: legal_element.commencement_of_execution}
+
+# The policies below are the reviewed KCL-26 completion slice.  Statutory
+# punishability comes from data/rulebase/stage.yaml and the state conditions from
+# the corresponding predicate-dictionary worksheets.  They deliberately do not
+# infer an attempt merely because the completed form failed.
+
+- id: completion_policy.homicide
+  offense: offense.homicide
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.death_of_victim}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
+          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
+          - {op: not, arg: {op: ref, ref: legal_element.voluntary_cessation_or_prevention}}
+      punishable: true
+      suspends: [result, causation]
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+    abandoned_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
+          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
+          - {op: ref, ref: legal_element.voluntary_cessation_or_prevention}
+      punishable: true
+      suspends: [result, causation]
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: legal_element.voluntary_cessation_or_prevention}
+    impossible_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+      punishable: true
+      suspends: [object, result, causation]
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+    preparation:
+      when:
+        op: all
+        args:
+          - op: any
+            args:
+              - {op: ref, ref: legal_element.preparatory_conduct}
+              - {op: ref, ref: legal_element.conspiracy_agreement}
+          - {op: not, arg: {op: ref, ref: legal_element.commencement_of_execution}}
+      punishable: true
+      suspends: [conduct, result, causation]
+      requires: {op: ref, ref: legal_element.purpose_to_commit_target_offense}
+
+- id: completion_policy.ancestral_homicide
+  offense: offense.ancestral_homicide
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.death_of_victim}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
+          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
+          - {op: not, arg: {op: ref, ref: legal_element.voluntary_cessation_or_prevention}}
+      punishable: true
+      suspends: [result, causation]
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+    abandoned_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
+          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
+          - {op: ref, ref: legal_element.voluntary_cessation_or_prevention}
+      punishable: true
+      suspends: [result, causation]
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: legal_element.voluntary_cessation_or_prevention}
+    impossible_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+      punishable: true
+      suspends: [object, result, causation]
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+
+- id: completion_policy.rape
+  offense: offense.rape
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}}
+          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
+          - {op: not, arg: {op: ref, ref: legal_element.voluntary_cessation_or_prevention}}
+      punishable: true
+      suspends: [conduct, causation]
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+    abandoned_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}}
+          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
+          - {op: ref, ref: legal_element.voluntary_cessation_or_prevention}
+      punishable: true
+      suspends: [conduct, causation]
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: legal_element.voluntary_cessation_or_prevention}
+    impossible_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+      punishable: true
+      suspends: [object, conduct, causation]
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+
+- id: completion_policy.quasi_rape
+  offense: offense.quasi_rape
+  states:
+    completed:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.mental_incapacity_or_physical_helplessness_status}
+          - {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: legal_element.mental_incapacity_or_physical_helplessness_status}
+          - {op: not, arg: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}}
+          - {op: not, arg: {op: ref, ref: legal_element.voluntary_cessation_or_prevention}}
+      punishable: true
+      suspends: [conduct]
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+    impossible_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: legal_element.mental_incapacity_or_physical_helplessness_status}}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+      punishable: true
+      suspends: [object, circumstance]
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+
+- id: completion_policy.theft
+  offense: offense.theft
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.taking_conduct}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.taking_conduct}}
+          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
+      punishable: true
+      suspends: [conduct]
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+    impossible_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.taking_conduct}}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+      punishable: true
+      suspends: [object, conduct]
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+
+- id: completion_policy.special_theft
+  offense: derived_offense.special_theft
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.taking_conduct}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.taking_conduct}}
+          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
+      punishable: true
+      suspends: [conduct]
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+    impossible_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.taking_conduct}}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+      punishable: true
+      suspends: [object, conduct]
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+
+- id: completion_policy.injury
+  offense: offense.injury
+  states:
+    completed:
+      when: {op: ref, ref: legal_element.injury_result}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: legal_element.injury_result}}
+          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
+      punishable: true
+      suspends: [result]
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+    impossible_attempt:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: legal_element.injury_result}}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+      punishable: true
+      suspends: [result]
+      requires:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: ref, ref: ground_fact.means_or_object_defect}
+          - {op: ref, ref: legal_element.dangerousness}
+
+- id: completion_policy.robbery
+  offense: offense.robbery
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.taking_conduct}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.commencement_of_execution}
+          - {op: not, arg: {op: ref, ref: ground_fact.taking_conduct}}
+      punishable: true
+      suspends: [conduct]
+      requires: {op: ref, ref: legal_element.commencement_of_execution}
+    preparation:
+      when:
+        op: all
+        args:
+          - op: any
+            args:
+              - {op: ref, ref: legal_element.preparatory_conduct}
+              - {op: ref, ref: legal_element.conspiracy_agreement}
+          - {op: not, arg: {op: ref, ref: legal_element.commencement_of_execution}}
+      punishable: true
+      suspends: [conduct]
+      requires: {op: ref, ref: legal_element.purpose_to_commit_target_offense}
+
+- id: completion_policy.extortion
+  offense: offense.extortion
+  states:
+    completed:
+      when: {op: ref, ref: legal_element.property_disposition}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: ref, ref: legal_element.fear_inducement}
+          - {op: not, arg: {op: ref, ref: legal_element.property_disposition}}
+      punishable: true
+      suspends: [circumstance]
+      requires: {op: ref, ref: legal_element.fear_inducement}
+
+- id: completion_policy.quasi_robbery
+  offense: derived_offense.quasi_robbery
+  states:
+    completed:
+      when: {op: ref, ref: ground_fact.taking_conduct}
+      punishable: true
+    attempted:
+      when:
+        op: all
+        args:
+          - {op: not, arg: {op: ref, ref: ground_fact.taking_conduct}}
+          - {op: ref, ref: legal_element.robbery_level_violence}
+      punishable: true
+      component_suspends:
+        - {local_key: theft_part, offense: offense.theft, slots: [conduct]}
+      relations:
+        - {relation: relation.occasion_identity, left: theft_part, right: violence, disposition: retain}
+      requires: {op: ref, ref: legal_element.robbery_level_violence}

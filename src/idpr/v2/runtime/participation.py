@@ -15,7 +15,8 @@ territory, the same reason `ActiveDoctrineRefs` is caller-supplied rather than d
 
 from __future__ import annotations
 
-from typing import Iterable, Literal
+from collections.abc import Iterable
+from typing import Literal
 
 from idpr.v2 import expressions, participation
 from idpr.v2.compile import CompiledOffense
@@ -24,6 +25,7 @@ from idpr.v2.registry import DefinitionEntry, DefinitionRegistry
 from idpr.v2.runtime import pipeline
 from idpr.v2.runtime.effects import ActiveDoctrineRefs
 from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.indirect_principal_grounding import IndirectPrincipalDependency
 from idpr.v2.runtime.stages import (
     CoPrincipalConstitutiveStatusObligation,
     IndirectPrincipalDependencyObligation,
@@ -33,6 +35,7 @@ from idpr.v2.runtime.stages import (
     ParticipationDependencyObligation,
     ParticipationRequirementObligation,
     StageResult,
+    UtilizedParticipantOutcome,
 )
 from idpr.v2.runtime.truths import CaseTruths
 
@@ -208,7 +211,7 @@ def resolve_derivative_liability(
 
 
 def indirect_principal_dependency_truth(
-    utilised: LiabilityEvaluation,
+    utilised: LiabilityEvaluation | UtilizedParticipantOutcome,
     negligence_evaluation: LiabilityEvaluation | None = None,
 ) -> tuple[TruthValue, str]:
     """Article 34's concrete, direction-reversed dependency classification.
@@ -218,6 +221,20 @@ def indirect_principal_dependency_truth(
     have distinct legal provenance.  `negligence_evaluation` is caller-selected; this runtime
     never infers negligence from an offense id or asks a model to classify it.
     """
+    if isinstance(utilised, UtilizedParticipantOutcome):
+        if negligence_evaluation is not None:
+            return UNKNOWN, "dedicated_outcome_cannot_mix_negligence_evaluation"
+        if utilised.status in {
+            "elements_failure",
+            "unlawfulness_defeat",
+            "culpability_defeat",
+            "punishability_defeat",
+            "different_negligence_offense",
+        }:
+            return TRUE, utilised.status
+        if utilised.status == "liable_exact_offense":
+            return FALSE, utilised.status
+        return UNKNOWN, "utilized_participant_outcome_unresolved"
     if negligence_evaluation is not None:
         if negligence_evaluation.instance.offense_ref == utilised.instance.offense_ref:
             return UNKNOWN, "negligence_outcome_not_a_different_offense"
@@ -239,35 +256,21 @@ def indirect_principal_dependency_truth(
 
 def resolve_indirect_principal_liability(
     registry: DefinitionRegistry,
-    policy: DefinitionEntry,
-    mode: DerivativeMode,
-    utilised: LiabilityEvaluation,
-    instance: OffenseInstanceKey,
+    dependency: IndirectPrincipalDependency,
     active: ActiveDoctrineRefs,
     truths: CaseTruths,
-    *,
-    negligence_evaluation: LiabilityEvaluation | None = None,
 ) -> LiabilityEvaluation:
-    """Run the Article 34-only indirect-principal path.
+    """Run Article 34 from a compiled utilization dependency, never an accessory mode."""
 
-    The existing instigator/aider `requires` expression supplies the user's own conduct/intent,
-    but this does not call `resolve_derivative_liability()` and does not depend on a positive
-    principal realization.  No production policy is authored by this function; it is a runtime
-    capability until the separate general utilization-condition source is frozen.
-    """
-    mode_payload = policy.payload["modes"][mode]
-    dependency_truth, reason = indirect_principal_dependency_truth(
-        utilised, negligence_evaluation
-    )
-    predicate_view = truths.predicate_view(instance)
+    instance = dependency.utilizer_instance
+    if dependency.utilized_outcome.participant != dependency.utilized_participant:
+        raise ValueError("indirect dependency participant identity mismatch")
+    if dependency.utilized_outcome.offense_ref != instance.offense_ref:
+        raise ValueError("indirect dependency exact-offense identity mismatch")
     outcomes = (
         ObligationOutcome(
-            obligation=IndirectPrincipalDependencyObligation(reason=reason),
-            truth=dependency_truth,
-        ),
-        ObligationOutcome(
-            obligation=ParticipationRequirementObligation(mode=mode),
-            truth=evaluate(expressions.canonicalize(mode_payload["requires"]), predicate_view),
+            obligation=IndirectPrincipalDependencyObligation(reason=dependency.reason),
+            truth=dependency.truth,
         ),
     )
     truth = fold_all(outcome.truth for outcome in outcomes)
@@ -326,9 +329,9 @@ def _resolve_derivative_elements(
 __all__ = [
     "DerivativeMode",
     "apply_attribution",
-    "resolve_co_principal_liability",
-    "principal_realization_truth",
-    "resolve_derivative_liability",
     "indirect_principal_dependency_truth",
+    "principal_realization_truth",
+    "resolve_co_principal_liability",
+    "resolve_derivative_liability",
     "resolve_indirect_principal_liability",
 ]

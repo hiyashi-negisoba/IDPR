@@ -18,7 +18,7 @@ Two things this module deliberately does NOT do:
 
 from __future__ import annotations
 
-from typing import Iterable, Mapping
+from collections.abc import Iterable, Mapping
 
 from idpr.v2 import expressions
 from idpr.v2.evaluate import FALSE, TRUE, TruthValue, evaluate, fold_any
@@ -71,13 +71,34 @@ def resolve_stage(
     truths: CaseTruths,
 ) -> StageResult:
     """Evaluate one doctrine-bearing stage against the activated doctrine set."""
+    return resolve_stage_from_predicate_view(
+        stage,
+        active,
+        registry,
+        truths.predicate_view(instance),
+    )
+
+
+def resolve_stage_from_predicate_view(
+    stage: str,
+    active: ActiveDoctrineRefs,
+    registry: DefinitionRegistry,
+    predicate_view: Mapping[str, TruthValue],
+) -> StageResult:
+    """Evaluate a stage from an explicitly supplied predicate namespace.
+
+    The ordinary liability path supplies an ``OffenseInstanceKey``-scoped ``CaseTruths`` view via
+    :func:`resolve_stage`.  Internal factual-participant evaluation has no liable-actor instance
+    and must not fabricate one, so it uses this identity-neutral entry point.  Both paths share the
+    same doctrine fold and stage truth table.
+    """
     if stage not in _BLOCKING_EFFECT:
         raise StageEffectError(
             f"{stage!r} is not a doctrine-bearing stage; doctrines attach only to "
             f"{sorted(_BLOCKING_EFFECT)} (section 12.1 excludes elements)"
         )
 
-    applied = tuple(_evaluate_active(stage, active, registry, instance, truths))
+    applied = tuple(_evaluate_active(stage, active, registry, predicate_view))
     blocking_kind = _BLOCKING_EFFECT[stage]
 
     blocking = fold_any(e.truth for e in applied if e.effect == blocking_kind)
@@ -121,10 +142,8 @@ def _evaluate_active(
     stage: str,
     active: ActiveDoctrineRefs,
     registry: DefinitionRegistry,
-    instance: OffenseInstanceKey,
-    truths: CaseTruths,
+    predicate_view: Mapping[str, TruthValue],
 ) -> Iterable[AppliedEffect]:
-    predicate_view = truths.predicate_view(instance)
     for ref in sorted(active):
         entry = registry.get(ref)
         if entry is None or entry.kind != "doctrine":

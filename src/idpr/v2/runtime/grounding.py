@@ -8,6 +8,7 @@ from typing import Any, Literal
 
 from idpr.v2.evaluate import TruthValue
 from idpr.v2.gold_factual_identity import GoldOccurrence
+from idpr.v2.question_assumptions import QuestionAssumption
 from idpr.v2.registry import DefinitionRegistry
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.truths import CaseTruths
@@ -120,6 +121,86 @@ def assessment_targets(
     return tuple(AssessmentTarget(instance, ref) for instance in instance_values for ref in refs)
 
 
+def grounding_request_targets(
+    registry: DefinitionRegistry, targets: Iterable[AssessmentTarget]
+) -> tuple[AssessmentTarget, ...]:
+    """Deduplicate GroundFact questions at factual-occurrence identity.
+
+    A GroundFact cannot change because the same occurrence is later consumed by another offense.
+    LegalElements remain offense-instance local.  The first ground-fact target is retained only as
+    an internal projection anchor; its offense id is not exposed in the neural payload.
+    """
+    output: list[AssessmentTarget] = []
+    seen_ground: set[tuple[str, str, str, str]] = set()
+    seen_targets: set[AssessmentTarget] = set()
+    for target in targets:
+        if target in seen_targets:
+            raise GroundingContractError(["assessment targets contain duplicates"])
+        seen_targets.add(target)
+        kind = registry.kind_of(target.predicate_ref)
+        if kind == "ground_fact":
+            instance = target.instance_key
+            key = (
+                instance.case_id,
+                instance.actor_id,
+                instance.occurrence_id,
+                target.predicate_ref,
+            )
+            if key in seen_ground:
+                continue
+            seen_ground.add(key)
+        elif kind != "legal_element":
+            raise GroundingContractError(
+                [f"invalid assessment predicate kind: {target.predicate_ref!r}"]
+            )
+        output.append(target)
+    return tuple(output)
+
+
+def expand_ground_fact_assessments(
+    registry: DefinitionRegistry,
+    assessments: Iterable[PredicateAssessment],
+    *,
+    expected_targets: Iterable[AssessmentTarget],
+) -> tuple[PredicateAssessment, ...]:
+    """Project each occurrence-level GroundFact answer to all consuming offense instances."""
+    expected = tuple(expected_targets)
+    request_targets = grounding_request_targets(registry, expected)
+    values = tuple(assessments)
+    if tuple(value.target for value in values) != request_targets:
+        raise GroundingContractError(
+            ["request assessments do not exactly cover deduplicated grounding targets"]
+        )
+    direct = {value.target: value.truth for value in values}
+    shared: dict[tuple[str, str, str, str], TruthValue] = {}
+    for value in values:
+        if registry.kind_of(value.target.predicate_ref) != "ground_fact":
+            continue
+        instance = value.target.instance_key
+        shared[
+            (
+                instance.case_id,
+                instance.actor_id,
+                instance.occurrence_id,
+                value.target.predicate_ref,
+            )
+        ] = value.truth
+    output: list[PredicateAssessment] = []
+    for target in expected:
+        if registry.kind_of(target.predicate_ref) == "ground_fact":
+            instance = target.instance_key
+            key = (
+                instance.case_id,
+                instance.actor_id,
+                instance.occurrence_id,
+                target.predicate_ref,
+            )
+            output.append(PredicateAssessment(target, shared[key]))
+        else:
+            output.append(PredicateAssessment(target, direct[target]))
+    return tuple(output)
+
+
 def shard_assessment_targets(
     targets: Iterable[AssessmentTarget], *, max_targets: int
 ) -> tuple[tuple[AssessmentTarget, ...], ...]:
@@ -160,12 +241,14 @@ def shard_assessment_targets_by_occurrence(
 def call2_request_payload(
     *,
     evidence_occurrence: GoldOccurrence,
+    question_assumptions: Iterable[QuestionAssumption] = (),
     predicates: Iterable[PredicateDefinition],
     targets: Iterable[AssessmentTarget],
 ) -> dict[str, Any]:
     """Build one shard whose only factual evidence is one gold occurrence span."""
     predicate_values = tuple(predicates)
-    predicate_refs = {value.predicate_ref for value in predicate_values}
+    predicate_by_ref = {value.predicate_ref: value for value in predicate_values}
+    predicate_refs = set(predicate_by_ref)
     target_values = tuple(targets)
     if not target_values:
         raise GroundingContractError(["an empty target set is a host no-op"])
@@ -188,8 +271,23 @@ def call2_request_payload(
         raise GroundingContractError(errors)
     return {
         "evidence_occurrence": evidence_occurrence.as_dict(),
+        "question_assumptions": [value.as_dict() for value in question_assumptions],
         "predicate_catalog": [value.as_dict() for value in predicate_values],
-        "assessment_targets": [target.as_dict() for target in target_values],
+        "assessment_targets": [
+            (
+                {
+                    "occurrence_key": {
+                        "case_id": target.instance_key.case_id,
+                        "actor_id": target.instance_key.actor_id,
+                        "occurrence_id": target.instance_key.occurrence_id,
+                    },
+                    "predicate_ref": target.predicate_ref,
+                }
+                if predicate_by_ref[target.predicate_ref].kind == "ground_fact"
+                else target.as_dict()
+            )
+            for target in target_values
+        ],
     }
 
 
@@ -280,6 +378,8 @@ __all__ = [
     "call2_request_payload",
     "call2_schema",
     "case_truths_from_assessments",
+    "expand_ground_fact_assessments",
+    "grounding_request_targets",
     "instance_key_dict",
     "predicate_definitions",
     "shard_assessment_targets",

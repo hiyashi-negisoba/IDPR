@@ -33,6 +33,29 @@ from idpr.v2.relations import RelationInstanceKey
 
 
 @dataclass(frozen=True)
+class FactualActionKey:
+    """One reviewed factual occurrence, before any offense projection."""
+
+    case_id: str
+    actor_id: str
+    occurrence_id: str
+
+
+@dataclass(frozen=True)
+class FactualParticipantKey:
+    """A source-mentioned person, not an answer-facing liability instance.
+
+    This key deliberately has no offense, occurrence, participation mode, or legal outcome.
+    It is the endpoint namespace for people whose conduct may have been utilised by another
+    actor even when they are not themselves part of the reviewed liable-actor universe.
+    Converting this key into an ``OffenseInstanceKey`` is never implicit.
+    """
+
+    case_id: str
+    participant_id: str
+
+
+@dataclass(frozen=True)
 class OffenseInstanceKey:
     """One offense realization under evaluation, for one actor, in one case.
 

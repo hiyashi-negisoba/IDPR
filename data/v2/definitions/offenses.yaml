@@ -73,6 +73,10 @@
 
 - id: offense.bribery_taking
   identity: {name: "수뢰죄", statutory_refs: ["형법 제129조 제1항"]}
+  participation_constraints:
+    necessary_counterpart_offense_refs:
+      - offense.bribe_giving
+      - offense.bribe_delivery_receipt
   elements:
     subject: {op: ref, ref: legal_element.official_or_arbitrator_status}
     circumstance:
@@ -119,6 +123,10 @@
 
 - id: offense.bribe_giving
   identity: {name: "뇌물공여죄", statutory_refs: ["형법 제133조 제1항"]}
+  participation_constraints:
+    necessary_counterpart_offense_refs:
+      - offense.bribery_taking
+      - offense.bribe_delivery_receipt
   elements:
     conduct:
       op: any
@@ -129,6 +137,10 @@
 
 - id: offense.bribe_delivery_receipt
   identity: {name: "증뢰물전달죄", statutory_refs: ["형법 제133조 제2항"]}
+  participation_constraints:
+    necessary_counterpart_offense_refs:
+      - offense.bribery_taking
+      - offense.bribe_giving
   elements:
     conduct: {op: ref, ref: ground_fact.intermediary_delivery_receipt_conduct}
     mental:
@@ -181,14 +193,20 @@
 
 - id: offense.false_public_document_creation
   identity: {name: "허위공문서작성죄", statutory_refs: ["형법 제227조"]}
+  indirect_principal_capability: {legally_possible: true}
   elements:
     subject: {op: ref, ref: legal_element.official_with_writing_authority}
     object: {op: ref, ref: legal_element.public_document_object}
     conduct: {op: ref, ref: legal_element.content_falsity_by_authorized_official}
-    mental: {op: ref, ref: legal_element.purpose_to_use_as_genuine}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.purpose_to_use_as_genuine}
 
 - id: offense.private_document_forgery
   identity: {name: "사문서위조·변조죄", statutory_refs: ["형법 제231조"]}
+  indirect_principal_capability: {legally_possible: true}
   elements:
     object: {op: ref, ref: legal_element.private_document_object}
     conduct:
@@ -343,6 +361,7 @@
 
 - id: offense.forcible_indecency
   identity: {name: "강제추행죄", statutory_refs: ["형법 제298조"]}
+  indirect_principal_capability: {legally_possible: true}
   elements:
     object: {op: ref, ref: legal_element.natural_person_victim_status}
     conduct:
@@ -395,6 +414,7 @@
 
 - id: offense.obstruction_of_right_exercise
   identity: {name: "권리행사방해죄", statutory_refs: ["형법 제323조"]}
+  indirect_principal_capability: {legally_possible: true}
   participation_constraints:
     attributable_slots: [conduct]
     constitutive_status_refs: [legal_element.own_property_object]

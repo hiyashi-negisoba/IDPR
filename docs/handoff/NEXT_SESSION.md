@@ -1,15 +1,70 @@
 # V2 restart — next session entry point
 
-기준: 2026-08-11, commit 전 working tree checkpoint.
+기준: 2026-08-12, commit 전 working tree checkpoint.
+
+## 최신 checkpoint — Call 1.5-P 이후 1~4번 정상화 완료
+
+아래의 과거 checkpoint보다 이 절과 각 experiment audit가 우선한다. 기존 Call 1/1.5/2
+prompt는 변경하지 않았다.
+
+- canonical factual binding: safely bound 56/74, general Call 2 531 target. Cartesian
+  4,998 대비 89%대 감소를 유지한다.
+- participation: necessary-counterpart gate 후 49 target. 동일 logical route의
+  instigation/aiding 동시 TRUE는 `CONFLICTING_PARTICIPATION_MODE`다.
+- conflict isolation: 사건 전체 skip을 제거했다. `r12_p2_q1_ga`의 participation 8개만
+  quarantine하고 base liability 6개를 보존하여 26/26 Scallop이 실행된다.
+- participation universe reviewed positive coverage는 13/23이다. 누락 10개는 binding 4,
+  Call 1.5-P omission 3, cross-offense 2, composite 1로 ownership을 분리했으며 host repair하지
+  않았다.
+- indirect principal: offline gold participant 없이 Call 1.5-P 요청 span과 Call 1.5
+  actor-action span의 overlap으로 candidate를 연다. 전체 1 candidate, job 222907 live request
+  2회. `r14_p1_q3` direction TRUE, utilized predicates 6 UNKNOWN, dependency UNKNOWN이다.
+- completion: extortion과 quasi robbery policy를 추가했다. mixed direct COMPOSE의 명시된
+  offense-family component suspension을 runtime/checker/planner/Scallop에 일관되게 일반화했다.
+  `r13_p1_q1` 甲 준강도는 attempted, 공갈은 근거 없는 completed에서 unresolved가 됐다.
+- 최신 Scallop: `experiments/v2_call15_directscope_26_causal/scallop_v9_completion_normalized/results.jsonl`.
+- audits: `participation_call2_v2/qualitative_audit.md`,
+  `participation_universe_coverage_audit.md`, `completion_normalization_audit.md`.
+- verification: **178 passed, 16 skipped**, focused Ruff, `git diff --check` 통과.
+
+다음 작업은 기존 5번 doctrine activation과 6번 absorption/competition을 하나의 symbolic
+최종책임 단계로 처리하는 것이다. 그 뒤 Call 3를 시작하기 전에 사용자에게 별도 Call 3
+prompt 설계 스펙을 요청한다.
+
+## 최신 checkpoint — Call 1.5 v8 / evidence-gated derived materialization
+
+- Call 1.5 v8: 26/26 contract-valid, direct bindings 74, model 재호출 없음.
+- production planner는 base-only closure expansion을 금지한다. Derived candidate는 registry의
+  `candidate_materialization`에 저술된 둘 이상의 same-episode typed binding 조합 또는
+  same-episode distinct-actor peer binding이 있을 때만 생성한다.
+- zero-binding case는 더 이상 planner를 중단하지 않고 각 빈 seed를 `UNBOUND_SEED`로 보존한다.
+  host가 neural binding을 합성하지 않는다.
+- v8 planner: direct 74 + derived physical 5 = top-level/assessment 79, Call 2 neural target 475,
+  relation 13, `UNBOUND_SEED` 52. 26/26 reproducibility audit errors 0.
+- Call 1 gold survivor: direct 48/74, evidence-gated derived 후 51/74. Closure-only gold는
+  3/17 복구했고, 생성 unique 3/physical 5 모두 rubric case/ref 범위 안이다.
+- historical Cartesian baseline 대비 top-level 815→79(90.3% 감소), assessment 849→79
+  (90.7% 감소), neural 4,998→475(90.5% 감소).
+- artifacts:
+  `experiments/v2_call15_fullcase_26_v8/evaluation_instance_plan.jsonl`,
+  `evaluation_instance_plan.audit.json`, `derived_materialization_audit.{json,md}`.
+- 검증: 전체 local `151 passed, 16 skipped`; focused Ruff와 `git diff --check` 통과.
 
 ## 한 줄 상태
 
-G0 rollback과 26문항 수동 GOLD occurrence, Call 1, occurrence-aware planner까지 완료했다.
-Call 2의 predicate/relation/Article263 경계는 검증됐지만 participation의 전역 결정을
-새 closed-option 계약으로 바꾼 직후이므로, **새 계약의 real-Gemma smoke부터 재개**한다.
-이 checkpoint의 어떤 full Call 2 결과도 Scallop 입력으로 승인하지 않는다.
+G0 rollback, 26문항 수동 GOLD occurrence, Call 1, occurrence-aware planner와 Call 2의
+predicate/relation/Article263 경계는 유지한다. participation을
+`local typed relation -> deterministic host dependency compiler`로 구현했고 synthetic,
+real-Gemma gate, partial smoke까지 통과했지만, full에서 occurrence fragment와 legal
+realization node가 일치하지 않는 계약 문제가 드러났다. 동시에 Gemma가 명시된 exact-offense
+경계를 대규모 후보 universe에서 안정적으로 지키지 못했다. participation 계약과 prompt는
+이 상태로 동결했다. production acceptance는 계속 실패지만, 별도 degraded diagnostic
+경로로 raw full Call 2를 끝까지 기록하고 유효한 17개 case의 Scallop과 Call 3까지 실행했다.
+그 뒤 rubric-supervised normalization으로 Article263 transport를 회귀 고정하고,
+question-assumption carrier, KCL completion policy 8개, decisive-predicate partial gold audit까지
+구현했다. IssuePlanner/AnswerPlan과 Call 3는 아직 건드리지 않는다.
 
-## 지금 고정된 파이프라인
+## 고정된 파이프라인과 범위
 
 ```text
 Case -> Call 1 routing -> Step 7
@@ -19,13 +74,18 @@ Case -> Call 1 routing -> Step 7
      -> CaseTruths -> Scallop -> Call 3
 ```
 
-- Call 수는 3회라는 논리 구조를 유지한다. Call 2 내부 physical shard 수는 별도다.
-- GOLD에는 actor, factual occurrence, source span/text만 있다. 죄명·predicate truth·참여
-  역할·기수·법률 결론은 없다.
-- Call 2 predicate physical request는 정확히 한 occurrence만 본다.
-- compact truth array는 입력 순서와 zip하며 length/order/missing/extra/unique key를
-  hard-fail한다.
-- confidence는 production Call 1/2에서 제거했다. 향후 self-consistency 실험용이다.
+- Call 수는 3회다. Call 2 내부 physical shard 수는 별도다.
+- Call 2 predicate truth, DSL, Scallop semantics는 이번 작업에서 바꾸지 않았다.
+- GOLD에는 actor, factual occurrence, source span/text만 있다. 죄명, predicate truth,
+  participation role, 기수, 법률 결론은 없다.
+- Gemma participation request는 exact offense의 local typed relation 하나만 보고
+  `TRUE | FALSE | UNKNOWN` 하나만 반환한다.
+- Gemma edge 방향은 사실상 행위 방향이고, host edge 방향은 legal dependency 방향이다.
+- co-principal은 edge가 아니라 group node다.
+- host는 missing/extra/duplicate, 복수 derivative role, co/derivative 충돌, self-loop,
+  dangling endpoint, cycle을 hard-fail하며 repair/tie-break하지 않는다.
+- UNKNOWN은 FALSE로 바꾸지 않는다. raw assessment에는 보존하고 positive participation
+  fact를 생성하지 않는다.
 
 ## 완료 및 검증 evidence
 
@@ -33,57 +93,432 @@ Case -> Call 1 routing -> Step 7
 - `data/v2/gold_article263_pairs.jsonl`: caller binding 1 pair.
 - Call 1 실제 Gemma: 26/26 성공, Step 7 closure recall 74/86 (86.05%).
 - Call 1 artifact: `experiments/v2_restart_rebuild/call1/router_output.jsonl`.
-- 최신 planner artifact: `experiments/v2_restart_rebuild/evaluation_instance_plan.jsonl`.
+- 최신 planner: `experiments/v2_restart_rebuild/evaluation_instance_plan.jsonl`.
 - 최신 planner audit: 26/26, errors 0, collision 0.
-- cardinality: top-level 815, assessment instance 849, predicate 5,182,
-  relation 423, participation global target 719.
-- 새 테스트 전면 재구축 결과: `84 passed, 6 skipped`.
-- 이전 real-Gemma semantic gate는 6개가 통과했지만, participation wire contract가
-  바뀌었으므로 participation gate는 다시 실행해야 한다.
+- latest planner cardinality: top-level 815, assessment instance 849, semantic predicate 5,838,
+  neural predicate request 4,998, relation 423, participation local target 5,859.
+- focused participation synthetic: 14 passed. direct root + instigation/aiding chain,
+  multi-level DAG, co-group, self-loop, 2/3-cycle, dangling, duplicate role, overlap을 포함한다.
+- 전체 로컬 suite: `93 passed, 6 skipped`.
+- real-Gemma semantic gate: 6 tests passed. 내부 participation 요청은 forward/reverse
+  instigation, aiding exclusivity, co-principal positive/negative, unrelated offense,
+  base-only evidence의 derived-offense negative를 포함한다.
+- `call2_smoke_local_typed_v4`: 26/26 생성 및 audit 성공. 96 physical requests,
+  predicate 77, relation 47, participation 48, audit errors 0.
+- 최신 전체 로컬 회귀검증: `119 passed, 13 skipped`.
 
-## 왜 participation을 다시 바꿨는가
+## 현재 구현
 
-pair별로 co-principal/instigator/aider를 독립 판정한 full v3는 구조 audit 자체는
-통과했지만 8개 사건에서 한 participant/offense가 여러 counterpart 또는 여러 mode를
-동시에 선택했다. 이는 모델 반례를 더 붙여 해결할 문제가 아니라 caller contract가
-상호배타성을 표현하지 못한 설계 결함이다.
+- core: `src/idpr/v2/runtime/participation_grounding.py`
+  - `ParticipationLocalTarget(kind, members)`
+  - `ParticipationLocalAssessment(target, truth)`
+  - `participation_local_targets(...)`
+  - 정확히 한 target의 payload/schema/validator
+  - `compile_participation_bindings(...)`
+- planner/runner/audit/Scallop adapter는 `participation_local_targets`와
+  `participation_local_assessments` 형식으로 맞췄다.
+- prompt는 사건별 반례나 few-shot 없이 일반 typed-relation 규칙만 가진다.
+- aiding은 principal의 독립적 선행 범의 이후 실행 원조로 한정해 instigation과의 정의
+  중첩을 제거했다.
+- derived offense는 base offense 관계를 자동 전이하지 않는 exact-offense scope rule을
+  명시했다.
 
-현재 계약은 participant instance × offense마다 단 하나의 `option_id`를 고른다.
-host가 `none`, `unknown`, source별 instigator/aider, source subset별 co-principal을
-닫힌 enum으로 제공한다. 따라서 한 응답에서 co/derivative 충돌이나 복수 derivative
-link는 구조적으로 만들 수 없다.
+## full에서 확인된 실패와 진단
+
+### full v1
+
+`experiments/v2_restart_rebuild/call2_full_local_typed_v1`은 artifact를 완성하지 못했다.
+`kcl_criminal_r11_p1_q1`에서 unrelated occurrence 관계를
+`derived_offense.aggravated_injury` instigation으로 여러 개 TRUE 판정해 동일 accessory의
+복수 derivative relation으로 host가 reject했다.
+
+### full v2
+
+`experiments/v2_restart_rebuild/call2_full_local_typed_v2`도 artifact를 완성하지 못했다.
+같은 사건의 `derived_offense.nighttime_dwelling_theft`에서 다음이 함께 나타났다.
+
+- 甲의 한 교사 occurrence가 乙의 계획, 침입, 취거 occurrence 각각을 principal로 TRUE.
+- 乙의 한 교사 occurrence가 丙의 절도 망보기와 무관한 공갈 occurrence를 모두 principal로
+  TRUE.
+- 무관한 rape/bribery/dereliction 등 여러 offense에도 participation TRUE가 발생.
+- case 전체 participation truth 분포는 TRUE 58, FALSE 1,493, UNKNOWN 321이었고,
+  첫 multiple-derivative invariant에서 hard failure했다.
+
+여기에는 서로 다른 두 원인이 있다.
+
+1. **계약 문제:** factual occurrence는 한 offense realization의 계획·실행 조각일 수 있다.
+   하나의 factual action edge가 동일 principal actor의 여러 occurrence fragment와 TRUE가
+   되어도 현재 compiler는 서로 다른 legal principal instance로 본다. 어느 fragment가
+   legal realization node인지 local truth만으로 결정할 수 없다.
+2. **모델 한계:** exact-offense boundary를 일반 규칙과 live negative gate로 명시해도,
+   5,859개 전체 후보에서는 Gemma가 행위 관계를 무관 offense로 전이했다. 여기서 사건별
+   문구나 few-shot을 추가하는 것은 overfitting이므로 중단했다.
+
+## 동결 후 degraded diagnostic 실행
+
+production hard-fail은 그대로 유지했다. 별도 opt-in diagnostic mode만 추가하여 compiler가
+거부한 case를 repair하거나 direct route로 바꾸지 않고 `REJECTED`로 보존했다.
+
+- Call 2: `experiments/v2_restart_rebuild/call2_full_local_typed_diagnostic_v3`
+  - 26 cases, predicate 5,182, relation 423, participation 5,859.
+  - physical requests 6,184, exact correspondence audit errors 0.
+  - participation truth: TRUE 175, FALSE 4,368, UNKNOWN 1,316.
+  - valid 17 cases, rejected 9 cases.
+  - rejection: cycle 2, multiple derivative 4, overlapping co-group 1,
+    co/derivative conflict 2.
+- Scallop: `experiments/v2_restart_rebuild/scallop_local_typed_diagnostic_v3/results.jsonl`
+  - 17 cases executed, 9 cases `SKIPPED_REJECTED_PARTICIPATION`.
+  - 213 liability traces, 8 established, derivative links 11, co sources 0.
+- symbolic rubric proxy:
+  `experiments/v2_restart_rebuild/scallop_local_typed_diagnostic_v3/rubric_proxy_audit.json`
+  - established 8, rubric candidate scope 밖 1, outside rate 12.5%.
+  - rejected participation 9개는 명시적으로 skipped.
+- Call 3: `experiments/v2_restart_rebuild/call3_local_typed_diagnostic_v3/answers.jsonl`
+  - valid 17 cases, 17 physical requests, total tokens 57,378.
+  - rejected 9 case ID는 manifest에 남고 Call 3 입력에서 제외됐다.
+  - content audit에서 1개 답안이 금지된 내부명 `occurrence_id`, `elements_state`를 노출했다.
+- full-rubric Sonnet judge는 실행하지 않았다. 17개 답안과 전체 rubric을 외부 API로
+  전송하는 작업은 별도 사용자 승인이 필요하다는 보안 차단이 걸렸다.
+
+이 diagnostic 결과는 pipeline 후단 관찰용이며 production acceptance evidence가 아니다.
 
 ## 보존하되 승인하지 않는 실패 artifact
 
-- `experiments/v2_restart_rebuild/call2_full`: 구형 독립 mode truth 방식. 의미 실패.
-- `experiments/v2_restart_rebuild/call2_full_v3`: pair별 단일 decision 방식. structural
-  audit은 성공했으나 global participation binding이 8개 사건에서 실패.
-- 위 두 결과를 Scallop/Call 3 acceptance evidence로 사용하지 않는다.
+- 기존 `call2_full`, `call2_full_v3`, `call2_full_v4`, `call2_smoke_v5`는 이전 계약 실패
+  분석용이다.
+- `call2_full_local_typed_v1`, `call2_full_local_typed_v2`는 runner가 case-level hard
+  failure 전에 중단했으므로 완성된 grounding artifact가 아니다.
+- `call2_smoke_local_typed_v4`는 partial structural evidence일 뿐 Scallop 입력이 아니다.
+- `call2_full_local_typed_diagnostic_v3` 및 그 Scallop/Call 3 결과는 degraded diagnostic이며
+  production artifact가 아니다.
+- 위 결과를 Scallop/Call 3 acceptance evidence로 사용하지 않는다.
 
-## 다음 세션 실행 순서
+## rubric-supervised failure debug
 
-1. `tests/live/test_gemma_call2_semantics.py`의 새 participation option gate를 job 221593에서
-   실행한다. prompt에 사건별 반례를 추가하지 않는다.
-2. 새 planner를 사용해 `call2_smoke_v4`를 실행하고 audit의 exact correspondence와
-   participation option_id 유효성을 직접 본다.
-3. smoke가 통과할 때만 `call2_full_v4`를 실행한다.
-4. full artifact에서 duplicate participant target, derivative cycle, CaseTruth cardinality를
-   hard-validate한다. 문제가 있으면 임의 tie-break하지 않는다.
-5. 통과 후에만 Scallop을 실행하고 CaseTruths/Scallop 결과를 문항별 rubric과 대조한다.
-6. 그 뒤 Call 3와 26-case 평가를 실행한다.
+KCL rubric을 runtime input이나 prompt few-shot으로 사용하지 않고, 26-case offline
+supervision으로 Call 2 이후 failure ownership을 추적했다. LLM judge는 사용하지 않았다.
 
-## 주의할 코드 경계
+- report: `docs/analysis/V2_RUBRIC_SUPERVISED_FAILURE_DEBUG.md`
+- evidence JSON/Markdown:
+  `experiments/v2_restart_rebuild/rubric_supervision_debug_v1/evidence_packet.*`
+- reproducible builder: `scripts/build_v2_rubric_supervision_debug.py`
+- rubric 735 atoms, conclusion-like 222.
+- reviewed issue ref 86개 중 74개만 planner/Call 2에 도달했고 12개는 upstream miss.
+- reached gold refs의 predicate도 TRUE 187 / FALSE 8 / UNKNOWN 985로 UNKNOWN 83.5%.
+- Call 2 전체 UNKNOWN은 4,612/5,188이다.
+- Article263 pair 1개는 Call 2에서 `case_truths`로 투영되어 Scallop까지 전달된다. 별도
+  `article263_assessments`를 runner가 직접 읽지 않는다는 이유로 handoff 누락이라고 한 초기
+  진단은 정정했다. 실제 문제는 `causal_origin_unascertained=FALSE` 의미 오판이다.
+- rubric 13 cases/92 atoms가 미수·중지·불능미수·예비를 요구하지만 authored completion
+  policy는 4 offense뿐이다.
+- rubric 6 cases/43 atoms가 간접정범을 요구하지만 current participation/Result IR에는
+  indirect-perpetrator form이 없다.
+- Scallop active doctrine row는 0이다. rubric의 양해/승낙, 불법원인급여, 우연방위,
+  적법성 착오 등 branch가 authored doctrine universe에 없다.
+- `offense.use_of_forged_private_document`는 객체가 실제 위조문서라는 dependency를 요구하지
+  않아 base forgery가 없어도 행사죄가 성립할 수 있다.
+- established 8개를 rubric과 질적으로 대조하면 3개 정합, 4개 충돌, 1개는 조건부 branch를
+  단일 결론으로 평탄화했다.
 
-- 새 participation core: `src/idpr/v2/runtime/participation_grounding.py`.
-- planner/runner/audit/Scallop parser는 새 `route_options` + `option_id` 형식으로 맞췄다.
-- Scallop active doctrine universe는 top-level instances로 제한했다.
-- derivative graph cycle은 아직 실제 full 결과로 검증하지 않았다.
-- `src/idpr/neural/vllm_client.py`의 seed 전달은 live deterministic gate에 사용한다.
-- 사용자가 명시적으로 요청해 기존 테스트 suite 전체를 삭제하고 새 suite만 남겼다.
+확인된 모델 오류와 계약 오류를 분리했다. 준강간의 명시적 항거불능 부정을 TRUE로 읽은
+것과 B가 자기 명의로 작성한 문서를 무권한 위조로 읽은 것은 모델/semantic error다. 반면
+question prompt의 명시적 전제를 predicate evidence에서 제외한 것, 불법원인급여·간접정범을
+occurrence-local predicate로 물은 것, completion/doctrine
+coverage 부재는 host/RuleIR 계약 문제다.
+
+## normalization 구현 결과
+
+- question assumptions: `src/idpr/v2/question_assumptions.py`,
+  `data/v2/question_assumptions.jsonl`. GOLD occurrence에 행위를 추가하지 않고 문항의 명시적
+  사실 전제만 별도 운반한다. 현재 exact carrier는 `r10_p2_q3`, `r14_p2_q4` 두 건이다.
+- completion: 기존 4개 policy에 homicide, ancestral homicide, rape, quasi rape, theft,
+  special theft, injury, robbery 8개를 추가했다. completed 실패를 attempt로 바꾸는 fallback은
+  없고 위험성 없는 불능행위를 punishable attempt로 repair하지 않는다.
+- planner core dry-run: top-level 815, assessment 849, relation 423은 유지되고 predicate는
+  5,182 -> 5,838이다. registry hash 변경으로 기존 Call 1 manifest lineage가 정상 거부됐으며
+  새 full artifact는 아직 생성하지 않았다.
+- decisive partial gold: `data/eval/v2_call2_decisive_predicate_partial_gold.jsonl`의 명시 근거
+  8개를 `scripts/audit_v2_call2_decisive_partial_gold.py`로 대조했다. 준강간의 명시적 부정
+  문장이 diagnostic 요청에서 누락됐음을 발견해 historical ownership을 semantic error 2,
+  model undercall 4, evidence scope missing 2로 바로잡았다. 해당 문장은 같은 GOLD occurrence
+  source에 복원했으며 새 run에서 처음으로 의미 gate가 된다.
+- contextual truth variation은 118개, 그중 ground fact는 33개다. intent처럼 offense-sensitive한
+  legal element가 있으므로 118개 전부를 오류로 보지 않고 triage 후보로만 기록한다.
+- Call 1 lineage는 full registry hash가 아니라 실제 router catalog fingerprint가 소유한다.
+  기존 manifest는 ordered catalog ID exact match의 legacy mode로만 재사용된다. 새 planner
+  artifact/audit는 26/26, errors 0이다.
+- GroundFact는 `(case, actor, occurrence, predicate)`당 한 번만 neural 평가하고 모든 소비
+  offense instance로 host projection한다. semantic predicate target 5,838개 중 neural request
+  target은 4,998개다. LegalElement는 계속 instance-local이다. predicate prompt의 기존 일반
+  예시 두 개도 제거했다.
+- indirect principal dependency runtime은 이미 있으나 production grounding relation과 Scallop
+  lowering이 없다. 피해자 A·결재권자처럼 피이용자가 현재 GOLD liable actor/instance에 없는
+  사례가 있어 source-local factual participant identity가 선행한다. instigator/aider를
+  재사용하지 않고 typed utilization relation을 participation identity/local-unresolved 변경과
+  함께 연결할 때까지 HOLD다.
+- doctrine/card bridge offline audit: KCL-26 issue tag 80개 중 77개가 commentary target,
+  75개가 candidate card에 도달하지만 explicit symbolic bridge는 0개다. 총칙 corpus-gap tag는
+  21개다. 카드는 설명 근거로 재사용하되 `exception`/`defeater` metadata만으로 doctrine을
+  발화하지 않는다. artifact는 `experiments/v2_restart_rebuild/doctrine_card_bridge_audit_v1/`.
+- real-Gemma focused gate: 준강간 explicit negative와 Article 263 pair relation carrier는
+  통과했다. 사문서위조 authority/content 경계는 같은 seed에서도 TRUE/FALSE가 오가므로
+  non-strict known-instability로 기록했고 추가 prompt 튜닝이나 host repair를 하지 않았다.
+- `call2_full_groundfact_v6_diagnostic`: exact audit errors 0, semantic predicate 5,838 / neural
+  predicate request 4,998 / relation 423 / participation 5,859. participation reject는 8건이고
+  artifact status는 `DEGRADED_DIAGNOSTIC`이다. partial gold는 4 match / 3 undercall / 1 error였지만
+  남은 Article 263 error는 pair relation evidence 미운반으로 확인됐다.
+- Article 263 `MULTI_OCCURRENCE_RELATION` source/span carrier를 pair binding에 추가했다.
+  `call2_article263_carrier_v7` case-only 재실행은 세 truth 모두 TRUE, audit errors 0이다. 다만
+  underlying `injury_result`가 occurrence-local request에서 UNKNOWN이어서 Scallop completion은
+  여전히 unresolved다.
+- `scallop_groundfact_v6_diagnostic`: 18 succeeded / 8 rejected-participation skip, active doctrine
+  0, established 10. rubric과 직접 정합한 establishment는 횡령·위계공무집행방해·현주건조물
+  방화 3개다. 나머지는 indirect route 평탄화, bribe role 오류, forged-document dependency,
+  잘못된 special injury, mistake branch 부재가 드러났다. Scallop runtime/parity 오류 증거는 없다.
+- Article 263 shared-result v8: 기존 dedicated physical request에 법정의제 세 truth와 구분된
+  `shared_result_truths=[injury_result]`를 추가했다. known pair-level truth는 occurrence-local
+  UNKNOWN만 refine하고 TRUE/FALSE 충돌은 hard-fail한다. E2E runner가 기존 dedicated Article
+  263 Scallop backend를 실제로 호출하도록 연결했고 backend의 single-instance EDB scope bug도
+  수정했다. 두 endpoint 모두 completion completed + statutory obligation TRUE까지 도달한다.
+  남은 blocker는 Gemma가 focused request에서도 양쪽 injury `intent`를 UNKNOWN으로 둔 known
+  undercall이다. host repair/prompt tuning은 하지 않는다.
+- source-local factual participant identity를 liable actor와 분리했다.
+  `FactualParticipantKey(case_id, fpart:*)`와
+  `data/v2/gold_factual_participants.jsonl`의 6개 exact-span identity에는 offense/role/mode/truth가
+  없다. 기존 GOLD actor와 label이 같아도 자동 병합하지 않고 top-level planner universe에도
+  넣지 않는다. production registry에 offense별 indirect-capability metadata가 아직 없으므로
+  card 문자열 검색 또는 모든 offense 곱으로 utilization target을 만드는 것은 HOLD다.
+- decisive partial gold는 15개다. 새 `dp:013`~`dp:015`는 밀침·상해를 성기 삽입으로, 장래
+  거짓말 지시를 선서 증인의 허위진술로, 강도치사를 성기 삽입으로 읽은 ground-fact false
+  positive다. v6 historical 대조는 4 match / 7 undercall / 4 semantic error이고 ground-fact
+  contextual variation은 0이다.
+
+## 다음 판단점
+
+IssuePlanner/AnswerPlan 설계는 아직 시작하지 않는다. 먼저 rubric supervision으로 확인된
+앞단 결함의 scope를 다음 순서로 결정한다.
+
+1. decisive partial gold를 명시 근거 범위에서 더 확장하되 결론에서 leaf를 역산하지 않는다.
+   ground-fact variation은 host projection으로 닫혔으므로 명시적 legal-element undercall과
+   semantic reversal을 우선한다.
+2. source-local factual participant identity 분리는 완료됐다. 다음은 card prose가 아니라
+   explicit offense-level metadata로 indirect-capability 범위를 authoring할 수 있는지 확정한다.
+   그 뒤에만 factual-action-direction typed utilization relation + deterministic host dependency
+   lowering을 연결한다. ordinary liability instance로 암묵 변환하지 않는다.
+3. forged-document dependency는 document identity/link 없이 새 predicate 하나로 덮지 않는다.
+   선행 forgery realization dependency를 표현할 host relation을 먼저 정한다.
+4. commentary/card metadata는 retrieval provenance로 사용하고, 필요한 branch마다 stable id,
+   typed requires, effect/stage, instance binding을 별도 authoring하는 deterministic bridge를
+   설계한다. KCL issue tag 자체는 runtime fact로 사용하지 않는다.
+5. 그 뒤 새 Call 2를 실행하고 partial-gold audit, participation compile, Scallop 질적 대조를
+   거친 후에만 rubric-supervised IssuePlanner/AnswerPlan으로 간다.
+
+현재 truth/registry만으로 complete unique realization grouping은 불가능하다. TRUE-only
+projection은 815개 중 19개이고 26문항 중 13문항에 confirmed candidate가 없으며, UNKNOWN을
+포함하면 790개가 살아 후보 폭증이 유지된다. prompt 튜닝, full 재실행, 외부 rubric judge는
+위 debugging 동안 보류한다.
 
 ## 다음 세션에 보낼 메시지
 
-> `docs/handoff/NEXT_SESSION.md`부터 읽고 시작해. 새로운 설계나 반례 prompt를 더하지
-> 말고, global closed-option participation 계약의 real-Gemma gate -> smoke v4 -> full v4
-> 순서로 검증해. 이전 call2_full/call2_full_v3는 실패 분석용일 뿐 Scallop에 넣지 마.
-> exact correspondence와 global binding이 통과한 뒤에만 Scallop, rubric 대조, Call 3로 가.
+> `docs/handoff/NEXT_SESSION.md`와
+> `docs/analysis/V2_RUBRIC_SUPERVISED_FAILURE_DEBUG.md`부터 읽어. KCL rubric은 runtime이나
+> few-shot이 아니라 offline supervision으로만 사용한다. IssuePlanner는 아직 만들지 마.
+> Article263 transport, question-assumption carrier, completion 8개, decisive partial-gold audit은
+> 완료됐다. Call 1 catalog lineage 분리와 ground-fact occurrence-level projection도 완료됐다.
+> v6 diagnostic full/Scallop과 Article263 shared-result/dedicated lowering v8까지 완료됐다.
+> source-local factual participant identity는 liable actor와 분리 완료됐다. 다음은 card prose를
+> runtime 판단으로 쓰지 않고 explicit offense-level indirect-capability metadata를 authoring할
+> 근거와 범위를 확정해. 그 뒤에만 factual-action-direction typed utilization -> deterministic
+> host dependency -> Scallop lowering으로 가. forged-document는 identity link 없이 leaf를 하나
+> 추가해 덮지 마.
+> IssuePlanner/Call3/judge는 계속 보류해.
+
+## 2026-08-12 indirect-principal structural lowering delta
+
+이전 섹션에서 HOLD했던 indirect-principal 경로를 아래 순서 그대로 구현했다.
+
+1. offense-level `indirect_principal_capability` metadata
+2. offense-free factual action-direction relation
+3. deterministic host dependency
+4. dedicated indirect-principal runtime
+5. dedicated Scallop lowering/parity
+
+capability metadata는 exact offense에 명시된 `legally_possible: true`만 읽는다. metadata 부재는
+법적 불가능이 아니라 unauthored/out-of-scope이며, derived offense는 base offense에서 이를
+상속하지 않는다. card 문구, rubric tag, statute, participation mode로 후보를 활성화하는
+fallback은 없다. 현재 명시한 범위는
+`false_public_document_creation`, `private_document_forgery`, `forcible_indecency`,
+`obstruction_of_right_exercise`, `derived_offense.fraud` 다섯 개다.
+
+factual utilization target은 `(case, utilizer actor, occurrence) -> source-local factual
+participant`이며 offense/role/liability를 담지 않는다. 요청도 행위 지시·야기·이용의 사실적
+방향에 대한 `TRUE/FALSE/UNKNOWN`만 받는다. 실제 간접정범 dependency는 이 relation과 exact
+participant/offense의 `UtilizedParticipantOutcome`을 host가 결합해 산출한다. 누락·중복·identity
+불일치·capability 불일치는 hard-fail하고 UNKNOWN은 보존한다. instigator/aider policy나 그
+intent predicate는 재사용하지 않았다.
+
+Scallop에는 `v2_indirect_principal_dependency_truth` 전용 relation/program을 추가했다.
+`v2_derivative_link`로 우회하지 않으며 host dependency와 Scallop row의 exact correspondence 및
+truth parity를 검증한다. planner dry-run은 기존 주요 count를 바꾸지 않았고 factual utilization
+target 10개를 추가했으며 audit errors는 0이다. `r13_p2_q1`의 fraud target이 0인 것은 현재 Step 7
+closure에 `derived_offense.fraud`가 없는 기존 issue miss이며 metadata나 rubric으로 repair하지
+않았다. 丙 participant span은 乙의 전달·요청과 丙의 카드 사용을 함께 포함하도록 사실 근거만
+확장했다.
+
+아직 real-Gemma Call 2를 새로 실행하지 않았다. 특히 production
+`UtilizedParticipantOutcome` producer는 남아 있다. 이를 rubric 결론이나 one-shot 법적 stage
+질문으로 채우지 말고, participant를 ordinary liability actor로 승격하지 않은 채 predicate-level
+truth에서 exact offense별 내부 outcome을 계산하는 경계를 설계해야 한다. 이 경계가 닫히기
+전에도 IssuePlanner/Call3/judge는 계속 보류한다.
+
+검증 결과는 full local suite `130 passed, 13 skipped`, planner audit `SUCCEEDED` / errors 0이다.
+
+## 2026-08-12 utilized-participant outcome production delta
+
+위에 남아 있던 production 경계를 닫았다. 새 producer는 factual participant를
+`OffenseInstanceKey` 또는 ordinary `LiabilityEvaluation`으로 변환하지 않고,
+`(FactualParticipantKey, exact offense)` namespace에서 구성요건 predicate truth를 받아
+협은 `UtilizedParticipantOutcome`만 산출한다. relation truth 누락은 FALSE가 아니라
+UNKNOWN으로 보존하고, active doctrine도 같은 participant predicate view에서 계산한다.
+다른 과실범은 명시 truth가 있을 때만 사용하며 추론하지 않는다. completion-bearing
+capability offense는 participant전용 completion 계약 전까지 hard-fail한다.
+
+planner/runner/audit/Scallop handoff를 이 경계에 연결했다. 현재 exact frontier는 outcome
+target 5개, participant predicate target 26개이며 planner audit errors는 0이다. full non-smoke
+Call 2 artifact는 이 outcome과 deterministic indirect dependency를 내고, Scallop runner는 전용
+parity program으로 낮춘다. 한 utilizer instance에 participant dependency가 여러 개이면 authored fold
+policy 없이 임의 병합하지 않고 hard-fail한다. serialized dependency의 truth/status 열거값도
+역직렬화 시 검증한다.
+
+지시어만 있던 factual participant span 5개를 판단 결론 없이 완전한 사실 문장으로
+확장했다. `false_public_document_creation`은 형법 제13조와 제227조의 명시적
+구성요건 구조에 맞춰 `intent`를 정신적 slot에 추가했다. 이로 인해 전체
+planner count는 final assessment 5840, neural request 5000이 되었고 outcome frontier는 5/26으로
+고정됐다.
+
+검증은 focused `46 passed`, full local `137 passed, 16 skipped`, Python compile/Ruff/
+`git diff --check` 기준으로 완료했다. real-Gemma는 `IDPR_VLLM_BASE_URL`/
+`IDPR_VLLM_MODEL`이 설정되지 않아 실행하지 않았고, 새 outcome prompt는 명시적
+`--prompt-approved`도 필요하다. 따라서 다음 게이트는 prompt 검토/승인 후 live 3-case
+semantic gate와 full Call 2를 순서대로 실행하는 것이다. IssuePlanner/Call3/judge는 그 전까지
+계속 보류한다.
+
+## 2026-08-12 Call 1.5 direct factual-scope normalization
+
+KCL substantive 26문항을 전수 감사해 원문의 사실 번호, 추가 가정, 밑줄 치환, 선행 사실
+의존성을 host가 직접형 factual scope로 조립하도록 `scoped_question_text`를 수정했다. Call 1의
+74 survivor, Call 1.5 primary prompt, recovery prompt는 freeze했다. rubric/gold는 model input이나
+production selector로 사용하지 않았다.
+
+핵심 수정은 `r14_p2_q2`의 old/new 밑줄 사실 동시 노출 제거, 번호 없는 r13 문항의 명시적
+책임 행위자 기반 사실 블록 선택, 그리고 `r12_p2_q1_na` 등 선행 사실을 명시적으로 전제하는
+문항의 dependency closure다. 전체 결과와 26문항 분류는
+`experiments/v2_call15_directscope_26_causal/scope_audit.md`가 정본이다.
+
+동일 입력 행의 model nondeterminism을 개선 효과로 세지 않기 위해 실제 scope가 바뀐 3개만
+재실행 결과로 교체한 causal artifact를 만들었다. 결과는 direct 78 bindings, explicit gold
+50/57, safe derived 6 unique/10 physical 전부 gold-relevant, 최종 Call 1 survivor 56/74다.
+이전 51/74보다 5개 늘었다. planner는 top-level 88, neural Call 2 543으로 Cartesian 815/4,998
+대비 각각 89.2%/89.1% 감소다.
+
+새 grouping 감사에서 qualifier component 없이 열리던 세 rule도 제거했다:
+`theft+dwelling -> nighttime dwelling theft`, `theft+dwelling -> special theft`,
+`robbery+dwelling -> special robbery`. host text interpretation은 추가하지 않았고, 동일 episode의
+복수 행위자 theft -> special theft candidate만 유지했다.
+
+남은 50 UNBOUND 전부의 atomic recovery는 8 non-empty였지만 gold 관련은 harboring 한 건뿐이고
+그마저 actor coverage가 불완전하므로 merge하지 않았다. 현재 canonical artifact는
+`experiments/v2_call15_directscope_26_causal/issue_bindings.jsonl`, planner/audit도 같은 디렉터리에
+있다. 검증은 full local `156 passed, 16 skipped`다. job 221593의 live vLLM을 사용했다.
+
+## 2026-08-12 binding-scoped Call 2 / Scallop result
+
+canonical 56/74 binding과 543-target planner를 job 221593 live vLLM에 실행했다. 기존 runner가
+`gold_occurrences` identity를 강제하던 배선을 제거하고 명시적 planner-evidence mode를 추가했다.
+이 모드에서는 offline gold occurrence, factual participant, Article 263 pair가 model input에
+들어가지 않는다. 26/26, 99 physical requests, 543 predicate truths, 16 relation truths, contract
+errors 0이다. TRUE/FALSE/UNKNOWN은 231/46/266이며 이전 Cartesian diagnostic의
+597/31/5,216과 직접 비교 시 candidate pruning 효과와 model accuracy를 혼동하지 않는다.
+
+reviewed partial gold 15개를 source-span으로 binding identity에 offline 재결합한 결과는 match 4,
+undercall 5, semantic error 1, negative target pruned 4, positive target pruned 1이다. positive miss는
+`r10_p1_q2` Article 263 causal-origin-unascertained로, binding-scoped multi-episode relation carrier
+부재가 ownership이다. participation은 기존 5,859 targets/8 rejected에서 0/0이 되었지만 이는
+true-link recall도 없는 상태다. Scallop이 planner를 무시하고 88 participation candidates를
+재생성하던 bug는 고쳐 serialized planner targets만 소비하게 했다.
+
+Scallop은 26/26, 88 instances, established 18, element failure 52, completion failure 18,
+active doctrine 0이다. rubric outside proxy는 4/18이다. 상세 정본은
+`experiments/v2_call15_directscope_26_causal/call2_full_v1/qualitative_audit.md`다. Call 1.5는
+freeze하고 다음 구조적 blocker는 gold 없이 만드는 Article263 multi-binding relation carrier와
+offense-free typed factual participation candidate producer다.
+
+## 2026-08-12 Article 263 binding-pair transport delta
+
+위의 Article 263 blocker는 해결했다. 같은 factual episode의 서로 다른 injury binding이 공통
+factual target을 가질 때만 factual pair candidate를 만들며, host는 Article 263 요건을 판정하지
+않는다. KCL-26에서 후보는 `r10_p1_q2` 甲/乙→B 한 쌍뿐이다. 일반 planner 수치는 문항별
+2~71, 합계 top-level 88 / neural 543 그대로이고 Article 263 전용 요청만 1회 추가됐다.
+
+job 221593 live vLLM 전체 재실행은 26/26, 100 physical requests, projected truth
+TRUE/FALSE/UNKNOWN 236/40/273이다. 전용 모델은 Article 263 세 predicate와 shared injury를
+TRUE로 판정했고 partial gold는 match 5, undercall 5, semantic error 1, negative pruned 4,
+positive pruned 0이 됐다. Scallop은 26/26, established 18, outside proxy 4/18이며 해당 두 injury
+instance는 mental UNKNOWN 때문에 여전히 elements unresolved다.
+
+정본은 `experiments/v2_call15_directscope_26_causal/call2_full_v2/`와
+`experiments/v2_call15_directscope_26_causal/scallop_v2/`다. 검증은 full local
+`159 passed, 16 skipped`다. 다음 구조적 blocker는 offense-free typed factual participation
+candidate producer이며, participation 0은 true-link recall도 0인 상태로 계속 명시한다.
+
+## 2026-08-12 qualitative Scallop / E2E readiness audit
+
+26문항을 rubric과 수작업 대조한 정본은
+`experiments/v2_call15_directscope_26_causal/e2e_readiness_audit.md`다. Call 1 closure는
+74/86, safely bound는 56/86이며 Scallop 실행은 26/26이지만 어떤 establishment라도 있는
+문항은 13/26뿐이다. 88 instances는 established 18 / elements unresolved 42 / elements failed
+10 / completion stop 18이다. 18 establishments 중 보수적으로 약 절반만 rubric과 유용하거나
+부분적으로 일치하고, 나머지는 명시적 rubric 충돌·wrong actor/mode·wrong completion·흡수되지
+않은 base offense다. 이는 정식 accuracy가 아니라 failure-ownership 수작업 판단이다.
+
+정상화된 것은 factual scope audit, binding identity/span, non-Cartesian planner, evidence-gated
+closure, gold-free production evidence, typed UNKNOWN/UNBOUND, Article 263 carrier다. 아직
+정상화되지 않은 것은 target scope 대 dependency context(`r12_p2_q1_na` leakage), participation
+0, canonical indirect-principal 0, active doctrine 0, completion form, absorption/competition이다.
+따라서 milestone은 `normalized grounding pipeline, pre-final-E2E`이며 canonical Call 3/final
+rubric judge를 실행할 단계는 아니다.
+
+## 2026-08-13 card IR / concurrence normalization delta
+
+각론 카드 1,848장과 reviewed issue 383개를 v2 `OffenseInstanceKey`에 연결하는 host-safe bridge를
+추가했다. 기존 issue-first retrieval의 `card -> reviewed parent issue -> article` 경계를 그대로
+재사용하며, current instance의 authored statutory identity로 article scope를 먼저 제한한 뒤 해당
+binding/derived source의 exact episode quote로 issue를 검색한다. issue당 detail card는 최대 2장이다.
+검색 결과는 candidate/context일 뿐 predicate truth, doctrine activation, completion, participation,
+concurrence effect를 만들지 않는다. 기존 Call 1/1.5/1.5-P/Call 2 prompt는 변경하지 않았다.
+
+canonical 87 top-level instance offline audit 결과 71개는 exact article join, 16개 derived instance는
+identity 미작성으로 `UNMAPPED_DERIVED_ARTICLE` 보존이다. physical/unique issue candidate는
+213/107, unique anchor 119, selected detail 210이다. 기능별 physical 분포는 element 133,
+support 27, concurrence 21, guard 18, stage 8, participation 6이다. 이는 카드 활용의 가장 큰
+효과가 현재 Call 2 semantic undercall/UNKNOWN의 구성요건 해석 보강이고, 그 밖에 completion,
+participation, 위법성·책임, 경합·흡수, Call 3 Rule 근거를 단계별로 보완할 수 있음을 보여준다.
+현재 Call 2 UNKNOWN 중 exact article/card join 가능한 것은 199 targets / 64 predicate refs다.
+정본은 `experiments/v2_call15_directscope_26_causal/card_issue_join_v1/`와
+`docs/analysis/v2_card_ir_and_concurrence_normalization_ko.md`다.
+
+DerivedOffenseDef에 identity를 바로 추가하면 frozen Call 1 catalog fingerprint가 바뀌므로 하지
+않았다. 후속 authoring은 router-visible definition 변경이 아니라 reviewed
+`definition_ref -> card article` metadata로 분리해야 한다. atomic card-informed predicate
+reassessment는 기존 Call 2 prompt 수정이므로 정확한 prompt/schema를 먼저 제시하고 사용자
+승인을 받은 뒤 live job 222907에 태워야 한다.
+
+경합·흡수는 occurrence-aware typed reducer 경계를 구현했다. exact DefinitionRef pair와 same
+factual episode가 있어야 후보를 열고, condition TRUE일 때만 absorption/상상적 경합을 적용한다.
+FALSE는 효과 없음, UNKNOWN은 두 instance를 모두 유지한 typed unresolved다. 복수 parent/cycle
+conflict도 host가 고르지 않고 unresolved로 보존한다. legacy `concurrence.yaml` 12개를 감사한
+결과 exact one-to-one article mapping 4, ambiguous 3, missing v2 offense side 5이며 condition card
+10개가 approved issue anchor다. 그러나 source status가 `awaiting_legal_review`이고 exact pair,
+episode constraint, instance-scoped assessment가 아직 authoring되지 않아 production-ready rule은
+0개다. 현재 E2E에는 효과를 발화시키지 않는다. 정본은
+`experiments/v2_call15_directscope_26_causal/concurrence_identity_v1/`다.

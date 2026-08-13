@@ -65,12 +65,15 @@ def _conclusions(row: dict[str, Any], catalog: dict[str, dict[str, Any]]) -> lis
             raise ValueError(f"{row['sub_question_id']}: duplicate symbolic instance")
         seen.add(identity)
         result = value["result"]
+        completion = result.get("completion")
         output.append({
             "actor_id": key["actor_id"],
             "offense_ref": key["offense_ref"],
             "offense_identity": catalog[key["offense_ref"]],
             "occurrence_id": key["occurrence_id"],
-            "completion_state": result["completion"]["state"],
+            "completion_state": (
+                completion["state"] if completion is not None else None
+            ),
             "elements_state": result["elements"]["legal_state"],
             "liability_established": result.get("liability_result") is not None,
             "decisive_stage": result.get("decisive_stage"),
@@ -90,19 +93,38 @@ def main() -> None:
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--max-tokens", type=int, default=8192)
     parser.add_argument("--temperature", type=float, default=0.0)
+    parser.add_argument(
+        "--diagnostic-skip-rejected",
+        action="store_true",
+        help="skip Scallop rows explicitly rejected before symbolic execution",
+    )
     parser.add_argument("--prompt-approved", action="store_true")
     args = parser.parse_args()
     if not args.prompt_approved:
         parser.error("--prompt-approved is required before Call 3")
     inventory = _index(args.inventory)
     scallop = _index(args.scallop_artifact)
-    case_ids = tuple(scallop)
+    rejected_case_ids = tuple(
+        case_id
+        for case_id, row in scallop.items()
+        if row.get("execution_status") == "SKIPPED_REJECTED_PARTICIPATION"
+    )
+    if rejected_case_ids and not args.diagnostic_skip_rejected:
+        raise ValueError(
+            f"rejected Scallop rows cannot enter Call 3: {list(rejected_case_ids)}"
+        )
+    case_ids = tuple(case_id for case_id in scallop if case_id not in rejected_case_ids)
     if tuple(value for value in case_ids if value in inventory) != case_ids:
         raise ValueError("Scallop/inventory case mismatch")
+    gold_case_ids = tuple(
+        str(value["sub_question_id"]) for value in _jsonl(args.gold_occurrences)
+    )
+    if any(case_id not in gold_case_ids for case_id in case_ids):
+        raise ValueError("Scallop case is missing from gold occurrence universe")
     gold = load_gold_occurrences(
         args.gold_occurrences,
         case_text_by_id={key: str(value["question_text"]) for key, value in inventory.items()},
-        required_case_ids=case_ids,
+        required_case_ids=gold_case_ids,
     )
     catalog = _offense_catalog(args.definitions)
     client = VLLMClient(args.base_url, args.model, args.api_key)
@@ -158,6 +180,7 @@ def main() -> None:
         "status": "SUCCEEDED",
         "case_ids": list(case_ids),
         "physical_request_count": len(case_ids),
+        "diagnostic_rejected_case_ids": list(rejected_case_ids),
         "usage": usage_total,
         "scallop_artifact_sha256": _sha256(args.scallop_artifact),
         "gold_occurrences_sha256": _sha256(args.gold_occurrences),

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Materialize occurrence × agents × Step 7 candidates before Call 2."""
+"""Materialize one Call 2 evaluation context per validated Call 1.5 binding."""
 
 from __future__ import annotations
 
@@ -15,12 +15,18 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from idpr.eval.input_formatter import target_fact_source_spans
 from idpr.v2.closure import compile_closure
-from idpr.v2.gold_factual_identity import GoldOccurrenceSet, load_gold_occurrences
+from idpr.v2.issue_binding import (
+    IssueBindingContractError,
+    parse_issue_binding_result,
+    question_actor_ids,
+)
 from idpr.v2.registry import KIND_TO_EXAMPLE_FILE, load_definitions
+from idpr.v2.routing import router_catalog, router_catalog_fingerprint
 from idpr.v2.runtime.evaluation_instance_planner import (
     EvaluationInstancePlannerError,
-    plan_occurrence_aware_evaluation_instances,
+    plan_binding_scoped_evaluation_instances,
 )
 
 FROZEN_STEP7_COMMIT = "62759879019dbcb894f7e274977b07f41957fd45"
@@ -34,6 +40,8 @@ SOURCE_FILES = (
     "src/idpr/v2/gold_factual_identity.py",
     "src/idpr/v2/runtime/evaluation_instance_planner.py",
     "src/idpr/v2/runtime/participation_grounding.py",
+    "src/idpr/v2/runtime/indirect_principal_grounding.py",
+    "src/idpr/v2/runtime/utilized_participant_outcome.py",
     "src/idpr/v2/runtime/completion.py",
     "src/idpr/v2/runtime/scallop_backend.py",
     "scripts/run_v2_evaluation_instance_planner.py",
@@ -110,9 +118,11 @@ def _index_exact(
 
 def _verify_lineage(
     call1_manifest: Mapping[str, Any], definitions_dir: Path, inventory: Path, case_list: Path
-) -> None:
+) -> str:
+    registry = load_definitions(definitions_dir)
+    catalog = router_catalog(registry)
+    current_catalog_sha = router_catalog_fingerprint(catalog)
     expected = {
-        "registry_sha256": _registry_sha256(definitions_dir),
         "inventory_sha256": _sha256(inventory),
         "case_list_sha256": _sha256(case_list),
     }
@@ -123,9 +133,26 @@ def _verify_lineage(
     ]
     closure_sha = _sha256(ROOT / "src/idpr/v2/closure.py")
     if closure_sha != FROZEN_CLOSURE_SHA256:
-        errors.append(f"frozen closure hash mismatch: expected {FROZEN_CLOSURE_SHA256}, got {closure_sha}")
+        errors.append(
+            f"frozen closure hash mismatch: expected {FROZEN_CLOSURE_SHA256}, got {closure_sha}"
+        )
+    recorded_catalog_sha = call1_manifest.get("router_catalog_sha256")
+    if recorded_catalog_sha is not None:
+        if recorded_catalog_sha != current_catalog_sha:
+            errors.append(
+                "Call 1 manifest router_catalog_sha256 mismatch: "
+                f"expected {current_catalog_sha}, got {recorded_catalog_sha!r}"
+            )
+        lineage_mode = "router_catalog_sha256"
+    else:
+        if call1_manifest.get("catalog_definition_ids") != [
+            entry.definition_id for entry in catalog
+        ]:
+            errors.append("legacy Call 1 catalog_definition_ids differ from current router catalog")
+        lineage_mode = "legacy_exact_catalog_definition_ids"
     if errors:
         raise ValueError("; ".join(errors))
+    return lineage_mode
 
 
 def _inventory_index(inventory: Iterable[Mapping[str, Any]], case_ids: tuple[str, ...]) -> dict[str, Mapping[str, Any]]:
@@ -143,36 +170,57 @@ def build_plan_rows(
     *,
     registry: Any,
     call1_rows: Iterable[Mapping[str, Any]],
-    gold_by_id: Mapping[str, GoldOccurrenceSet],
+    call15_rows: Iterable[Mapping[str, Any]],
     inventory_rows: Iterable[Mapping[str, Any]],
     case_ids: tuple[str, ...],
 ) -> list[dict[str, Any]]:
     """Build the exact ordered artifact rows; exposed for focused tests/audit."""
     call1_by_id = _index_exact(call1_rows, case_ids, "Call 1 artifact")
+    call15_by_id = _index_exact(call15_rows, case_ids, "Call 1.5 artifact")
     inventory_by_id = _inventory_index(inventory_rows, case_ids)
     output: list[dict[str, Any]] = []
     for case_id in case_ids:
         call1_row = call1_by_id[case_id]
         if call1_row.get("error"):
             raise ValueError(f"{case_id}: Call 1 row is unsuccessful")
+        call15_row = call15_by_id[case_id]
+        if call15_row.get("error"):
+            raise ValueError(f"{case_id}: Call 1.5 row is unsuccessful")
         seeds = call1_row.get("normalized_seeds")
         if not isinstance(seeds, list) or not seeds:
             raise ValueError(f"{case_id}: missing normalized Call 1 seeds")
-        top10 = tuple(seeds[:10])
-        closure = compile_closure(registry, top10)
         source = inventory_by_id[case_id]
         if not isinstance(source.get("question_text"), str):
             raise TypeError(f"{case_id}: inventory has no string question_text")
-        occurrences = gold_by_id[case_id].occurrences
         try:
-            plan = plan_occurrence_aware_evaluation_instances(
-                registry,
-                closure,
-                case_id=case_id,
-                top10_seeds=top10,
-                occurrences=occurrences,
+            binding_result = parse_issue_binding_result(
+                {
+                    "factual_episodes": call15_row.get("factual_episodes"),
+                    "seed_results": call15_row.get("seed_results"),
+                },
+                seeds=seeds,
+                case_text=str(source["question_text"]),
+                candidate_actor_ids=question_actor_ids(str(source["question_prompt"])),
             )
-        except EvaluationInstancePlannerError as exc:
+            plan = plan_binding_scoped_evaluation_instances(
+                registry,
+                case_id=case_id,
+                bindings=binding_result.bindings,
+                factual_episodes=binding_result.factual_episodes,
+                allowed_candidate_offense_refs=compile_closure(
+                    registry, seeds
+                ).candidate_offense_refs,
+                unbound_seed_refs=(
+                    result.offense_ref
+                    for result in binding_result.seed_results
+                    if not result.bindings
+                ),
+                case_text=str(source["question_text"]),
+                liability_source_spans=target_fact_source_spans(
+                    str(source["question_text"]), str(source["question_prompt"])
+                ),
+            )
+        except (EvaluationInstancePlannerError, IssueBindingContractError) as exc:
             raise ValueError(str(exc)) from exc
         output.append(plan.as_dict())
     return output
@@ -182,7 +230,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--call1-artifact", type=Path, required=True)
     parser.add_argument("--call1-manifest", type=Path, required=True)
-    parser.add_argument("--gold-occurrences", type=Path, required=True)
+    parser.add_argument("--call15-artifact", type=Path, required=True)
     parser.add_argument("--definitions", type=Path, default=DEFAULT_DEFINITIONS)
     parser.add_argument("--inventory", type=Path, default=DEFAULT_INVENTORY)
     parser.add_argument("--case-list", type=Path, default=DEFAULT_CASE_LIST)
@@ -192,20 +240,16 @@ def main() -> None:
     manifest_out = args.manifest_out or args.out.with_suffix(".manifest.json")
 
     call1_manifest = _read_json(args.call1_manifest)
-    _verify_lineage(call1_manifest, args.definitions, args.inventory, args.case_list)
+    call1_catalog_lineage = _verify_lineage(
+        call1_manifest, args.definitions, args.inventory, args.case_list
+    )
     case_ids = _case_ids(args.case_list)
     registry = load_definitions(args.definitions)
     inventory_rows = _read_jsonl(args.inventory)
-    inventory_by_id = _inventory_index(inventory_rows, case_ids)
-    gold_by_id = load_gold_occurrences(
-        args.gold_occurrences,
-        case_text_by_id={key: str(value["question_text"]) for key, value in inventory_by_id.items()},
-        required_case_ids=case_ids,
-    )
     rows = build_plan_rows(
         registry=registry,
         call1_rows=_read_jsonl(args.call1_artifact),
-        gold_by_id=gold_by_id,
+        call15_rows=_read_jsonl(args.call15_artifact),
         inventory_rows=inventory_rows,
         case_ids=case_ids,
     )
@@ -216,8 +260,16 @@ def main() -> None:
             "predicate_scope_instance_count",
             "assessment_instance_count",
             "final_assessment_target_count",
+            "neural_predicate_request_target_count",
             "relation_assessment_target_count",
-            "participation_route_target_count",
+            "participation_local_target_count",
+            "factual_utilization_target_count",
+            "utilized_participant_outcome_target_count",
+            "utilized_participant_predicate_target_count",
+            "derived_binding_candidate_count",
+            "unbound_seed_count",
+            "article263_pair_candidate_count",
+            "context_only_binding_count",
         )
     }
     args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -230,23 +282,37 @@ def main() -> None:
         "status": "SUCCEEDED",
         "git_commit": _git_commit(),
         "planner_source_fingerprint": _source_fingerprint(),
-        "frozen_step7_commit": FROZEN_STEP7_COMMIT,
-        "frozen_closure_sha256": FROZEN_CLOSURE_SHA256,
-        "frontier_seed_rule": "normalized_seeds[:10]",
-        "factual_identity_rule": "manual KCL-26 gold occurrence and actor only",
-        "evaluation_actor_rule": "actor_id of each gold factual occurrence only",
-        "candidate_order_rule": "lexicographic closure.candidate_offense_refs",
+        "binding_rule": (
+            "one validated direct binding plus registry-authored evidence-gated derived "
+            "candidates requiring at least two same-episode same-actor bindings"
+        ),
+        "factual_identity_rule": (
+            "Call 1.5 binding_id and source fragments only; offline gold occurrence and "
+            "participant annotations are not production inputs"
+        ),
+        "evaluation_actor_rule": "actor_id bound by Call 1.5",
+        "candidate_order_rule": (
+            "direct bindings first, then registry-authored derived candidates grouped by "
+            "factual episode and actor"
+        ),
+        "derived_candidate_semantics": (
+            "same factual episode and authored supporting bindings open candidate scope only; "
+            "Call 2 decides predicates and relations"
+        ),
+        "zero_binding_rule": "emit typed UNBOUND_SEED diagnostics; never crash or synthesize a binding",
         "predicate_scope_rule": "scallop_backend._completion_scope_instances parity",
-        "occurrence_rule": "manual gocc IDs; no model-generated identity path",
+        "occurrence_rule": "binding_id is case-time candidate identity; source fragments remain auditable",
         "case_ids": list(case_ids),
         "aggregate_counts": counts,
         "call1_artifact": str(args.call1_artifact),
         "call1_artifact_sha256": _sha256(args.call1_artifact),
         "call1_manifest": str(args.call1_manifest),
         "call1_manifest_sha256": _sha256(args.call1_manifest),
-        "gold_occurrences": str(args.gold_occurrences),
-        "gold_occurrences_sha256": _sha256(args.gold_occurrences),
+        "call15_artifact": str(args.call15_artifact),
+        "call15_artifact_sha256": _sha256(args.call15_artifact),
         "registry_sha256": _registry_sha256(args.definitions),
+        "call1_catalog_lineage": call1_catalog_lineage,
+        "router_catalog_sha256": router_catalog_fingerprint(router_catalog(registry)),
         "inventory_sha256": _sha256(args.inventory),
         "case_list_sha256": _sha256(args.case_list),
     }

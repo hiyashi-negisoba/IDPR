@@ -25,7 +25,11 @@ from typing import Generic, Literal, TypeVar
 
 from idpr.v2.evaluate import TruthValue
 from idpr.v2.runtime.completion import CompletionResult
-from idpr.v2.runtime.identity import OffenseInstanceKey, RuntimeRelationKey
+from idpr.v2.runtime.identity import (
+    FactualParticipantKey,
+    OffenseInstanceKey,
+    RuntimeRelationKey,
+)
 
 ElementsState = Literal["satisfied", "failed", "unresolved"]
 UnlawfulnessState = Literal["preserved", "defeated", "unresolved"]
@@ -125,6 +129,23 @@ class IndirectPrincipalDependencyObligation:
     """Article 34's direction-reversed dependency on the utilised actor's outcome."""
 
     reason: str
+
+
+@dataclass(frozen=True)
+class UtilizedParticipantOutcome:
+    """Typed internal outcome for a factual participant, never ordinary liability output."""
+
+    participant: FactualParticipantKey
+    offense_ref: str
+    status: Literal[
+        "elements_failure",
+        "unlawfulness_defeat",
+        "culpability_defeat",
+        "punishability_defeat",
+        "different_negligence_offense",
+        "liable_exact_offense",
+        "unresolved",
+    ]
 
 
 Obligation = (

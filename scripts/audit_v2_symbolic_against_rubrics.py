@@ -35,6 +35,7 @@ def main() -> None:
     reports = []
     aggregate_truths: Counter[str] = Counter()
     total_established = total_outside = 0
+    skipped_rejected = 0
     for case_id in case_ids:
         truth_counts = Counter(value["truth"] for value in call2[case_id]["case_truths"])
         aggregate_truths.update(truth_counts)
@@ -44,6 +45,9 @@ def main() -> None:
             if value["result"].get("liability_result") is not None
         ]
         rubric_refs = set(gold[case_id]["gold_definition_refs"])
+        execution_status = scallop[case_id].get("execution_status", "SUCCEEDED")
+        if execution_status == "SKIPPED_REJECTED_PARTICIPATION":
+            skipped_rejected += 1
         outside = [value for value in established if value["offense_ref"] not in rubric_refs]
         total_established += len(established)
         total_outside += len(outside)
@@ -53,6 +57,7 @@ def main() -> None:
         )
         reports.append({
             "sub_question_id": case_id,
+            "execution_status": execution_status,
             "rubric_count": int(inventory[case_id].get("rubric_count", 0)),
             "rubric_summary": list(inventory[case_id].get("rubric_summary", [])),
             "rubric_candidate_refs": sorted(rubric_refs),
@@ -76,6 +81,7 @@ def main() -> None:
         "cases_with_outside_establishment": sum(
             bool(value["established_outside_rubric_candidate_counts"]) for value in reports
         ),
+        "skipped_rejected_participation_case_count": skipped_rejected,
     }
     payload = {"aggregate": aggregate, "cases": reports}
     args.json_out.parent.mkdir(parents=True, exist_ok=True)
@@ -95,6 +101,7 @@ def main() -> None:
             f"UNKNOWN {aggregate_truths['UNKNOWN']})"
         ),
         f"- Established instances: {total_established}",
+        f"- Skipped rejected-participation cases: {skipped_rejected}",
         (
             f"- Established outside rubric candidate scope: {total_outside} "
             f"({aggregate['outside_rate']:.1%})"
@@ -104,8 +111,8 @@ def main() -> None:
             f"{aggregate['cases_with_outside_establishment']}/26"
         ),
         "",
-        "| case | truths T/F/U | established | within rubric candidates | outside rubric candidates | proxy |",
-        "|---|---:|---:|---|---|---|",
+        "| case | execution | truths T/F/U | established | within rubric candidates | outside rubric candidates | proxy |",
+        "|---|---|---:|---:|---|---|---|",
     ]
     for value in reports:
         truth = value["truth_counts"]
@@ -116,7 +123,8 @@ def main() -> None:
             f"{key}×{count}" for key, count in value["established_outside_rubric_candidate_counts"].items()
         ) or "—"
         lines.append(
-            f"| `{value['sub_question_id']}` | {truth.get('TRUE', 0)}/{truth.get('FALSE', 0)}/"
+            f"| `{value['sub_question_id']}` | {value['execution_status']} | "
+            f"{truth.get('TRUE', 0)}/{truth.get('FALSE', 0)}/"
             f"{truth.get('UNKNOWN', 0)} | {value['established_instance_count']} | {inside} | "
             f"{outside} | {value['proxy_verdict']} |"
         )

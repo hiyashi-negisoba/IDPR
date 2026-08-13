@@ -3,8 +3,8 @@
 The module lowers validated ``CaseTruths`` through non-``None`` expressions,
 ``CompiledOffense`` elements, existing completion-policy semantics,
 participation adapters, active doctrine effects, and the generic liability
-chain.  Article 263 and the other dedicated statutory routes remain outside
-the generic Step 5 lowering.
+chain. Dedicated Article 263 and Article 34 routes are lowered separately and
+remain outside the generic Step 5 graph.
 """
 
 from __future__ import annotations
@@ -28,11 +28,13 @@ from idpr.v2.registry import DefinitionEntry, DefinitionRegistry
 from idpr.v2.runtime import completion as completion_mod
 from idpr.v2.runtime import pipeline
 from idpr.v2.runtime.identity import OffenseInstanceKey, RuntimeRelationKey
+from idpr.v2.runtime.indirect_principal_grounding import IndirectPrincipalDependency
 from idpr.v2.runtime.stages import (
     AppliedEffect,
     CompletionRequirementObligation,
     ComponentSlotObligation,
     CoPrincipalConstitutiveStatusObligation,
+    IndirectPrincipalDependencyObligation,
     LiabilityEvaluation,
     LiabilityResult,
     ObligationOutcome,
@@ -65,6 +67,7 @@ ELEMENTS_COMPONENT_SLOT_OBLIGATION_QUERY_RELATION = "v2_elements_component_slot_
 ELEMENTS_RELATION_OBLIGATION_QUERY_RELATION = "v2_elements_relation_obligation_truth"
 COMPLETION_REQUIREMENT_OBLIGATION_QUERY_RELATION = "v2_completion_requirement_obligation_truth"
 ARTICLE_263_STATUTORY_DEEMING_QUERY_RELATION = "v2_article_263_statutory_deeming_truth"
+INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION = "v2_indirect_principal_dependency_truth"
 _TRUTHS = frozenset({"TRUE", "FALSE", "UNKNOWN"})
 _DERIVATIVE_MODES = frozenset({"instigator", "aider"})
 _ARTICLE_263_PROBE_REFS = frozenset({
@@ -1390,8 +1393,15 @@ def _completion_scope_instances(roots: Sequence[CompiledOffense], policies: Mapp
             scope = state.get("when_component")
             if scope:
                 wanted.add((scope["local_key"], scope["offense"]))
-            if state.get("component_suspends"):
-                wanted.update((component.local_key, component.source_ref) for component in compiled.components)
+            if state.get("component_suspends") and all(
+                component.component_kind == "offense"
+                and component.resolved_kind in {"offense", "derived_offense"}
+                for component in compiled.components
+            ):
+                wanted.update(
+                    (scope["local_key"], scope["offense"])
+                    for scope in state["component_suspends"]
+                )
         for local_key, offense_ref in wanted:
             scopes.add(completion_mod.component_instance_for(compiled, target, local_key, offense_ref))
     return _normalize_instances(scopes)
@@ -1403,13 +1413,26 @@ def _completion_children(compiled: CompiledOffense, dispositions: Mapping[relati
     component_suspensions = state.get("component_suspends") if state else None
     if component_suspensions:
         by_local = {item["local_key"]: frozenset(item["slots"]) for item in component_suspensions}
-        for component in compiled.components:
-            if component.component_kind != "offense" or component.resolved_kind not in {"offense", "derived_offense"}:
-                raise ScallopBackendContractError("component-scoped completion requires direct offense-family components")
+        offense_family_only = all(
+            component.component_kind == "offense"
+            and component.resolved_kind in {"offense", "derived_offense"}
+            for component in compiled.components
+        )
+        if not offense_family_only:
             for slot in SLOT_NAMES:
-                expression = component.compiled_content.slots[slot]
-                if slot not in global_suspended and slot not in by_local.get(component.local_key, frozenset()) and expression is not None:
-                    children.append((_emit_expression(expression, lines, emitted), component.source_ref))
+                if slot in global_suspended:
+                    continue
+                expression = completion_mod.expression_after_component_suspensions(
+                    compiled, slot, by_local
+                )
+                if expression is not None:
+                    children.append((_emit_expression(expression, lines, emitted), compiled.id))
+        else:
+            for component in compiled.components:
+                for slot in SLOT_NAMES:
+                    expression = component.compiled_content.slots[slot]
+                    if slot not in global_suspended and slot not in by_local.get(component.local_key, frozenset()) and expression is not None:
+                        children.append((_emit_expression(expression, lines, emitted), component.source_ref))
     else:
         for slot in SLOT_NAMES:
             expression = compiled.slots[slot]
@@ -1625,6 +1648,15 @@ def run_article_263_liability_parity_program(
     _validate_instance_roots(roots, instances)
     if instance.offense_ref != compiled_offense.id:
         raise ScallopBackendContractError("Article 263 instance must match its CompiledOffense")
+    # This public route evaluates exactly one injury instance.  Callers naturally
+    # hold case-wide truths, but the single-instance EDB must not register unrelated
+    # instances.  Preserve only this instance's predicate/relation view.
+    truths = CaseTruths(
+        predicate={key: value for key, value in truths.predicate.items() if key[0] == instance},
+        relation={
+            key: value for key, value in truths.relation.items() if key.instance == instance
+        },
+    )
     statutory_expression = _article_263_expression(registry, compiled_offense)
     inputs, order = _normalize_liability_chain_inputs(
         registry, roots, instances, (instance,), (), (), active_doctrines
@@ -1686,6 +1718,156 @@ def run_article_263_liability_parity_program(
     return _adapt_symbolic_chain(
         registry, order, {instance: completion}, {instance: elements}, stages, effects
     )[instance]
+
+
+def compile_indirect_principal_dependency_program() -> str:
+    """Compile the dedicated Article 34 relation/outcome fold.
+
+    This relation is intentionally disjoint from ``v2_derivative_link``: an indirect principal
+    is neither an instigator nor an aider, and its participant endpoint is not an ordinary
+    ``OffenseInstanceKey``.
+    """
+
+    lines = [
+        "// v2 dedicated Article 34 indirect-principal dependency",
+        "type v2_indirect_principal_dependency_input(String, String, String, String, String, String, String)",
+        "type v2_indirect_positive_outcome(String)",
+        "rel v2_indirect_positive_outcome = {(\"elements_failure\"), (\"unlawfulness_defeat\"), (\"culpability_defeat\"), (\"punishability_defeat\"), (\"different_negligence_offense\")}",
+        (
+            f"rel {INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION}(c, a, o, i, p, \"TRUE\") = "
+            "v2_indirect_principal_dependency_input(c, a, o, i, p, \"TRUE\", s), "
+            "v2_indirect_positive_outcome(s)"
+        ),
+        (
+            f"rel {INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION}(c, a, o, i, p, \"FALSE\") = "
+            "v2_indirect_principal_dependency_input(c, a, o, i, p, \"TRUE\", \"liable_exact_offense\")"
+        ),
+        (
+            f"rel {INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION}(c, a, o, i, p, \"UNKNOWN\") = "
+            "v2_indirect_principal_dependency_input(c, a, o, i, p, \"UNKNOWN\", s)"
+        ),
+        (
+            f"rel {INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION}(c, a, o, i, p, \"UNKNOWN\") = "
+            "v2_indirect_principal_dependency_input(c, a, o, i, p, \"TRUE\", \"unresolved\")"
+        ),
+        f"query {INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION}",
+        "",
+    ]
+    return "\n".join(lines)
+
+
+def render_indirect_principal_dependency_edb(
+    registry: DefinitionRegistry,
+    dependencies: Iterable[IndirectPrincipalDependency],
+) -> str:
+    values = tuple(dependencies)
+    if not values or len(values) != len(set(values)):
+        raise ScallopBackendContractError(
+            "indirect-principal dependencies must be nonempty and unique"
+        )
+    rows: list[tuple[str, ...]] = []
+    seen_keys: set[tuple[str, ...]] = set()
+    for value in values:
+        instance = value.utilizer_instance
+        if value.utilized_outcome.participant != value.utilized_participant:
+            raise ScallopBackendContractError("indirect participant endpoint mismatch")
+        if value.utilized_outcome.offense_ref != instance.offense_ref:
+            raise ScallopBackendContractError("indirect exact-offense endpoint mismatch")
+        offense = registry.get(instance.offense_ref)
+        capability = None if offense is None else offense.payload.get(
+            "indirect_principal_capability"
+        )
+        if not isinstance(capability, Mapping) or capability.get("legally_possible") is not True:
+            raise ScallopBackendContractError(
+                "indirect dependency offense lacks explicit capability"
+            )
+        if value.relation_truth not in {"TRUE", "UNKNOWN"}:
+            raise ScallopBackendContractError(
+                "FALSE utilization must not be lowered as a dependency"
+            )
+        row = (
+            *_instance_fields(instance),
+            value.utilized_participant.participant_id,
+            value.relation_truth,
+            value.utilized_outcome.status,
+        )
+        key = row[:5]
+        if key in seen_keys:
+            raise ScallopBackendContractError("duplicate indirect dependency endpoint")
+        seen_keys.add(key)
+        rows.append(row)
+    return _render_edb_relation("v2_indirect_principal_dependency_input", rows)
+
+
+def validate_indirect_principal_dependency_rows(
+    rows: Iterable[Sequence[str]],
+    dependencies: Iterable[IndirectPrincipalDependency],
+) -> Mapping[tuple[OffenseInstanceKey, str], TruthValue]:
+    values = tuple(dependencies)
+    expected = {
+        (*_instance_fields(value.utilizer_instance), value.utilized_participant.participant_id): value
+        for value in values
+    }
+    if len(expected) != len(values):
+        raise ScallopBackendContractError("duplicate expected indirect dependency key")
+    actual: dict[tuple[OffenseInstanceKey, str], TruthValue] = {}
+    by_instance = {_instance_fields(value.utilizer_instance): value.utilizer_instance for value in values}
+    for raw in rows:
+        row = tuple(raw)
+        instance = by_instance.get(row[:4]) if len(row) == 6 else None
+        key = (*row[:4], row[4]) if instance is not None else None
+        dependency = expected.get(key) if key is not None else None
+        if dependency is None or (instance, row[4]) in actual:
+            raise ScallopBackendContractError(
+                "unexpected or duplicate indirect dependency query row"
+            )
+        _validate_truth(row[5], INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION)
+        if row[5] != dependency.truth:
+            raise ScallopBackendContractError(
+                "Scallop indirect dependency disagrees with host compiler"
+            )
+        actual[(instance, row[4])] = row[5]
+    if len(actual) != len(expected):
+        raise ScallopBackendContractError("incomplete indirect dependency query rows")
+    return actual
+
+
+def run_indirect_principal_liability_parity_program(
+    registry: DefinitionRegistry,
+    dependency: IndirectPrincipalDependency,
+    truths: CaseTruths,
+    *,
+    work_dir: Path,
+    active_doctrines: Iterable[str] = (),
+) -> LiabilityEvaluation:
+    """Lower one compiled Article 34 dependency and continue through the normal stage chain."""
+
+    program = compile_indirect_principal_dependency_program()
+    edb = render_indirect_principal_dependency_edb(registry, (dependency,))
+    output = run_program(
+        program + edb,
+        (INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION,),
+        work_dir,
+        name="v2_indirect_principal_dependency",
+    )
+    rows = tuple(
+        tuple(_decode_query_string(value) for value in row)
+        for row in output[INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION]
+    )
+    result = validate_indirect_principal_dependency_rows(rows, (dependency,))
+    truth = result[(dependency.utilizer_instance, dependency.utilized_participant.participant_id)]
+    obligation = IndirectPrincipalDependencyObligation(reason=dependency.reason)
+    outcome = ObligationOutcome(obligation, truth)
+    elements = _elements_stage(truth, (outcome,))
+    return pipeline.resolve_from_elements(
+        registry,
+        frozenset(active_doctrines),
+        dependency.utilizer_instance,
+        None,
+        truths,
+        elements,
+        obligation if truth == "FALSE" else None,
+    )
 
 
 def _article_263_expression(
@@ -2236,19 +2418,36 @@ def _emit_integrated_elements(
     component_suspensions = (state or {}).get("component_suspends")
     if component_suspensions:
         by_local = {item["local_key"]: frozenset(item["slots"]) for item in component_suspensions}
-        for component in compiled.components:
-            if component.component_kind != "offense" or component.resolved_kind not in {"offense", "derived_offense"}:
-                raise ScallopBackendContractError("component-scoped completion requires direct offense-family components")
-            scope = f"c, a, {_scl_string(component.source_ref)}, i"
+        offense_family_only = all(
+            component.component_kind == "offense"
+            and component.resolved_kind in {"offense", "derived_offense"}
+            for component in compiled.components
+        )
+        if not offense_family_only:
+            scope = f"c, a, {_scl_string(compiled.id)}, i"
             for slot in SLOT_NAMES:
-                if slot in suspended or slot in by_local.get(component.local_key, frozenset()):
+                if slot in suspended:
                     continue
-                expression = component.compiled_content.slots[slot]
-                _emit_component_slot_proof(
-                    compiled.id, component.local_key, slot, expression, scope, gate, lines, emitted
+                expression = completion_mod.expression_after_component_suspensions(
+                    compiled, slot, by_local
                 )
+                _emit_slot_proof(compiled.id, slot, expression, scope, gate, lines, emitted)
                 if expression is not None:
-                    children.append((_emit_expression(expression, lines, emitted), scope))
+                    children.append(
+                        (_emit_elements_aware_expression(expression, lines, emitted), scope)
+                    )
+        else:
+            for component in compiled.components:
+                scope = f"c, a, {_scl_string(component.source_ref)}, i"
+                for slot in SLOT_NAMES:
+                    if slot in suspended or slot in by_local.get(component.local_key, frozenset()):
+                        continue
+                    expression = component.compiled_content.slots[slot]
+                    _emit_component_slot_proof(
+                        compiled.id, component.local_key, slot, expression, scope, gate, lines, emitted
+                    )
+                    if expression is not None:
+                        children.append((_emit_expression(expression, lines, emitted), scope))
     else:
         scope = f"c, a, {_scl_string(compiled.id)}, i"
         for slot in SLOT_NAMES:
@@ -2548,7 +2747,11 @@ def _adapt_phased_symbolic_chain(
         )
         aggregate = fold_all(item.truth for item in outcomes)
         if completion_elements[target] != aggregate:
-            raise ScallopBackendContractError("per-obligation fold disagrees with completion Elements truth")
+            raise ScallopBackendContractError(
+                "per-obligation fold disagrees with completion Elements truth: "
+                f"target={target!r}, emitted={completion_elements[target]!r}, "
+                f"folded={aggregate!r}, outcomes={outcomes!r}"
+            )
         elements[target] = _elements_stage(aggregate, outcomes)
 
     active_by_instance = {
@@ -2779,11 +2982,23 @@ def _validate_obligation_rows(
             continue
         compiled = roots_by_id[target.offense_ref]
         if completion.component_suspended_slots:
-            for component in compiled.components:
-                suspended = completion.component_suspended_slots.get(component.local_key, frozenset())
-                for slot in SLOT_NAMES:
-                    if slot not in completion.suspended_slots and slot not in suspended:
-                        expected_components.add((target, component.local_key, slot))
+            offense_family_only = all(
+                component.component_kind == "offense"
+                and component.resolved_kind in {"offense", "derived_offense"}
+                for component in compiled.components
+            )
+            if offense_family_only:
+                for component in compiled.components:
+                    suspended = completion.component_suspended_slots.get(component.local_key, frozenset())
+                    for slot in SLOT_NAMES:
+                        if slot not in completion.suspended_slots and slot not in suspended:
+                            expected_components.add((target, component.local_key, slot))
+            else:
+                expected_slots.update(
+                    (target, slot)
+                    for slot in SLOT_NAMES
+                    if slot not in completion.suspended_slots
+                )
         else:
             expected_slots.update((target, slot) for slot in SLOT_NAMES if slot not in completion.suspended_slots)
         for key, _binding in relation_mod.iter_relation_instances(compiled):
@@ -2846,7 +3061,12 @@ def _direct_obligation_outcomes(
         for ref in sorted(ref for instance, ref in statuses if instance == target):
             satisfying = tuple(sorted((member for instance, member_ref, member in members if instance == target and member_ref == ref), key=_instance_fields))
             outcomes.append(ObligationOutcome(CoPrincipalConstitutiveStatusObligation(ref, satisfying), statuses[(target, ref)]))
-    if completion.component_suspended_slots:
+    offense_family_only = all(
+        component.component_kind == "offense"
+        and component.resolved_kind in {"offense", "derived_offense"}
+        for component in compiled.components
+    )
+    if completion.component_suspended_slots and offense_family_only:
         for component in compiled.components:
             for slot in SLOT_NAMES:
                 key = (target, component.local_key, slot)
@@ -3325,6 +3545,7 @@ __all__ = [
     "ELEMENTS_COMPONENT_SLOT_OBLIGATION_QUERY_RELATION",
     "ELEMENTS_RELATION_OBLIGATION_QUERY_RELATION",
     "ELEMENTS_SLOT_OBLIGATION_QUERY_RELATION",
+    "INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION",
     "OFFENSE_ELEMENTS_QUERY_RELATION",
     "QUERY_RELATION",
     "STAGE_EFFECT_RESULT_QUERY_RELATION",
@@ -3339,19 +3560,23 @@ __all__ = [
     "canonical_expression_serialization",
     "compile_completion_program",
     "compile_expression_program",
+    "compile_indirect_principal_dependency_program",
     "compile_offense_elements_program",
     "compile_participation_stage_program",
     "render_case_truths_edb",
     "render_completion_edb",
+    "render_indirect_principal_dependency_edb",
     "render_offense_elements_edb",
     "render_participation_stage_edb",
     "run_article_263_liability_parity_program",
     "run_expression_parity_program",
+    "run_indirect_principal_liability_parity_program",
     "run_liability_chain_parity_program",
     "run_offense_elements_parity_program",
     "run_participation_stage_parity_program",
     "validate_completion_query_rows",
     "validate_expression_query_rows",
+    "validate_indirect_principal_dependency_rows",
     "validate_offense_elements_query_rows",
     "validate_participation_stage_query_rows",
 ]

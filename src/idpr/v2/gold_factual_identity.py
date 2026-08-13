@@ -16,8 +16,10 @@ class GoldFactualIdentityError(ValueError):
 _OCCURRENCE_ROW_FIELDS = frozenset({"sub_question_id", "occurrences"})
 _OCCURRENCE_FIELDS = frozenset({"occurrence_id", "actor_id", "source_text"})
 _PAIR_ROW_FIELDS = frozenset(
-    {"sub_question_id", "left_occurrence_id", "right_occurrence_id"}
+    {"sub_question_id", "left_occurrence_id", "right_occurrence_id", "relation_source_text"}
 )
+_PARTICIPANT_ROW_FIELDS = frozenset({"sub_question_id", "participants"})
+_PARTICIPANT_FIELDS = frozenset({"participant_id", "participant_label", "source_text"})
 
 
 @dataclass(frozen=True)
@@ -50,16 +52,55 @@ class GoldOccurrenceSet:
 
 
 @dataclass(frozen=True)
+class GoldFactualParticipant:
+    """One source-local person identity with no legal or participation label."""
+
+    participant_id: str
+    participant_label: str
+    source_text: str
+    source_start: int
+    source_end: int
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "participant_id": self.participant_id,
+            "participant_label": self.participant_label,
+            "source_text": self.source_text,
+            "source_span": {"start": self.source_start, "end": self.source_end},
+        }
+
+
+@dataclass(frozen=True)
+class GoldFactualParticipantSet:
+    sub_question_id: str
+    participants: tuple[GoldFactualParticipant, ...]
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "sub_question_id": self.sub_question_id,
+            "participants": [value.as_dict() for value in self.participants],
+        }
+
+
+@dataclass(frozen=True)
 class GoldArticle263PairBinding:
     sub_question_id: str
     left_occurrence_id: str
     right_occurrence_id: str
+    relation_source_text: str
+    relation_source_start: int
+    relation_source_end: int
 
-    def as_dict(self) -> dict[str, str]:
+    def as_dict(self) -> dict[str, Any]:
         return {
             "sub_question_id": self.sub_question_id,
             "left_occurrence_id": self.left_occurrence_id,
             "right_occurrence_id": self.right_occurrence_id,
+            "relation_source_text": self.relation_source_text,
+            "relation_source_span": {
+                "start": self.relation_source_start,
+                "end": self.relation_source_end,
+            },
         }
 
 
@@ -157,6 +198,7 @@ def load_gold_article263_pairs(
     path: Path,
     *,
     occurrences_by_id: Mapping[str, GoldOccurrenceSet],
+    case_text_by_id: Mapping[str, str],
 ) -> tuple[GoldArticle263PairBinding, ...]:
     """Load caller bindings only; an empty file is valid."""
     output: list[GoldArticle263PairBinding] = []
@@ -169,7 +211,11 @@ def load_gold_article263_pairs(
         case_id = row["sub_question_id"]
         left = row["left_occurrence_id"]
         right = row["right_occurrence_id"]
-        if not all(isinstance(value, str) and value for value in (case_id, left, right)):
+        relation_source_text = row["relation_source_text"]
+        if not all(
+            isinstance(value, str) and value
+            for value in (case_id, left, right, relation_source_text)
+        ):
             raise GoldFactualIdentityError(f"pair row {row_number}: fields must be strings")
         occurrence_set = occurrences_by_id.get(case_id)
         if occurrence_set is None:
@@ -177,20 +223,113 @@ def load_gold_article263_pairs(
         known = {value.occurrence_id for value in occurrence_set.occurrences}
         if left == right or left not in known or right not in known:
             raise GoldFactualIdentityError(f"pair row {row_number}: invalid occurrence binding")
+        case_text = case_text_by_id.get(case_id, "")
+        source_start = case_text.find(relation_source_text)
+        if source_start < 0 or case_text.find(relation_source_text, source_start + 1) >= 0:
+            raise GoldFactualIdentityError(
+                f"pair row {row_number}: relation_source_text must occur exactly once"
+            )
         key = (case_id, left, right)
         reverse = (case_id, right, left)
         if key in seen or reverse in seen:
             raise GoldFactualIdentityError(f"pair row {row_number}: duplicate pair")
         seen.add(key)
-        output.append(GoldArticle263PairBinding(case_id, left, right))
+        output.append(
+            GoldArticle263PairBinding(
+                case_id,
+                left,
+                right,
+                relation_source_text,
+                source_start,
+                source_start + len(relation_source_text),
+            )
+        )
     return tuple(output)
+
+
+def load_gold_factual_participants(
+    path: Path, *, case_text_by_id: Mapping[str, str]
+) -> dict[str, GoldFactualParticipantSet]:
+    """Load a sparse, factual-only participant namespace from exact source spans.
+
+    Sparse is intentional: these rows supplement the liable-actor occurrence universe; they do
+    not expand it.  A participant label may coincide with a GOLD occurrence actor, but identity
+    remains the explicit ``fpart:*`` key and is never merged by matching the display label.
+    """
+    output: dict[str, GoldFactualParticipantSet] = {}
+    for row_number, row in enumerate(_read_jsonl(path), 1):
+        if set(row) != _PARTICIPANT_ROW_FIELDS:
+            raise GoldFactualIdentityError(
+                f"participant row {row_number}: allowed fields are "
+                f"{sorted(_PARTICIPANT_ROW_FIELDS)}"
+            )
+        case_id = row["sub_question_id"]
+        raw_values = row["participants"]
+        if not isinstance(case_id, str) or case_id not in case_text_by_id:
+            raise GoldFactualIdentityError(f"participant row {row_number}: unknown case")
+        if case_id in output:
+            raise GoldFactualIdentityError(f"participant row {row_number}: duplicate case")
+        if not isinstance(raw_values, list) or not raw_values:
+            raise GoldFactualIdentityError(f"{case_id}: participants must be nonempty")
+        case_text = case_text_by_id[case_id]
+        participants: list[GoldFactualParticipant] = []
+        seen_labels: set[str] = set()
+        for index, raw in enumerate(raw_values, 1):
+            if not isinstance(raw, Mapping) or set(raw) != _PARTICIPANT_FIELDS:
+                raise GoldFactualIdentityError(
+                    f"{case_id}: participant {index} allowed fields are "
+                    f"{sorted(_PARTICIPANT_FIELDS)}"
+                )
+            participant_id = raw["participant_id"]
+            participant_label = raw["participant_label"]
+            source_text = raw["source_text"]
+            expected_id = f"fpart:{index:03d}"
+            if participant_id != expected_id:
+                raise GoldFactualIdentityError(
+                    f"{case_id}: expected participant_id {expected_id!r}"
+                )
+            if not all(
+                isinstance(value, str) and value.strip()
+                for value in (participant_label, source_text)
+            ):
+                raise GoldFactualIdentityError(
+                    f"{case_id}/{participant_id}: label and source_text must be nonempty"
+                )
+            if participant_label in seen_labels:
+                raise GoldFactualIdentityError(
+                    f"{case_id}/{participant_id}: duplicate participant label"
+                )
+            start = case_text.find(source_text)
+            if start < 0 or case_text.find(source_text, start + 1) >= 0:
+                raise GoldFactualIdentityError(
+                    f"{case_id}/{participant_id}: source_text must occur exactly once"
+                )
+            if participant_label not in source_text:
+                raise GoldFactualIdentityError(
+                    f"{case_id}/{participant_id}: source_text must contain participant label"
+                )
+            seen_labels.add(participant_label)
+            participants.append(
+                GoldFactualParticipant(
+                    participant_id,
+                    participant_label,
+                    source_text,
+                    start,
+                    start + len(source_text),
+                )
+            )
+        output[case_id] = GoldFactualParticipantSet(case_id, tuple(participants))
+    return output
 
 
 __all__ = [
     "GoldArticle263PairBinding",
     "GoldFactualIdentityError",
+    "GoldFactualParticipant",
+    "GoldFactualParticipantSet",
     "GoldOccurrence",
     "GoldOccurrenceSet",
     "load_gold_article263_pairs",
+    "load_gold_factual_participants",
     "load_gold_occurrences",
 ]

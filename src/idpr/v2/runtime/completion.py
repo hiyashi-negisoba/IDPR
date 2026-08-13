@@ -28,8 +28,9 @@ provenance -- it does not pick a winner.
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass, field
-from typing import Literal, Mapping
+from typing import Literal
 
 from idpr.v2 import expressions
 from idpr.v2.compile import CompiledOffense
@@ -273,6 +274,51 @@ def _resolve_component_suspensions(state_policy: Mapping[str, object]) -> dict[s
     }
 
 
+def expression_after_component_suspensions(
+    compiled: CompiledOffense,
+    slot: str,
+    component_suspensions: Mapping[str, frozenset[str]],
+) -> CanonicalExpr:
+    """Remove explicitly suspended offense-component conjuncts from one merged slot.
+
+    This is used only for mixed direct COMPOSE offenses, where primitive/bundle components do not
+    have their own predicate view.  Compilation assembles component contributions with ALL; a
+    suspension must therefore match one exact compiled conjunct.  Anything else is rejected rather
+    than approximated.
+    """
+
+    expression = compiled.slots.get(slot)
+    removals: list[CanonicalExpr] = []
+    for local_key, slots in component_suspensions.items():
+        if slot not in slots:
+            continue
+        component = next(
+            (value for value in compiled.components if value.local_key == local_key), None
+        )
+        if (
+            component is None
+            or component.component_kind != "offense"
+            or component.resolved_kind not in ("offense", "derived_offense")
+        ):
+            raise ValueError("component suspension endpoint is not offense-family")
+        removal = component.compiled_content.slots.get(slot)
+        if removal is None:
+            raise ValueError("component suspension has no contribution to its slot")
+        removals.append(removal)
+    for removal in removals:
+        if expression == removal:
+            expression = None
+            continue
+        if not (isinstance(expression, tuple) and expression[0] == "all"):
+            raise ValueError("component suspension does not match a merged ALL conjunct")
+        children = set(expression[1])
+        if removal not in children:
+            raise ValueError("component suspension conjunct is absent from merged slot")
+        children.remove(removal)
+        expression = expressions.combine_all(*children)
+    return expression
+
+
 def _derive_state(outcomes: tuple[CompletionCandidateOutcome, ...]) -> CompletionState:
     """Set cardinalities only -- no ordering, no priority, no fallback.
 
@@ -335,9 +381,10 @@ __all__ = [
     "DERIVABLE_STATES",
     "CompletionCandidateOutcome",
     "CompletionResult",
-    "component_instance_for",
     "CompletionState",
     "RelationDisposition",
     "completion_policy_for",
+    "component_instance_for",
+    "expression_after_component_suspensions",
     "resolve_completion",
 ]

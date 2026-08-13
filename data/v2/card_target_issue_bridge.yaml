@@ -1,0 +1,59 @@
+version: 1
+status: reviewed_for_ab_experiment
+scope: legal_element_only
+description: >-
+  V2 legal-element target를 reviewed card issue에 결박하는 명시적 실험 bridge.
+  검색 점수로 parent issue를 선택하지 않는다. 한 route가 없는 target은 카드 증강에서 제외한다.
+routes:
+  - {offense_ref: offense.public_document_forgery, predicate_ref: legal_element.alteration_of_genuine_document, issue_id: art225.Ⅲ.2.element_issue}
+  - {offense_ref: offense.private_document_forgery, predicate_ref: legal_element.alteration_of_genuine_document, issue_id: art231.Ⅲ.3.element_issue}
+  - {offense_ref: offense.bribery_taking, predicate_ref: legal_element.appropriation_intent_of_bribe, issue_id: art129.Ⅰ.2.element_issue}
+  - {offense_ref: offense.ancestral_homicide, predicate_ref: legal_element.awareness_of_lineal_ascendant_status, issue_id: art250.Ⅱ.8.element_issue}
+  - {offense_ref: offense.negligent_homicide, predicate_ref: legal_element.breach_of_duty, issue_id: art267.Ⅱ.element_issue}
+  - {offense_ref: offense.negligent_homicide, predicate_ref: legal_element.duty_of_care, issue_id: art267.Ⅱ.element_issue}
+  - {offense_ref: offense.negligent_homicide, predicate_ref: legal_element.foreseeability, issue_id: art267.Ⅱ.element_issue}
+  - {offense_ref: offense.negligent_homicide, predicate_ref: legal_element.result_causation, issue_id: art267.Ⅱ.element_issue}
+  - {offense_ref: offense.breach_of_trust, predicate_ref: legal_element.breach_of_trust_conduct, issue_id: art355.Ⅲ.2.element_issue}
+  - {offense_ref: offense.breach_of_trust, predicate_ref: legal_element.duty_of_other_affairs, issue_id: art355.Ⅲ.0a.element_issue}
+  - {offense_ref: offense.breach_of_trust, predicate_ref: legal_element.property_loss_or_concrete_risk, issue_id: art355.Ⅲ.2.element_issue}
+  - {offense_ref: offense.breach_of_trust, predicate_ref: legal_element.intent, issue_id: art355.Ⅳ.1b.element_issue}
+  - {offense_ref: offense.rape, predicate_ref: legal_element.coercion_induced_sexual_act_causation, issue_id: art297.Ⅳ.element_issue}
+  - {offense_ref: offense.rape, predicate_ref: legal_element.coercion_sufficiency_for_rape, issue_id: art297.Ⅳ.element_issue}
+  - {offense_ref: offense.obstruction_of_right_exercise, predicate_ref: legal_element.concealment_conduct, issue_id: art323.Ⅱ.3.element_issue}
+  - {offense_ref: offense.obstruction_of_right_exercise, predicate_ref: legal_element.damage_conduct, issue_id: art323.Ⅱ.3.element_issue}
+  - {offense_ref: offense.obstruction_of_right_exercise, predicate_ref: legal_element.obstruction_of_right_exercise, issue_id: art323.Ⅱ.3.element_issue}
+  - {offense_ref: offense.obstruction_of_right_exercise, predicate_ref: legal_element.taking_of_own_property_conduct, issue_id: art323.Ⅱ.3.element_issue}
+  - {offense_ref: offense.obstruction_of_right_exercise, predicate_ref: legal_element.third_party_possession_or_right_object, issue_id: art323.Ⅱ.2.element_issue}
+  - {offense_ref: offense.dereliction_of_duty, predicate_ref: legal_element.concrete_risk_at_time_of_conduct, issue_id: art122.Ⅱ.2.element_issue}
+  - {offense_ref: offense.dereliction_of_duty, predicate_ref: legal_element.conscious_abandonment_intent, issue_id: art122.Ⅱ.3.element_issue}
+  - {offense_ref: offense.dereliction_of_duty, predicate_ref: legal_element.duty_has_concrete_lawful_basis, issue_id: art122.Ⅱ.2.element_issue}
+  - {offense_ref: offense.dereliction_of_duty, predicate_ref: legal_element.public_official_status, issue_id: art122.Ⅱ.1.element_issue}
+  - {offense_ref: offense.embezzlement, predicate_ref: legal_element.custody_of_anothers_property, issue_id: art355.Ⅲ.1.element_issue}
+  - {offense_ref: offense.embezzlement, predicate_ref: legal_element.entrustment_relationship, issue_id: art355.Ⅲ.1.element_issue}
+  - {offense_ref: offense.embezzlement, predicate_ref: legal_element.embezzlement_manifestation, issue_id: art355.Ⅲ.3.element_issue}
+  - {offense_ref: offense.embezzlement, predicate_ref: legal_element.unlawful_appropriation_intent, issue_id: art355.Ⅳ.2.element_issue}
+  - {offense_ref: offense.harboring_or_escape, predicate_ref: legal_element.for_the_offenders_benefit, issue_id: art151.Ⅱ.2.element_issue}
+  - {offense_ref: offense.harboring_or_escape, predicate_ref: legal_element.intent, issue_id: art151.Ⅱ.2.element_issue}
+  - {offense_ref: offense.harboring_or_escape, predicate_ref: legal_element.omission_requires_guarantor_status, issue_id: art151.Ⅱ.2.element_issue}
+  - {offense_ref: offense.private_document_forgery, predicate_ref: legal_element.forgery_without_authority, issue_id: art231.Ⅲ.2.element_issue}
+  - {offense_ref: offense.seal_forgery_or_misuse, predicate_ref: legal_element.forgery_without_authority, issue_id: art239.Ⅰ.3.element_issue}
+  - {offense_ref: offense.homicide, predicate_ref: legal_element.intent, issue_id: art250.Ⅰ.15.element_issue}
+  - {offense_ref: offense.homicide, predicate_ref: legal_element.result_causation, issue_id: art250.Ⅰ.14.element_issue}
+  - {offense_ref: offense.injury, predicate_ref: legal_element.intent, issue_id: art257.Ⅰ.4.element_issue}
+  - {offense_ref: offense.injury, predicate_ref: legal_element.natural_person_victim_status, issue_id: art257.Ⅰ.2.element_issue}
+  - {offense_ref: offense.property_damage, predicate_ref: legal_element.object_ownership_other, issue_id: art366.Ⅲ.1.element_issue}
+  - {offense_ref: offense.property_damage, predicate_ref: legal_element.utility_impairment, issue_id: art366.Ⅲ.2.element_issue}
+  - {offense_ref: offense.dwelling_intrusion, predicate_ref: legal_element.dwelling_or_managed_premises_object, issue_id: art319.Ⅱ.element_issue}
+  - {offense_ref: offense.dwelling_intrusion, predicate_ref: legal_element.trespass_entry, issue_id: art319.Ⅲ.element_issue}
+  - {offense_ref: offense.theft, predicate_ref: legal_element.possession, issue_id: art329.Ⅱ.element_issue}
+  - {offense_ref: offense.robbery, predicate_ref: legal_element.possession, issue_id: art333.Ⅲ.element_issue}
+  - {offense_ref: offense.robbery, predicate_ref: legal_element.robbery_level_violence, issue_id: art333.Ⅱ.3.element_issue}
+  - {offense_ref: offense.false_public_document_creation, predicate_ref: legal_element.purpose_to_use_as_genuine, issue_id: art227.Ⅴ.element_issue}
+  - {offense_ref: offense.private_document_forgery, predicate_ref: legal_element.purpose_to_use_as_genuine, issue_id: art231.Ⅳ.2.element_issue}
+  - {offense_ref: offense.seal_forgery_or_misuse, predicate_ref: legal_element.purpose_to_use_as_genuine, issue_id: art239.Ⅰ.4.element_issue}
+  - {offense_ref: offense.bribery_taking, predicate_ref: legal_element.quid_pro_quo, issue_id: art129.Ⅰ.1.element_issue}
+  - {offense_ref: offense.third_party_bribery, predicate_ref: legal_element.solicitation_impropriety, issue_id: art130.Ⅱ.1.element_issue}
+  - {offense_ref: offense.third_party_bribery, predicate_ref: legal_element.solicitation_received, issue_id: art130.Ⅱ.2.element_issue}
+  - {offense_ref: offense.theft, predicate_ref: legal_element.unlawful_appropriation_intent, issue_id: art329.Ⅴ.element_issue}
+  - {offense_ref: offense.robbery, predicate_ref: legal_element.unlawful_appropriation_intent, issue_id: art333.Ⅴ.element_issue}
+  - {offense_ref: offense.extortion, predicate_ref: legal_element.unlawful_appropriation_intent, issue_id: art350.Ⅸ.element_issue}
