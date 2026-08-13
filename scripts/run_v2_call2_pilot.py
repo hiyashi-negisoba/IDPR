@@ -143,6 +143,19 @@ def _instances(row: Mapping[str, Any]) -> tuple[OffenseInstanceKey, ...]:
     )
 
 
+def _episode_by_occurrence(row: Mapping[str, Any]) -> dict[str, str]:
+    """occurrence_id -> factual_episode_id, so GroundFact dedup sees the episode, not the binding.
+
+    Predicate-scope instances always inherit their top-level instance's occurrence_id
+    (`_component_scopes` in the planner enforces this), so provenance recorded per top-level
+    instance already covers every occurrence_id in `assessment_instances`.
+    """
+    return {
+        str(value["instance_key"]["occurrence_id"]): str(value["factual_episode_id"])
+        for value in row.get("instance_provenance", ())
+    }
+
+
 def _article263_pair_candidates(
     row: Mapping[str, Any],
 ) -> tuple[Article263OccurrencePair, ...]:
@@ -444,7 +457,10 @@ def main() -> None:
         )
         if args.smoke_target_limit is not None and args.smoke_target_limit <= 0:
             raise ValueError("--smoke-target-limit must be positive")
-        request_targets = grounding_request_targets(registry, targets)
+        episode_by_occurrence = _episode_by_occurrence(plan_row)
+        request_targets = grounding_request_targets(
+            registry, targets, episode_by_occurrence=episode_by_occurrence
+        )
         shards = shard_assessment_targets_by_occurrence(
             request_targets, max_targets=args.max_targets_per_request
         )
@@ -497,7 +513,10 @@ def main() -> None:
                 },
             })
         assessments = expand_ground_fact_assessments(
-            registry, request_assessments, expected_targets=targets
+            registry,
+            request_assessments,
+            expected_targets=targets,
+            episode_by_occurrence=episode_by_occurrence,
         )
         truths = case_truths_from_assessments(assessments, expected_targets=targets)
         planned_relation_targets = _relation_targets(plan_row)

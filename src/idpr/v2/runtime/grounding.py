@@ -121,15 +121,32 @@ def assessment_targets(
     return tuple(AssessmentTarget(instance, ref) for instance in instance_values for ref in refs)
 
 
-def grounding_request_targets(
-    registry: DefinitionRegistry, targets: Iterable[AssessmentTarget]
-) -> tuple[AssessmentTarget, ...]:
-    """Deduplicate GroundFact questions at factual-occurrence identity.
+def _episode_of(instance: OffenseInstanceKey, episode_by_occurrence: Mapping[str, str]) -> str:
+    """A GroundFact is about the factual episode, not the binding that happened to raise it.
 
-    A GroundFact cannot change because the same occurrence is later consumed by another offense.
+    Two offense instances built from different bindings (e.g. a base and a derived offense) can
+    still be the same factual episode; `episode_by_occurrence` carries that identity in from the
+    planner, which is the only place it is honestly known.  Absent an entry, `occurrence_id`
+    itself stands in as the episode, which reproduces the pre-canonicalization behaviour for
+    callers that have not yet threaded episode identity through.
+    """
+    return episode_by_occurrence.get(instance.occurrence_id, instance.occurrence_id)
+
+
+def grounding_request_targets(
+    registry: DefinitionRegistry,
+    targets: Iterable[AssessmentTarget],
+    *,
+    episode_by_occurrence: Mapping[str, str] | None = None,
+) -> tuple[AssessmentTarget, ...]:
+    """Deduplicate GroundFact questions at factual-episode identity.
+
+    A GroundFact cannot change because the same episode is later consumed by another offense
+    instance, whether that instance shares the raising binding or was derived from it.
     LegalElements remain offense-instance local.  The first ground-fact target is retained only as
     an internal projection anchor; its offense id is not exposed in the neural payload.
     """
+    episodes = episode_by_occurrence or {}
     output: list[AssessmentTarget] = []
     seen_ground: set[tuple[str, str, str, str]] = set()
     seen_targets: set[AssessmentTarget] = set()
@@ -143,7 +160,7 @@ def grounding_request_targets(
             key = (
                 instance.case_id,
                 instance.actor_id,
-                instance.occurrence_id,
+                _episode_of(instance, episodes),
                 target.predicate_ref,
             )
             if key in seen_ground:
@@ -162,10 +179,14 @@ def expand_ground_fact_assessments(
     assessments: Iterable[PredicateAssessment],
     *,
     expected_targets: Iterable[AssessmentTarget],
+    episode_by_occurrence: Mapping[str, str] | None = None,
 ) -> tuple[PredicateAssessment, ...]:
-    """Project each occurrence-level GroundFact answer to all consuming offense instances."""
+    """Project each episode-level GroundFact answer to all consuming offense instances."""
+    episodes = episode_by_occurrence or {}
     expected = tuple(expected_targets)
-    request_targets = grounding_request_targets(registry, expected)
+    request_targets = grounding_request_targets(
+        registry, expected, episode_by_occurrence=episodes
+    )
     values = tuple(assessments)
     if tuple(value.target for value in values) != request_targets:
         raise GroundingContractError(
@@ -181,7 +202,7 @@ def expand_ground_fact_assessments(
             (
                 instance.case_id,
                 instance.actor_id,
-                instance.occurrence_id,
+                _episode_of(instance, episodes),
                 value.target.predicate_ref,
             )
         ] = value.truth
@@ -192,7 +213,7 @@ def expand_ground_fact_assessments(
             key = (
                 instance.case_id,
                 instance.actor_id,
-                instance.occurrence_id,
+                _episode_of(instance, episodes),
                 target.predicate_ref,
             )
             output.append(PredicateAssessment(target, shared[key]))

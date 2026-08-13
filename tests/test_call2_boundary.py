@@ -164,3 +164,38 @@ def test_ground_fact_is_asked_once_then_projected_to_all_offense_consumers() -> 
         REGISTRY, request_assessments, expected_targets=semantic_targets
     )
     assert [value.truth for value in expanded] == ["TRUE", "TRUE", "FALSE"]
+
+
+def test_ground_fact_dedups_across_bindings_that_share_a_factual_episode() -> None:
+    """A base and a derived offense are separate bindings but can be the same episode.
+
+    This is the exact shape of the r10_p1_q1_ga cross-instance conflict: rape (binding:002) and
+    aggravated-result rape (binding:004) both raise `ground_fact.vaginal_intercourse_conduct`
+    about factual_episode:002.  Without episode identity the two bindings look unrelated and the
+    same GroundFact gets asked twice, with no guarantee the two answers agree.
+    """
+    base = AssessmentTarget(
+        OffenseInstanceKey("case", "甲", "offense.rape", "binding:002"),
+        "ground_fact.vaginal_intercourse_conduct",
+    )
+    derived = AssessmentTarget(
+        OffenseInstanceKey(
+            "case", "甲", "derived_offense.rape_causing_injury_by_aggravated_result", "binding:004"
+        ),
+        "ground_fact.vaginal_intercourse_conduct",
+    )
+    episode_by_occurrence = {"binding:002": "factual_episode:002", "binding:004": "factual_episode:002"}
+
+    request_targets = grounding_request_targets(
+        REGISTRY, (base, derived), episode_by_occurrence=episode_by_occurrence
+    )
+    assert request_targets == (base,)
+
+    request_assessments = validate_call2_output({"truths": ["TRUE"]}, targets=request_targets)
+    expanded = expand_ground_fact_assessments(
+        REGISTRY,
+        request_assessments,
+        expected_targets=(base, derived),
+        episode_by_occurrence=episode_by_occurrence,
+    )
+    assert [value.truth for value in expanded] == ["TRUE", "TRUE"]

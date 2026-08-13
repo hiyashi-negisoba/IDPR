@@ -720,6 +720,7 @@ def plan_binding_scoped_evaluation_instances(
         grounding_request_targets(
             registry,
             tuple(AssessmentTarget(instance, ref) for instance, ref in target_values),
+            episode_by_occurrence=episode_by_binding_id,
         )
     )
     relation_targets = relation_assessment_targets(registry, assessment)
