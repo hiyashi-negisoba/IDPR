@@ -263,6 +263,12 @@
       base_offense_ref: offense.homicide
       status_ref: legal_element.lineal_ascendant_of_self_or_spouse_status
       applies_to_modes: [instigator, aider, co_principal]
+      probe:
+        applies_to: participation_candidate
+        requires:
+          # 가담자 본인의 신분. 정범의 신분이 아니다.
+          - {ref: legal_element.lineal_ascendant_of_self_or_spouse_status, supply: neural_predicate}
+        unresolved_marker: UNRESOLVED_AGGRAVATING_STATUS
   elements:
     object: {op: ref, ref: legal_element.lineal_ascendant_of_self_or_spouse_status}
     conduct: {op: ref, ref: ground_fact.killing_conduct}

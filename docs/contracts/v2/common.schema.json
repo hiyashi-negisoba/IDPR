@@ -7,32 +7,58 @@
       "pattern": "^[a-z][a-z0-9_.-]*$",
       "description": "Snake_case dotted identifier, same convention as v1's docs/contracts/rule_ir.schema.json predicate/rule ids."
     },
-
     "fixed_slot_name": {
-      "enum": ["subject", "object", "conduct", "circumstance", "result", "causation", "mental"],
+      "enum": [
+        "subject",
+        "object",
+        "conduct",
+        "circumstance",
+        "result",
+        "causation",
+        "mental"
+      ],
       "description": "v2.1.0 section 6, Fixed Offense Slots."
     },
-
     "stage": {
-      "enum": ["elements", "unlawfulness", "culpability", "punishability"],
+      "enum": [
+        "elements",
+        "unlawfulness",
+        "culpability",
+        "punishability"
+      ],
       "description": "v2.1.0 section 12, Stage Type System."
     },
-
     "source_ref": {
       "type": "object",
-      "required": ["comment_id", "section_path", "quote"],
+      "required": [
+        "comment_id",
+        "section_path",
+        "quote"
+      ],
       "additionalProperties": false,
       "properties": {
-        "comment_id": { "type": "string", "minLength": 1 },
-        "section_path": { "type": "string", "minLength": 1 },
-        "quote": { "type": "string", "minLength": 1, "maxLength": 300 }
+        "comment_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "section_path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "quote": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 300
+        }
       },
       "description": "Same shape as v1's rule_ir.schema.json $defs.source_ref, reused unchanged for provenance."
     },
-
     "authority_ref": {
       "type": "object",
-      "required": ["authority_basis", "citation"],
+      "required": [
+        "authority_basis",
+        "citation"
+      ],
       "additionalProperties": false,
       "properties": {
         "authority_basis": {
@@ -45,108 +71,181 @@
           ],
           "description": "Provisional enum, carried over from v1 norm_card_set authority_basis values plus statute_text/judicial_precedent/academic_theory added for v2. Open Question #10 (v2.1.0 section 25) — the full authority/provenance schema is not yet finalized; this is a first cut for schema-validation purposes."
         },
-        "citation": { "type": "string", "minLength": 1 },
-        "note": { "type": "string" }
+        "citation": {
+          "type": "string",
+          "minLength": 1
+        },
+        "note": {
+          "type": "string"
+        }
       }
     },
-
     "element_expression": {
       "description": "v2.1.0 section 8, Element Expression Grammar. Recursive tree: a leaf 'ref' node, or ALL/ANY/NOT/ONE_OF combining sub-expressions. Used uniformly wherever the design doc's prose shows either a full expression tree (OffenseDef slots) or a flat conjunctive list (ElementBundleDef.requires, DoctrineDef.requires examples) — this schema treats the flat-list examples as the implicit-ALL degenerate case of the same grammar, so there is exactly one requirement grammar across the whole Definition Layer.",
       "oneOf": [
-        { "$ref": "#/$defs/element_ref_expr" },
-        { "$ref": "#/$defs/all_expr" },
-        { "$ref": "#/$defs/any_expr" },
-        { "$ref": "#/$defs/not_expr" },
-        { "$ref": "#/$defs/one_of_expr" }
+        {
+          "$ref": "#/$defs/element_ref_expr"
+        },
+        {
+          "$ref": "#/$defs/all_expr"
+        },
+        {
+          "$ref": "#/$defs/any_expr"
+        },
+        {
+          "$ref": "#/$defs/not_expr"
+        },
+        {
+          "$ref": "#/$defs/one_of_expr"
+        }
       ]
     },
     "element_ref_expr": {
       "type": "object",
-      "required": ["op", "ref"],
+      "required": [
+        "op",
+        "ref"
+      ],
       "additionalProperties": false,
       "properties": {
-        "op": { "const": "ref" },
-        "ref": { "$ref": "#/$defs/id" }
+        "op": {
+          "const": "ref"
+        },
+        "ref": {
+          "$ref": "#/$defs/id"
+        }
       }
     },
     "all_expr": {
       "type": "object",
-      "required": ["op", "args"],
+      "required": [
+        "op",
+        "args"
+      ],
       "additionalProperties": false,
       "properties": {
-        "op": { "const": "all" },
+        "op": {
+          "const": "all"
+        },
         "args": {
           "type": "array",
           "minItems": 2,
-          "items": { "$ref": "#/$defs/element_expression" }
+          "items": {
+            "$ref": "#/$defs/element_expression"
+          }
         }
       }
     },
     "any_expr": {
       "type": "object",
-      "required": ["op", "args"],
+      "required": [
+        "op",
+        "args"
+      ],
       "additionalProperties": false,
       "properties": {
-        "op": { "const": "any" },
+        "op": {
+          "const": "any"
+        },
         "args": {
           "type": "array",
           "minItems": 2,
-          "items": { "$ref": "#/$defs/element_expression" }
+          "items": {
+            "$ref": "#/$defs/element_expression"
+          }
         }
       }
     },
     "not_expr": {
       "type": "object",
-      "required": ["op", "arg"],
+      "required": [
+        "op",
+        "arg"
+      ],
       "additionalProperties": false,
       "properties": {
-        "op": { "const": "not" },
-        "arg": { "$ref": "#/$defs/element_expression" }
+        "op": {
+          "const": "not"
+        },
+        "arg": {
+          "$ref": "#/$defs/element_expression"
+        }
       },
       "description": "v2.1.0 section 8.4 / 4.3 — strong negation only. NOT never converts unresolved/missing evidence into satisfaction; that is a runtime-evaluation invariant enforced by the type checker (step 2), not something this structural schema can check."
     },
     "one_of_expr": {
       "type": "object",
-      "required": ["op", "args"],
+      "required": [
+        "op",
+        "args"
+      ],
       "additionalProperties": false,
       "properties": {
-        "op": { "const": "one_of" },
+        "op": {
+          "const": "one_of"
+        },
         "args": {
           "type": "array",
           "minItems": 2,
-          "items": { "$ref": "#/$defs/element_expression" }
+          "items": {
+            "$ref": "#/$defs/element_expression"
+          }
         }
       },
       "description": "v2.1.0 section 8.3 — restricted operator, exactly-one-of mutually exclusive legal alternatives. Not a default-choice operator."
     },
-
     "stage_effect": {
       "description": "v2.1.0 section 11 / 17.4, runtime legal effect algebra. BAR is deliberately not a member (section 11: 'BAR는 v2.1.0 core operator로 두지 않는다').",
       "oneOf": [
-        { "$ref": "#/$defs/defeat_effect" },
-        { "$ref": "#/$defs/modify_effect" },
-        { "$ref": "#/$defs/exempt_effect" }
+        {
+          "$ref": "#/$defs/defeat_effect"
+        },
+        {
+          "$ref": "#/$defs/modify_effect"
+        },
+        {
+          "$ref": "#/$defs/exempt_effect"
+        }
       ]
     },
     "defeat_effect": {
       "type": "object",
-      "required": ["effect", "stage"],
+      "required": [
+        "effect",
+        "stage"
+      ],
       "additionalProperties": false,
       "properties": {
-        "effect": { "const": "DEFEAT" },
+        "effect": {
+          "const": "DEFEAT"
+        },
         "stage": {
-          "enum": ["unlawfulness", "culpability"],
+          "enum": [
+            "unlawfulness",
+            "culpability"
+          ],
           "description": "Section 12.1: Elements is an aggregation result, not a stage a doctrine effect defeats — so 'elements' is intentionally excluded here."
         }
       }
     },
     "modify_effect": {
       "type": "object",
-      "required": ["effect", "stage", "modifier_ref"],
+      "required": [
+        "effect",
+        "stage",
+        "modifier_ref"
+      ],
       "additionalProperties": false,
       "properties": {
-        "effect": { "const": "MODIFY" },
-        "stage": { "enum": ["culpability", "punishability"] },
+        "effect": {
+          "const": "MODIFY"
+        },
+        "stage": {
+          "enum": [
+            "culpability",
+            "punishability"
+          ]
+        },
         "modifier_ref": {
           "$ref": "#/$defs/id",
           "description": "Reference to a modifier kind, e.g. 'modifier.culpability.diminished'. Open Question #4 (v2.1.0 section 25) — the full typed MODIFY payload taxonomy (ModifierDef with its own shape/parameters) is not yet designed, but the id itself must be a symbolic reference, not prose: 2026-08-08 review found that a free-text 'modification' field would leave the symbolic runtime with no way to interpret MODIFY<S, \"책임이 다소 줄어듦\">-style values, defeating the whole point of a typed effect algebra. Human-readable explanation belongs in 'note' instead."
@@ -159,45 +258,120 @@
     },
     "exempt_effect": {
       "type": "object",
-      "required": ["effect", "stage"],
+      "required": [
+        "effect",
+        "stage"
+      ],
       "additionalProperties": false,
       "properties": {
-        "effect": { "const": "EXEMPT" },
-        "stage": { "const": "punishability" }
+        "effect": {
+          "const": "EXEMPT"
+        },
+        "stage": {
+          "const": "punishability"
+        }
       }
     },
-
     "relation_evaluation": {
-      "enum": ["structural", "evaluative"],
+      "enum": [
+        "structural",
+        "evaluative"
+      ],
       "description": "v2.1.0 section 10.1/10.2 — determines whether the runtime evaluates this relation symbolically or routes it to neural LegalElementAssessment."
     },
-
     "conclusion_type": {
-      "enum": ["offense_realization", "offense_establishment", "liability_result"],
+      "enum": [
+        "offense_realization",
+        "offense_establishment",
+        "liability_result"
+      ],
       "description": "v2.1.0 section 13, Intermediate Legal Conclusions — the three typed conclusion levels a derivative-participation dependency (section 15.3/15.4) can require."
     },
-
     "participation_mode": {
-      "enum": ["principal", "co_principal", "instigator", "aider"],
+      "enum": [
+        "principal",
+        "co_principal",
+        "instigator",
+        "aider"
+      ],
       "description": "v2.1.0 section 15.1."
     },
     "participation_basis": {
-      "enum": ["direct", "attribution", "derivative"],
+      "enum": [
+        "direct",
+        "attribution",
+        "derivative"
+      ],
       "description": "v2.1.0 section 15.4."
     },
-
     "local_key": {
       "type": "string",
       "pattern": "^[a-z][a-z0-9_]*$",
       "description": "2026-08-08 review — a name scoped to ONE derivation's COMPOSE components array, never a globally dereferenceable id. Exists so relation_binding.left/right can address 'this particular occurrence of a component in this composition' without conflating that with 'which global object this is' (component_ref.ref). Uniqueness within one derivation's components array is a Type checker (step 2) obligation, not something this structural schema can express."
     },
-
     "placement_map": {
       "type": "object",
       "minProperties": 1,
-      "propertyNames": { "$ref": "#/$defs/id" },
-      "additionalProperties": { "$ref": "#/$defs/fixed_slot_name" },
+      "propertyNames": {
+        "$ref": "#/$defs/id"
+      },
+      "additionalProperties": {
+        "$ref": "#/$defs/fixed_slot_name"
+      },
       "description": "2026-08-08 review — maps every leaf-ref id in an ElementBundleDef's own `requires` tree to the offense slot it contributes to. A bundle can combine predicates belonging to different slots (e.g. duty_of_care -> circumstance, avoidability -> conduct), so this is a map, not a single slot — that is the whole point of a *shared* element module. Used by derived_offense_def.schema.json's component_ref (kind=bundle) and offense_def.schema.json's element_modules entries alike. Keys are id-shaped (same pattern as $defs/id) but the schema can't cross-check them against the referenced bundle's actual leaf-refs — that exact-coverage check (no missing, no extra) is a Type checker (step 2) obligation."
+    },
+    "policy_probe": {
+      "type": "object",
+      "required": [
+        "applies_to",
+        "requires",
+        "unresolved_marker"
+      ],
+      "additionalProperties": false,
+      "description": "이 정책이 실행되려면 case-time에 무엇이 있어야 하는지의 선언. planner는 정책의 법리를 전혀 모른 채 이 블록만 읽어 typed target을 materialize한다. 이 블록이 존재하는 이유는 doctrine에서 겪은 dead loop 때문이다: 정의는 저작돼 있는데 그 leaf를 아무도 target으로 열지 않아 활성화가 영원히 0이었다. 정책마다 planner 분기를 새로 만들면 같은 결함을 종류별로 반복하게 되므로, 요구사항을 저작물로 올리고 compiler를 하나만 둔다.",
+      "properties": {
+        "applies_to": {
+          "enum": [
+            "offense_instance",
+            "participation_candidate"
+          ],
+          "description": "이 정책이 걸리는 case-time object의 종류."
+        },
+        "requires": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "ref",
+              "supply"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "ref": {
+                "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+              },
+              "supply": {
+                "enum": [
+                  "neural_predicate",
+                  "structural_relation",
+                  "provenance"
+                ],
+                "description": "neural_predicate: 기존 Call 2 계약으로 target을 연다. structural_relation: host가 binding에서 읽는다. provenance: 상류 단계가 이미 정한 typed 값을 그대로 나른다 -- 새 판단을 만들지 않는다."
+              },
+              "optional": {
+                "type": "boolean",
+                "description": "없어도 정책이 다른 분기로 실행될 수 있으면 true. 기본은 false이고, 없으면 unresolved_marker로 남는다."
+              }
+            }
+          }
+        },
+        "unresolved_marker": {
+          "type": "string",
+          "minLength": 1,
+          "description": "필수 입력을 materialize하지 못했을 때 남길 typed 표시. host가 값을 추론해 채우는 대신 representation gap을 그대로 기록한다."
+        }
+      }
     }
   }
 }

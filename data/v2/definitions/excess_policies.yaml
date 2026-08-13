@@ -33,3 +33,13 @@
       authority_refs:
         - authority_basis: commentary_reported_precedent
           citation: 케이스노트 형법총칙 교사의 착오 질적 초과
+  probe:
+    applies_to: participation_candidate
+    requires:
+      # 교사 대상 offense는 Call 1이 이미 정했다. 새 판단을 만들지 않고 provenance로 나른다.
+      - {ref: provenance.instigated_offense_ref, supply: provenance}
+      - {ref: provenance.realized_offense_ref, supply: provenance}
+      # 결과적 가중범 분기에서만 필요하므로 없어도 다른 분기는 실행된다.
+      - {ref: legal_element.foreseeability_of_aggravated_result_by_participant,
+         supply: neural_predicate, optional: true}
+    unresolved_marker: UNRESOLVED_EXCESS_RELATION

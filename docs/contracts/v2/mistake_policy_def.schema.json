@@ -2,17 +2,31 @@
   "$id": "https://schemas.idpr.local/v2/MistakePolicyDef",
   "description": "구성요건적 착오(사실의 착오)의 규범적 효과. 착오는 위법성·책임 단계가 아니라 고의에 작용하므로 DoctrineDef에 넣을 수 없다 -- DoctrineDef.stage는 unlawfulness/culpability/punishability 3개뿐이고, 착오의 효과는 Elements 단계의 mental slot에 미친다. 이 kind가 존재하는 이유는 착오 사안에서 사실과 규범이 한 predicate에 뭉쳐 있었기 때문이다: 甲이 C를 乙로 오인해 상해한 사안에서 'C에 대한 상해의 고의'를 그대로 물으면 모델이 FALSE를 내는 것이 오히려 자연스럽고, 법정적 부합설의 결론(발생사실에 대한 고의기수)은 사실 판단이 아니라 저작된 학설 선택에서 나온다. 따라서 불일치라는 사실(divergence_relation)과 그 불일치를 어떻게 평가할지(effects)를 분리해 후자를 명시적 저작물로 만든다. 런타임은 이 정책을 적용할 뿐 고의를 스스로 만들어내지 않는다. 2026-08-13 검수 확정: production Korean-law profile은 법정적 부합설로 고정하고, 학설 대립 서술은 Call 3의 표현 문제로 분리한다.",
   "type": "object",
-  "required": ["id", "profile", "scope", "divergence_relation", "divergence_kind_ref", "effects", "authority_refs"],
+  "required": [
+    "id",
+    "profile",
+    "scope",
+    "divergence_relation",
+    "divergence_kind_ref",
+    "effects",
+    "authority_refs",
+    "probe"
+  ],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+    "id": {
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+    },
     "profile": {
       "type": "string",
       "minLength": 1,
       "description": "이 정책이 속한 authoring profile 이름. 부합설 교체는 case-level switch가 아니라 profile 교체로만 이루어진다 -- 런타임이나 모델이 사안마다 학설을 고르면 그 순간 결론이 사후 선택 가능해지고, 같은 사실에 두 답을 낼 수 있게 된다. 한 profile 안에서 같은 scope를 갖는 정책은 하나뿐이어야 한다(registry 중복 id 검사와 별개로 checks에서 확인)."
     },
     "scope": {
-      "enum": ["same_statutory_offense", "different_statutory_offense"],
+      "enum": [
+        "same_statutory_offense",
+        "different_statutory_offense"
+      ],
       "description": "구체적 사실의 착오(동일 구성요건 내)인지 추상적 사실의 착오(상이 구성요건 간)인지. 두 경우의 법적 처리가 완전히 다르므로 한 정책이 양쪽을 덮지 않는다."
     },
     "divergence_relation": {
@@ -25,24 +39,40 @@
     },
     "effects": {
       "type": "object",
-      "required": ["object_misidentification", "method_divergence"],
+      "required": [
+        "object_misidentification",
+        "method_divergence"
+      ],
       "additionalProperties": false,
       "description": "두 분기 모두 필수다. 하나만 저작하면 나머지 유형의 착오 사안에서 정책이 조용히 침묵하고, 그 침묵이 '고의 부정'과 구별되지 않는다.",
       "properties": {
-        "object_misidentification": { "$ref": "#/$defs/mistake_effect" },
-        "method_divergence": { "$ref": "#/$defs/mistake_effect" }
+        "object_misidentification": {
+          "$ref": "#/$defs/mistake_effect"
+        },
+        "method_divergence": {
+          "$ref": "#/$defs/mistake_effect"
+        }
       }
     },
     "authority_refs": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref" },
+      "items": {
+        "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref"
+      },
       "description": "학설 선택은 저작자의 취향이 아니라 근거를 갖는 결정이므로 최소 하나를 요구한다."
+    },
+    "probe": {
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/policy_probe"
     }
   },
   "$defs": {
     "mistake_effect": {
-      "enum": ["intent_preserved", "intent_defeated", "unresolved"],
+      "enum": [
+        "intent_preserved",
+        "intent_defeated",
+        "unresolved"
+      ],
       "description": "intent_preserved: 발생사실에 대한 고의기수를 인정한다(법정적 부합설). intent_defeated: 발생사실에 대한 고의를 부정한다. unresolved: 이 유형에 대해서는 심볼릭 결론을 내지 않고 미해결로 남긴다 -- 정책을 저작하지 않은 것과 달리, 미해결이라는 판단을 명시적으로 기록한다."
     }
   }

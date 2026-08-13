@@ -21,3 +21,12 @@
     - {authority_basis: statute_text, citation: 형법 제13조}
     - {authority_basis: judicial_precedent, citation: 대법원 1984. 1. 24. 선고 83도2813 판결}
     - {authority_basis: commentary_reported_precedent, citation: 케이스노트 형법총칙 구체적 사실의 착오 법정적 부합설}
+  # planner가 읽는 유일한 입력 선언. 정책의 법리는 몰라도 된다.
+  probe:
+    applies_to: offense_instance
+    requires:
+      - {ref: relation.intended_object_divergence, supply: structural_relation}
+      - {ref: legal_element.object_misidentification, supply: neural_predicate}
+      - {ref: legal_element.intent, supply: neural_predicate}
+    # 어느 binding이 "의도한 대상"인지 표시가 없으면 host가 추론하지 않고 여기에 남긴다.
+    unresolved_marker: UNRESOLVED_MISTAKE_BINDING
