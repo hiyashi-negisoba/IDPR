@@ -571,7 +571,7 @@ leaf를 planner가 한 번도 target으로 만들지 않는다.
 3. **장물죄 family** (제362조) -- 카드는 있으나 v2 저작이 보류 상태다. `r10_p2_q1`
    불가벌적 사후행위 흡수 pair를 만들 수 없다.
 
-### 다음 세션
+### 다음 세션 (이 절은 아래 2026-08-13 최종 책임 뷰 절이 대체한다)
 
 doctrine 트랙은 여기까지다. 남은 것은 두 갈래다.
 
@@ -586,3 +586,50 @@ provenance가 준비됐고, 제33조 단서는 필요한 status leaf가 이미 p
 
 그 뒤가 Call 1.5-D 프롬프트 승인과 222907 라이브 실행이다. 프롬프트는 아직 작성하지
 않았고, 활성 프롬프트이므로 전문 승인이 필요하다.
+
+## 2026-08-13 최종 책임 뷰: 경합·초과·제33조 단서 관통
+
+위 두 갈래(경합 발화, 세 런타임 관통)를 하나의 심볼릭 단계로 묶어 E2E에 연결했다.
+`src/idpr/v2/runtime/final_responsibility.py`가 인스턴스별 liability chain 뒤에서 한 번 돌고,
+`run_v2_scallop_e2e.py`가 `--plan`으로 그것을 호출한다. 모델을 새로 부르지 않았고 Call 2
+artifact는 `call2_v8_indirect_principal`을 그대로 재사용했다.
+
+제33조 단서만 chain **앞**에서 적용된다. derivative link의 가담자 instance를 가중죄로 바꾼 뒤
+평가하며, 전환 대상이 평가 universe에 없으면 만들지 않고 marker를 남긴다.
+
+정본은 `experiments/v2_call15_directscope_26_causal/final_responsibility_v10/audit.md`다.
+`liability_results`는 `scallop_v9_completion_normalized`와 26/26 완전히 동일하다 -- 이 단계는
+기존 인스턴스 결론을 바꾸지 않고 그 위에 층을 얹는다.
+
+### 발화 결과와 그 원인
+
+- 특별관계 흡수: plan 수준 후보 5(절도→특수절도, `r13_p1_q1`/`r13_p2_q1`), 발화 0. 어느
+  instance도 성립까지 가지 못한다. 앞단 undercall의 하류이지 흡수 로직의 문제가 아니다.
+- 저작된 경합: `data/v2/concurrence_rules.yaml`을 신설하고 legacy 인장위조←사문서위조 1쌍을
+  exact DefinitionRef로 옮겼다. `status: approved`만 런타임에 도달하며 현재는
+  `awaiting_legal_review`라 발화하지 않는다.
+- 공범의 초과: 후보 0. 원인이 확정됐다 -- 저작된 same-episode join은 교사가 실행보다 앞선
+  episode에서 일어나므로 구조적으로 거의 항상 닫힌다. `r11_p1_q1`은 교사 ep001 / 절도 ep004 /
+  상해 ep005다. 규칙을 host가 바꾸지 않고 `UNRESOLVED_EXCESS_EPISODE_SCOPE`로 남겼다.
+- 제33조 단서: 발화 0. link가 있는 4문항 모두 신분 leaf가 planner target에 없다
+  (`UNRESOLVED_AGGRAVATING_STATUS`). 존속살해 instance가 실제로 열린 `r12_p2_q1_ga`는 반대로
+  participation이 격리되어 link가 0이다. 두 조건이 한 문항에서 만난 적이 없다.
+- 표현 공백: `UNRESOLVED_MISTAKE_BINDING` 25(전 문항, `gap.intended_object_identity`).
+
+### 부수 정상화
+
+- planner가 top-level instance마다 `instance_provenance`(factual episode + source binding)를
+  기록한다. Call 1.5-P가 만드는 participation candidate instance도 자기 episode를 함께 나른다.
+  없으면 가담자 instance가 최종 책임 단계에서 통째로 빠진다.
+- participation target 49개는 frozen v7과 완전히 동일하다.
+
+검증은 로컬 전체 `253 passed, 16 skipped`.
+
+### 다음 세션
+
+**먼저 `docs/analysis/v2_concurrence_and_excess_review_ko.md`의 두 카드에 답을 받아야 한다.**
+① 인장위조 흡수 규칙을 approved로 올릴지, ② 초과의 사실 단위를 episode에서 참가 링크로 바꿀지.
+②는 KCL-26에서 초과가 하나라도 발화하는지를 가르는 유일한 결정이다.
+
+그 뒤가 Call 1.5-D 프롬프트 승인과 222907 라이브 실행이다. 프롬프트는 아직 작성하지 않았고,
+활성 프롬프트이므로 전문 승인이 필요하다. IssuePlanner/Call3/judge는 계속 보류한다.

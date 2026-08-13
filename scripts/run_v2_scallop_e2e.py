@@ -16,7 +16,14 @@ sys.path.insert(0, str(ROOT / "src"))
 from idpr.v2.compile import CompiledOffense, compile_offense
 from idpr.v2.registry import load_definitions
 from idpr.v2.relations import RelationInstanceKey
+from idpr.v2.runtime.concurrence import load_concurrence_rules
 from idpr.v2.runtime.doctrine_activation import raised_active_doctrines
+from idpr.v2.runtime.final_responsibility import (
+    excess_parity_rows,
+    excess_policy_for,
+    plan_status_redirections,
+    resolve_final_responsibility,
+)
 from idpr.v2.runtime.grounding import (
     AssessmentTarget,
     PredicateAssessment,
@@ -39,6 +46,7 @@ from idpr.v2.runtime.relation_grounding import (
     add_relation_assessments,
 )
 from idpr.v2.runtime.scallop_backend import (
+    run_accessory_excess_program,
     run_article_263_liability_parity_program,
     run_indirect_principal_liability_parity_program,
     run_liability_chain_parity_program,
@@ -189,12 +197,55 @@ def _indirect_dependency(value: dict[str, Any]) -> IndirectPrincipalDependency:
     )
 
 
+def _instance_provenance(
+    plan_path: Path,
+) -> dict[str, dict[OffenseInstanceKey, tuple[str, tuple[str, ...]]]]:
+    """`{case: {instance: (factual episode, source bindings)}}` straight from the planner.
+
+    The final-responsibility stage needs the factual episode of each instance, and the planner is
+    the only honest source: recomputing it here would mean a second reading of the case text in a
+    stage that must not read it at all.
+    """
+    output: dict[str, dict[OffenseInstanceKey, tuple[str, tuple[str, ...]]]] = {}
+    for line in plan_path.read_text(encoding="utf-8").splitlines():
+        if not line:
+            continue
+        plan = json.loads(line)
+        case = str(plan["sub_question_id"])
+        entries = plan.get("instance_provenance")
+        if entries is None:
+            raise ValueError(
+                f"{case}: planner artifact predates instance_provenance; re-run the planner"
+            )
+        output[case] = {
+            _instance(value["instance_key"]): (
+                str(value["factual_episode_id"]),
+                tuple(str(item) for item in value["source_binding_ids"]),
+            )
+            for value in entries
+        }
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--call2-artifact", type=Path, required=True)
     parser.add_argument("--definitions", type=Path, default=ROOT / "data/v2/definitions")
     parser.add_argument("--work-dir", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument(
+        "--plan",
+        type=Path,
+        help=(
+            "evaluation_instance_plan.jsonl; enables the final-responsibility stage "
+            "(concurrence, accessory excess, Article 33 proviso, policy input gaps)"
+        ),
+    )
+    parser.add_argument(
+        "--concurrence-rules",
+        type=Path,
+        default=ROOT / "data/v2/concurrence_rules.yaml",
+    )
     parser.add_argument(
         "--diagnostic-skip-rejected-participation",
         action="store_true",
@@ -207,6 +258,18 @@ def main() -> None:
         if line
     ]
     registry = load_definitions(args.definitions)
+    provenance_by_case = _instance_provenance(args.plan) if args.plan else {}
+    concurrence_rules = (
+        load_concurrence_rules(args.concurrence_rules)
+        if args.plan and args.concurrence_rules.exists()
+        else ()
+    )
+    excess_policy = excess_policy_for(registry)
+    foreseeability_ref = (
+        excess_policy.payload["quantitative"]["result_aggravated"]["foreseeability_ref"]
+        if excess_policy is not None
+        else ""
+    )
     output = []
     for row in rows:
         participation_status = row.get("participation_compile_status")
@@ -228,6 +291,8 @@ def main() -> None:
                     "derivative_link_count": 0,
                     "article263_dedicated_instance_count": 0,
                     "indirect_principal_instance_count": 0,
+                    "final_responsibility": None,
+                    "accessory_excess_scallop_effects": {},
                     "active_doctrines": [],
                     "liability_results": [],
                 }
@@ -269,6 +334,8 @@ def main() -> None:
                     "derivative_link_count": 0,
                     "article263_dedicated_instance_count": 0,
                     "indirect_principal_instance_count": 0,
+                    "final_responsibility": None,
+                    "accessory_excess_scallop_effects": {},
                     "active_doctrines": [],
                     "liability_results": [],
                 }
@@ -300,8 +367,31 @@ def main() -> None:
             participation_assessments,
             expected_targets=expected_participation_targets,
         )
+        # 형법 제33조 단서는 책임 평가 *이전에* 적용된다. 가담자가 어느 죄에서 평가되는지를
+        # 바꾸는 것이므로, 평가가 끝난 뒤에 결론만 갈아끼우는 것은 다른 일이 된다.
+        status_redirections, redirection_findings = plan_status_redirections(
+            registry,
+            bindings.derivative_links,
+            truths,
+            known_instances=instances,
+        )
+        redirect_map = {
+            # 전환 전 instance. derivative mode는 가담자를 정범이 실현한 죄에 고정하므로
+            # 원래 offense_ref가 곧 base_offense_ref다.
+            OffenseInstanceKey(
+                redirection.accessory_instance.case_id,
+                redirection.accessory_instance.actor_id,
+                redirection.base_offense_ref,
+                redirection.accessory_instance.occurrence_id,
+            ): redirection.accessory_instance
+            for redirection in status_redirections
+        }
+        derivative_links = tuple(
+            (redirect_map.get(accessory, accessory), principal, mode)
+            for accessory, principal, mode in bindings.derivative_links
+        )
         derivative_accessories = {
-            accessory for accessory, _principal, _mode in bindings.derivative_links
+            accessory for accessory, _principal, _mode in derivative_links
         }
         completion_targets = tuple(
             value for value in top_level_instances if value not in derivative_accessories
@@ -329,7 +419,7 @@ def main() -> None:
                 work_dir=case_work_dir,
                 completion_targets=completion_targets,
                 co_principal_sources=bindings.co_principal_sources,
-                derivative_links=bindings.derivative_links,
+                derivative_links=derivative_links,
                 active_doctrines=active_doctrines,
             ))
         except Exception as exc:
@@ -390,13 +480,50 @@ def main() -> None:
                 / f"{instance.actor_id}_{instance.occurrence_id.replace(':', '_')}",
                 active_doctrines=instance_active_doctrines,
             )
+        final_view = None
+        excess_parity: dict[str, str] = {}
+        provenance = provenance_by_case.get(str(row["sub_question_id"]))
+        if provenance is not None:
+            final_view = resolve_final_responsibility(
+                registry,
+                case_id=str(row["sub_question_id"]),
+                results=results,
+                episode_by_instance={
+                    instance: episode for instance, (episode, _) in provenance.items()
+                },
+                source_bindings_by_instance={
+                    instance: sources for instance, (_, sources) in provenance.items()
+                },
+                derivative_links=derivative_links,
+                truths=truths,
+                concurrence_rules=concurrence_rules,
+                available_predicate_refs=tuple(
+                    dict.fromkeys(ref for _instance_key, ref in truths.predicate)
+                ),
+                status_redirections=status_redirections,
+                status_redirection_findings=redirection_findings,
+            )
+            parity_rows = excess_parity_rows(
+                final_view, truths, foreseeability_ref=foreseeability_ref
+            )
+            if parity_rows:
+                # host 분류와 Scallop 결과가 어긋나면 여기서 hard-fail한다. 초과는 전용
+                # relation으로 내려가며 v2_derivative_link로 우회하지 않는다.
+                excess_parity = {
+                    f"{instance.actor_id}/{instance.occurrence_id}/{instigated}": effect
+                    for (instance, instigated), effect in run_accessory_excess_program(
+                        parity_rows, work_dir=case_work_dir / "accessory_excess"
+                    ).items()
+                }
         output.append({
             "sub_question_id": row["sub_question_id"],
             "execution_status": "SUCCEEDED",
             "case_truth_count": len(truths.predicate),
             "case_relation_truth_count": len(truths.relation),
             "co_principal_source_count": len(bindings.co_principal_sources),
-            "derivative_link_count": len(bindings.derivative_links),
+            "derivative_link_count": len(derivative_links),
+            "final_responsibility": None if final_view is None else final_view.as_dict(),
+            "accessory_excess_scallop_effects": excess_parity,
             "article263_dedicated_instance_count": len(article263_instances),
             "indirect_principal_instance_count": len(indirect_dependencies),
             "active_doctrines": [

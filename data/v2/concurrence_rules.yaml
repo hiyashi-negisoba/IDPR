@@ -1,0 +1,32 @@
+# v2 경합·흡수 규칙. legacy `data/rulebase/concurrence.yaml`을 조문 문자열이 아니라 exact
+# DefinitionRef 쌍으로 다시 저작한 것이다.
+#
+# `status`가 이 파일의 유일한 게이트다. `approved`인 규칙만 런타임이 읽는다. 그 밖의 값은
+# 저작은 되어 있으나 발화하지 않는다 -- 검수 전 규칙이 조용히 E2E에 섞이는 것을 막는다.
+#
+# 특별관계(specialty)는 여기에 없다. 그것은 사건 텍스트의 해석이 아니라 DSL 자신의
+# `derivation.kind == "qualify"`를 읽는 것이므로 `runtime/concurrence.plan_specialty_candidates`가
+# 저작 없이 만든다. 여기 있는 것은 조건 판단이 필요한 규칙뿐이다.
+
+version: 1
+
+rules:
+  - rule_id: absorption.seal_forgery_by_private_document_forgery
+    status: awaiting_legal_review
+    kind: absorption
+    # ABSORPTION에서 first가 흡수되는 쪽(child)이다.
+    first_offense_ref: offense.seal_forgery_or_misuse
+    second_offense_ref: offense.private_document_forgery
+    occurrence_constraint: same_episode
+    # 조건은 별도 assessment 채널이 붙기 전까지 UNKNOWN이고, 후보는 unresolved로 남는다.
+    # 이것이 "두 죄가 각각 성립한다"는 결론과 다르다는 점이 이 규칙을 저작하는 이유다.
+    condition_ref: condition.seal_forgery_was_means_of_document_forgery
+    legacy_rule_id: art231_sec6.seal_forgery_absorbed
+    source_card_ids: []
+    basis: >-
+      행사할 목적으로 타인의 인장을 위조하고 그 인장으로 타인의 사문서를 위조한 경우
+      인장위조죄는 사문서위조죄에 흡수되어 별도로 성립하지 않는다.
+    review_notes: >-
+      KCL-26에서 유일하게 두 죄가 같은 factual episode에 함께 결박된 문항은
+      `kcl_criminal_r12_p2_q1_da`이며 binding:002(사문서위조)와 binding:004(인장위조)가
+      모두 factual_episode:001이다. legacy 원본의 status는 awaiting_legal_review다.

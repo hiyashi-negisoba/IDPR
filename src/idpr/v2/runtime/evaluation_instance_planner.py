@@ -80,6 +80,37 @@ class DerivedBindingCandidate:
         }
 
 
+@dataclass(frozen=True)
+class InstanceProvenance:
+    """Where one top-level instance came from, for the later final-responsibility stage.
+
+    Both fields are already decided upstream and are only carried here.  The concurrence and
+    excess runtimes need them and have no other honest source: `OffenseInstanceKey` deliberately
+    carries no episode identity, and re-deriving "same factual episode" downstream would mean
+    reading the case text a second time in a place that must not read it at all.
+
+    `source_binding_ids` is empty for a direct binding and holds the base bindings the planner
+    actually combined for a derived one.  특별관계 흡수 reads exactly that record back rather than
+    re-deriving the base/derived link, which is what keeps it deterministic.
+    """
+
+    instance: OffenseInstanceKey
+    factual_episode_id: str
+    source_binding_ids: tuple[str, ...] = ()
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "instance_key": {
+                "case_id": self.instance.case_id,
+                "actor_id": self.instance.actor_id,
+                "offense_ref": self.instance.offense_ref,
+                "occurrence_id": self.instance.occurrence_id,
+            },
+            "factual_episode_id": self.factual_episode_id,
+            "source_binding_ids": list(self.source_binding_ids),
+        }
+
+
 def selected_predicate_refs(
     registry: DefinitionRegistry, closure: ClosureResult
 ) -> tuple[str, ...]:
@@ -128,6 +159,7 @@ class OccurrenceAwareEvaluationInstancePlan:
     unbound_seed_refs: tuple[str, ...] = ()
     article263_pair_candidates: tuple[Article263OccurrencePair, ...] = ()
     context_only_binding_ids: tuple[str, ...] = ()
+    instance_provenance: tuple[InstanceProvenance, ...] = ()
 
     @property
     def final_assessment_target_count(self) -> int:
@@ -196,6 +228,8 @@ class OccurrenceAwareEvaluationInstancePlan:
                 for value in self.context_only_binding_ids
             ],
             "context_only_binding_count": len(self.context_only_binding_ids),
+            "instance_provenance": [value.as_dict() for value in self.instance_provenance],
+            "instance_provenance_count": len(self.instance_provenance),
             "top_level_instance_count": len(self.top_level_instances),
             "predicate_scope_instance_count": len(self.predicate_scope_instances),
             "assessment_instance_count": len(self.assessment_instances),
@@ -629,6 +663,28 @@ def plan_binding_scoped_evaluation_instances(
     top_level_values = tuple(top_level)
     if len(top_level_values) != len(set(top_level_values)):
         raise EvaluationInstancePlannerError(f"{case_id}: duplicate binding instance")
+    episode_by_binding_id = {
+        value.binding_id: value.factual_episode_id for value in binding_values
+    }
+    sources_by_binding_id = {
+        value.binding_id: value.source_binding_ids for value in derived_bindings
+    }
+    episode_by_binding_id.update(
+        {value.binding_id: value.factual_episode_id for value in derived_bindings}
+    )
+    provenance_values = tuple(
+        InstanceProvenance(
+            instance,
+            episode_by_binding_id[instance.occurrence_id],
+            sources_by_binding_id.get(instance.occurrence_id, ()),
+        )
+        for instance in top_level_values
+        if instance.occurrence_id in episode_by_binding_id
+    )
+    if len(provenance_values) != len(top_level_values):
+        raise EvaluationInstancePlannerError(
+            f"{case_id}: top-level instance without factual episode provenance"
+        )
     selected_offenses = tuple(dict.fromkeys(value.offense_ref for value in top_level_values))
     compiled_by_ref: dict[str, CompiledOffense] = {}
     policies: dict[str, Any] = {}
@@ -717,11 +773,13 @@ def plan_binding_scoped_evaluation_instances(
         unbound_seed_refs=tuple(dict.fromkeys(unbound_seed_refs)),
         article263_pair_candidates=tuple(article263_pairs),
         context_only_binding_ids=context_only_binding_ids,
+        instance_provenance=provenance_values,
     )
 
 
 __all__ = [
     "DerivedBindingCandidate",
+    "InstanceProvenance",
     "EvaluationInstancePlannerError",
     "OccurrenceAwareEvaluationInstancePlan",
     "plan_binding_scoped_evaluation_instances",

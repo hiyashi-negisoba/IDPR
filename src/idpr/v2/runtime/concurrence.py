@@ -16,6 +16,9 @@ from __future__ import annotations
 from collections import Counter
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
+from pathlib import Path
+
+import yaml
 
 from idpr.v2.evaluate import FALSE, TRUE, UNKNOWN, TruthValue
 from idpr.v2.registry import DefinitionRegistry
@@ -60,6 +63,42 @@ class ConcurrenceRule:
             raise ValueError("same-offense multiplicity needs a separately authored rule")
         if not self.rule_id or not self.condition_ref:
             raise ValueError("concurrence rule requires rule_id and condition_ref")
+
+
+APPROVED = "approved"
+"""The only `status` a rule file entry may carry to reach the runtime.
+
+Authoring and approval are separated on purpose. A rule that is written down but not yet reviewed
+must be visible to the next reader -- deleting it loses the analysis -- and must not fire. Anything
+other than `approved` is loaded, counted, and then left out of the returned rules.
+"""
+
+
+def load_concurrence_rules(
+    path: Path, *, include_unapproved: bool = False
+) -> tuple[ConcurrenceRule, ...]:
+    """Read authored concurrence rules, keeping only approved ones unless asked otherwise.
+
+    `include_unapproved` exists for audits and review documents, never for the runtime path.
+    """
+    document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    output: list[ConcurrenceRule] = []
+    for entry in document.get("rules") or ():
+        status = entry.get("status")
+        if status != APPROVED and not include_unapproved:
+            continue
+        output.append(
+            ConcurrenceRule(
+                rule_id=str(entry["rule_id"]),
+                kind=str(entry["kind"]),
+                first_offense_ref=str(entry["first_offense_ref"]),
+                second_offense_ref=str(entry["second_offense_ref"]),
+                condition_ref=str(entry["condition_ref"]),
+                occurrence_constraint=str(entry.get("occurrence_constraint", SAME_EPISODE)),
+                source_card_ids=tuple(str(value) for value in entry.get("source_card_ids") or ()),
+            )
+        )
+    return tuple(output)
 
 
 @dataclass(frozen=True, slots=True)
@@ -246,12 +285,14 @@ def resolve_concurrence(
 
 __all__ = [
     "ABSORPTION",
+    "APPROVED",
     "IMAGINATIVE_CONCURRENCE",
     "SAME_EPISODE",
     "SPECIALTY",
     "ConcurrenceCandidate",
     "ConcurrenceResolution",
     "ConcurrenceRule",
+    "load_concurrence_rules",
     "plan_concurrence_candidates",
     "plan_specialty_candidates",
     "resolve_concurrence",

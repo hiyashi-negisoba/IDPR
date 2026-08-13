@@ -163,6 +163,20 @@ def main() -> None:
         row["participation_evidence_occurrence_count"] = len(
             compiled.evidence_occurrences
         )
+        row.setdefault("instance_provenance", []).extend(
+            {
+                "instance_key": {
+                    "case_id": instance.case_id,
+                    "actor_id": instance.actor_id,
+                    "offense_ref": instance.offense_ref,
+                    "occurrence_id": instance.occurrence_id,
+                },
+                "factual_episode_id": episode_id,
+                "source_binding_ids": [],
+            }
+            for instance, episode_id in compiled.candidate_episodes
+        )
+        row["instance_provenance_count"] = len(row["instance_provenance"])
         occurrence_ids = {
             value["occurrence_id"] for value in row["occurrences"]
         }

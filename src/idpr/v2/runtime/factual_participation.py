@@ -25,6 +25,14 @@ class FactualParticipationPlan:
     targets: tuple[ParticipationLocalTarget, ...]
     evidence_occurrences: tuple[GoldOccurrence, ...]
     skipped_interaction_ids: tuple[str, ...]
+    candidate_episodes: tuple[tuple[OffenseInstanceKey, str], ...] = ()
+    """새로 만든 participation candidate instance와 그 factual episode.
+
+    직접 결박된 instance는 planner가 이미 episode를 기록하지만, 여기서 만드는 후보는
+    planner의 binding이 아니어서 그 기록이 없다. 최종 책임 단계(경합·초과)는 episode 없이는
+    후보를 열 수 없고, 없는 것을 나중에 사실에서 다시 읽어 내면 그 단계가 사건 텍스트를
+    두 번째로 해석하게 된다. 그래서 만든 자리에서 함께 나른다.
+    """
 
 
 def _instance(value: Mapping[str, Any]) -> OffenseInstanceKey:
@@ -152,6 +160,7 @@ def materialize_factual_participation_candidates(
         for value in plan_row["occurrences"]
     }
     created_occurrences: dict[str, GoldOccurrence] = {}
+    created_episodes: dict[OffenseInstanceKey, str] = {}
     targets: list[ParticipationLocalTarget] = []
     seen_targets: set[ParticipationLocalTarget] = set()
     used_interactions: set[str] = set()
@@ -198,7 +207,11 @@ def materialize_factual_participation_candidates(
                 f"{case_id}: participation evidence identity collision"
             )
         created_occurrences[occurrence_id] = created
-        return (OffenseInstanceKey(case_id, actor_id, offense_ref, occurrence_id),)
+        instance = OffenseInstanceKey(case_id, actor_id, offense_ref, occurrence_id)
+        # 후보의 factual home은 이 가담 행위가 일어난 episode다. principal을 뒤 episode에서
+        # 찾아왔더라도 가담자가 그리로 옮겨 가지는 않는다.
+        created_episodes[instance] = interaction.factual_episode_id
+        return (instance,)
 
     def add(target: ParticipationLocalTarget, interaction_id: str) -> None:
         if target not in seen_targets:
@@ -323,6 +336,7 @@ def materialize_factual_participation_candidates(
             for value in interaction_values
             if value.interaction_id not in used_interactions
         ),
+        tuple(created_episodes.items()),
     )
 
 
