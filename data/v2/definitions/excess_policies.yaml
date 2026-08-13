@@ -1,0 +1,35 @@
+# 공범의 초과. 2026-08-13 검수에서 두 가지가 확정되었다.
+#
+# 1. derivation 사슬은 양적 초과의 근거로 쓰되, derivation이 없다는 사실만으로 질적
+#    초과라고 판정하지 않는다. 아직 저작되지 않은 구조관계를 host가 "무관하다"로 읽는
+#    것이기 때문이다. 질적 초과는 아래 incompatible_offense_pairs에 명시된 조합에서만
+#    성립하고, 그 밖에는 UNRESOLVED_EXCESS_RELATION이다.
+#
+# 2. 양적 초과에 liable_for_instigated_scope를 일률 적용하지 않는다. 결과적 가중범이
+#    실현된 경우에는 가담자 본인의 중한 결과 예견가능성에 따라 분기한다.
+
+- id: excess_policy.korean_law_standard
+  profile: korean_law
+  quantitative:
+    condition: realized_offense_derives_from_instigated_offense
+    # 절도 교사 -> 특수절도 실현처럼 가중적 구성요건으로 올라간 경우.
+    ordinary_qualification_effect: liable_for_instigated_scope
+    result_aggravated:
+      foreseeability_ref: legal_element.foreseeability_of_aggravated_result_by_participant
+      on_true: liable_for_aggravated_result
+      on_false: liable_for_instigated_scope
+      on_unknown: unresolved
+  qualitative:
+    condition: authored_incompatible_relation_present
+    effect: no_liability_for_excess
+  unresolved_marker: UNRESOLVED_EXCESS_RELATION
+  # 질적 초과로 저작된 exact pair만 넣는다. 여기 없는 조합은 질적 초과가 아니라 미해결이다.
+  #
+  # `r11_p1_q1`의 폭행치상은 여기에 넣지 못했다. 폭행죄와 폭행치상죄가 v2에 저작되어
+  # 있지 않아 pair의 한 축이 없다. 그 사안은 지금 UNRESOLVED_EXCESS_RELATION으로 남는다.
+  incompatible_offense_pairs:
+    - instigated_offense_ref: offense.theft
+      realized_offense_ref: offense.injury
+      authority_refs:
+        - authority_basis: commentary_reported_precedent
+          citation: 케이스노트 형법총칙 교사의 착오 질적 초과

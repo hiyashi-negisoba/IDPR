@@ -256,6 +256,13 @@
 
 - id: offense.ancestral_homicide
   identity: {name: "존속살해죄", statutory_refs: ["형법 제250조 제2항"]}
+  participation_constraints:
+    # 형법 제33조 단서. 직계비속이 비신분자를 교사하여 자기 직계존속을 살해하게 한 경우,
+    # 정범은 보통살인이지만 가담자는 존속살해의 해당 mode로 성립하고 그 형으로 처벌된다.
+    aggravating_status_participation:
+      base_offense_ref: offense.homicide
+      status_ref: legal_element.lineal_ascendant_of_self_or_spouse_status
+      applies_to_modes: [instigator, aider, co_principal]
   elements:
     object: {op: ref, ref: legal_element.lineal_ascendant_of_self_or_spouse_status}
     conduct: {op: ref, ref: ground_fact.killing_conduct}

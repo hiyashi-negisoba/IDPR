@@ -27,6 +27,8 @@ KIND_TO_SCHEMA_FILE: Mapping[str, str] = {
     "relation": "relation_def.schema.json",
     "completion_policy": "completion_policy_def.schema.json",
     "participation_policy": "participation_policy_def.schema.json",
+    "mistake_policy": "mistake_policy_def.schema.json",
+    "excess_policy": "excess_policy_def.schema.json",
 }
 
 

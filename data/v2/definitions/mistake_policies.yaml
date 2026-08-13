@@ -1,0 +1,23 @@
+# 구성요건적 착오의 규범적 효과. 2026-08-13 검수 확정: production Korean-law profile은
+# 법정적 부합설로 고정한다. 학설 대립 서술은 Call 3의 표현 문제로 분리하며, 심볼릭
+# 결론을 매번 unresolved로 보내지 않는다.
+#
+# 부합설 교체는 사안별 선택이 아니라 profile 교체로만 이루어진다. 구체적 부합설을
+# 적용하려면 profile을 달리하는 별도 정책을 저작하고 런타임이 그 profile을 읽게 한다.
+
+- id: mistake_policy.korean_law_concrete_fact
+  profile: korean_law
+  scope: same_statutory_offense
+  divergence_relation: relation.intended_object_divergence
+  divergence_kind_ref: legal_element.object_misidentification
+  effects:
+    # 객체의 착오: 객체의 오인은 범행 실행의 동기에 불과하고 동기는 고의의 인식대상이
+    # 아니므로, 발생사실에 대한 고의기수를 인정한다.
+    object_misidentification: intent_preserved
+    # 방법의 착오: 법정적 부합설은 동일 구성요건 내에서 객체의 착오와 같이 처리한다.
+    # 구체적 부합설을 따르면 여기가 intent_defeated가 되므로 profile이 갈리는 지점이다.
+    method_divergence: intent_preserved
+  authority_refs:
+    - {authority_basis: statute_text, citation: 형법 제13조}
+    - {authority_basis: judicial_precedent, citation: 대법원 1984. 1. 24. 선고 83도2813 판결}
+    - {authority_basis: commentary_reported_precedent, citation: 케이스노트 형법총칙 구체적 사실의 착오 법정적 부합설}

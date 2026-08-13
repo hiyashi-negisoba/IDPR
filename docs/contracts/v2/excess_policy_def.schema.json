@@ -1,0 +1,75 @@
+{
+  "$id": "https://schemas.idpr.local/v2/ExcessPolicyDef",
+  "description": "공범의 초과 -- 교사·공모한 죄와 정범이 실제로 실현한 죄가 다를 때 가담자의 책임 범위. ParticipationPolicyDef에 얹을 수 없다: 그 스키마의 modes는 principal/co_principal/instigator/aider 4개로 고정되어 있고, 초과는 mode가 아니라 '교사한 죄'와 '실현된 죄' 두 offense의 비교이기 때문이다. 2026-08-13 검수에서 두 가지가 확정되었고 이 스키마는 그 두 결정을 구조적으로 강제한다: (1) derivation 사슬이 있으면 양적 초과의 구조적 근거로 쓸 수 있지만 derivation이 없다는 사실만으로 질적 초과라고 판정해서는 안 된다 -- 아직 저작되지 않은 구조관계를 host가 '무관하다'로 읽는 것이기 때문이다. 그래서 질적 초과는 authored incompatible 관계가 있을 때만 성립하고 둘 다 없으면 UNRESOLVED_EXCESS_RELATION이다. (2) 양적 초과에 liable_for_instigated_scope를 일률 적용할 수 없다 -- 결과적 가중범에서는 중한 결과의 예견가능성에 따라 중한 죄의 책임이 열릴 수 있으므로 별도 분기가 필요하다.",
+  "type": "object",
+  "required": ["id", "profile", "quantitative", "qualitative", "unresolved_marker"],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+    "profile": { "type": "string", "minLength": 1 },
+    "quantitative": {
+      "type": "object",
+      "required": ["condition", "ordinary_qualification_effect", "result_aggravated"],
+      "additionalProperties": false,
+      "properties": {
+        "condition": {
+          "const": "realized_offense_derives_from_instigated_offense",
+          "description": "고정값이다. 양적 초과의 인정 근거는 DSL이 이미 저작한 derivation 사슬뿐이며, 저작자가 다른 근거를 자유롭게 적어 넣을 수 있게 하면 host가 텍스트나 죄명 유사성으로 초과를 판정하는 경로가 열린다."
+        },
+        "ordinary_qualification_effect": {
+          "enum": ["liable_for_instigated_scope"],
+          "description": "가중적 구성요건(qualify)으로 올라간 경우. 절도 교사에 특수절도가 실현된 사안이 여기이고, 통설대로 교사한 범위 내에서만 책임진다."
+        },
+        "result_aggravated": {
+          "type": "object",
+          "required": ["foreseeability_ref", "on_true", "on_false", "on_unknown"],
+          "additionalProperties": false,
+          "description": "결과적 가중범이 실현된 경우의 분기. foreseeability_ref가 아직 저작되지 않았다면 이 정책 자체를 저작하지 말아야 하며, 없는 predicate를 지어내 TRUE를 만들어서는 안 된다.",
+          "properties": {
+            "foreseeability_ref": {
+              "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+              "description": "가담자 본인의 중한 결과에 대한 예견가능성 predicate. 정범의 예견가능성이 아니다."
+            },
+            "on_true": { "enum": ["liable_for_aggravated_result"] },
+            "on_false": { "enum": ["liable_for_instigated_scope"] },
+            "on_unknown": { "enum": ["unresolved"] }
+          }
+        }
+      }
+    },
+    "qualitative": {
+      "type": "object",
+      "required": ["condition", "effect"],
+      "additionalProperties": false,
+      "properties": {
+        "condition": {
+          "const": "authored_incompatible_relation_present",
+          "description": "고정값이다. derivation 부재는 조건이 될 수 없다 -- 검수 ③-a의 핵심."
+        },
+        "effect": { "enum": ["no_liability_for_excess"] }
+      }
+    },
+    "unresolved_marker": {
+      "const": "UNRESOLVED_EXCESS_RELATION",
+      "description": "derivation도 authored incompatible 관계도 없을 때의 결과. 이것이 기본값이며, 질적 초과가 기본값이 아니다."
+    },
+    "incompatible_offense_pairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["instigated_offense_ref", "realized_offense_ref", "authority_refs"],
+        "additionalProperties": false,
+        "properties": {
+          "instigated_offense_ref": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+          "realized_offense_ref": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+          "authority_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref" }
+          }
+        }
+      },
+      "description": "질적 초과로 저작된 exact offense pair. 여기에 없는 조합은 질적 초과가 아니라 미해결이다."
+    }
+  }
+}

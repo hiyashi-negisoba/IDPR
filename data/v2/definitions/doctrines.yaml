@@ -121,3 +121,12 @@
         arg: {op: ref, ref: legal_element.statutory_bar_on_consent}
       - {op: ref, ref: legal_element.consent_based_act_not_against_social_norms}
   effect: {effect: DEFEAT, stage: unlawfulness}
+
+- id: doctrine.mistaken_justifying_circumstance
+  stage: culpability
+  requires:
+    op: all
+    args:
+      - {op: ref, ref: legal_element.belief_in_justifying_circumstance}
+      - {op: ref, ref: legal_element.justifiable_ground_for_mistake}
+  effect: {effect: DEFEAT, stage: culpability}

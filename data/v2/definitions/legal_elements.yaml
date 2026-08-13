@@ -999,3 +999,35 @@
       citation: "형법 제355조 제2항"
     - authority_basis: commentary_synthesis
       citation: "케이스노트 형법각칙 제355조 제2항 Ⅰ.1; art355_sec1_3.breach_of_trust_case_concrete_risk_of_loss"
+
+- id: legal_element.object_misidentification
+  arguments:
+    - {name: actor, type: entity}
+    - {name: object, type: entity}
+  canonical_meaning: 행위자가 대상 자체를 다른 사람 또는 물건으로 잘못 알아본 경우(객체의 착오)
+  legal_standard: 행위자가 목표로 삼은 대상 그 자체를 오인한 경우인지, 아니면 목표는 옳게 인식하였으나
+    실행이 빗나가 다른 대상에 결과가 발생한 경우(방법의 착오)인지 여부
+  authority_refs:
+    - {authority_basis: statute_text, citation: 형법 제13조}
+    - {authority_basis: commentary_reported_precedent, citation: 케이스노트 형법총칙 제13조 구체적 사실의 착오}
+
+- id: legal_element.belief_in_justifying_circumstance
+  arguments:
+    - {name: actor, type: entity}
+  canonical_meaning: 위법성조각사유의 사실적 전제가 존재한다고 믿은 사정
+  legal_standard: 행위자가 정당방위 상황, 피해자의 승낙, 직무집행의 위법성 등 위법성조각사유의 전제가 되는
+    사실이 존재한다고 인식하였는지 여부
+  authority_refs:
+    - {authority_basis: statute_text, citation: 형법 제16조}
+    - {authority_basis: commentary_reported_precedent, citation: 케이스노트 형법총칙 위법성조각사유의 전제사실에 관한 착오}
+
+- id: legal_element.foreseeability_of_aggravated_result_by_participant
+  arguments:
+    - {name: actor, type: entity}
+    - {name: result, type: entity}
+  canonical_meaning: 가담자 본인이 중한 결과의 발생을 예견할 수 있었던 사정
+  legal_standard: 교사·방조·공모에 가담한 사람이 자신이 가담한 기본행위로부터 발생한 중한 결과를
+    일반 경험칙상 예견할 수 있었는지 여부. 정범의 예견가능성과 구별한다.
+  authority_refs:
+    - {authority_basis: statute_text, citation: 형법 제15조 제2항}
+    - {authority_basis: commentary_reported_precedent, citation: 케이스노트 형법총칙 결과적 가중범과 공범}

@@ -158,6 +158,24 @@ def _check_offense(registry: DefinitionRegistry, entry: DefinitionEntry) -> list
             ref,
             frozenset({"legal_element"}),
         ))
+    aggravating = (entry.payload.get("participation_constraints") or {}).get(
+        "aggravating_status_participation"
+    )
+    if aggravating:
+        findings.extend(_check_ref(
+            registry,
+            entry,
+            "participation_constraints.aggravating_status_participation.base_offense_ref",
+            aggravating["base_offense_ref"],
+            frozenset({"offense", "derived_offense"}),
+        ))
+        findings.extend(_check_ref(
+            registry,
+            entry,
+            "participation_constraints.aggravating_status_participation.status_ref",
+            aggravating["status_ref"],
+            frozenset({"legal_element"}),
+        ))
     for index, ref in enumerate(
         (entry.payload.get("participation_constraints") or {}).get(
             "necessary_counterpart_offense_refs"
@@ -283,6 +301,47 @@ def _check_participation_policy(registry: DefinitionRegistry, entry: DefinitionE
     return findings
 
 
+def _check_mistake_policy(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:
+    """The divergence relation must be structural: asking a model "was this a mistake?" is exactly
+    what this kind exists to avoid, and an evaluative relation would route it back to Call 2."""
+    findings: list[Finding] = []
+    findings.extend(_check_ref(
+        registry, entry, "divergence_relation", entry.payload["divergence_relation"],
+        frozenset({"relation"}),
+    ))
+    relation = registry.get(entry.payload["divergence_relation"])
+    if relation is not None and relation.payload.get("evaluation") != "structural":
+        findings.append(Finding(
+            _AXIS,
+            "kind_mismatch",
+            entry.id,
+            "divergence_relation",
+            f"{relation.id!r} must be a structural relation, not "
+            f"{relation.payload.get('evaluation')!r}",
+        ))
+    findings.extend(_check_ref(
+        registry, entry, "divergence_kind_ref", entry.payload["divergence_kind_ref"],
+        _EXPRESSION_LEAF_KINDS,
+    ))
+    return findings
+
+
+def _check_excess_policy(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:
+    findings: list[Finding] = []
+    aggravated = entry.payload["quantitative"]["result_aggravated"]
+    findings.extend(_check_ref(
+        registry, entry, "quantitative.result_aggravated.foreseeability_ref",
+        aggravated["foreseeability_ref"], _EXPRESSION_LEAF_KINDS,
+    ))
+    for index, pair in enumerate(entry.payload.get("incompatible_offense_pairs") or ()):
+        for field in ("instigated_offense_ref", "realized_offense_ref"):
+            findings.extend(_check_ref(
+                registry, entry, f"incompatible_offense_pairs[{index}].{field}",
+                pair[field], frozenset({"offense", "derived_offense"}),
+            ))
+    return findings
+
+
 _HANDLERS = {
     "legal_element": _check_legal_element,
     "primitive": _check_primitive,
@@ -294,4 +353,6 @@ _HANDLERS = {
     "qualifier": _check_qualifier,
     "completion_policy": _check_completion_policy,
     "participation_policy": _check_participation_policy,
+    "mistake_policy": _check_mistake_policy,
+    "excess_policy": _check_excess_policy,
 }

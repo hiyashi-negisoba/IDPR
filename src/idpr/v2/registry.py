@@ -25,6 +25,8 @@ KIND_TO_EXAMPLE_FILE: Mapping[str, str] = {
     "relation": "relations.yaml",
     "completion_policy": "completion_policies.yaml",
     "participation_policy": "participation_policies.yaml",
+    "mistake_policy": "mistake_policies.yaml",
+    "excess_policy": "excess_policies.yaml",
 }
 
 

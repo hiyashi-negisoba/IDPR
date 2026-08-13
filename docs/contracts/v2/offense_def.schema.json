@@ -2,19 +2,34 @@
   "$id": "https://schemas.idpr.local/v2/OffenseDef",
   "description": "v2.1.0 sections 6 and 22 — a base criminal offense expressed as typed fixed slots rather than a monolithic article unit.",
   "type": "object",
-  "required": ["id", "identity", "elements"],
+  "required": [
+    "id",
+    "identity",
+    "elements"
+  ],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+    "id": {
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+    },
     "identity": {
       "type": "object",
-      "required": ["name"],
+      "required": [
+        "name"
+      ],
       "additionalProperties": false,
       "properties": {
-        "name": { "type": "string", "minLength": 1, "description": "Human-readable offense name, e.g. '사기죄'." },
+        "name": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Human-readable offense name, e.g. '사기죄'."
+        },
         "statutory_refs": {
           "type": "array",
-          "items": { "type": "string", "minLength": 1 },
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
           "description": "e.g. ['형법 제347조 제1항']. Open Question #13 (v2.1.0 section 25) — final article-to-doctrine mapping is a separate legal-review step; this field only records the reference, it does not carry legal effect."
         }
       }
@@ -23,13 +38,27 @@
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "subject": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "object": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "conduct": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "circumstance": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "result": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "causation": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "mental": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" }
+        "subject": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "object": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "conduct": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "circumstance": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "result": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "causation": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "mental": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        }
       },
       "description": "All seven fixed slots (section 6) are optional here — not every offense uses every slot (e.g. a conduct-only offense may omit causation/result). Absence means the slot is not part of this offense's constitutive elements, not that it is trivially satisfied."
     },
@@ -37,28 +66,42 @@
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["ref", "placement"],
+        "required": [
+          "ref",
+          "placement"
+        ],
         "additionalProperties": false,
         "properties": {
-          "ref": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "ElementBundleDef id." },
-          "placement": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/placement_map" }
+          "ref": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+            "description": "ElementBundleDef id."
+          },
+          "placement": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/placement_map"
+          }
         }
       },
       "description": "Section 7, Shared Element Modules — executable attachment, not a discoverability list. 2026-08-08 review: an earlier draft made this a bare array of bundle ids, leaving no way to say how a listed bundle's predicates attach to this offense's slots (op:ref-into-a-bundle was retracted as an element_expression leaf target — bundles are consumed via this mechanism or via a DerivedOffenseDef's COMPOSE, never as a bare expression leaf). Each entry now names a bundle and maps every one of that bundle's own leaf-refs to the slot it contributes to — identical mechanism to a COMPOSE component_ref with kind=bundle (derived_offense_def.schema.json). This offense's TRUE per-slot requirement is elements.<slot> combined with every element_modules entry's contribution to <slot>, not elements.<slot> alone — enforced by the Type checker (step 2), not this structural schema."
     },
     "exports": {
       "type": "object",
-      "additionalProperties": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+      "additionalProperties": {
+        "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+      },
       "description": "Named export map for PROJECT (section 9.3), e.g. { \"result\": \"injury_result\" }. Keys are free-form export names, not restricted to fixed_slot_name, matching ExportedComponentDef.export_key."
     },
     "qualifiers": {
       "type": "array",
-      "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+      "items": {
+        "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+      },
       "description": "QualifierDef ids that may legitimately QUALIFY this offense (e.g. embezzlement listing occupational_status). This is a menu of applicable qualifiers declared at the base offense, not an application — QUALIFY itself happens in DerivedOffenseDef."
     },
     "indirect_principal_capability": {
       "type": "object",
-      "required": ["legally_possible"],
+      "required": [
+        "legally_possible"
+      ],
       "additionalProperties": false,
       "properties": {
         "legally_possible": {
@@ -76,37 +119,76 @@
       "properties": {
         "disabled_modes": {
           "type": "array",
-          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/participation_mode" },
+          "items": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/participation_mode"
+          },
           "minItems": 1,
           "description": "Modes from the shared ParticipationPolicyDef that do not apply to this offense at all (e.g. an own-hand offense excluding co_principal)."
         },
         "attributable_slots": {
           "type": "array",
-          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name" },
+          "items": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name"
+          },
           "description": "Overrides the shared policy's co_principal.attributable_slots for this offense only, when this offense's ATTRIBUTE-eligible slots are narrower or wider than the default."
         },
         "constitutive_status_refs": {
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+          "items": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+          },
           "description": "Phase 5.1, Article 33 only: existing actor-specific status leaves that a co-principal may satisfy through a CoPrincipalConstitutiveStatusObligation. They are never added to attributable_slots and never OR-merged into the target's CaseTruths. The participation runtime supplies the obligation truth only while evaluating this offense's Elements."
         },
         "necessary_counterpart_offense_refs": {
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+          "items": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+          },
           "description": "Static candidate exclusion for necessary/opposed participation. When a proposed ordinary instigator/aider/co-principal member already has a same-case active binding for one of these counterpart offenses, the factual participation compiler must not reinterpret that opposed statutory role as an ordinary participation route in this offense. This metadata only suppresses a probe; it never establishes either offense or legal role."
         },
         "statutory_deeming": {
           "type": "object",
-          "required": ["requires"],
+          "required": [
+            "requires"
+          ],
           "additionalProperties": false,
           "properties": {
             "requires": {
               "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression",
               "description": "Step 7 Article 263 opt-in: the independently authored statutory-deeming condition emitted as a participation probe. It neither adds an ordinary participation mode nor creates a new offense identity."
+            }
+          }
+        },
+        "aggravating_status_participation": {
+          "type": "object",
+          "required": [
+            "base_offense_ref",
+            "status_ref",
+            "applies_to_modes"
+          ],
+          "additionalProperties": false,
+          "description": "형법 제33조 단서. 가감적 신분자가 비신분자의 범행에 가담한 경우 가담자의 죄책을 이 가중죄로 올린다. 2026-08-13 검수 확정: 성립은 base offense로 두고 과형만 가중하는 표현이 아니라, 가중 신분범의 해당 mode realization 자체를 생성한다(대법원 93도1002가 모해위증교사죄로 처단한 구조). 이 필드는 가중죄 쪽에 저작한다 -- 기본죄가 자신을 올려줄 죄를 알 필요는 없고, 가중 사유를 아는 것은 가중죄이기 때문이다. 가담자에게 status_ref가 TRUE일 때만 적용되며 FALSE/UNKNOWN이면 아무 효과도 없다.",
+          "properties": {
+            "base_offense_ref": {
+              "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+              "description": "정범이 실현한 기본죄."
+            },
+            "status_ref": {
+              "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+              "description": "가담자 본인이 가져야 하는 가감적 신분 leaf. 이 가중죄의 elements가 이미 쓰는 leaf여야 하며 새로 만들지 않는다."
+            },
+            "applies_to_modes": {
+              "type": "array",
+              "minItems": 1,
+              "uniqueItems": true,
+              "items": {
+                "$ref": "https://schemas.idpr.local/v2/common#/$defs/participation_mode"
+              },
+              "description": "제33조가 제30조부터 제32조까지를 대상으로 하므로 co_principal을 포함한다(검수 ②-b)."
             }
           }
         }
