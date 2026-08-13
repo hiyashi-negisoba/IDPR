@@ -16,7 +16,7 @@ host는 이 둘을 짝지어 나르기만 하고 어느 쪽도 해석하지 않�
 
 from __future__ import annotations
 
-from collections.abc import Iterable
+from collections.abc import Iterable, Sequence
 from dataclasses import dataclass
 from typing import Any
 
@@ -39,6 +39,8 @@ class AccessoryExcessCandidate:
     """정범 쪽에서 실제로 성립한 instance."""
 
     factual_episode_id: str
+    """실현된 죄의 factual episode. 가담자의 episode가 아니다 -- 교사는 앞선 episode에서
+    일어나므로 둘은 정상적으로 다르다."""
 
     @property
     def instigated_offense_ref(self) -> str:
@@ -69,42 +71,60 @@ class AccessoryExcessCandidate:
 
 
 def plan_accessory_excess_candidates(
-    accessory_instances: Iterable[OffenseInstanceKey],
-    principal_instances: Iterable[OffenseInstanceKey],
+    derivative_links: Iterable[tuple[OffenseInstanceKey, OffenseInstanceKey, str]],
+    established_instances: Iterable[OffenseInstanceKey],
     *,
     episode_by_instance: dict[OffenseInstanceKey, str],
+    episode_order: Sequence[str],
 ) -> tuple[AccessoryExcessCandidate, ...]:
-    """Pair each accessory with the principals that realized something else in the same episode.
+    """Open candidates along an already-confirmed participation link, not by factual episode.
 
-    Three joins, and each one is a place where a looser rule would invent a case:
+    2026-08-13 검수에서 same-episode join이 교체됐다. 교사행위와 정범의 실행이 시간적으로
+    분리되는 것이 정상이고, 판례가 찾는 것은 "교사행위로 정범이 실행을 결의하고 실제
+    실행했는가"라는 연결관계다. 그 연결은 derivative link가 이미 확정했으므로, 초과 판정에서
+    episode 일치를 다시 요구하면 같은 것을 두 번 물으면서 경로만 닫는다.
 
-    * different actors -- an actor is not their own accessory;
-    * same factual episode -- otherwise an unrelated offense elsewhere in the case reads as excess;
-    * different offense refs -- realizing exactly what was instigated is not excess at all, and
-      emitting it here would make `classify_excess` answer a question nobody asked.
+    대신 link의 principal realization에서 **이어지는** 실행 범위로 제한한다. 세 join 모두
+    느슨해지면 사건을 지어내는 자리다.
+
+    * linked principal과 같은 행위자 -- 사건 안의 다른 사람이 저지른 죄는 이 교사의 초과가
+      아니다;
+    * linked principal realization의 episode 이후 -- 그 실행보다 앞선 죄는 교사한 범위를
+      넘어선 것일 수 없다;
+    * 교사 대상과 다른 offense ref -- 교사한 그대로를 실현한 것은 초과가 아니고, 여기서
+      내보내면 `classify_excess`가 아무도 묻지 않은 질문에 답하게 된다.
     """
-    accessories = tuple(dict.fromkeys(accessory_instances))
-    principals = tuple(dict.fromkeys(principal_instances))
-    missing = (set(accessories) | set(principals)) - set(episode_by_instance)
+    links = tuple(dict.fromkeys(derivative_links))
+    established = tuple(dict.fromkeys(established_instances))
+    endpoints = {value for link in links for value in link[:2]}
+    missing = (endpoints | set(established)) - set(episode_by_instance)
     if missing:
         raise ExcessCandidateError(
             f"instances lack factual episode ids: {sorted(missing, key=repr)}"
         )
+    rank = {episode_id: index for index, episode_id in enumerate(episode_order)}
+    unranked = {episode_by_instance[value] for value in endpoints | set(established)} - set(rank)
+    if unranked:
+        raise ExcessCandidateError(f"factual episodes are not ordered: {sorted(unranked)}")
 
     output: list[AccessoryExcessCandidate] = []
-    for accessory in accessories:
-        for principal in principals:
-            if accessory.case_id != principal.case_id:
+    for accessory, principal, _mode in links:
+        principal_rank = rank[episode_by_instance[principal]]
+        for realized in established:
+            if realized.case_id != accessory.case_id:
                 continue
-            if accessory.actor_id == principal.actor_id:
+            if realized.actor_id != principal.actor_id:
                 continue
-            if accessory.offense_ref == principal.offense_ref:
+            if realized.offense_ref == accessory.offense_ref:
                 continue
-            episode = episode_by_instance[accessory]
-            if episode != episode_by_instance[principal]:
+            if rank[episode_by_instance[realized]] < principal_rank:
                 continue
-            output.append(AccessoryExcessCandidate(accessory, principal, episode))
-    return tuple(output)
+            output.append(
+                AccessoryExcessCandidate(
+                    accessory, realized, episode_by_instance[realized]
+                )
+            )
+    return tuple(dict.fromkeys(output))
 
 
 __all__ = [

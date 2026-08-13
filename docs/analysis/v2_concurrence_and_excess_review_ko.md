@@ -1,8 +1,8 @@
 # 검수: 경합 규칙 승인과 초과의 사실 단위
 
 2026-08-13. 최종 책임 뷰를 파이프라인에 관통시키면서 **검수 없이 결정할 수 없는 것 두 가지**가
-남았다. 아래 두 카드에 `> comment:`로 답해 주시면 그대로 반영한다. 구현·산출물은
-`experiments/v2_call15_directscope_26_causal/final_responsibility_v10/audit.md`에 있다.
+남았었다. **두 카드 모두 검수 완료되어 반영됐다** -- 아래 각 카드의 "검수 결과"를 보라.
+구현·산출물은 `experiments/v2_call15_directscope_26_causal/final_responsibility_v10/audit.md`에 있다.
 
 ---
 
@@ -39,7 +39,21 @@ binding:004(인장위조)가 모두 `factual_episode:001`이다. 다만 그 문�
 - (다) 규칙을 승인하면서 조건을 없애고 same-episode + 두 죄 성립만으로 흡수한다.
       -- 위조에 쓰지 않은 인장위조까지 삼킬 수 있으므로 권하지 않는다.
 
-> comment:
+> comment: (가) 그대로 승인하지 말고, 조건을 한 단계 좁힌 뒤 approved로 올리는 게 맞습니다.
+> 대법원은 타인의 인장을 위조해 그 인장으로 사문서를 위조한 경우 원칙적으로 인장위조가
+> 사문서위조에 흡수된다고 봅니다. 다만 후속 판례는 문서의 구성부분이 되는 인영 위조만
+> 흡수되고, 인과(도장 자체)를 별도로 제작한 행위는 독립한 사인위조죄라고 명확히 구별합니다.
+> 따라서 현재 condition만으로는 너무 넓습니다. rule 자체는 승인하되 condition을 "해당 문서의
+> 구성부분이 된 인영의 위조"로 좁혀야 합니다. (다)는 반대합니다.
+
+### 검수 결과 -- 반영 완료
+
+조건을 `condition.forged_seal_impression_is_a_constituent_part_of_the_document`로 좁히고
+`status: approved`로 올렸다. 넓은 조건(`..._was_means_of_document_forgery`)은 폐기했다.
+`offense.seal_forgery_or_misuse`가 인영 위조와 인과 제작을 모두 담으므로 그 구별은 조건이 진다.
+
+조건 assessment 채널은 아직 없어 후보는 UNKNOWN(unresolved)으로 남는다. KCL-26에서는
+`r12_p2_q1_da`의 두 위조죄가 성립하지 않아 후보 자체가 열리지 않았다.
 
 ---
 
@@ -77,4 +91,25 @@ binding:004(인장위조)가 모두 `factual_episode:001`이다. 다만 그 문�
 (`representation_gaps.yaml`의 `gap.assault_offense_family`). 다만 절도→상해 pair가 저작되어
 있으므로 질적 초과라는 **분류**는 나온다.
 
-> comment:
+> comment: (가) 승인. 초과의 연결 단위는 factual episode가 아니라 이미 확정된
+> participation/derivative link로 바꾸는 게 맞습니다. 교사범은 교사행위와 정범 실행이 시간적으로
+> 분리되는 것이 정상이고, 판례도 핵심을 "교사행위로 정범이 범죄 실행을 결의하고 실제
+> 실행했는가"라는 연결관계에서 찾습니다. 다만 단순히 "같은 사건의 정범이 저지른 모든 죄"까지
+> 넓히면 안 되고 해당 derivative link의 principal realization에서 이어지는 실행 범위로 제한해야
+> 합니다. r11_p1_q1의 폭행치상 family 미저작은 그대로 representation gap으로 남기는 것도 맞습니다.
+
+### 검수 결과 -- 반영 완료
+
+`plan_accessory_excess_candidates`의 join을 교체했다. 후보 universe는 확정된 derivative link의
+principal이며, 세 join으로 제한한다.
+
+1. linked principal과 **같은 행위자**가 실현한 죄 -- 사건 안의 다른 사람이 저지른 죄는 제외.
+2. linked principal realization의 **episode 이후** -- 그 실행보다 앞선 죄는 초과일 수 없다.
+3. **교사 대상과 다른** offense ref.
+
+2번을 위해 planner가 `factual_episode_order`를 함께 나른다. episode id가 사실상 순번이더라도
+그 우연에 기대지 않는다.
+
+`r11_p1_q1`이 발화한다 -- 甲 `offense.theft` -> 乙 `offense.injury`,
+`qualitative / no_liability_for_excess`. host 분류와 전용 Scallop relation의 parity도 통과했다.
+폭행치상 미저작은 `gap.assault_offense_family`로 그대로 남겼다.

@@ -606,11 +606,14 @@ artifact는 `call2_v8_indirect_principal`을 그대로 재사용했다.
 - 특별관계 흡수: plan 수준 후보 5(절도→특수절도, `r13_p1_q1`/`r13_p2_q1`), 발화 0. 어느
   instance도 성립까지 가지 못한다. 앞단 undercall의 하류이지 흡수 로직의 문제가 아니다.
 - 저작된 경합: `data/v2/concurrence_rules.yaml`을 신설하고 legacy 인장위조←사문서위조 1쌍을
-  exact DefinitionRef로 옮겼다. `status: approved`만 런타임에 도달하며 현재는
-  `awaiting_legal_review`라 발화하지 않는다.
-- 공범의 초과: 후보 0. 원인이 확정됐다 -- 저작된 same-episode join은 교사가 실행보다 앞선
-  episode에서 일어나므로 구조적으로 거의 항상 닫힌다. `r11_p1_q1`은 교사 ep001 / 절도 ep004 /
-  상해 ep005다. 규칙을 host가 바꾸지 않고 `UNRESOLVED_EXCESS_EPISODE_SCOPE`로 남겼다.
+  exact DefinitionRef로 옮겼다. `status: approved`만 런타임에 도달한다. 검수에서 조건을
+  "그 문서의 구성부분이 된 인영의 위조"로 좁힌 뒤 승인됐다(인과 자체 제작은 독립한 사인위조죄).
+  KCL-26에서는 `r12_p2_q1_da`의 두 위조죄가 성립하지 않아 후보가 열리지 않는다.
+- 공범의 초과: **1건 발화**. 검수에서 join을 factual episode에서 참가 링크로 교체했다. 후보는
+  확정된 derivative link의 principal이 그 realization **이후** episode에서 실현한, 교사 대상과
+  다른 죄다. `r11_p1_q1`이 甲 `offense.theft` -> 乙 `offense.injury`,
+  `qualitative / no_liability_for_excess`로 판정되고 전용 Scallop relation parity도 통과했다.
+  폭행치상 미저작(`gap.assault_offense_family`)은 그대로 남겼다 -- 분류는 맞고 죄명이 다르다.
 - 제33조 단서: 발화 0. link가 있는 4문항 모두 신분 leaf가 planner target에 없다
   (`UNRESOLVED_AGGRAVATING_STATUS`). 존속살해 instance가 실제로 열린 `r12_p2_q1_ga`는 반대로
   participation이 격리되어 link가 0이다. 두 조건이 한 문항에서 만난 적이 없다.
@@ -623,13 +626,24 @@ artifact는 `call2_v8_indirect_principal`을 그대로 재사용했다.
   없으면 가담자 instance가 최종 책임 단계에서 통째로 빠진다.
 - participation target 49개는 frozen v7과 완전히 동일하다.
 
-검증은 로컬 전체 `253 passed, 16 skipped`.
+검증은 로컬 전체 `254 passed, 16 skipped`.
+
+### 검수 완료 항목
+
+`docs/analysis/v2_concurrence_and_excess_review_ko.md`의 두 카드는 답변을 받아 반영됐다.
+① 조건을 좁힌 뒤 승인, ② 링크 기반 join으로 교체. 각 카드의 "검수 결과" 절이 정본이다.
 
 ### 다음 세션
 
-**먼저 `docs/analysis/v2_concurrence_and_excess_review_ko.md`의 두 카드에 답을 받아야 한다.**
-① 인장위조 흡수 규칙을 approved로 올릴지, ② 초과의 사실 단위를 episode에서 참가 링크로 바꿀지.
-②는 KCL-26에서 초과가 하나라도 발화하는지를 가르는 유일한 결정이다.
+남은 것은 세 갈래다.
+
+1. 초과 효과의 소비자가 없다. `no_liability_for_excess`는 지금 finding으로 기록만 되고 甲의
+   liability result를 고쳐 쓰지 않는다. 초과 부분에 대한 무책이 최종 답안에서 어떻게 표현되는지는
+   Call 3 소관인지 심볼릭 결론인지 먼저 정해야 한다.
+2. 흡수 조건 assessment 채널. 인장위조 규칙은 승인됐으나 조건을 물을 곳이 없어 후보가 열려도
+   UNKNOWN이다. 이것은 Call 2 target 추가이므로 프롬프트 승인 게이트에 걸린다.
+3. 제33조 단서의 신분 leaf를 planner target으로 여는 것. probe compiler는 이미 요구를
+   선언하고 있으나 planner가 participation candidate scope의 probe를 target으로 만들지 않는다.
 
 그 뒤가 Call 1.5-D 프롬프트 승인과 222907 라이브 실행이다. 프롬프트는 아직 작성하지 않았고,
 활성 프롬프트이므로 전문 승인이 필요하다. IssuePlanner/Call3/judge는 계속 보류한다.

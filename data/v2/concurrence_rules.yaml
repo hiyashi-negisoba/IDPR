@@ -12,21 +12,30 @@ version: 1
 
 rules:
   - rule_id: absorption.seal_forgery_by_private_document_forgery
-    status: awaiting_legal_review
+    status: approved
     kind: absorption
     # ABSORPTION에서 first가 흡수되는 쪽(child)이다.
     first_offense_ref: offense.seal_forgery_or_misuse
     second_offense_ref: offense.private_document_forgery
     occurrence_constraint: same_episode
-    # 조건은 별도 assessment 채널이 붙기 전까지 UNKNOWN이고, 후보는 unresolved로 남는다.
-    # 이것이 "두 죄가 각각 성립한다"는 결론과 다르다는 점이 이 규칙을 저작하는 이유다.
-    condition_ref: condition.seal_forgery_was_means_of_document_forgery
+    # 2026-08-13 검수 확정. 조건을 "그 문서의 구성부분이 된 인영의 위조"로 좁혔다.
+    # 넓은 형태(`인장위조가 사문서위조의 수단이었는가`)는 승인되지 않았다 -- 후속 판례가
+    # 문서의 구성부분이 되는 인영 위조만 흡수되고 인과(도장 자체)를 별도로 제작한 행위는
+    # 독립한 사인위조죄라고 구별하기 때문이다. `offense.seal_forgery_or_misuse`는 두 형태를
+    # 모두 담으므로 조건이 그 구별을 진다.
+    #
+    # 조건 assessment 채널은 아직 없다. 그래서 후보는 UNKNOWN으로 남고 두 죄가 모두
+    # 유지되되 unresolved로 표시된다. 조건 없이 흡수를 발화시키지 않는다.
+    condition_ref: condition.forged_seal_impression_is_a_constituent_part_of_the_document
     legacy_rule_id: art231_sec6.seal_forgery_absorbed
     source_card_ids: []
     basis: >-
       행사할 목적으로 타인의 인장을 위조하고 그 인장으로 타인의 사문서를 위조한 경우
-      인장위조죄는 사문서위조죄에 흡수되어 별도로 성립하지 않는다.
+      인장위조죄는 사문서위조죄에 흡수되어 별도로 성립하지 않는다. 다만 흡수되는 것은
+      그 문서의 구성부분이 된 인영의 위조이고, 인과 자체를 별도로 제작한 행위는 독립한
+      사인위조죄로 남는다.
     review_notes: >-
       KCL-26에서 유일하게 두 죄가 같은 factual episode에 함께 결박된 문항은
       `kcl_criminal_r12_p2_q1_da`이며 binding:002(사문서위조)와 binding:004(인장위조)가
-      모두 factual_episode:001이다. legacy 원본의 status는 awaiting_legal_review다.
+      모두 factual_episode:001이다. 다만 그 문항에서 현재 성립한 것은 위조사문서행사죄뿐이라
+      승인 후에도 후보가 열리지 않는다.

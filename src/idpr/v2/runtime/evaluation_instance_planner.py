@@ -160,6 +160,13 @@ class OccurrenceAwareEvaluationInstancePlan:
     article263_pair_candidates: tuple[Article263OccurrencePair, ...] = ()
     context_only_binding_ids: tuple[str, ...] = ()
     instance_provenance: tuple[InstanceProvenance, ...] = ()
+    factual_episode_order: tuple[str, ...] = ()
+    """Call 1.5가 정한 factual episode의 서사 순서.
+
+    초과 판정이 "정범의 실행에서 이어지는 범위"를 계산하려면 순서가 필요하다. episode id가
+    사실상 순번이더라도 그 우연에 기대지 않는다 -- 순서는 상류가 정한 값이고, 여기서 문자열을
+    정렬해 다시 만들면 id 규칙이 바뀌는 날 조용히 틀린다.
+    """
 
     @property
     def final_assessment_target_count(self) -> int:
@@ -230,6 +237,7 @@ class OccurrenceAwareEvaluationInstancePlan:
             "context_only_binding_count": len(self.context_only_binding_ids),
             "instance_provenance": [value.as_dict() for value in self.instance_provenance],
             "instance_provenance_count": len(self.instance_provenance),
+            "factual_episode_order": list(self.factual_episode_order),
             "top_level_instance_count": len(self.top_level_instances),
             "predicate_scope_instance_count": len(self.predicate_scope_instances),
             "assessment_instance_count": len(self.assessment_instances),
@@ -672,6 +680,11 @@ def plan_binding_scoped_evaluation_instances(
     episode_by_binding_id.update(
         {value.binding_id: value.factual_episode_id for value in derived_bindings}
     )
+    episode_sequence = (
+        tuple(value.factual_episode_id for value in episode_values)
+        if episode_values
+        else tuple(dict.fromkeys(value.factual_episode_id for value in binding_values))
+    )
     provenance_values = tuple(
         InstanceProvenance(
             instance,
@@ -774,6 +787,7 @@ def plan_binding_scoped_evaluation_instances(
         article263_pair_candidates=tuple(article263_pairs),
         context_only_binding_ids=context_only_binding_ids,
         instance_provenance=provenance_values,
+        factual_episode_order=episode_sequence,
     )
 
 

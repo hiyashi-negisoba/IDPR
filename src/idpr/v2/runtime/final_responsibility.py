@@ -243,6 +243,7 @@ def resolve_final_responsibility(
     condition_truths: Mapping[
         tuple[str, OffenseInstanceKey, OffenseInstanceKey], TruthValue
     ] = {},
+    episode_order: Iterable[str] = (),
     available_predicate_refs: Iterable[str] = (),
     status_redirections: Iterable[AggravatingStatusRedirection] = (),
     status_redirection_findings: Iterable[UnresolvedFinding] = (),
@@ -273,22 +274,25 @@ def resolve_final_responsibility(
         condition_truths=condition_truths,
     )
 
-    links = tuple(derivative_links)
+    # 가담자 instance는 성립하지 않았을 수 있다. 성립 여부야말로 초과가 바꾸려는 것이므로
+    # link의 양 끝은 established가 아니라 전체 provenance에서 찾는다.
+    links = tuple(
+        link
+        for link in derivative_links
+        if link[0] in episode_by_instance and link[1] in episode_by_instance
+    )
     excess_findings = _excess_findings(
         registry,
         links=links,
         established=tuple(scoped_episodes),
-        episode_by_instance=scoped_episodes,
+        episode_by_instance=dict(episode_by_instance),
+        episode_order=tuple(episode_order),
         truths=truths,
-    )
-    episode_scope_findings = _excess_episode_scope_findings(
-        links=links, established=tuple(scoped_episodes), episode_by_instance=scoped_episodes
     )
 
     unresolved = [
         *status_redirection_findings,
         *_multiple_excess_findings(excess_findings),
-        *episode_scope_findings,
         *_probe_gap_findings(
             registry,
             available_predicate_refs=(
@@ -330,28 +334,21 @@ def _excess_findings(
     links: tuple[tuple[OffenseInstanceKey, OffenseInstanceKey, str], ...],
     established: tuple[OffenseInstanceKey, ...],
     episode_by_instance: Mapping[OffenseInstanceKey, str],
+    episode_order: tuple[str, ...],
     truths: CaseTruths | None,
 ) -> tuple[ExcessFinding, ...]:
-    """가담자 instance와 같은 episode의 정범 instance를 짝지어 초과를 분류한다.
+    """확정된 참가 링크를 따라가 정범이 그 실행에서 이어서 실현한 다른 죄를 분류한다.
 
-    가담자 쪽은 `derivative_links`가 이미 정한 accessory만 쓴다. 성립하지 않은 정범은
-    후보에서 빠진다 -- 실현되지 않은 죄를 초과의 상대항으로 삼을 수 없다.
+    성립하지 않은 죄는 후보에서 빠진다 -- 실현되지 않은 죄를 초과의 상대항으로 삼을 수 없다.
     """
     policy = excess_policy_for(registry)
     if policy is None or not links:
         return ()
-    accessories = tuple(
-        dict.fromkeys(
-            accessory for accessory, _principal, _mode in links if accessory in episode_by_instance
-        )
-    )
-    principals = tuple(
-        value
-        for value in established
-        if value not in {accessory for accessory, _p, _m in links}
-    )
     candidates = plan_accessory_excess_candidates(
-        accessories, principals, episode_by_instance=dict(episode_by_instance)
+        links,
+        established,
+        episode_by_instance=dict(episode_by_instance),
+        episode_order=episode_order,
     )
     foreseeability_ref = policy.payload["quantitative"]["result_aggravated"]["foreseeability_ref"]
     output: list[ExcessFinding] = []
@@ -369,49 +366,6 @@ def _excess_findings(
                     instigated_offense_ref=candidate.instigated_offense_ref,
                     realized_offense_ref=candidate.realized_offense_ref,
                     participant_foreseeability=foreseeability,
-                ),
-            )
-        )
-    return tuple(output)
-
-
-UNRESOLVED_EXCESS_EPISODE_SCOPE = "UNRESOLVED_EXCESS_EPISODE_SCOPE"
-"""정범이 다른 죄를 실현했지만 가담 episode와 실현 episode가 달라 후보가 열리지 않았다.
-
-교사는 본래 실행보다 앞선 episode에서 일어난다. `plan_accessory_excess_candidates`의 저작된
-same-episode join은 그래서 초과에 대해 구조적으로 잘 닫히지 않는다. 그 join을 host가 임의로
-느슨하게 바꾸는 것은 검수된 규칙을 코드에서 뒤집는 일이므로 하지 않고, 대신 닫혔다는 사실을
-남긴다. 이것이 없으면 "초과 후보 0"이 "초과가 없었다"와 구별되지 않는다.
-"""
-
-
-def _excess_episode_scope_findings(
-    *,
-    links: tuple[tuple[OffenseInstanceKey, OffenseInstanceKey, str], ...],
-    established: tuple[OffenseInstanceKey, ...],
-    episode_by_instance: Mapping[OffenseInstanceKey, str],
-) -> tuple[UnresolvedFinding, ...]:
-    output: list[UnresolvedFinding] = []
-    for accessory, principal, _mode in links:
-        accessory_episode = episode_by_instance.get(accessory)
-        blocked = tuple(
-            value
-            for value in established
-            if value.actor_id == principal.actor_id
-            and value.offense_ref != accessory.offense_ref
-            and episode_by_instance.get(value) != accessory_episode
-        )
-        if not blocked:
-            continue
-        output.append(
-            UnresolvedFinding(
-                marker=UNRESOLVED_EXCESS_EPISODE_SCOPE,
-                policy_id="excess_policy",
-                scope=f"{accessory.actor_id}/{accessory.occurrence_id}",
-                detail=(
-                    f"principal {principal.actor_id} also established "
-                    + ", ".join(sorted({value.offense_ref for value in blocked}))
-                    + f" outside the accessory episode {accessory_episode}"
                 ),
             )
         )
@@ -509,7 +463,6 @@ def _probe_gap_findings(
 
 __all__ = [
     "MULTIPLE_EXCESS_CANDIDATES",
-    "UNRESOLVED_EXCESS_EPISODE_SCOPE",
     "UNRESOLVED_STATUS_REDIRECTION_TARGET",
     "excess_parity_rows",
     "ExcessFinding",

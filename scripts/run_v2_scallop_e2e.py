@@ -197,6 +197,19 @@ def _indirect_dependency(value: dict[str, Any]) -> IndirectPrincipalDependency:
     )
 
 
+def _episode_order(plan_path: Path) -> dict[str, tuple[str, ...]]:
+    """`{case: factual episode 순서}`. 초과가 "정범의 실행에서 이어지는 범위"를 계산할 때 쓴다."""
+    output: dict[str, tuple[str, ...]] = {}
+    for line in plan_path.read_text(encoding="utf-8").splitlines():
+        if not line:
+            continue
+        plan = json.loads(line)
+        output[str(plan["sub_question_id"])] = tuple(
+            str(value) for value in plan.get("factual_episode_order", ())
+        )
+    return output
+
+
 def _instance_provenance(
     plan_path: Path,
 ) -> dict[str, dict[OffenseInstanceKey, tuple[str, tuple[str, ...]]]]:
@@ -259,6 +272,7 @@ def main() -> None:
     ]
     registry = load_definitions(args.definitions)
     provenance_by_case = _instance_provenance(args.plan) if args.plan else {}
+    episode_order_by_case = _episode_order(args.plan) if args.plan else {}
     concurrence_rules = (
         load_concurrence_rules(args.concurrence_rules)
         if args.plan and args.concurrence_rules.exists()
@@ -497,6 +511,7 @@ def main() -> None:
                 derivative_links=derivative_links,
                 truths=truths,
                 concurrence_rules=concurrence_rules,
+                episode_order=episode_order_by_case.get(str(row["sub_question_id"]), ()),
                 available_predicate_refs=tuple(
                     dict.fromkeys(ref for _instance_key, ref in truths.predicate)
                 ),

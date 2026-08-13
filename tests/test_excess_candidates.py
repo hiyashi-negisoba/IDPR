@@ -1,4 +1,9 @@
-"""r13_p1_q1 shape: 甲 was bound to 절도, 乙 realized 특수절도 in the same episode."""
+"""공범의 초과 후보. 2026-08-13 검수로 join이 factual episode에서 참가 링크로 바뀌었다.
+
+교사행위와 정범의 실행은 시간적으로 분리되는 것이 정상이고, 판례가 찾는 것은 "교사행위로
+정범이 실행을 결의하고 실제 실행했는가"라는 연결관계다. 그 연결은 derivative link가 이미
+확정했으므로 여기서 episode 일치를 다시 요구하지 않는다.
+"""
 
 from pathlib import Path
 
@@ -13,31 +18,47 @@ from idpr.v2.runtime.excess_candidates import (
 )
 from idpr.v2.runtime.identity import OffenseInstanceKey
 
-EPISODE = "factual_episode:001"
+ORDER = ("factual_episode:001", "factual_episode:002", "factual_episode:003")
 ACCESSORY = OffenseInstanceKey("case", "甲", "offense.theft", "binding:001")
-PRINCIPAL = OffenseInstanceKey("case", "乙", "derived_offense.special_theft", "derived_binding:002")
+PRINCIPAL = OffenseInstanceKey("case", "乙", "offense.theft", "binding:002")
+REALIZED = OffenseInstanceKey("case", "乙", "derived_offense.special_theft", "binding:003")
+LINK = (ACCESSORY, PRINCIPAL, "instigator")
 
 
-def _episodes(*instances, episode=EPISODE):
-    return dict.fromkeys(instances, episode)
+def _plan(links, established, episodes, order=ORDER):
+    return plan_accessory_excess_candidates(
+        links, established, episode_by_instance=episodes, episode_order=order
+    )
 
 
-def test_an_accessory_and_a_differently_realizing_principal_pair_up() -> None:
-    candidates = plan_accessory_excess_candidates(
-        (ACCESSORY,), (PRINCIPAL,), episode_by_instance=_episodes(ACCESSORY, PRINCIPAL)
+def test_the_instigation_and_the_execution_may_sit_in_different_episodes() -> None:
+    """이것이 검수로 바뀐 지점이다. 예전 same-episode join은 여기서 후보를 닫았다."""
+    candidates = _plan(
+        (LINK,),
+        (PRINCIPAL, REALIZED),
+        {
+            ACCESSORY: "factual_episode:001",
+            PRINCIPAL: "factual_episode:002",
+            REALIZED: "factual_episode:003",
+        },
     )
     assert len(candidates) == 1
-    candidate = candidates[0]
-    assert candidate.instigated_offense_ref == "offense.theft"
-    assert candidate.realized_offense_ref == "derived_offense.special_theft"
+    assert candidates[0].instigated_offense_ref == "offense.theft"
+    assert candidates[0].realized_offense_ref == "derived_offense.special_theft"
 
 
 def test_the_provenance_feeds_the_classifier_without_any_new_judgment() -> None:
-    """The whole point of the candidate: two values upstream already fixed, carried, not re-decided."""
+    """후보의 요점: 두 값 모두 상류가 이미 정했고 여기서는 나르기만 한다."""
     registry = load_definitions(Path("data/v2/definitions"))
     policy = registry.get("excess_policy.korean_law_standard")
-    candidate = plan_accessory_excess_candidates(
-        (ACCESSORY,), (PRINCIPAL,), episode_by_instance=_episodes(ACCESSORY, PRINCIPAL)
+    candidate = _plan(
+        (LINK,),
+        (PRINCIPAL, REALIZED),
+        {
+            ACCESSORY: "factual_episode:001",
+            PRINCIPAL: "factual_episode:002",
+            REALIZED: "factual_episode:002",
+        },
     )[0]
 
     assessment = classify_excess(
@@ -50,31 +71,45 @@ def test_the_provenance_feeds_the_classifier_without_any_new_judgment() -> None:
     assert assessment.classification == QUANTITATIVE_ORDINARY
 
 
-def test_an_actor_is_not_their_own_accessory() -> None:
-    self_principal = OffenseInstanceKey(
-        "case", "甲", "derived_offense.special_theft", "derived_binding:002"
-    )
+def test_only_the_linked_principal_actor_can_exceed() -> None:
+    """같은 사건의 다른 사람이 저지른 죄는 이 교사의 초과가 아니다."""
+    other = OffenseInstanceKey("case", "丙", "offense.extortion", "binding:004")
     assert (
-        plan_accessory_excess_candidates(
-            (ACCESSORY,), (self_principal,), episode_by_instance=_episodes(ACCESSORY, self_principal)
+        _plan(
+            (LINK,),
+            (PRINCIPAL, other),
+            {
+                ACCESSORY: "factual_episode:001",
+                PRINCIPAL: "factual_episode:002",
+                other: "factual_episode:002",
+            },
         )
         == ()
     )
 
 
-def test_a_different_episode_is_not_excess() -> None:
-    episodes = {ACCESSORY: EPISODE, PRINCIPAL: "factual_episode:002"}
+def test_an_offense_before_the_linked_execution_is_not_excess() -> None:
+    earlier = OffenseInstanceKey("case", "乙", "offense.extortion", "binding:005")
     assert (
-        plan_accessory_excess_candidates((ACCESSORY,), (PRINCIPAL,), episode_by_instance=episodes)
+        _plan(
+            (LINK,),
+            (PRINCIPAL, earlier),
+            {
+                ACCESSORY: "factual_episode:001",
+                PRINCIPAL: "factual_episode:002",
+                earlier: "factual_episode:001",
+            },
+        )
         == ()
     )
 
 
 def test_realizing_exactly_what_was_instigated_produces_no_candidate() -> None:
-    same = OffenseInstanceKey("case", "乙", "offense.theft", "binding:003")
     assert (
-        plan_accessory_excess_candidates(
-            (ACCESSORY,), (same,), episode_by_instance=_episodes(ACCESSORY, same)
+        _plan(
+            (LINK,),
+            (PRINCIPAL,),
+            {ACCESSORY: "factual_episode:001", PRINCIPAL: "factual_episode:002"},
         )
         == ()
     )
@@ -82,6 +117,13 @@ def test_realizing_exactly_what_was_instigated_produces_no_candidate() -> None:
 
 def test_an_instance_without_an_episode_is_fatal() -> None:
     with pytest.raises(ExcessCandidateError, match="lack factual episode ids"):
-        plan_accessory_excess_candidates(
-            (ACCESSORY,), (PRINCIPAL,), episode_by_instance={ACCESSORY: EPISODE}
+        _plan((LINK,), (PRINCIPAL,), {ACCESSORY: "factual_episode:001"})
+
+
+def test_an_unordered_episode_is_fatal() -> None:
+    with pytest.raises(ExcessCandidateError, match="not ordered"):
+        _plan(
+            (LINK,),
+            (PRINCIPAL,),
+            {ACCESSORY: "factual_episode:001", PRINCIPAL: "factual_episode:009"},
         )

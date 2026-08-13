@@ -15,7 +15,6 @@ from idpr.v2.runtime.excess import (
 )
 from idpr.v2.runtime.final_responsibility import (
     MULTIPLE_EXCESS_CANDIDATES,
-    UNRESOLVED_EXCESS_EPISODE_SCOPE,
     UNRESOLVED_STATUS_REDIRECTION_TARGET,
     excess_parity_rows,
     plan_status_redirections,
@@ -74,11 +73,15 @@ def _stopped(instance: OffenseInstanceKey) -> LiabilityEvaluation:
     )
 
 
+ORDER = tuple(f"factual_episode:{index:03d}" for index in range(1, 10))
+
+
 def _view(registry, *, results, provenance, links=(), truths=None, rules=()):
     return resolve_final_responsibility(
         registry,
         case_id=CASE,
         results=results,
+        episode_order=ORDER,
         episode_by_instance={key: value[0] for key, value in provenance.items()},
         source_bindings_by_instance={key: value[1] for key, value in provenance.items()},
         derivative_links=links,
@@ -136,14 +139,20 @@ def test_an_unestablished_offense_never_enters_the_final_view(registry) -> None:
 
 
 def test_instigated_theft_realized_as_special_theft_is_quantitative_excess(registry) -> None:
-    accessory = _instance("offense.theft", "binding:001", actor="甲")
-    principal = _instance("derived_offense.special_theft", "binding:002", actor="乙")
+    accessory = _instance("offense.theft", "participation_binding:001", actor="甲")
+    principal = _instance("offense.theft", "binding:001", actor="乙")
+    realized = _instance("derived_offense.special_theft", "binding:002", actor="乙")
     view = _view(
         registry,
-        results={accessory: _established(accessory), principal: _established(principal)},
+        results={
+            accessory: _established(accessory),
+            principal: _established(principal),
+            realized: _established(realized),
+        },
         provenance={
             accessory: ("factual_episode:001", ()),
-            principal: ("factual_episode:001", ()),
+            principal: ("factual_episode:002", ()),
+            realized: ("factual_episode:002", ()),
         },
         links=((accessory, principal, "instigator"),),
     )
@@ -156,14 +165,20 @@ def test_instigated_theft_realized_as_special_theft_is_quantitative_excess(regis
 
 
 def test_an_unauthored_offense_relation_stays_unresolved_not_qualitative(registry) -> None:
-    accessory = _instance("offense.theft", "binding:001", actor="甲")
-    principal = _instance("offense.dwelling_intrusion", "binding:002", actor="乙")
+    accessory = _instance("offense.theft", "participation_binding:001", actor="甲")
+    principal = _instance("offense.theft", "binding:001", actor="乙")
+    realized = _instance("offense.dwelling_intrusion", "binding:002", actor="乙")
     view = _view(
         registry,
-        results={accessory: _established(accessory), principal: _established(principal)},
+        results={
+            accessory: _established(accessory),
+            principal: _established(principal),
+            realized: _established(realized),
+        },
         provenance={
             accessory: ("factual_episode:001", ()),
-            principal: ("factual_episode:001", ()),
+            principal: ("factual_episode:002", ()),
+            realized: ("factual_episode:002", ()),
         },
         links=((accessory, principal, "instigator"),),
     )
@@ -171,22 +186,25 @@ def test_an_unauthored_offense_relation_stays_unresolved_not_qualitative(registr
 
 
 def test_two_realized_offenses_for_one_accessory_are_not_folded(registry) -> None:
-    accessory = _instance("offense.theft", "binding:001", actor="甲")
+    accessory = _instance("offense.theft", "participation_binding:001", actor="甲")
+    principal = _instance("offense.theft", "binding:001", actor="乙")
     first = _instance("derived_offense.special_theft", "binding:002", actor="乙")
     second = _instance("offense.dwelling_intrusion", "binding:003", actor="乙")
     view = _view(
         registry,
         results={
             accessory: _established(accessory),
+            principal: _established(principal),
             first: _established(first),
             second: _established(second),
         },
         provenance={
             accessory: ("factual_episode:001", ()),
-            first: ("factual_episode:001", ()),
-            second: ("factual_episode:001", ()),
+            principal: ("factual_episode:002", ()),
+            first: ("factual_episode:002", ()),
+            second: ("factual_episode:002", ()),
         },
-        links=((accessory, first, "instigator"),),
+        links=((accessory, principal, "instigator"),),
     )
     assert len(view.excess_findings) == 2
     markers = {finding.marker for finding in view.unresolved}
@@ -214,14 +232,14 @@ def test_the_mistake_policy_reports_its_missing_inputs_instead_of_going_silent(r
 
 
 def test_the_excess_provenance_inputs_are_not_reported_as_a_gap(registry) -> None:
-    accessory = _instance("offense.theft", "binding:001", actor="甲")
-    principal = _instance("derived_offense.special_theft", "binding:002", actor="乙")
+    accessory = _instance("offense.theft", "participation_binding:001", actor="甲")
+    principal = _instance("offense.theft", "binding:001", actor="乙")
     view = _view(
         registry,
         results={accessory: _established(accessory), principal: _established(principal)},
         provenance={
             accessory: ("factual_episode:001", ()),
-            principal: ("factual_episode:001", ()),
+            principal: ("factual_episode:002", ()),
         },
         links=((accessory, principal, "instigator"),),
     )
@@ -264,30 +282,30 @@ def test_only_approved_concurrence_rules_reach_the_runtime() -> None:
     assert {rule.rule_id for rule in load_concurrence_rules(path)} == approved
 
 
-def test_a_realized_offense_in_another_episode_is_recorded_not_dropped(registry) -> None:
-    """r11_p1_q1 형태. 교사는 앞 episode에서, 실현은 뒤 episode에서 일어난다."""
+def test_the_r11_shape_now_opens_a_candidate_across_episodes(registry) -> None:
+    """甲이 절도를 교사하고 乙이 뒤 episode에서 상해까지 실현한 사안.
+
+    검수 전 same-episode join은 여기서 후보를 닫았다. 지금은 링크를 따라 열리고,
+    저작된 incompatible pair(절도->상해)가 질적 초과로 분류한다.
+    """
     accessory = _instance("offense.theft", "participation_binding:001", actor="甲")
     principal = _instance("offense.theft", "binding:001", actor="乙")
-    other = _instance("offense.injury", "binding:003", actor="乙")
+    injury = _instance("offense.injury", "binding:003", actor="乙")
     view = _view(
         registry,
         results={
             accessory: _established(accessory),
             principal: _established(principal),
-            other: _established(other),
+            injury: _established(injury),
         },
         provenance={
             accessory: ("factual_episode:001", ()),
             principal: ("factual_episode:004", ()),
-            other: ("factual_episode:005", ()),
+            injury: ("factual_episode:005", ()),
         },
         links=((accessory, principal, "instigator"),),
     )
-    assert view.excess_findings == ()
-    blocked = [
-        finding
-        for finding in view.unresolved
-        if finding.marker == UNRESOLVED_EXCESS_EPISODE_SCOPE
-    ]
-    assert len(blocked) == 1
-    assert "offense.injury" in blocked[0].detail
+    assert len(view.excess_findings) == 1
+    finding = view.excess_findings[0]
+    assert finding.assessment.classification == "qualitative"
+    assert finding.assessment.effect == "no_liability_for_excess"
