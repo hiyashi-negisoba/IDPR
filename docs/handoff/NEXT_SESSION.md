@@ -968,3 +968,73 @@ plan의 각 participation instance에서 participant actor / mode / principal ac
 expectation으로 만들고, 답안에 mode 어휘와 두 행위자가 살아남았는지만 기계적으로 센다.
 handoff information survival probe이며 semantic judge가 아니다. 본문을 사람에게 출력하지 않고
 자동 수정도 하지 않는다.
+
+---
+
+## 2026-08-13 (6) N configuration freeze -- 상류 모순 제거 후 F1~F4 = 0
+
+**정본은 `docs/v2_plan/N_CONFIGURATION_FREEZE.md`다.** 지문·경로·파라미터가 전부 거기 있고,
+아래는 거기까지 온 경위와 다음에 할 일만 적는다.
+
+### 무엇이 실제로 F2를 고쳤나
+
+프롬프트가 아니다. `(5)`가 권고한 occurrence-level GroundFact canonicalization을 구현했더니
+plan의 anchor 자체가 바뀌었다.
+
+`grounding_request_targets`/`expand_ground_fact_assessments`에는 dedup이 이미 있었는데 key가
+`occurrence_id`(=binding_id)였다. 같은 factual episode를 공유하는 서로 다른 binding(기본죄
+`binding:002`와 파생죄 `binding:004`)은 서로 다른 id를 가지므로 dedup을 빠져나갔다. key를
+`factual_episode_id`로 바꾸는 국소 수정이었고, episode 신원은 planner가 이미 기록해 둔
+`InstanceProvenance`에서 온다. dry-run 기준 26문항 요청 553 -> 514.
+
+**중복 질의는 9문항에 있었고 그중 3문항에서만 모순으로 발현했다.** 나머지 6문항은 두 번 물어도
+답이 우연히 일치했다. 논문에는 이 구분을 적는다.
+
+### 실행에서 배운 것 세 가지
+
+1. **case 단위 교체는 여전히 금지다.** 같은 프롬프트·같은 모델인데 무관한 truth 9건이 drift했다.
+   그래서 `scripts/rebase_v2_call2_canonical_ground_facts.py`는 audit이 지목한 canonical
+   GroundFactKey만, 그 consumer 전부를 한꺼번에 교체한다. 26문항 중 21개가 bit-identical이다.
+2. **truth carrier가 둘이다.** `assessments`(AnswerPlan이 소비)와 `case_truths`(Scallop이 소비)가
+   같은 triple을 이중으로 들고 있다. 한쪽만 rebase하면 artifact가 자기 자신과 어긋난다.
+3. **가드가 audit보다 정확했다.** 기존 `audit_v2_cross_instance_truth.py`는 `issue_bindings`로
+   episode를 해소하는데 `derived_binding:*`은 거기 없어서 derived가 낀 conflict를 "미해소
+   divergence"로 분류하고 있었다. planner provenance를 읽는 AnswerPlan 가드가 `r13_p1_q1`,
+   `r14_p2_q1`에서 4건을 더 잡았다. **원래 4건이 아니라 8건이었다.**
+
+### 별건으로 드러나 같이 고친 것 -- 48건
+
+`merge_v2_call2_additive_delta.py`와 참가 병합이 `case_truths`에만 append하는데 AnswerPlan은
+`assessments`를 읽고 있었다. 15/26문항의 48건이 Call 3에 도달하지 않았고, 거기에 **Call 1.5-D
+doctrine 산출 전부**가 들어 있었다.
+
+권위를 `case_truths`로 옮겼다. issue selection은 건드리지 않았다 -- findings는 여전히
+`liability_results`에서 온 ref와 일치해야 하므로 truth가 새 issue를 만들 수 없다. 30건이 성립
+판단이 있는 instance에 붙었고, 18건은 참가 후보(링크 미성립)로 밖에 남았다. anchored issue 수와
+required conclusion 수는 26문항 전부 불변(105/105).
+
+### F4와 completeness
+
+`required_final_conclusions`는 host가 문장을 쓰는 것이 아니라 앵커 목록만 넘긴다. 모델은 여전히
+문장을 스스로 구성했다(乙의 세 죄를 한 문장에 묶었다).
+
+`missing_required_final_conclusions`는 **최종 결론 구간만** 본다. 답안 전체를 보면 F4를 놓친다 --
+누락된 행위자가 본문에서는 길게 논의됐기 때문이다. 구간 자르기에서 오탐 두 개를 잡았고 둘 다
+회귀 테스트로 고정했다: 마지막 문자열 일치로 자르면 "丙의 최종 죄책은 횡령죄이다" 문장 중간에서
+잘리고, 완성 제목만 알면 `IV. 결론`을 놓쳐 마지막 문단으로 폴백한다.
+
+### 다음
+
+1. **26문항 N run.** 동결 지문 그대로 Call 3 실행. participation 4문항은 sealed이므로 자동
+   fidelity check(가담 형태 어휘 + 두 행위자 생존 여부)를 붙이고 답안 본문은 사람에게 출력하지
+   않는다.
+2. **P 조건.** `ANSWERPLAN_SPEC` 5.5 카드 회수를 붙인다. N은 이미 동결됐으므로 P만 만들면 된다.
+3. **rubric judge.** 26문항 서브셋, 출력 경로 분리.
+
+미뤄 둔 것: `predicate_label`이 `원인행위 판명 불능(법원이 확정하는 법적 상태)`처럼 한글 저작
+주석을 그대로 내보내고, `necessity_of_self_help`와 `reasonable_grounds`가 둘 다 `상당성`으로
+렌더링돼 충돌한다. 기존 `_AUTHORING_NOTE` 필터가 라틴 문자만 잡는다. F 검증에 영향이 없어
+동결 전에 손대지 않았다.
+
+LEGAL_ELEMENT_CONFLICT 10건과 episode 미해소 divergence는 여전히 별도 트랙이다. GroundFact와
+합치지 않는다.
