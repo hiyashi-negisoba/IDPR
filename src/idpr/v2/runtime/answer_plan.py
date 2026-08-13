@@ -1034,10 +1034,16 @@ def serialize_required_final_conclusions(plan: AnswerPlan) -> str:
     return payload
 
 
-#: Headings a closing summary is asked to carry ("최종 죄책과 죄수관계를 정리한다").  The
-#: exact wording and structure otherwise stay the writer's choice, so this is a marker
-#: search, not a section-name whitelist.
-_FINAL_SECTION_MARKERS = ("최종 죄책", "최종 결론", "죄수 및 최종", "최종 정리")
+#: Words that mark a closing-summary heading.  The prompt asks for "최종 죄책과 죄수관계"
+#: but leaves the structure to the writer, who numbers and titles it freely -- "III. 최종
+#: 결론" and "IV. 결론" are the same section.  Matching whole heading titles instead of
+#: these keywords made the audit miss the second form and fall back to the last paragraph,
+#: reporting a complete answer as incomplete.
+_FINAL_SECTION_KEYWORDS = ("결론", "최종 죄책", "죄수")
+
+#: A heading is a line that does not end as a sentence.  This is what separates the title
+#: "IV. 결론" from prose like "...결론을 확정하기 어렵다." that merely contains the word.
+_SENTENCE_ENDINGS = (".", "다", "。", ":", "：")
 
 
 def extract_final_conclusion_section(answer_text: str) -> str:
@@ -1048,12 +1054,12 @@ def extract_final_conclusion_section(answer_text: str) -> str:
     whole-document presence check cannot see that distinction, so this narrows to where
     the closing section begins and takes everything from there onward.
 
-    The cut anchors on a heading line rather than on the last textual match, because
-    "최종 죄책" also occurs inside conclusion sentences ("丙의 최종 죄책은 횡령죄이다"):
-    cutting there would start the section midway and report the actors named above it as
-    missing.  A heading is distinguished from a sentence by not ending in a full stop,
-    which is what separates "III. 최종 죄책" from the sentence beneath it.  Absent any
-    marker the last paragraph stands in, since an answer that skips the heading still
+    The cut anchors on a heading line rather than on the last textual match, because these
+    keywords also occur inside conclusion sentences ("丙의 최종 죄책은 횡령죄이다"): cutting
+    there would start the section midway and report the actors named above it as missing.
+    A heading is distinguished from a sentence by not ending as one, which is what
+    separates the title "IV. 결론" from prose that merely contains the word.  Absent any
+    heading the last paragraph stands in, since an answer that skips the heading still
     ends with some closing block and widening back to the whole document would restore
     the very blind spot this replaces.
     """
@@ -1063,9 +1069,9 @@ def extract_final_conclusion_section(answer_text: str) -> str:
     offset = 0
     for line in lines:
         stripped = line.strip()
-        if any(marker in stripped for marker in _FINAL_SECTION_MARKERS):
+        if any(keyword in stripped for keyword in _FINAL_SECTION_KEYWORDS):
             fallback_offset = offset
-            if not stripped.endswith((".", "다", "。")):
+            if not stripped.endswith(_SENTENCE_ENDINGS):
                 heading_offset = offset
         offset += len(line)
     start = heading_offset if heading_offset is not None else fallback_offset

@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import pytest
+
 from idpr.v2.runtime.answer_plan import (
     ABSORBED,
     ESTABLISHED,
@@ -134,3 +136,35 @@ def test_no_missing_when_every_anchor_actor_and_offense_appear_in_the_closing_se
 def test_closing_section_falls_back_to_last_paragraph_without_a_heading() -> None:
     answer_text = "첫 문단.\n\n둘째 문단.\n\n甲의 사기죄는 성립하지 않는다."
     assert extract_final_conclusion_section(answer_text) == "甲의 사기죄는 성립하지 않는다."
+
+
+@pytest.mark.parametrize("heading", ["III. 최종 결론", "IV. 결론", "최종 죄책", "3. 죄수 및 최종 결론"])
+def test_closing_section_recognizes_the_headings_writers_actually_use(heading: str) -> None:
+    """The writer numbers and titles the closing section freely.
+
+    "III. 최종 결론" and "IV. 결론" are the same section; an audit that knows only the
+    first silently falls back to the last paragraph and reports a complete answer as
+    missing the actors named above it.
+    """
+    answer_text = (
+        "II. 각 행위자의 죄책\n"
+        "乙의 사기죄는 성립하지 않는다.\n\n"
+        f"{heading}\n"
+        "1. 丙의 죄책\n丙은 횡령죄가 성립한다.\n"
+        "2. 乙의 죄책\n乙의 사기죄는 성립하지 않는다."
+    )
+    section = extract_final_conclusion_section(answer_text)
+    assert section.startswith(heading)
+    assert "丙" in section and "乙" in section
+
+
+def test_a_conclusion_sentence_containing_a_keyword_is_not_a_heading() -> None:
+    """Cutting at prose would start the section midway and lose the actors above it."""
+    answer_text = (
+        "IV. 결론\n"
+        "1. 丙의 죄책\n丙의 최종 죄책은 횡령죄이다.\n"
+        "2. 乙의 죄책\n乙의 사기죄는 성립하지 않는다."
+    )
+    section = extract_final_conclusion_section(answer_text)
+    assert section.startswith("IV. 결론")
+    assert "丙" in section
