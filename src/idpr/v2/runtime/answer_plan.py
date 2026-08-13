@@ -161,6 +161,24 @@ class FinalResponsibility:
 
 
 @dataclass(frozen=True, slots=True)
+class RequiredFinalConclusion:
+    """One anchor the closing paragraph must restate, in the model's own words.
+
+    This is not a sentence to hand the writer -- it is the smallest closed set of facts a
+    closing paragraph cannot omit or invert: which actor, which offence, and the one
+    conclusion word already fixed for it elsewhere in the plan.  Wording, ordering, and
+    connective prose stay the model's to compose; only the presence and polarity of each
+    of these anchors is required, one per anchored issue.
+    """
+
+    actor: str
+    offense_label: str
+    state: str
+    completion_state: str | None = None
+    participation_mode: str | None = None
+
+
+@dataclass(frozen=True, slots=True)
 class AnswerPlan:
     case_id: str
     case_text: str
@@ -168,6 +186,7 @@ class AnswerPlan:
     discussion_order: tuple[str, ...]
     anchored_issues: tuple[AnchoredIssue, ...]
     final_responsibility: FinalResponsibility
+    required_final_conclusions: tuple[RequiredFinalConclusion, ...] = ()
     representation_gaps: tuple[str, ...] = ()
     unmapped_instances: tuple[str, ...] = ()
 
@@ -560,6 +579,7 @@ def build_answer_plan(
         question=question,
         discussion_order=tuple(_discussion_order(issues, absorbed_records)),
         anchored_issues=tuple(issues),
+        required_final_conclusions=tuple(_required_final_conclusions(issues)),
         final_responsibility=FinalResponsibility(
             retained=tuple(
                 {
@@ -810,6 +830,35 @@ _COMPLETION_PROSE = {
 }
 
 
+def _required_final_conclusions(
+    issues: Sequence[AnchoredIssue],
+) -> tuple[RequiredFinalConclusion, ...]:
+    """One anchor per anchored issue, reusing the exact vocabulary `analysis` is written in.
+
+    Anchor and analysis body share `_STATE_PROSE`/`_COMPLETION_PROSE`/`_MODE_PROSE` on
+    purpose -- an anchor list in different words than the body would just relocate the
+    drift this list exists to prevent, rather than remove it.
+    """
+    out: list[RequiredFinalConclusion] = []
+    for issue in issues:
+        out.append(
+            RequiredFinalConclusion(
+                actor=issue.actor,
+                offense_label=issue.offense_label,
+                state=_STATE_PROSE.get(issue.final_state, issue.final_state),
+                completion_state=_COMPLETION_PROSE.get(issue.completion_state)
+                if issue.completion_state in _COMPLETION_PROSE
+                else None,
+                participation_mode=(
+                    _MODE_PROSE.get(issue.participation.mode, issue.participation.mode)
+                    if issue.participation is not None
+                    else None
+                ),
+            )
+        )
+    return tuple(out)
+
+
 def serialize_analysis(plan: AnswerPlan) -> str:
     """Render the plan as the prose block the prompt calls ``analysis``.
 
@@ -941,3 +990,86 @@ def serialize_open_points(plan: AnswerPlan) -> str:
     if not lines:
         return "위 분석이 다루지 않은 영역으로 특정된 것은 없다."
     return "\n".join(lines)
+
+
+def serialize_required_final_conclusions(plan: AnswerPlan) -> str:
+    """The closed list the closing paragraph must restate -- anchors, not sentences.
+
+    Each line names an actor, an offence, and the one conclusion word for it.  The model
+    still composes the sentence; this only fixes what the sentence has to say, so a
+    closing paragraph that drops or inverts one of these is checkably wrong rather than
+    merely a stylistic choice.
+    """
+    lines: list[str] = []
+    for item in plan.required_final_conclusions:
+        line = f"· {item.actor} — {item.offense_label}: {item.state}"
+        if item.completion_state:
+            line += f" ({item.completion_state})"
+        if item.participation_mode:
+            line += f" [{item.participation_mode}]"
+        lines.append(line)
+    payload = "\n".join(lines) if lines else "없음"
+    assert_no_internal_markers(payload)
+    assert_no_rubric_fields(payload)
+    return payload
+
+
+#: Headings a closing summary is asked to carry ("최종 죄책과 죄수관계를 정리한다").  The
+#: exact wording and structure otherwise stay the writer's choice, so this is a marker
+#: search, not a section-name whitelist.
+_FINAL_SECTION_MARKERS = ("최종 죄책", "최종 결론", "죄수 및 최종", "최종 정리")
+
+
+def extract_final_conclusion_section(answer_text: str) -> str:
+    """The mechanically-cut tail of the answer the closing-paragraph instruction targets.
+
+    F4 was not an absence from the answer -- the dropped actor's offences were discussed
+    in the body -- it was an absence from the *closing* paragraph specifically.  A
+    whole-document presence check cannot see that distinction, so this narrows to where
+    the closing section begins and takes everything from there onward.
+
+    The cut anchors on a heading line rather than on the last textual match, because
+    "최종 죄책" also occurs inside conclusion sentences ("丙의 최종 죄책은 횡령죄이다"):
+    cutting there would start the section midway and report the actors named above it as
+    missing.  A heading is distinguished from a sentence by not ending in a full stop,
+    which is what separates "III. 최종 죄책" from the sentence beneath it.  Absent any
+    marker the last paragraph stands in, since an answer that skips the heading still
+    ends with some closing block and widening back to the whole document would restore
+    the very blind spot this replaces.
+    """
+    lines = answer_text.splitlines(keepends=True)
+    heading_offset: int | None = None
+    fallback_offset: int | None = None
+    offset = 0
+    for line in lines:
+        stripped = line.strip()
+        if any(marker in stripped for marker in _FINAL_SECTION_MARKERS):
+            fallback_offset = offset
+            if not stripped.endswith((".", "다", "。")):
+                heading_offset = offset
+        offset += len(line)
+    start = heading_offset if heading_offset is not None else fallback_offset
+    if start is not None:
+        return answer_text[start:]
+    paragraphs = [part for part in answer_text.split("\n\n") if part.strip()]
+    return paragraphs[-1] if paragraphs else answer_text
+
+
+def missing_required_final_conclusions(
+    answer_text: str, plan: AnswerPlan
+) -> tuple[RequiredFinalConclusion, ...]:
+    """Mechanical presence check scoped to the closing section.  Never edits an answer.
+
+    An anchor counts as covered when both the actor and the offence label occur in the
+    closing section `extract_final_conclusion_section` isolates -- not anywhere in the
+    document, which would pass even when the closing paragraph itself dropped the issue.
+    This cannot tell whether the stated state is the *right* one; that is the fidelity
+    contract on `analysis` (F1/F2), not this completeness check's job. A finding here is a
+    fact for an offline audit, not a repair signal.
+    """
+    section = extract_final_conclusion_section(answer_text)
+    missing: list[RequiredFinalConclusion] = []
+    for item in plan.required_final_conclusions:
+        if item.actor not in section or item.offense_label not in section:
+            missing.append(item)
+    return tuple(missing)

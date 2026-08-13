@@ -24,6 +24,7 @@ from idpr.v2.runtime.answer_plan import (
     build_answer_plan,
     serialize_analysis,
     serialize_open_points,
+    serialize_required_final_conclusions,
 )
 
 
@@ -138,6 +139,7 @@ def main() -> None:
                 )
                 analysis = serialize_analysis(plan)
                 open_points = serialize_open_points(plan)
+                required_final_conclusions = serialize_required_final_conclusions(plan)
             except AnswerPlanError as error:
                 failures.append((case_id, str(error)))
                 continue
@@ -149,7 +151,9 @@ def main() -> None:
                         "question": plan.question,
                         "analysis": analysis,
                         "open_points": open_points,
+                        "required_final_conclusions": required_final_conclusions,
                         "anchored_issue_count": len(plan.anchored_issues),
+                        "required_final_conclusion_count": len(plan.required_final_conclusions),
                         "retained_offense_count": len(plan.final_responsibility.retained),
                         "absorbed_pair_count": len(plan.final_responsibility.absorbed),
                     },

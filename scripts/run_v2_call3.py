@@ -70,11 +70,15 @@ def main() -> None:
             # this is the last point before the material leaves us.
             assert_no_internal_markers(plan["analysis"])
             assert_no_rubric_fields(plan)
+            required_final_conclusions = plan.get("required_final_conclusions", "")
+            if required_final_conclusions:
+                assert_no_internal_markers(required_final_conclusions)
             user_content = (
                 user_template.replace("{{CASE_TEXT}}", plan["case_text"])
                 .replace("{{QUESTION}}", plan["question"])
                 .replace("{{ANALYSIS}}", plan["analysis"])
                 .replace("{{OPEN_POINTS}}", plan["open_points"])
+                .replace("{{REQUIRED_FINAL_CONCLUSIONS}}", required_final_conclusions)
             )
             started = time.monotonic()
             try:
