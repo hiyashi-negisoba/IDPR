@@ -325,14 +325,26 @@ def authored_precedent_statements(
 
 def _findings_for_instance(
     registry: DefinitionRegistry,
-    assessments: Sequence[Mapping[str, Any]],
+    truths: Sequence[Mapping[str, Any]],
     ref: str,
     quotes_by_predicate: Mapping[str, tuple[str, ...]],
 ) -> tuple[tuple[Finding, ...], tuple[Finding, ...], tuple[Finding, ...]]:
+    """Findings for one already-selected instance, from the authoritative truth store.
+
+    `truths` is `case_truths`: what the symbolic layer actually consumed to reach the
+    conclusion this issue states.  The raw `assessments` of a single Call 2 run is a subset
+    of it -- merged participation and doctrine truths land only in `case_truths` -- and
+    projecting from the subset silently drops the grounds for conclusions the plan is
+    simultaneously asserting.
+
+    This does not widen the issue universe.  Every finding still has to match a `ref` that
+    came from the run's liability results, so a truth about an instance no legal conclusion
+    was reached for contributes nothing here, exactly as before.
+    """
     satisfied: list[Finding] = []
     failed: list[Finding] = []
     blocking: list[Finding] = []
-    for row in assessments:
+    for row in truths:
         instance = row.get("instance_key") or {}
         if instance_ref(instance) != ref:
             continue
@@ -457,10 +469,14 @@ def _ground_fact_episode_map(
 
 def _check_ground_fact_canonicalization(
     registry: DefinitionRegistry,
-    assessments: Sequence[Mapping[str, Any]],
+    truth_rows: Sequence[Mapping[str, Any]],
     episode_by_occurrence: Mapping[str, str],
 ) -> None:
     """Refuse a plan built on a GroundFact that disagrees with itself about one episode.
+
+    `truth_rows` is both carriers concatenated -- `case_truths` and `assessments`.  Rows
+    repeated across the two agree and cost nothing; a disagreement between them is itself a
+    conflict worth refusing, since the two feed different downstream stages.
 
     This is a corruption detector, not a repair path.  A well-formed Call 2 artifact cannot
     trip it, because occurrence-level GroundFact canonicalization already asks each
@@ -473,7 +489,7 @@ def _check_ground_fact_canonicalization(
     """
     seen: dict[tuple[str, str, str, str], tuple[str, str]] = {}
     conflicts: list[str] = []
-    for row in assessments:
+    for row in truth_rows:
         predicate_ref = str(row.get("predicate_ref", ""))
         if not predicate_ref or registry.kind_of(predicate_ref) != "ground_fact":
             continue
@@ -536,10 +552,14 @@ def build_answer_plan(
     withheld = frozenset(
         instance_ref(i) for i in final.get("attribution_withheld_instances") or []
     )
+    # `case_truths` is the authority: it is what Scallop and the final-responsibility stage
+    # consumed to reach the conclusions this plan restates.  `assessments` is the raw output
+    # of one Call 2 run and stays available as a secondary carrier for neural provenance --
+    # exact quotes and per-request evidence -- which no truth is invented from.
+    truths = call2_row.get("case_truths") or []
     assessments = call2_row.get("assessments") or []
-    _check_ground_fact_canonicalization(
-        registry, assessments, _ground_fact_episode_map(binding_row, plan_row)
-    )
+    episodes = _ground_fact_episode_map(binding_row, plan_row)
+    _check_ground_fact_canonicalization(registry, (*truths, *assessments), episodes)
 
     issues: list[AnchoredIssue] = []
     for entry in e2e_row.get("liability_results") or []:
@@ -547,7 +567,7 @@ def build_answer_plan(
         result = entry.get("result") or {}
         ref = instance_ref(instance)
         offense_ref = str(instance.get("offense_ref", ""))
-        satisfied, failed, blocking = _findings_for_instance(registry, assessments, ref, {})
+        satisfied, failed, blocking = _findings_for_instance(registry, truths, ref, {})
         state = _final_state(result, ref, retained, absorbed, withheld, bool(blocking))
         completion = result.get("completion") or {}
         route = _participation_route(registry, result)
