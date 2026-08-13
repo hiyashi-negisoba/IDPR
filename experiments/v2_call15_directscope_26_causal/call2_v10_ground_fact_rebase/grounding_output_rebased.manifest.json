@@ -1,0 +1,539 @@
+{
+  "step": "v2_call2_canonical_ground_fact_rebase",
+  "status": "SUCCEEDED",
+  "contract": "replace only the audit-identified canonical GroundFactKeys, all of their consumers at once; never touch another ground fact, legal element, or relation",
+  "case_count": 26,
+  "conflict_keys": [
+    "kcl_criminal_r10_p1_q1_ga|甲|factual_episode:002|ground_fact.vaginal_intercourse_conduct",
+    "kcl_criminal_r10_p1_q2|乙|factual_episode:001|ground_fact.means_or_object_defect",
+    "kcl_criminal_r10_p1_q2|甲|factual_episode:001|ground_fact.means_or_object_defect",
+    "kcl_criminal_r13_p1_q1|丙|factual_episode:001|ground_fact.means_or_object_defect",
+    "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.means_or_object_defect",
+    "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.taking_conduct",
+    "kcl_criminal_r14_p2_q1|乙|factual_episode:002|ground_fact.taking_conduct",
+    "kcl_criminal_r14_p2_q2|乙|factual_episode:001|ground_fact.taking_conduct"
+  ],
+  "canonical_truths": {
+    "kcl_criminal_r10_p1_q1_ga|甲|factual_episode:002|ground_fact.vaginal_intercourse_conduct": "UNKNOWN",
+    "kcl_criminal_r10_p1_q2|乙|factual_episode:001|ground_fact.means_or_object_defect": "FALSE",
+    "kcl_criminal_r10_p1_q2|甲|factual_episode:001|ground_fact.means_or_object_defect": "FALSE",
+    "kcl_criminal_r13_p1_q1|丙|factual_episode:001|ground_fact.means_or_object_defect": "UNKNOWN",
+    "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.means_or_object_defect": "TRUE",
+    "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.taking_conduct": "UNKNOWN",
+    "kcl_criminal_r14_p2_q1|乙|factual_episode:002|ground_fact.taking_conduct": "TRUE",
+    "kcl_criminal_r14_p2_q2|乙|factual_episode:001|ground_fact.taking_conduct": "UNKNOWN"
+  },
+  "replaced_truth_count": 38,
+  "replacements": [
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r10_p1_q1_ga|甲|factual_episode:002|ground_fact.vaginal_intercourse_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q1_ga",
+        "actor_id": "甲",
+        "offense_ref": "offense.rape",
+        "occurrence_id": "binding:002"
+      },
+      "predicate_ref": "ground_fact.vaginal_intercourse_conduct",
+      "old_truth": "UNKNOWN",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r10_p1_q1_ga|甲|factual_episode:002|ground_fact.vaginal_intercourse_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q1_ga",
+        "actor_id": "甲",
+        "offense_ref": "derived_offense.rape_causing_injury_by_aggravated_result",
+        "occurrence_id": "binding:004"
+      },
+      "predicate_ref": "ground_fact.vaginal_intercourse_conduct",
+      "old_truth": "FALSE",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r10_p1_q1_ga|甲|factual_episode:002|ground_fact.vaginal_intercourse_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q1_ga",
+        "actor_id": "甲",
+        "offense_ref": "offense.rape",
+        "occurrence_id": "binding:002"
+      },
+      "predicate_ref": "ground_fact.vaginal_intercourse_conduct",
+      "old_truth": "UNKNOWN",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r10_p1_q1_ga|甲|factual_episode:002|ground_fact.vaginal_intercourse_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q1_ga",
+        "actor_id": "甲",
+        "offense_ref": "derived_offense.rape_causing_injury_by_aggravated_result",
+        "occurrence_id": "binding:004"
+      },
+      "predicate_ref": "ground_fact.vaginal_intercourse_conduct",
+      "old_truth": "FALSE",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r10_p1_q2|甲|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q2",
+        "actor_id": "甲",
+        "offense_ref": "offense.injury",
+        "occurrence_id": "binding:001"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "FALSE",
+      "new_truth": "FALSE"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r10_p1_q2|乙|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q2",
+        "actor_id": "乙",
+        "offense_ref": "offense.injury",
+        "occurrence_id": "binding:002"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "FALSE",
+      "new_truth": "FALSE"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r10_p1_q2|甲|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q2",
+        "actor_id": "甲",
+        "offense_ref": "offense.homicide",
+        "occurrence_id": "binding:003"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "UNKNOWN",
+      "new_truth": "FALSE"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r10_p1_q2|乙|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q2",
+        "actor_id": "乙",
+        "offense_ref": "offense.homicide",
+        "occurrence_id": "binding:004"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "UNKNOWN",
+      "new_truth": "FALSE"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r10_p1_q2|甲|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q2",
+        "actor_id": "甲",
+        "offense_ref": "offense.injury",
+        "occurrence_id": "binding:001"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "FALSE",
+      "new_truth": "FALSE"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r10_p1_q2|乙|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q2",
+        "actor_id": "乙",
+        "offense_ref": "offense.injury",
+        "occurrence_id": "binding:002"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "FALSE",
+      "new_truth": "FALSE"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r10_p1_q2|甲|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q2",
+        "actor_id": "甲",
+        "offense_ref": "offense.homicide",
+        "occurrence_id": "binding:003"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "UNKNOWN",
+      "new_truth": "FALSE"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r10_p1_q2|乙|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r10_p1_q2",
+        "actor_id": "乙",
+        "offense_ref": "offense.homicide",
+        "occurrence_id": "binding:004"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "UNKNOWN",
+      "new_truth": "FALSE"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "offense.theft",
+        "occurrence_id": "binding:001"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "UNKNOWN",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "offense.theft",
+        "occurrence_id": "binding:001"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "TRUE",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r13_p1_q1|丙|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "丙",
+        "offense_ref": "offense.theft",
+        "occurrence_id": "binding:002"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "UNKNOWN",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "offense.injury",
+        "occurrence_id": "binding:007"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "FALSE",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "derived_offense.quasi_robbery",
+        "occurrence_id": "derived_binding:001"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "FALSE",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "derived_offense.special_theft",
+        "occurrence_id": "derived_binding:002"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "FALSE",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "derived_offense.special_theft",
+        "occurrence_id": "derived_binding:002"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "FALSE",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r13_p1_q1|丙|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "丙",
+        "offense_ref": "derived_offense.special_theft",
+        "occurrence_id": "derived_binding:003"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "FALSE",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "offense.theft",
+        "occurrence_id": "binding:001"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "UNKNOWN",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "offense.theft",
+        "occurrence_id": "binding:001"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "TRUE",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r13_p1_q1|丙|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "丙",
+        "offense_ref": "offense.theft",
+        "occurrence_id": "binding:002"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "UNKNOWN",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "offense.injury",
+        "occurrence_id": "binding:007"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "FALSE",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "derived_offense.quasi_robbery",
+        "occurrence_id": "derived_binding:001"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "FALSE",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "derived_offense.special_theft",
+        "occurrence_id": "derived_binding:002"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "FALSE",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r13_p1_q1|甲|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "甲",
+        "offense_ref": "derived_offense.special_theft",
+        "occurrence_id": "derived_binding:002"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "FALSE",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r13_p1_q1|丙|factual_episode:001|ground_fact.means_or_object_defect",
+      "instance_key": {
+        "case_id": "kcl_criminal_r13_p1_q1",
+        "actor_id": "丙",
+        "offense_ref": "derived_offense.special_theft",
+        "occurrence_id": "derived_binding:003"
+      },
+      "predicate_ref": "ground_fact.means_or_object_defect",
+      "old_truth": "FALSE",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r14_p2_q1|乙|factual_episode:002|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r14_p2_q1",
+        "actor_id": "乙",
+        "offense_ref": "derived_offense.quasi_robbery",
+        "occurrence_id": "binding:003"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "TRUE",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r14_p2_q1|乙|factual_episode:002|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r14_p2_q1",
+        "actor_id": "乙",
+        "offense_ref": "derived_offense.robbery_causing_intentional_injury",
+        "occurrence_id": "binding:004"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "TRUE",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r14_p2_q1|乙|factual_episode:002|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r14_p2_q1",
+        "actor_id": "乙",
+        "offense_ref": "derived_offense.robbery_causing_injury_by_aggravated_result",
+        "occurrence_id": "derived_binding:001"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "UNKNOWN",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r14_p2_q1|乙|factual_episode:002|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r14_p2_q1",
+        "actor_id": "乙",
+        "offense_ref": "derived_offense.quasi_robbery",
+        "occurrence_id": "binding:003"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "TRUE",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r14_p2_q1|乙|factual_episode:002|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r14_p2_q1",
+        "actor_id": "乙",
+        "offense_ref": "derived_offense.robbery_causing_intentional_injury",
+        "occurrence_id": "binding:004"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "TRUE",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r14_p2_q1|乙|factual_episode:002|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r14_p2_q1",
+        "actor_id": "乙",
+        "offense_ref": "derived_offense.robbery_causing_injury_by_aggravated_result",
+        "occurrence_id": "derived_binding:001"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "UNKNOWN",
+      "new_truth": "TRUE"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r14_p2_q2|乙|factual_episode:001|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r14_p2_q2",
+        "actor_id": "乙",
+        "offense_ref": "offense.robbery",
+        "occurrence_id": "binding:001"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "UNKNOWN",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "assessments",
+      "canonical_key": "kcl_criminal_r14_p2_q2|乙|factual_episode:001|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r14_p2_q2",
+        "actor_id": "乙",
+        "offense_ref": "derived_offense.robbery_causing_death_by_aggravated_result",
+        "occurrence_id": "binding:003"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "TRUE",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r14_p2_q2|乙|factual_episode:001|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r14_p2_q2",
+        "actor_id": "乙",
+        "offense_ref": "offense.robbery",
+        "occurrence_id": "binding:001"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "UNKNOWN",
+      "new_truth": "UNKNOWN"
+    },
+    {
+      "carrier": "case_truths",
+      "canonical_key": "kcl_criminal_r14_p2_q2|乙|factual_episode:001|ground_fact.taking_conduct",
+      "instance_key": {
+        "case_id": "kcl_criminal_r14_p2_q2",
+        "actor_id": "乙",
+        "offense_ref": "derived_offense.robbery_causing_death_by_aggravated_result",
+        "occurrence_id": "binding:003"
+      },
+      "predicate_ref": "ground_fact.taking_conduct",
+      "old_truth": "TRUE",
+      "new_truth": "UNKNOWN"
+    }
+  ],
+  "delta_case_ids": [
+    "kcl_criminal_r10_p1_q1_ga",
+    "kcl_criminal_r10_p1_q2",
+    "kcl_criminal_r13_p1_q1",
+    "kcl_criminal_r14_p2_q1",
+    "kcl_criminal_r14_p2_q2"
+  ],
+  "case_truth_count": 579,
+  "baseline": "experiments/v2_call15_directscope_26_causal/call2_v9_doctrine_increment/grounding_output_additive_delta.jsonl",
+  "baseline_sha256": "867be2bc5533c82f34c229e94eac2594bf4587f17605cd10e27595dc6e543390",
+  "delta": "experiments/v2_call15_directscope_26_causal/call2_v10_ground_fact_rebase/grounding_output_delta_5cases.jsonl",
+  "delta_sha256": "9d86952473ffcda0f0ce08e37383fe3fd2981cf9d09186c534cc6800e7caaea9",
+  "plan_artifact": "experiments/v2_call15_directscope_26_causal/call15d_v4/evaluation_instance_plan.jsonl",
+  "plan_artifact_sha256": "1a10c5dd1bac2145a64d547456c035b2f1da1644d7409c26e43ad5e503892c9b",
+  "fingerprint_check": "SKIPPED_NO_COMPARABLE_BASELINE_FIELDS",
+  "delta_model": null
+}
