@@ -522,3 +522,67 @@ conflict도 host가 고르지 않고 unresolved로 보존한다. legacy `concurr
 episode constraint, instance-scoped assessment가 아직 authoring되지 않아 production-ready rule은
 0개다. 현재 E2E에는 효과를 발화시키지 않는다. 정본은
 `experiments/v2_call15_directscope_26_causal/concurrence_identity_v1/`다.
+
+## 2026-08-13 doctrine·경합 트랙: 정책 저작과 probe compiler
+
+### 확정된 것
+
+KCL-26 감사 결과 저작 공백이 지배적이라는 것이 먼저 드러났다. 저작된 12개 doctrine이
+실제로 결정적인 문항은 2개(우연방위·피해자 승낙)뿐이고, 미저작 법리가 15개 문항에 걸린다.
+착오 9, 신분·제33조 6, 공범의 초과 4, 불가벌적 사후행위 2다. 인과관계는 과대계상이었다 --
+`relation.causal_nexus`가 이미 결과적 가중범에 물려 있고, 루브릭이 요구하는 학설 대립
+서술은 Call 3 소관이다.
+
+active doctrine 0의 원인도 확정했다. Scallop 결함이 아니라 dead loop다. closure가 12개
+doctrine을 모든 사건에 후보로 열지만 활성화는 leaf가 non-UNKNOWN이어야 하고, 그 31개
+leaf를 planner가 한 번도 target으로 만들지 않는다.
+
+### 저작·구현된 것
+
+- **제33조 본문**: `constitutive_status_refs` 런타임이 이미 있었고 권리행사방해만 저작돼
+  있었다. 수뢰·위증·허위공문서작성 3개 진정신분범을 추가했다.
+- **특별관계 흡수**: planner가 derived binding을 materialize할 때 기록해 둔
+  `source_binding_ids`를 되읽어 base를 흡수한다. KCL-26에서 5개(절도→특수절도).
+  행위자 일치를 요구하는 것이 핵심이다 -- 한 episode에 甲乙丙 절도가 모두 있다.
+- **mistake_policy / excess_policy / aggravating_status_participation**: 새 kind 2개와
+  offense 필드 1개. 7개 검수 항목 전부 반영. 부합설은 법정적 부합설로 profile 고정,
+  위전착은 culpability, 제33조 단서는 가중죄 realization 자체 생성, 초과는 derivation
+  부재를 질적 초과로 읽지 않고 결과적 가중범은 예견가능성으로 분기.
+- **세 런타임**: 모두 모델을 부르지 않는다. 이미 받은 truth 아니면 저작된 구조만 읽는다.
+- **`v2_accessory_excess_effect`**: 전용 Scallop relation, host 분류와 파리티 검증. 실행 확인.
+- **`policy_probes.py`**: 정책이 `probe` 블록으로 필요 입력을 선언하고 planner는 법리를
+  모른 채 그것만 읽는다. 정책마다 planner 분기를 만들면 doctrine dead loop를 종류별로
+  반복하게 되므로 공통 compiler 하나로 접었다. `supply` 축이 뉴럴 부하를 통제한다.
+
+검증은 `242 passed, 16 skipped`.
+
+### 남긴 공백 (`data/v2/representation_gaps.yaml`)
+
+세 항목 모두 테스트가 지킨다. 저작되면 테스트가 실패하며 갱신을 요구한다.
+
+1. **intended-object identity** -- `factual_targets`를 의도한 대상으로 재해석하는 것은
+   검수에서 명시적으로 거부됐다. 그 필드는 상대방·수령자·관련 participant까지 포함한다.
+   `legal_element.object_misidentification`도 같은 공백의 하류라 열지 않았다. 목표 대상이
+   확정되지 않은 채 객체/방법의 착오를 물으면 모델이 identity를 지어내 답한다.
+   향후 설계는 `directed_action_target`/`actual_result_bearer`를 각각 사실로 결박하고
+   차이만 host가 structural하게 계산하는 것이다.
+2. **폭행죄 family** (제260·261·262조) -- 각칙 워크시트가 art259에서 art263으로 건너뛴다.
+   `r11_p1_q1` 질적 초과가 미해결로 남는다.
+3. **장물죄 family** (제362조) -- 카드는 있으나 v2 저작이 보류 상태다. `r10_p2_q1`
+   불가벌적 사후행위 흡수 pair를 만들 수 없다.
+
+### 다음 세션
+
+doctrine 트랙은 여기까지다. 남은 것은 두 갈래다.
+
+**경합·최종 책임 뷰.** 특별관계 흡수는 구현했으나 아직 E2E에 발화시키지 않았다. legacy
+concurrence 12개 중 KCL-26에서 실제 발화 가능한 것은 인장위조←사문서위조 1쌍뿐이고
+(나머지 3개는 두 죄가 서로 다른 문항에 흩어져 있다), 그마저 binding:002와 binding:004가
+같은 factual episode인지 확인이 필요하다. 상상적 경합 legacy 4개는 v2 offense 측 결손이다.
+
+**세 런타임의 파이프라인 관통.** 정의·런타임·Scallop·probe까지 갖췄지만 호출자가 없다.
+probe compiler 기준 남은 gap은 mistake 2개뿐이고 둘 다 위 1번 공백이 원인이다. excess는
+provenance가 준비됐고, 제33조 단서는 필요한 status leaf가 이미 planner target에 있다.
+
+그 뒤가 Call 1.5-D 프롬프트 승인과 222907 라이브 실행이다. 프롬프트는 아직 작성하지
+않았고, 활성 프롬프트이므로 전문 승인이 필요하다.
