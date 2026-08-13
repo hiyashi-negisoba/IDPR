@@ -1,0 +1,171 @@
+#!/usr/bin/env python3
+"""Build the Call 3 answer plans from the canonical symbolic artifacts.
+
+No model is called here and no legal judgment is made.  The script reads the finished run
+and rearranges it, so it can be re-run at any time without spending anything.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "src"))
+
+import yaml
+
+from idpr.v2.registry import load_definitions
+from idpr.v2.runtime.answer_plan import (
+    AnswerPlanError,
+    build_answer_plan,
+    serialize_analysis,
+    serialize_open_points,
+)
+
+
+def _rows(path: Path, key: str = "sub_question_id") -> dict[str, dict[str, Any]]:
+    out: dict[str, dict[str, Any]] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        out[str(row[key])] = row
+    return out
+
+
+def _inventory(path: Path) -> dict[str, dict[str, Any]]:
+    out: dict[str, dict[str, Any]] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        out[str(row["sub_question_id"])] = row
+    return out
+
+
+def _representation_gaps(path: Path) -> list[str]:
+    """Authored gaps, stated as the areas the analysis does not cover."""
+    if not path.exists():
+        return []
+    document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    gaps = document.get("gaps") or document.get("representation_gaps") or []
+    out: list[str] = []
+    for gap in gaps:
+        if isinstance(gap, str):
+            out.append(gap)
+        elif isinstance(gap, dict):
+            text = gap.get("description") or gap.get("summary") or gap.get("id")
+            if text:
+                out.append(str(text))
+    return out
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--e2e-results", type=Path, required=True)
+    parser.add_argument("--call2-artifact", type=Path, required=True)
+    parser.add_argument("--issue-bindings", type=Path, required=True)
+    parser.add_argument(
+        "--inventory", type=Path, default=ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
+    )
+    parser.add_argument("--definitions", type=Path, default=ROOT / "data/v2/definitions")
+    parser.add_argument(
+        "--representation-gaps", type=Path, default=ROOT / "data/v2/representation_gaps.yaml"
+    )
+    parser.add_argument(
+        "--offense-labels",
+        type=Path,
+        default=ROOT / "data/v2/binding_seed_cues.yaml",
+        help="reviewed catalogue carrying the Korean name of each offence",
+    )
+    parser.add_argument("--case-id-file", type=Path)
+    parser.add_argument("--out", type=Path, required=True)
+    args = parser.parse_args()
+
+    registry = load_definitions(args.definitions)
+    e2e = _rows(args.e2e_results)
+    call2 = _rows(args.call2_artifact)
+    bindings = _rows(args.issue_bindings)
+    inventory = _inventory(args.inventory)
+    gaps = _representation_gaps(args.representation_gaps)
+    cue_catalogue = yaml.safe_load(args.offense_labels.read_text(encoding="utf-8")) or {}
+    offense_labels = {
+        ref: str(entry["display_name"])
+        for ref, entry in cue_catalogue.items()
+        if isinstance(entry, dict) and entry.get("display_name")
+    }
+
+    case_ids = sorted(e2e)
+    if args.case_id_file:
+        wanted = {
+            line.strip()
+            for line in args.case_id_file.read_text(encoding="utf-8").splitlines()
+            if line.strip()
+        }
+        case_ids = [case_id for case_id in case_ids if case_id in wanted]
+
+    args.out.mkdir(parents=True, exist_ok=True)
+    written = 0
+    failures: list[tuple[str, str]] = []
+    with (args.out / "answer_plans.jsonl").open("w", encoding="utf-8") as handle:
+        for case_id in case_ids:
+            question = inventory.get(case_id, {})
+            try:
+                plan = build_answer_plan(
+                    case_id=case_id,
+                    case_text=str(question.get("question_text", "")),
+                    question=str(question.get("question_prompt", "")),
+                    binding_row=bindings.get(case_id, {}),
+                    call2_row=call2.get(case_id, {}),
+                    e2e_row=e2e[case_id],
+                    registry=registry,
+                    offense_labels=offense_labels,
+                    representation_gaps=gaps,
+                )
+                analysis = serialize_analysis(plan)
+                open_points = serialize_open_points(plan)
+            except AnswerPlanError as error:
+                failures.append((case_id, str(error)))
+                continue
+            handle.write(
+                json.dumps(
+                    {
+                        "sub_question_id": case_id,
+                        "case_text": plan.case_text,
+                        "question": plan.question,
+                        "analysis": analysis,
+                        "open_points": open_points,
+                        "anchored_issue_count": len(plan.anchored_issues),
+                        "retained_offense_count": len(plan.final_responsibility.retained),
+                        "absorbed_pair_count": len(plan.final_responsibility.absorbed),
+                    },
+                    ensure_ascii=False,
+                )
+                + "\n"
+            )
+            written += 1
+
+    manifest = {
+        "e2e_results": str(args.e2e_results),
+        "call2_artifact": str(args.call2_artifact),
+        "issue_bindings": str(args.issue_bindings),
+        "cases_requested": len(case_ids),
+        "cases_written": written,
+        "failures": [{"case_id": case_id, "error": error} for case_id, error in failures],
+        "gold_precedents_read": False,
+        "rubric_fields_read": False,
+    }
+    (args.out / "answer_plans.manifest.json").write_text(
+        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    print(json.dumps(manifest, ensure_ascii=False, indent=2))
+    if failures:
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
