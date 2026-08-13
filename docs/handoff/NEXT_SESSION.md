@@ -883,3 +883,88 @@ gold precedent 미열람 / 문항별 rubric 수치 필드 금지 / `contested_po
 2. 같은 dev 2건 재실행 -> **F1/F2/F3 = 0 확인**.
 3. 그때 N 조건 동결. **지금은 동결하지 않는다.**
 4. 그 뒤 SPEC §5.5 카드 회수를 붙여 P 조건 실행 -> 26문항 full E2E.
+
+---
+
+## 2026-08-13 (5) Call 3 fidelity 수정과 F2의 진짜 원인 -- GroundFact가 offense context에 오염됐다
+
+정본: `experiments/v2_call15_directscope_26_causal/call3_dev_v2/audit.md`(전후 대조),
+`cross_instance_truth_audit_v1/audit.json`(전수). 커밋 `705ea14`, `0ed892e`.
+설계 검수는 `docs/analysis/v2_call3_prompt_fidelity_review_ko.md`(카드 2장 승인 완료).
+
+### 프롬프트 두 줄 수정의 결과
+
+| | `call3_dev_v1` | `call3_dev_v2` |
+| --- | --- | --- |
+| F3 인용 변조 | `2018. 4. 12. 선고 2017도16488` | **`대법원 2018도13877 전원합의체`** 해소 |
+| F1 미확정 -> 불성립 단정 | 발생 | 해소 |
+| F2 불성립 -> 유보 완화 | 발생 | **미해소** |
+| F4 최종 결론에서 죄 누락 | 없음 | **신규** |
+
+F4는 카드 1 수정의 부작용이다. 잘못된 단정은 사라졌지만 "각 죄의 결론을 그대로 다시 말한다"를
+**누락으로 회피**했다(`r14_p1_q2` 결론이 "丙의 최종 죄책은 횡령죄이다" 한 줄, 乙 전체 탈락).
+원인은 결론 문장이 `analysis` 산문에 섞여 있어 모델이 취사선택할 수 있다는 것이다.
+
+### Call 3 F2 root cause
+
+동일 `(case, actor, factual_episode, ground_predicate)`에 대해 offense instance별 Call 2 truth가
+충돌한다. **F2는 Call 3의 지시 위반이 아니라 plan이 모순된 anchor를 넘긴 결과다.** 모델은
+유보 쪽으로 조화시켰고, 간음 여부가 미확정인데 간음이 없다고 단정할 수 없으므로 법률가의
+서술로는 오히려 옳다. 프롬프트를 더 조여도 잡히지 않는다.
+
+occurrence-aware audit 결과 **GROUND_FACT_CONFLICT 4건**, 현재 데이터에서는 전부 derived/basic
+offense pair에서 발생한다. F2(`r10_p1_q1_ga`, 甲, `factual_episode:002`,
+`ground_fact.vaginal_intercourse_conduct`: 강간치상 FALSE / 강간 UNKNOWN)도 그대로 재현된다.
+
+처음 센 44쌍은 잘못된 집계였다. `(actor, predicate)`로만 묶으면 서로 다른 episode에 대한 질문을
+한 질문으로 취급한다. **두 assessment를 한 질문으로 만드는 것은 factual episode다.** 해소 후:
+ground fact 충돌 4 / legal element 충돌 10 / episode 미해소 divergence 22(파생 occurrence는 자기
+id를 가져 base binding으로 해소되지 않는다).
+
+### 권고 결정 -- 검토 대상이 아니라 확정 방향
+
+**GroundFact를 occurrence-level carrier로 승격한다.**
+`(case, actor, factual_episode, ground_predicate)`를 canonical key로 하여 **한 번만** assessment
+하고, 모든 offense instance가 동일 truth를 소비하도록 planner / Call 2 target generation을
+수정한다.
+
+원칙과 일치한다 -- GroundFact는 offense instance의 판단값이 아니라 사건 세계의 사실이다. 현재
+Call 2는 같은 사실을 offense instance별로 다시 물으면서 offense context가 truth를 바꾸는 것을
+허용하고 있고, 이것은 representation 자체의 결함이다. 파생죄가 기본죄 truth를 상속하는 ad-hoc
+repair는 **사용하지 않는다** -- 이번 4건이 전부 파생/기본 쌍이라 그것으로도 데이터는 통과하지만
+원인을 남긴 채 통과시키는 것이다.
+
+**금지:** polarity priority, majority vote, UNKNOWN downgrade, derived -> base 임의 복사.
+AnswerPlan은 값을 고르지 않는다. 감지하고 멈추기만 한다.
+
+### 후속 순서
+
+1. occurrence-level GroundFact canonicalization (upstream)
+2. AnswerPlan hard guard: 동일 canonical GroundFactKey에 truth divergence가 오면
+   `CROSS_INSTANCE_GROUND_FACT_CONFLICT`로 생성 실패
+3. `required_final_conclusions`를 `analysis` 산문과 분리해 closed list로 전달. host는 여전히
+   답안에 손대지 않는다 -- 결론문을 삽입하는 것이 아니라 회수해야 할 anchor를 넘기는 것이다.
+   호출 뒤 누락 검사는 기계적으로 하되 수정하지 않는다.
+4. AnswerPlan 26/26 재생성
+5. 동일 dev 2건 Call 3 재실행
+6. F1/F2/F3 + conclusion omission = 0 확인 후 **N configuration freeze**
+
+**별도 트랙:** LEGAL_ELEMENT_CONFLICT 10건은 GroundFact와 합치지 않고 semantic-context audit
+대상으로 유지한다. legal element는 offense-instance-local 평가일 수 있어 같은 ref라는 이유만으로
+같은 truth를 요구할 수 없다. episode 미해소 divergence 22건도 기록만 유지한다.
+
+**26문항 Call 3 실행은 보류한다.** 지금 돌리면 이미 아는 상류 모순이 출력에 번지는 양상만
+측정하게 되어 N 조건 산출물로서 의미가 없다.
+
+### 이 데이터셋에서 검증 불가로 확정된 것
+
+**흡수 pair는 26문항 전체에서 0건**이다(`absorption_e2e_v12`에서 흡수 미발화가 그대로 내려옴).
+"흡수된 죄를 명시적으로 논하라"는 계약은 live 검증 방법이 없다. unit test가 계약을 지고, 논문에는
+`live-unverified / unit-tested`로 보고한다. synthetic live case는 만들지 않는다.
+
+**participation은 4문항**(`r10_p1_q3_ga`, `r11_p1_q1`, `r12_p1_q4`, `r14_p1_q1`)에 있고 전부
+sealed다. 사람이 답안을 읽으면 오염이므로, 26문항 full run에 **자동 fidelity check**로 붙인다.
+plan의 각 participation instance에서 participant actor / mode / principal actor / offense label을
+expectation으로 만들고, 답안에 mode 어휘와 두 행위자가 살아남았는지만 기계적으로 센다.
+handoff information survival probe이며 semantic judge가 아니다. 본문을 사람에게 출력하지 않고
+자동 수정도 하지 않는다.
