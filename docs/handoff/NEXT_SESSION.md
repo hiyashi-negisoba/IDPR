@@ -614,10 +614,17 @@ artifact는 `call2_v8_indirect_principal`을 그대로 재사용했다.
   다른 죄다. `r11_p1_q1`이 甲 `offense.theft` -> 乙 `offense.injury`,
   `qualitative / no_liability_for_excess`로 판정되고 전용 Scallop relation parity도 통과했다.
   폭행치상 미저작(`gap.assault_offense_family`)은 그대로 남겼다 -- 분류는 맞고 죄명이 다르다.
-- 제33조 단서: 발화 0. link가 있는 4문항 모두 신분 leaf가 planner target에 없다
-  (`UNRESOLVED_AGGRAVATING_STATUS`). 존속살해 instance가 실제로 열린 `r12_p2_q1_ga`는 반대로
-  participation이 격리되어 link가 0이다. 두 조건이 한 문항에서 만난 적이 없다.
+- 제33조 단서: **probe target wiring 완료**, 발화는 여전히 0.
+  `runtime/policy_probe_targets.py`가 저작된 참가 probe를 Call 2 target으로 낮춘다. KCL-26에서
+  정확히 3개(`r12_p2_q1_ga` 甲 교사·방조, `r13_p1_q3` 丁 교사)가 열리고 assessment target은
+  531 -> 534다. 발화 0의 원인이 leaf 부재에서 **살인 참가 link 0**으로 바뀌었다 --
+  `r12_p2_q1_ga`는 mode 충돌 격리, `r13_p1_q3`는 참가 truth가 link를 만들지 못했다. 그래서 그
+  3개 target만을 위한 live Call 2 재실행은 하지 않았다(바뀌는 결론이 없다).
+  `optional` 요구(초과 예견가능성)는 열지 않았다 -- 전부 열면 target이 31개 더 는다.
+  공동정범 mode는 소비 경로가 없어 `participation_probe_unreachable_modes`로 남겼다.
 - 표현 공백: `UNRESOLVED_MISTAKE_BINDING` 25(전 문항, `gap.intended_object_identity`).
+  기존 `UNRESOLVED_AGGRAVATING_STATUS` 4건은 사라졌다 -- 살인 참가 후보가 없는 문항에서 뜬
+  false positive였고, 이제 공백 보고가 후보 범위를 본다.
 
 ### 부수 정상화
 
@@ -631,7 +638,7 @@ artifact는 `call2_v8_indirect_principal`을 그대로 재사용했다.
   무책으로 접지도 중한 죄를 세우지도 않는다. 초과가 경합보다 먼저 돈다 -- 귀속이 차단된 죄는
   흡수 자리에 서면 안 된다. 뷰가 `final_instances`와 `attribution_withheld_instances`를 낸다.
 
-검증은 로컬 전체 `256 passed, 16 skipped`.
+검증은 로컬 전체 `260 passed, 16 skipped`.
 
 ### 검수 완료 항목
 
@@ -641,16 +648,15 @@ artifact는 `call2_v8_indirect_principal`을 그대로 재사용했다.
 
 ### 다음 세션
 
-승인된 순서대로 두 갈래가 남았다.
+1번(제33조 단서 wiring)은 완료했다. 남은 것은 아래다.
 
-1. **제33조 단서 probe target wiring.** probe compiler는 이미
-   `legal_element.lineal_ascendant_of_self_or_spouse_status`를 요구하고 있으나 planner가
-   participation-candidate scope의 probe를 Call 2 target으로 만들지 않는다. 이것이 닫히면
-   `UNRESOLVED_AGGRAVATING_STATUS` 4건이 실제 판정으로 바뀐다. planner 변경이며 프롬프트
-   변경은 아니다.
-2. **흡수 조건 assessment 채널.** 인장위조 규칙은 승인됐으나 조건
+1. **흡수 조건 assessment 채널.** 인장위조 규칙은 승인됐으나 조건
    (`condition.forged_seal_impression_is_a_constituent_part_of_the_document`)을 물을 곳이 없어
    후보가 열려도 UNKNOWN이다. Call 2 target 추가이므로 프롬프트 승인 게이트에 걸린다.
+2. **참가 recall.** 제33조 단서도 초과도 이제 참가 link에 걸려 있다. KCL-26에서 살인 참가
+   후보 2문항 모두 link가 0이라 두 법리 다 발화하지 못한다. 앞단 참가 정확도가 다음 병목이다.
+3. **검수 대기 두 건**: `optional` probe 요구를 열 것인가(예산), 제33조 단서의 공동정범
+   저작을 좁힐 것인가 아니면 group node 소비 경로를 만들 것인가.
 
 Call 3는 이 typed 결과를 **설명만** 한다 -- "乙의 상해는 甲의 교사 범위를 질적으로 초과하므로
 그 부분에 대한 책임은 없다". 초과 판정 자체를 Call 3가 하지 않는다.

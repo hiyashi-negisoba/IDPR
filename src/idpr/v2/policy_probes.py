@@ -49,6 +49,19 @@ class ProbeRequirement:
     supply: str
     optional: bool
     unresolved_marker: str
+    candidate_offense_refs: tuple[str, ...] = ()
+    """이 요구가 붙는 후보의 exact offense refs. 비어 있으면 후보 종류로 제한하지 않는다.
+
+    이 두 필드가 있어야 planner가 "이 사건에 이 정책이 붙을 자리가 있는가"를 물을 수 있다.
+    없으면 살인 참가 후보가 하나도 없는 사건에서도 존속살해 신분을 target으로 열거나, 반대로
+    열지 않은 채 공백 marker만 찍게 된다 -- 둘 다 틀렸다.
+
+    compiler는 이 값을 해석하지 않는다. 정책이 어디에 붙는지는 저작이 정하고 여기서는
+    나르기만 한다.
+    """
+
+    candidate_modes: tuple[str, ...] = ()
+    """이 요구가 붙는 참가 mode. 비어 있으면 mode로 제한하지 않는다."""
 
     @property
     def is_neural_target(self) -> bool:
@@ -61,19 +74,32 @@ class ProbeRequirement:
         return self.supply == NEURAL_PREDICATE
 
 
-def _probe_blocks(entry: DefinitionEntry) -> tuple[Mapping[str, Any], ...]:
-    """Every `probe` block this definition carries, whatever kind it is.
+def _probe_blocks(
+    entry: DefinitionEntry,
+) -> tuple[tuple[Mapping[str, Any], tuple[str, ...], tuple[str, ...]], ...]:
+    """Every `probe` block this definition carries, with the candidate scope it is authored in.
 
     Policy kinds put it at the top level; `aggravating_status_participation` is nested inside an
-    offense because it is authored on the aggravated offense rather than standing alone.
+    offense because it is authored on the aggravated offense rather than standing alone. That
+    nesting is also where the scope lives -- the proviso names the base offense and the modes it
+    reaches -- so the accessor that knows the shape reads it out here and the rest of the module
+    stays legally blind.
     """
     if entry.kind in {"mistake_policy", "excess_policy"}:
-        return (entry.payload["probe"],)
+        return ((entry.payload["probe"], (), ()),)
     if entry.kind == "offense":
         proviso = (entry.payload.get("participation_constraints") or {}).get(
             "aggravating_status_participation"
         )
-        return (proviso["probe"],) if proviso else ()
+        if not proviso:
+            return ()
+        return (
+            (
+                proviso["probe"],
+                (str(proviso["base_offense_ref"]),),
+                tuple(str(value) for value in proviso["applies_to_modes"]),
+            ),
+        )
     return ()
 
 
@@ -87,7 +113,7 @@ def probe_requirements(
         raise PolicyProbeError(f"unknown probe target kind: {applies_to!r}")
     output: list[ProbeRequirement] = []
     for entry in registry.by_id.values():
-        for probe in _probe_blocks(entry):
+        for probe, offense_refs, modes in _probe_blocks(entry):
             if applies_to is not None and probe["applies_to"] != applies_to:
                 continue
             for requirement in probe["requires"]:
@@ -99,6 +125,8 @@ def probe_requirements(
                         supply=requirement["supply"],
                         optional=bool(requirement.get("optional", False)),
                         unresolved_marker=probe["unresolved_marker"],
+                        candidate_offense_refs=offense_refs,
+                        candidate_modes=modes,
                     )
                 )
     return tuple(sorted(output, key=lambda item: (item.policy_id, item.ref)))

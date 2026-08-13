@@ -28,6 +28,10 @@ from idpr.v2.runtime.factual_participation import (
     FactualParticipationError,
     materialize_factual_participation_candidates,
 )
+from idpr.v2.runtime.policy_probe_targets import (
+    participation_candidate_probe_targets,
+    unreachable_mode_findings,
+)
 
 DEFAULT_INVENTORY = ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
 DEFAULT_CASE_LIST = ROOT / "data/eval/kcl_substantive_case_ids.txt"
@@ -188,6 +192,52 @@ def main() -> None:
                 for value in target["member_instances"]
             ):
                 raise ValueError(f"{case_id}: dangling participation evidence")
+
+        # 저작된 참가 정책이 요구하는 predicate를 Call 2 target으로 연다. planner는 어느
+        # 법리인지 모른 채 probe가 선언한 offense/mode 범위만 읽는다.
+        probe_targets = participation_candidate_probe_targets(registry, compiled.targets)
+        existing = {
+            (
+                value["instance_key"]["case_id"],
+                value["instance_key"]["actor_id"],
+                value["instance_key"]["offense_ref"],
+                value["instance_key"]["occurrence_id"],
+                value["predicate_ref"],
+            )
+            for value in row["assessment_targets"]
+        }
+        added = 0
+        for instance, predicate_ref in probe_targets:
+            key = (
+                instance.case_id,
+                instance.actor_id,
+                instance.offense_ref,
+                instance.occurrence_id,
+                predicate_ref,
+            )
+            if key in existing:
+                continue
+            existing.add(key)
+            row["assessment_targets"].append(
+                {
+                    "instance_key": {
+                        "case_id": instance.case_id,
+                        "actor_id": instance.actor_id,
+                        "offense_ref": instance.offense_ref,
+                        "occurrence_id": instance.occurrence_id,
+                    },
+                    "predicate_ref": predicate_ref,
+                    "opened_by": "participation_candidate_probe",
+                }
+            )
+            added += 1
+        row["participation_probe_target_count"] = added
+        row["final_assessment_target_count"] = len(row["assessment_targets"])
+        unreachable = unreachable_mode_findings(registry, compiled.targets)
+        row["participation_probe_unreachable_modes"] = [
+            {"policy_id": policy_id, "mode": mode, "relation_kind": relation_kind}
+            for policy_id, mode, relation_kind in unreachable
+        ]
         output.append(row)
         print(
             f"{case_id}: interactions={len(factual_interactions)} "

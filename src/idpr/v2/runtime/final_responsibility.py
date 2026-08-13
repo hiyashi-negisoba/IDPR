@@ -29,6 +29,7 @@ from idpr.v2.evaluate import UNKNOWN, TruthValue
 from idpr.v2.policy_probes import (
     OFFENSE_INSTANCE,
     PARTICIPATION_CANDIDATE,
+    ProbeRequirement,
     unsatisfied_requirements,
 )
 from idpr.v2.registry import DefinitionEntry, DefinitionRegistry
@@ -421,6 +422,10 @@ def resolve_final_responsibility(
         *_multiple_excess_findings(excess_findings),
         *_probe_gap_findings(
             registry,
+            # derivative link의 mode는 이미 저작된 이름(instigator/aider)이다.
+            candidate_scopes=tuple(
+                (accessory.offense_ref, mode) for accessory, _principal, mode in links
+            ),
             available_predicate_refs=(
                 *available_predicate_refs,
                 # 초과 정책의 두 provenance 입력은 뉴럴 target이 아니라 host가 후보와 함께
@@ -508,6 +513,19 @@ Scallop lowering도 (가담자, 교사대상) 하나만 키로 받으므로 여�
 """
 
 
+def _applies_to_any(
+    requirement: ProbeRequirement, candidate_scopes: tuple[tuple[str, str], ...]
+) -> bool:
+    """이 사건의 참가 후보 중 이 요구가 붙을 자리가 하나라도 있는가."""
+    if not requirement.candidate_offense_refs and not requirement.candidate_modes:
+        return True
+    return any(
+        (not requirement.candidate_offense_refs or offense_ref in requirement.candidate_offense_refs)
+        and (not requirement.candidate_modes or mode in requirement.candidate_modes)
+        for offense_ref, mode in candidate_scopes
+    )
+
+
 def _multiple_excess_findings(
     findings: tuple[ExcessFinding, ...],
 ) -> tuple[UnresolvedFinding, ...]:
@@ -562,11 +580,13 @@ def _probe_gap_findings(
     *,
     available_predicate_refs: Iterable[str],
     has_participation_candidate: bool,
+    candidate_scopes: tuple[tuple[str, str], ...] = (),
 ) -> tuple[UnresolvedFinding, ...]:
     """저작된 정책이 요구했는데 이 사건이 공급하지 못한 입력을 marker로 남긴다.
 
-    참가 후보가 아예 없는 사건에서 participation 정책의 공백을 보고하지는 않는다. 그것은
-    입력 부재가 아니라 적용 대상 부재이고, 둘을 섞으면 진짜 공백이 묻힌다.
+    적용 대상이 없는 정책의 공백은 보고하지 않는다. 살인 참가 후보가 하나도 없는 사건에서
+    존속살해 신분이 없다고 적는 것은 입력 부재가 아니라 적용 대상 부재이고, 둘을 섞으면 진짜
+    공백이 묻힌다. `candidate_scopes`는 이 사건에 실제로 있는 `(offense_ref, mode)` 쌍이다.
     """
     available = tuple(available_predicate_refs)
     scopes = [OFFENSE_INSTANCE]
@@ -575,6 +595,10 @@ def _probe_gap_findings(
     grouped: dict[tuple[str, str, str], list[str]] = {}
     for scope in scopes:
         for requirement in unsatisfied_requirements(registry, available, applies_to=scope):
+            if scope == PARTICIPATION_CANDIDATE and not _applies_to_any(
+                requirement, candidate_scopes
+            ):
+                continue
             key = (requirement.unresolved_marker, requirement.policy_id, requirement.applies_to)
             grouped.setdefault(key, []).append(requirement.ref)
     return tuple(
