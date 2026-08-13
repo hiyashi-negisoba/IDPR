@@ -1,9 +1,13 @@
+from pathlib import Path
+
 from idpr.v2.evaluate import FALSE, TRUE, UNKNOWN
+from idpr.v2.registry import DefinitionRegistry, load_definitions
 from idpr.v2.runtime.concurrence import (
     ABSORPTION,
     IMAGINATIVE_CONCURRENCE,
     ConcurrenceRule,
     plan_concurrence_candidates,
+    plan_specialty_candidates,
     resolve_concurrence,
 )
 from idpr.v2.runtime.identity import OffenseInstanceKey
@@ -171,3 +175,65 @@ def test_conflicting_true_absorptions_are_unresolved_not_repaired() -> None:
     assert result.absorbed_instances == set()
     assert result.retained_instances == {child, first_parent, second_parent}
     assert set(result.rejected_conflicts) == set(candidates)
+
+
+def _specialty_registry() -> DefinitionRegistry:
+    return load_definitions(Path("data/v2/definitions"))
+
+
+def test_specialty_absorbs_only_the_same_actor_base_binding() -> None:
+    """KCL r13_p1_q1 shape: 甲, 乙 and 丙 each steal in one episode and each gets 특수절도."""
+    registry = _specialty_registry()
+    episode = "factual_episode:001"
+    theft_gap = OffenseInstanceKey("case", "甲", "offense.theft", "binding:001")
+    theft_eul = OffenseInstanceKey("case", "乙", "offense.theft", "binding:003")
+    special_gap = OffenseInstanceKey(
+        "case", "甲", "derived_offense.special_theft", "derived_binding:002"
+    )
+    established = (theft_gap, theft_eul, special_gap)
+
+    candidates = plan_specialty_candidates(
+        established,
+        registry=registry,
+        episode_by_instance=dict.fromkeys(established, episode),
+        # The planner materialized 甲's 특수절도 out of every actor's theft binding.
+        source_bindings_by_instance={special_gap: ("binding:001", "binding:003")},
+    )
+
+    assert [candidate.first for candidate in candidates] == [theft_gap]
+
+    resolution = resolve_concurrence(established, candidates, condition_truths={})
+    assert resolution.absorbed_instances == frozenset({theft_gap})
+    assert theft_eul in resolution.retained_instances
+
+
+def test_specialty_needs_the_recorded_materialization_link() -> None:
+    registry = _specialty_registry()
+    theft = OffenseInstanceKey("case", "甲", "offense.theft", "binding:009")
+    special = OffenseInstanceKey(
+        "case", "甲", "derived_offense.special_theft", "derived_binding:002"
+    )
+    established = (theft, special)
+
+    candidates = plan_specialty_candidates(
+        established,
+        registry=registry,
+        episode_by_instance=dict.fromkeys(established, "factual_episode:001"),
+        source_bindings_by_instance={special: ("binding:001",)},
+    )
+
+    assert candidates == ()
+
+
+def test_specialty_does_not_fire_when_the_derived_offense_is_not_established() -> None:
+    registry = _specialty_registry()
+    theft = OffenseInstanceKey("case", "甲", "offense.theft", "binding:001")
+
+    candidates = plan_specialty_candidates(
+        (theft,),
+        registry=registry,
+        episode_by_instance={theft: "factual_episode:001"},
+        source_bindings_by_instance={},
+    )
+
+    assert candidates == ()
