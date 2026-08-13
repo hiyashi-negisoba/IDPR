@@ -813,3 +813,73 @@ Call 1 / 1.5 / 1.5-P / 1.5-D, Call 2 atomic assessment, 참가(성능 gap 알려
 ### 다음
 
 정본 결과 -> Final Responsibility 정리 -> **AnswerPlan -> Call 3 -> 26문항 full E2E**.
+
+---
+
+## 2026-08-13 (4) AnswerPlan + Call 3 -- E2E 관통, fidelity 실패 3건 고정
+
+`docs/v2_plan/ANSWERPLAN_SPEC.md`(스키마) + `docs/analysis/v2_call3_prompt_review_ko.md`
+(프롬프트 검수, 카드 A~G 전부 승인)가 설계 정본이다. 정본 run은
+`experiments/v2_call15_directscope_26_causal/answer_plan_v1/`(26/26)과 `call3_dev_v1/`
+(dev 2건 답안 + audit)이며, 관행과 달리 **git에 넣었다** -- 다음 라운드의 전후 비교 기준점이라서다.
+
+### rubric 역설계로 확정한 것
+
+KCL-26 rubric 735항목의 **유형 집계**가 스키마를 결정했다(sealed-24는 문면 미열람, dev 2건만
+열람). 결론 23.4% / 언급 20.8% / 판례 15.6% / 법리 14.8% / 쟁점제기 9.7% / 조문 8.8% /
+죄수 7.9% / 학설대립 5.4%. 여기서 나온 초안 대비 델타가 7개다 -- decisive finding에
+`legal_standard`+`governing_provision` 동봉, 판례 법리 슬롯 신설, 흡수 쌍 **양쪽** 보존,
+선결 의존 순서, contested points, 죄명별 명시 결론, 분량은 plan의 쟁점 수로만.
+
+**판례 근거는 우리 카드 코퍼스로 간다.** 데이터셋 gold precedent는 배제 확정 -- oracle이고,
+판시사항이 결론을 담고 있고, 문항당 5만 자라 어차피 검색기가 필요하다. 카드 1,848장 중 638장이
+판례 유래 명제이고, rubric 판례 항목 115개 중 **113개가 사건번호를 요구하지 않으므로** 형태가
+정확히 맞는다. 회수 시점은 **Scallop 이후 plan 조립 시점**이다(Call 2 truth 채널로는 이미
+`card_call2_ab_v1`에서 부결).
+
+### 세 개의 잠금 (계약 §4-7/8/9, 테스트가 지킨다)
+
+gold precedent 미열람 / 문항별 rubric 수치 필드 금지 / `contested_points`는
+`origin ∈ {authored_doctrine, reviewed_card}`만. 없으면 §6의 P−N ablation이 rule base 기여도가
+아니라 평가 자료의 반사가 된다.
+
+### 계약이 잡은 production 결함 5개
+
+전부 실제 결함이었고 전부 고쳤다.
+
+1. **ref fallback.** 파생죄명 25개 전부 `identity` 블록이 없어 죄명이 `derived_offense.*`로
+   샜다. 저작된 seed-cue 카탈로그를 라벨 출처로 쓰고, 없으면 폴백하지 않고 **실패**시킨다.
+   `derived_offense.special_theft`(특수절도죄)와 `robbery_causing_injury_by_aggravated_result`
+   (강도치상죄) 2건은 승인받아 저작 -- join audit이 이미 `UNMAPPED_DERIVED_ARTICLE`로 지목한
+   동일 gap이다.
+2. **FALSE vs UNKNOWN.** 계약이 predicate 재구성으로 판정해 오탐했다. **gate가 relation
+   obligation에서 실패할 수 있으므로** predicate 목록은 증거가 못 된다. gate를 직접 읽는다.
+3. **폴백 분기.** 그 수정이 드러낸 것 -- run이 도달하지 못한 instance가 전부 불성립으로
+   떨어지고 있었다. 도달 못 한 것은 미확정이다.
+4. **원시 record 노출.** 초과·상상적경합·제33조 단서가 dict 그대로 나가 ref가 샜다. 죄명
+   산문으로 렌더링. 가담 형태도 `instigator` -> 교사범.
+5. **저작 메모 노출.** `canonical_meaning` 5개에 워크시트 주석이 박혀 있었다("death-agnostic
+   패턴", "(+NOT())", "아래 B-7"). 저작된 `legal_standard`로 폴백한다.
+
+### Call 3 dev 실행 -- 관통했고 위반 3건
+
+서비스 222907, 문항당 1회, 후처리 0, 2,146/2,171자. 내부 ID 누출 0, 단일 통합 IRAC, 법리·포섭
+전개 모두 통과. **흡수 pair와 participation은 이번 2건에 없어 미검증이다.**
+
+카드 회수는 **의도적으로 붙이지 않았다.** 근거 빈약은 이 run의 결함이 아니다.
+
+- **F1** (`r14_p1_q2`): 丙 사기죄가 plan에서 `확정하기 어렵다`인데 최종 결론이 "성립하지
+  않는다"로 단정. 가장 강하게 금지한 전환이다.
+- **F2** (`r10_p1_q1_ga`): 강간치상죄가 plan에서 `성립하지 않는다`(gate 실패)인데 답안은
+  "확정할 수 없다"로 완화. F1과 방향만 반대이고 뿌리는 같다 -- **최종 결론 문단에서 재진술할 때**
+  상태 어휘가 anchor를 벗어난다.
+- **F3** (`r10_p1_q1_ga`): 준 인용 `대법원 2018도13877 전원합의체`를 "2018. 4. 12. 선고
+  **2017도16488** 전원합의체"로 바꿔 썼다.
+
+### 다음 세션
+
+1. 프롬프트 카드 2장 검수(승인 게이트): ① 최종 결론에서도 anchored state를 plan 표현 그대로
+   재진술 ② authority citation은 verbatim-only, 날짜·사건번호 보완 금지.
+2. 같은 dev 2건 재실행 -> **F1/F2/F3 = 0 확인**.
+3. 그때 N 조건 동결. **지금은 동결하지 않는다.**
+4. 그 뒤 SPEC §5.5 카드 회수를 붙여 P 조건 실행 -> 26문항 full E2E.
