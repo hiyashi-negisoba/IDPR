@@ -18,24 +18,36 @@ rules:
     first_offense_ref: offense.seal_forgery_or_misuse
     second_offense_ref: offense.private_document_forgery
     occurrence_constraint: same_episode
-    # 2026-08-13 검수 확정. 조건을 "그 문서의 구성부분이 된 인영의 위조"로 좁혔다.
-    # 넓은 형태(`인장위조가 사문서위조의 수단이었는가`)는 승인되지 않았다 -- 후속 판례가
-    # 문서의 구성부분이 되는 인영 위조만 흡수되고 인과(도장 자체)를 별도로 제작한 행위는
-    # 독립한 사인위조죄라고 구별하기 때문이다. `offense.seal_forgery_or_misuse`는 두 형태를
-    # 모두 담으므로 조건이 그 구별을 진다.
-    #
-    # 조건 assessment 채널은 아직 없다. 그래서 후보는 UNKNOWN으로 남고 두 죄가 모두
-    # 유지되되 unresolved로 표시된다. 조건 없이 흡수를 발화시키지 않는다.
-    condition_ref: condition.forged_seal_impression_is_a_constituent_part_of_the_document
+    # 2026-08-13 검수 확정. 흡수는 한 사람의 두 죄 사이의 관계를 표현한다. 같은 episode라는
+    # 이유만으로 甲의 문서위조가 乙의 인장위조를 삼키면 identity defect다.
+    actor_constraint: same
+    # 2026-08-13 2차 검수로 조건을 재저작했다. 1차에서는 "위조된 인영"으로 좁혔으나 그것은
+    # 제239조의 부정사용까지 잘라내는 과잉 축소였다. 인영의 현출 권한이 없으면 진정한 인장에서
+    # 찍힌 인영이라도 사인위조가 성립할 수 있으므로 "물리적 도장이 진품인가"로 위조/부정사용을
+    # 가를 수 없고, 부정사용죄가 사문서위조·행사죄에 흡수될 수 있음도 전제되어 있다.
+    # `offense.seal_forgery_or_misuse`가 이미 두 형태를 한 정의에 담고 있으므로 조건도 그
+    # authored offense 범위와 맞춘다. 조건이 가르는 것은 위조냐 부정사용이냐가 아니라
+    # **그 인영이 바로 그 문서의 구성부분인가**다.
+    condition_ref: condition.unauthorized_seal_impression_is_constituent_part_of_document
+    condition_statement: >-
+      타인의 인장에 관하여 권한 없이 현출되거나 부정사용된 인영이 바로 해당 문서에 찍혀
+      그 문서의 구성부분을 이루는가.
+    legal_standard: >-
+      타인의 인장에 관한 위조 또는 권한 없는 사용으로 현출된 인영이 바로 그 문서에 찍혀
+      그 문서의 기명·날인 부분을 이루는지를 본다. 인장 자체를 별도로 제작·보유하였을 뿐
+      그 인영이 해당 문서에 현출되지 않았다면 해당하지 않는다.
     legacy_rule_id: art231_sec6.seal_forgery_absorbed
     source_card_ids: []
     basis: >-
-      행사할 목적으로 타인의 인장을 위조하고 그 인장으로 타인의 사문서를 위조한 경우
-      인장위조죄는 사문서위조죄에 흡수되어 별도로 성립하지 않는다. 다만 흡수되는 것은
-      그 문서의 구성부분이 된 인영의 위조이고, 인과 자체를 별도로 제작한 행위는 독립한
-      사인위조죄로 남는다.
+      행사할 목적으로 타인의 인장을 위조하거나 권한 없이 사용하고 그 인영으로 타인의 사문서를
+      위조한 경우 인장에 관한 죄는 사문서위조죄에 흡수되어 별도로 성립하지 않는다. 다만
+      흡수되는 것은 그 문서의 구성부분이 된 인영에 관한 행위이고, 인과 자체를 별도로 제작한
+      행위는 독립한 사인위조죄로 남는다.
     review_notes: >-
       KCL-26에서 유일하게 두 죄가 같은 factual episode에 함께 결박된 문항은
       `kcl_criminal_r12_p2_q1_da`이며 binding:002(사문서위조)와 binding:004(인장위조)가
-      모두 factual_episode:001이다. 다만 그 문항에서 현재 성립한 것은 위조사문서행사죄뿐이라
-      승인 후에도 후보가 열리지 않는다.
+      모두 factual_episode:001, 행위자도 모두 甲이다. 그 문항의 사실은 A의 진정한 인감도장을
+      권한 없이 사용한 것이므로 1차 조건("위조된 인영") 아래에서는 문언상 FALSE였으나,
+      재저작된 subtype-neutral 조건 아래에서는 모델이 판단할 대상이 된다. 다만 그 문항에서
+      두 위조죄는 모두 elements에서 멈추므로 조건이 TRUE여도 해소 단계에서 흡수할 대상이
+      성립하지 않는다.

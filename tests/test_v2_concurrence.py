@@ -1,11 +1,20 @@
+from dataclasses import replace
 from pathlib import Path
+from tempfile import TemporaryDirectory
+
+import pytest
+import yaml
 
 from idpr.v2.evaluate import FALSE, TRUE, UNKNOWN
 from idpr.v2.registry import DefinitionRegistry, load_definitions
 from idpr.v2.runtime.concurrence import (
     ABSORPTION,
+    ACTOR_ANY,
+    ACTOR_SAME,
+    APPROVED,
     IMAGINATIVE_CONCURRENCE,
     ConcurrenceRule,
+    load_concurrence_rules,
     plan_concurrence_candidates,
     plan_specialty_candidates,
     resolve_concurrence,
@@ -175,6 +184,84 @@ def test_conflicting_true_absorptions_are_unresolved_not_repaired() -> None:
     assert result.absorbed_instances == set()
     assert result.retained_instances == {child, first_parent, second_parent}
     assert set(result.rejected_conflicts) == set(candidates)
+
+
+def test_authored_absorption_does_not_cross_actors() -> None:
+    """甲's document forgery must not swallow 乙's seal forgery on a shared episode alone."""
+    seal_eul = OffenseInstanceKey("case", "乙", "offense.seal", "binding:001")
+    document_gap = OffenseInstanceKey("case", "甲", "offense.document", "binding:002")
+    seal_gap = OffenseInstanceKey("case", "甲", "offense.seal", "binding:003")
+    rule = ConcurrenceRule(
+        "rule.seal_absorbed",
+        ABSORPTION,
+        "offense.seal",
+        "offense.document",
+        "condition.seal_absorbed",
+        actor_constraint=ACTOR_SAME,
+    )
+    episodes = dict.fromkeys((seal_eul, document_gap, seal_gap), "episode:1")
+
+    candidates = plan_concurrence_candidates(
+        (seal_eul, document_gap, seal_gap),
+        episode_by_instance=episodes,
+        rules=(rule,),
+    )
+    assert [candidate.first for candidate in candidates] == [seal_gap]
+
+    crossing = plan_concurrence_candidates(
+        (seal_eul, document_gap, seal_gap),
+        episode_by_instance=episodes,
+        rules=(replace(rule, actor_constraint=ACTOR_ANY),),
+    )
+    assert {candidate.first for candidate in crossing} == {seal_eul, seal_gap}
+
+
+def test_authored_rules_must_state_the_actor_constraint_and_condition_meaning() -> None:
+    """Loader-level, not dataclass-level: an authoring omission must not take a safe default."""
+    entry = {
+        "rule_id": "rule.draft",
+        "status": APPROVED,
+        "kind": ABSORPTION,
+        "first_offense_ref": "offense.seal",
+        "second_offense_ref": "offense.document",
+        "condition_ref": "condition.seal_absorbed",
+        "actor_constraint": ACTOR_SAME,
+        "condition_statement": "그 인영이 그 문서의 구성부분을 이루는가.",
+        "legal_standard": "그 인영이 바로 그 문서에 찍혀 기명·날인 부분을 이루는지를 본다.",
+    }
+
+    def _write(payload: dict[str, object], tmp: Path) -> Path:
+        tmp.write_text(
+            yaml.safe_dump({"version": 1, "rules": [payload]}, allow_unicode=True),
+            encoding="utf-8",
+        )
+        return tmp
+
+    with TemporaryDirectory() as directory:
+        root = Path(directory)
+        assert load_concurrence_rules(_write(entry, root / "ok.yaml"))
+        for missing in ("actor_constraint", "condition_statement", "legal_standard"):
+            payload = {key: value for key, value in entry.items() if key != missing}
+            with pytest.raises(ValueError, match=missing):
+                load_concurrence_rules(_write(payload, root / f"{missing}.yaml"))
+
+
+def test_the_authored_absorption_condition_is_offense_subtype_neutral() -> None:
+    """The condition splits constituent-part from separate seal-making, not 위조 from 부정사용.
+
+    `offense.seal_forgery_or_misuse` carries both subtypes in one definition, so a condition that
+    only reached forged impressions would silently drop Article 239 misuse out of the rule.
+    """
+    rules = load_concurrence_rules(Path("data/v2/concurrence_rules.yaml"))
+    rule = next(
+        value
+        for value in rules
+        if value.rule_id == "absorption.seal_forgery_by_private_document_forgery"
+    )
+    assert rule.actor_constraint == ACTOR_SAME
+    assert rule.condition_ref.endswith("unauthorized_seal_impression_is_constituent_part_of_document")
+    assert "구성부분" in rule.condition_statement
+    assert "위조" in rule.legal_standard and "권한 없는 사용" in rule.legal_standard
 
 
 def _specialty_registry() -> DefinitionRegistry:

@@ -38,6 +38,19 @@ if 특수절도 is established for this actor on the very theft binding that mat
 
 SAME_EPISODE = "same_episode"
 
+ACTOR_SAME = "same"
+ACTOR_ANY = "any"
+"""Whether a rule may join two instances belonging to different actors.
+
+Authored per rule rather than enforced host-globally.  Absorption as authored today expresses a
+relation between two offenses of *one* actor, and joining 甲's document forgery to 乙's seal
+forgery on nothing but a shared episode is an identity defect -- but that is a property of the
+rule, not of concurrence as such, so a future rule that genuinely relates two actors must be able
+to say so in its own text instead of fighting a host invariant.  The in-code default is
+:data:`ACTOR_SAME` because that is the safe reading; :func:`load_concurrence_rules` nonetheless
+requires authored rules to state it explicitly, so the choice is never silent.
+"""
+
 _DEFINITIONAL_CONDITION = "derivation.qualify"
 """Placeholder condition ref for SPECIALTY rules; never looked up in `condition_truths`."""
 
@@ -50,7 +63,10 @@ class ConcurrenceRule:
     second_offense_ref: str
     condition_ref: str
     occurrence_constraint: str = SAME_EPISODE
+    actor_constraint: str = ACTOR_SAME
     source_card_ids: tuple[str, ...] = ()
+    condition_statement: str = ""
+    legal_standard: str = ""
 
     def __post_init__(self) -> None:
         if self.kind not in {ABSORPTION, IMAGINATIVE_CONCURRENCE, SPECIALTY}:
@@ -59,6 +75,8 @@ class ConcurrenceRule:
             raise ValueError(
                 "v2 concurrence currently requires occurrence_constraint=same_episode"
             )
+        if self.actor_constraint not in {ACTOR_SAME, ACTOR_ANY}:
+            raise ValueError(f"unsupported actor_constraint: {self.actor_constraint!r}")
         if self.first_offense_ref == self.second_offense_ref:
             raise ValueError("same-offense multiplicity needs a separately authored rule")
         if not self.rule_id or not self.condition_ref:
@@ -87,15 +105,29 @@ def load_concurrence_rules(
         status = entry.get("status")
         if status != APPROVED and not include_unapproved:
             continue
+        rule_id = str(entry["rule_id"])
+        # Authored rules must state these; the in-code defaults exist for rules the host builds
+        # itself (specialty), not as a place for an authoring omission to hide.
+        if "actor_constraint" not in entry:
+            raise ValueError(f"{rule_id}: authored rules must state actor_constraint")
+        for field in ("condition_statement", "legal_standard"):
+            if not str(entry.get(field) or "").strip():
+                raise ValueError(
+                    f"{rule_id}: {field} must be authored -- the assessment payload carries it "
+                    "so the model reads the condition's meaning from the rule, not from a ref name"
+                )
         output.append(
             ConcurrenceRule(
-                rule_id=str(entry["rule_id"]),
+                rule_id=rule_id,
                 kind=str(entry["kind"]),
                 first_offense_ref=str(entry["first_offense_ref"]),
                 second_offense_ref=str(entry["second_offense_ref"]),
                 condition_ref=str(entry["condition_ref"]),
                 occurrence_constraint=str(entry.get("occurrence_constraint", SAME_EPISODE)),
+                actor_constraint=str(entry["actor_constraint"]),
                 source_card_ids=tuple(str(value) for value in entry.get("source_card_ids") or ()),
+                condition_statement=str(entry["condition_statement"]).strip(),
+                legal_standard=str(entry["legal_standard"]).strip(),
             )
         )
     return tuple(output)
@@ -124,7 +156,13 @@ def plan_concurrence_candidates(
     episode_by_instance: Mapping[OffenseInstanceKey, str],
     rules: Iterable[ConcurrenceRule],
 ) -> tuple[ConcurrenceCandidate, ...]:
-    """Join exact authored offense pairs only inside one factual episode."""
+    """Join exact authored offense pairs only inside one factual episode.
+
+    A rule whose `actor_constraint` is `same` additionally requires both instances to belong to
+    one actor.  Without it a single episode carrying 甲's document forgery and 乙's seal forgery
+    would open a candidate across the two, and a TRUE condition would then delete 乙's offense on
+    the strength of what 甲 did.
+    """
     established = tuple(dict.fromkeys(established_instances))
     missing = set(established) - set(episode_by_instance)
     if missing:
@@ -147,6 +185,11 @@ def plan_concurrence_candidates(
                 for second in second_values:
                     first_episode = episode_by_instance[first]
                     if first_episode != episode_by_instance[second]:
+                        continue
+                    if (
+                        rule.actor_constraint == ACTOR_SAME
+                        and first.actor_id != second.actor_id
+                    ):
                         continue
                     output.append(
                         ConcurrenceCandidate(rule, first, second, first_episode)
@@ -285,6 +328,8 @@ def resolve_concurrence(
 
 __all__ = [
     "ABSORPTION",
+    "ACTOR_ANY",
+    "ACTOR_SAME",
     "APPROVED",
     "IMAGINATIVE_CONCURRENCE",
     "SAME_EPISODE",

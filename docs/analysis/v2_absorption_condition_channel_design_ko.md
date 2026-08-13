@@ -9,10 +9,15 @@
 rule_id: absorption.seal_forgery_by_private_document_forgery
 first_offense_ref:  offense.seal_forgery_or_misuse      # 흡수되는 쪽
 second_offense_ref: offense.private_document_forgery    # 흡수하는 쪽
-condition_ref: condition.forged_seal_impression_is_a_constituent_part_of_the_document
+actor_constraint: same                                  # 카드 A 승인으로 추가
+condition_ref: condition.unauthorized_seal_impression_is_constituent_part_of_document
 ```
 
 조건을 물을 곳이 없어 후보가 열려도 UNKNOWN이다. 이 문서는 그 채널을 연다.
+
+**2026-08-13 검수 결과 반영 완료.** A=(가) 승인, B=문구 수정 승인, C=(나) 취지로 조건을
+subtype-neutral하게 재저작. 각 카드 아래에 반영 내용을 적었다. 나머지 구조(계획 pair에서
+assessment를 열고 성립 pair에서만 해소, 별도 carrier append-only 병합)는 그대로 간다.
 
 ## 1. pair identity
 
@@ -23,7 +28,7 @@ condition_ref: condition.forged_seal_impression_is_a_constituent_part_of_the_doc
 ConcurrenceConditionPair(
     pair_id="concurrence-pair:0001",
     rule_id="absorption.seal_forgery_by_private_document_forgery",
-    condition_ref="condition.forged_seal_impression_is_a_constituent_part_of_the_document",
+    condition_ref="condition.unauthorized_seal_impression_is_constituent_part_of_document",
     absorbed=OffenseInstanceKey(case, 甲, offense.seal_forgery_or_misuse, binding:004),
     absorbing=OffenseInstanceKey(case, 甲, offense.private_document_forgery, binding:002),
     factual_episode_id="factual_episode:001",
@@ -54,8 +59,8 @@ host는 여기서 멈춘다. same episode + 두 죄 존재만으로 조건을 TR
 {
   "case_id": "kcl_criminal_r12_p2_q1_da",
   "pair_id": "concurrence-pair:0001",
-  "condition_statement": "위조된 인영이 그 문서의 구성부분이 되었는가",
-  "legal_standard": "…(아래 카드 B에서 저작)…",
+  "condition_statement": "타인의 인장에 관하여 권한 없이 현출되거나 부정사용된 인영이 바로 해당 문서에 찍혀 그 문서의 구성부분을 이루는가.",
+  "legal_standard": "타인의 인장에 관한 위조 또는 권한 없는 사용으로 현출된 인영이 바로 그 문서에 찍혀 그 문서의 기명·날인 부분을 이루는지를 본다. 인장 자체를 별도로 제작·보유하였을 뿐 그 인영이 해당 문서에 현출되지 않았다면 해당하지 않는다.",
   "actor_id": "甲",
   "factual_episode_id": "factual_episode:001",
   "episode_text": "甲은 A를 살해한 직후 병실에 보관되어 있던 A의 인감도장을 가지고 나온 다음 …",
@@ -146,7 +151,19 @@ absorption에는 없다.
 - (나) 모든 absorption에 행위자 일치를 강제한다. (규칙별 저작 없이 일괄)
 - (다) 현행 유지.
 
-> comment:
+> comment: (가) 승인. `actor_constraint: same`을 규칙에 명시적으로 저작한다. authored absorption은
+> 동일 행위자의 두 죄 사이의 흡수관계를 표현하므로 다른 행위자의 instance끼리 episode만 같다는
+> 이유로 흡수시키면 안 된다. 다만 host-global invariant로 박지 않고 rule-level constraint로 두는
+> 편이 DSL 설계상 안전하다. 현재 planner의 cross-actor 가능성은 실제 identity defect이므로
+> 이번에 닫는다.
+
+**반영.** `ConcurrenceRule.actor_constraint ∈ {same, any}`를 신설하고
+`plan_concurrence_candidates`가 `same`일 때 행위자 일치를 요구한다. 규칙별 저작이므로 두 행위자를
+진짜로 잇는 미래 규칙은 host invariant와 싸우지 않고 스스로 `any`라고 말할 수 있다.
+
+in-code 기본값은 `same`(안전한 쪽)이지만 **loader는 authored rule에 이 키가 있을 것을 요구한다.**
+기본값은 host가 스스로 만드는 specialty 규칙을 위한 것이고, 저작 누락이 조용히 안전한 값을 물려받는
+자리가 되어서는 안 되기 때문이다.
 
 ---
 
@@ -161,7 +178,27 @@ absorption에는 없다.
 
 법리명("흡수", "법조경합")은 넣지 않는다.
 
-> comment:
+> comment: 취지는 승인하되 문구를 수정한다. 초안의 "그 사람 명의로 작성된 것처럼 보이게 하는 데
+> 쓰였는지"는 약간 해석적이다. 더 기계적으로 **그 인영이 바로 해당 문서에 현출되어 그 문서의
+> 기명·날인 부분을 구성하는지**를 묻는 편이 좋다. 판례도 문서위조죄에 흡수되는 인장행위를 "당해
+> 문서의 구성부분이 되는 인영"으로 한정하고, 문서와 별도로 인과 자체를 제작한 행위는 독립한
+> 인장위조죄라고 구별한다.
+>
+> 권고 문구: "타인의 인장에 관한 위조 또는 권한 없는 사용으로 현출된 인영이 바로 그 문서에 찍혀
+> 그 문서의 기명·날인 부분을 이루는지를 본다. 인장 자체를 별도로 제작·보유하였을 뿐 그 인영이
+> 해당 문서에 현출되지 않았다면 해당하지 않는다."
+>
+> 이렇게 두면 모델이 판단할 것은 pair-level factual relation뿐이고, 흡수라는 법적 효과는 여전히
+> 보지 않는다.
+
+**반영.** 권고 문구를 그대로 `legal_standard`로 저작했다. "명의로 작성된 것처럼 보이게" 같은
+평가적 표현을 빼고 현출 위치만 묻는다. 초안이 해석적이었던 이유는 그 문장이 사실은 **사문서위조의
+성립요건**을 조건 안에 다시 넣은 것이기 때문이다 -- 그 판단은 이미 다른 instance의 elements가
+진다. 조건이 져야 할 것은 두 instance 사이의 관계뿐이다.
+
+`condition_statement`(조건 자체)와 `legal_standard`(판단 기준)는 규칙 파일에 저작하고 loader가
+둘 다 비어 있지 않을 것을 요구한다. `condition.*`는 registry definition이 아니라 규칙이 스스로
+지고 가는 문자열이므로, 뜻이 없는 ref 이름만 payload에 실려 모델이 이름을 해석하는 일을 막는다.
 
 ---
 
@@ -181,7 +218,36 @@ absorption에는 없다.
 여기서 (나)를 택하는 것은 **발화 수를 만들려고 조건을 넓히는 것**에 해당할 수 있으므로, 법리적
 근거가 있을 때만 택해야 한다.
 
-> comment:
+> comment: (가) 반대. "진짜 인감도장이므로 위조가 아니라 부정사용이고 따라서 forged impression
+> 조건은 FALSE"라고 고정하면 안 된다. 판례상 부정사용은 진정한 인장을 권한 없이 사용하는 것을
+> 의미하지만, 동시에 **인영의 현출 권한이 없다면 진짜 인장으로부터 찍힌 인영이라도 사인위조가
+> 성립할 수 있다**고 판시되어 있다. 즉 "물리적 도장이 진품인가"만으로 위조/부정사용을 깔끔하게
+> 나눌 수 없다. 더 직접적으로, 헌재 결정례도 인장·서명 등의 부정사용죄가 사문서위조 및 행사죄에
+> 흡수될 수 있음을 전제로 설명한다.
+>
+> 따라서 법적 근거가 있으므로 조건을 넓히는 쪽이 맞다. 다만 발화를 만들기 위해 넓히는 것이
+> 아니라, `offense.seal_forgery_or_misuse`가 애초에 위조와 부정사용을 한 정의에 담고 있으므로
+> condition도 그 authored offense 범위와 맞추는 것이다. 조건 자체를
+> `condition.unauthorized_seal_impression_is_constituent_part_of_document`로 재저작하고 canonical
+> meaning은 "타인의 인장에 관하여 권한 없이 현출되거나 부정사용된 인영이 바로 해당 문서에 찍혀
+> 그 문서의 구성부분을 이루는가" 정도로 한다.
+>
+> 이것은 앞서 "위조된 인영"으로 너무 좁혀 승인했던 부분을 수정하는 지점이다. 당시 인과 자체
+> 제작과 문서 구성부분인 인영을 구별하는 데 초점을 맞추면서 제239조의 부정사용까지 condition
+> 범위에서 지나치게 잘라냈다. 통합 offense ref를 쓰는 v2에서는 위조 vs 부정사용을 condition이
+> 가르는 구조보다, **그 인영이 바로 그 문서의 구성부분인가**를 condition이 가르는 구조가 맞다.
+
+**반영.** (나) 취지로 조건을 subtype-neutral하게 재저작했다. 이 지점의 요지를 남겨 둔다.
+
+내가 카드 C를 잘못 세운 이유는 **offense 정의가 이미 진 구별을 condition에 한 번 더 지웠기**
+때문이다. `offense.seal_forgery_or_misuse`가 `forgery_without_authority`와
+`improper_use_of_genuine_seal`을 한 정의에 담은 이상, 그 안에서 어느 subtype이냐는 그 instance의
+elements가 판단할 일이다. 조건이 그것을 다시 물으면 같은 질문을 두 곳에서 다르게 답할 수 있게 된다.
+조건이 유일하게 져야 할 짐은 **두 instance 사이의 관계**, 즉 그 인영이 바로 그 문서의 구성부분인가다.
+
+부수적으로, 이제 `r12_p2_q1_da`에서 host도 prompt도 "진짜 도장이니까 FALSE"를 미리 암시하지 않는다.
+모델이 보는 것은 (1) A의 인감도장을 권한 없이 사용했다, (2) 그 인영이 바로 문제된 A 명의 위임장에
+현출되었다 -- 이 두 사실관계뿐이다.
 
 ---
 
