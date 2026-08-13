@@ -39,6 +39,10 @@ SUBJECT_INSTRUCTIONS: Mapping[str, str] = {
 """
 _TRUTHS = frozenset({"TRUE", "FALSE", "UNKNOWN"})
 
+PRODUCTION = "production"
+REPRESENTATION_GAP = "representation_gap"
+_RAISING_STATUSES = frozenset({PRODUCTION, REPRESENTATION_GAP})
+
 APPROVED_STATUSES = frozenset({"approved", "awaiting_final_read"})
 """런타임이 읽을 수 있는 카탈로그 상태.
 
@@ -58,6 +62,12 @@ class DoctrineCue:
     subject_role: str
     factual_cue: str
     raises: tuple[str, ...]
+    raising_status: str = PRODUCTION
+    gap_reason: str = ""
+
+    @property
+    def is_production(self) -> bool:
+        return self.raising_status == PRODUCTION
 
     @property
     def subject_instruction(self) -> str:
@@ -74,8 +84,15 @@ class DoctrineCue:
         return self.scope == ACTOR_SCOPE
 
 
-def load_doctrine_cues(path: Path) -> tuple[DoctrineCue, ...]:
-    """저작된 cue 카탈로그를 읽는다. 승인되지 않은 상태면 실행을 막는다."""
+def load_doctrine_cues(
+    path: Path, *, include_representation_gaps: bool = False
+) -> tuple[DoctrineCue, ...]:
+    """저작된 cue 카탈로그를 읽는다. 승인되지 않은 상태면 실행을 막는다.
+
+    기본값은 production cue만이다. 표현 공백으로 넘긴 cue는 저작에 남아 있지만 doctrine을
+    열지 않는다 -- 조용히 지우면 왜 빠졌는지가 사라지고, 그대로 두면 잘못 연다.
+    `include_representation_gaps`는 감사와 문서용이며 런타임 경로에서 쓰지 않는다.
+    """
     document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
     status = str(document.get("status", ""))
     if status not in APPROVED_STATUSES:
@@ -97,16 +114,29 @@ def load_doctrine_cues(path: Path) -> tuple[DoctrineCue, ...]:
         raises = tuple(str(value) for value in entry.get("raises") or ())
         if not raises:
             raise DoctrineCueError(f"{entry.get('id')!r}: a cue that raises nothing is dead weight")
+        raising_status = str(entry.get("raising_status", PRODUCTION))
+        if raising_status not in _RAISING_STATUSES:
+            raise DoctrineCueError(
+                f"{entry.get('id')!r}: raising_status must be one of {sorted(_RAISING_STATUSES)}"
+            )
+        gap_reason = str(entry.get("gap_reason", "")).strip()
+        if raising_status == REPRESENTATION_GAP and not gap_reason:
+            raise DoctrineCueError(
+                f"{entry.get('id')!r}: a representation-gap cue must record why it was withdrawn"
+            )
         cue = DoctrineCue(
             cue_id=str(entry["id"]),
             scope=scope,
             subject_role=subject_role,
             factual_cue=str(entry["factual_cue"]),
             raises=raises,
+            raising_status=raising_status,
+            gap_reason=gap_reason,
         )
         if not cue.factual_cue.strip():
             raise DoctrineCueError(f"{cue.cue_id}: empty factual cue")
-        output.append(cue)
+        if cue.is_production or include_representation_gaps:
+            output.append(cue)
     if not output:
         raise DoctrineCueError(f"{path}: cue catalog is empty")
     if len({value.cue_id for value in output}) != len(output):
@@ -114,16 +144,45 @@ def load_doctrine_cues(path: Path) -> tuple[DoctrineCue, ...]:
     return tuple(output)
 
 
-def unraisable_doctrine_refs(
+def representation_gap_doctrine_refs(cues: Iterable[DoctrineCue]) -> tuple[str, ...]:
+    """production cue가 하나도 없고 표현 공백 cue만 가진 doctrine."""
+    values = tuple(cues)
+    production = {ref for cue in values if cue.is_production for ref in cue.raises}
+    gapped = {
+        ref for cue in values if not cue.is_production for ref in cue.raises
+    }
+    return tuple(sorted(gapped - production))
+
+
+def unaccounted_doctrine_refs(
     cues: Iterable[DoctrineCue], doctrine_refs: Iterable[str]
 ) -> tuple[str, ...]:
-    """단서가 없어 구조적으로 영원히 raised될 수 없는 doctrine.
+    """제기 경로도 없고 명시된 표현 공백도 아닌 doctrine.
 
     이것이 doctrine activation 0을 만든 dead loop의 다른 얼굴이다. 정의도 런타임도 Scallop도
     있는데 여는 경로가 없으면 출력에서 "적용되지 않음"과 구별되지 않는다.
+
+    다만 "모든 doctrine에 제기 경로가 있어야 한다"는 절대조건이 아니다. 사실 층이 그 법리를
+    안정적으로 가려낼 수 없다고 판단되면 명시적 표현 공백으로 남기는 것이 옳다. 금지되는 것은
+    **둘 중 어느 쪽도 아닌 상태**, 즉 아무도 모르게 잠기는 것이다.
     """
-    raised = {ref for cue in cues for ref in cue.raises}
-    return tuple(sorted(set(doctrine_refs) - raised))
+    values = tuple(cues)
+    accounted = {ref for cue in values for ref in cue.raises}
+    return tuple(sorted(set(doctrine_refs) - accounted))
+
+
+def canonical_episode_text(fragment_quotes: Iterable[str]) -> str:
+    """모델에게 보내고 검증에도 쓰는 단 하나의 episode 본문.
+
+    2차 실행에서 한 episode가 계약 실패했다. 모델이 낸 인용이 원문과 같은데 그 사이에
+    개행이 있었기 때문이다(`"丙은 당연히 乙의\n카드로 생각하고"`). 모델 출력의 개행만
+    고쳐서 통과시키는 것은 repair이고, 한 번 허용하면 어디까지가 repair인지 경계가 사라진다.
+
+    그래서 반대로 간다. 공백을 정규화한 문자열 하나를 만들어 **prompt와 exact-substring
+    검증이 같은 문자열을 보게** 한다. 원본 fragment와 span은 Call 1.5 artifact에 그대로
+    남아 있으므로 provenance를 잃지 않는다.
+    """
+    return " ".join(" ".join(fragment_quotes).split())
 
 
 def cue_request_payload(
@@ -297,9 +356,13 @@ __all__ = [
     "DoctrineCue",
     "DoctrineCueAssessment",
     "DoctrineCueError",
+    "PRODUCTION",
+    "REPRESENTATION_GAP",
+    "canonical_episode_text",
     "cue_output_schema",
     "cue_request_payload",
     "load_doctrine_cues",
-    "unraisable_doctrine_refs",
+    "representation_gap_doctrine_refs",
+    "unaccounted_doctrine_refs",
     "validate_cue_output",
 ]

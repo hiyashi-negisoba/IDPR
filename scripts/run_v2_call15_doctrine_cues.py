@@ -23,6 +23,7 @@ from idpr.neural.vllm_client import VLLMClient, VLLMClientError
 from idpr.prompts import load_prompt, prompt_path
 from idpr.v2.doctrine_cues import (
     DoctrineCueError,
+    canonical_episode_text,
     cue_output_schema,
     cue_request_payload,
     load_doctrine_cues,
@@ -139,7 +140,9 @@ def main() -> None:
         episode_results: list[dict[str, Any]] = []
         for episode in binding_result.factual_episodes:
             request_count += 1
-            episode_text = "\n".join(
+            # prompt와 exact-substring 검증이 같은 문자열을 본다. 모델 출력을 사후
+            # 보정하지 않는다.
+            episode_text = canonical_episode_text(
                 fragment.source_quote for fragment in episode.source_fragments
             )
             actor_labels = tuple(episode.participants)
@@ -158,6 +161,15 @@ def main() -> None:
             episode_row: dict[str, Any] = {
                 "factual_episode_id": episode.factual_episode_id,
                 "episode_participant_ids": list(actor_labels),
+                "canonical_episode_text": episode_text,
+                "source_fragment_spans": [
+                    {
+                        "fragment_id": fragment.fragment_id,
+                        "source_start": fragment.source_start,
+                        "source_end": fragment.source_end,
+                    }
+                    for fragment in episode.source_fragments
+                ],
             }
             try:
                 for attempt in range(1, args.contract_retries + 2):

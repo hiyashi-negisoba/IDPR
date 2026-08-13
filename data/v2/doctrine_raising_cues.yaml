@@ -37,7 +37,7 @@
 #   payload에는 role 토큰이 아니라 그 role에서 렌더링한 지시문 한 줄만 나간다. doctrine과
 #   scope는 여전히 모델에게 보이지 않는다.
 
-version: 3
+version: 4
 status: awaiting_final_read
 # 2026-08-13 조건부 승인. 아래 세 수정을 반영했다.
 #   - competing_duty / legal_or_occupational_basis 문구를 좁혔다.
@@ -46,6 +46,15 @@ status: awaiting_final_read
 #   - cue별 subject_role을 저작해 subject 귀속을 모델 해석에서 뺐다.
 # v3 (1차 실행 감사 후): coercion / justifying-premise 두 cue를 semantic false raise가
 # 확인되어 좁혔다. 기존 assessment는 수선하지 않고 재실행 결과를 정본으로 삼는다.
+# v4 (2차 실행 감사 후): justifying-premise cue를 production raising에서 빼고 표현 공백으로
+# 넘겼다. coercion cue는 문구를 더 조이지 않고 downstream materialization gate로 막는다 --
+# 모델이 "협박"에 계속 끌릴 가능성이 높고, host가 이미 아는 typed 구조로 거르는 편이
+# compiler 역할에 맞다.
+#
+# `raising_status`:
+#   - 없거나 `production`  런타임이 이 cue로 doctrine을 연다.
+#   - `representation_gap` 저작은 남기되 production raising에서 제외한다. `gap_reason`을
+#                          함께 적는다. 조용히 지우면 왜 빠졌는지가 사라진다.
 # 남은 게이트는 이 수정본과 Call 1.5-D 프롬프트 전문의 최종 열람이다.
 
 cues:
@@ -137,6 +146,19 @@ cues:
     raises: [doctrine.presumed_consent_defeat]
 
   - id: cue.justifying_premise_belief_mismatch_stated
+    # 2026-08-13 3차 검수: production raising에서 비활성화한다.
+    #
+    # 두 번 좁혔는데도 사람의 동일성 착오를 계속 잡았고("침실에서 자고 있던 사람은 A의
+    # 운전기사 B였다"), 그것이 `r12_p2_q1_ga`에서 실제로 Call 2 target 8개를 열었다.
+    # harmless false raise가 아니다.
+    #
+    # 원인은 문구의 정교함이 아니다. episode_text 하나만 보고 "허용사실을 잘못 믿은 것"과
+    # "사람·객체를 잘못 안 것"을 안정적으로 분리할 수 없다는 표현 층의 한계다. 별도로
+    # `gap.intended_object_identity`가 존재하는 이유와 같은 뿌리다.
+    raising_status: representation_gap
+    gap_reason: >-
+      factual representation cannot distinguish justifying-premise mistake from object
+      identity mistake
     subject_role: acting_subject
     scope: episode
     # 신설(2026-08-13). 위전착에 단서가 없어 구조적으로 영원히 raised되지 않던 것을 닫는다.

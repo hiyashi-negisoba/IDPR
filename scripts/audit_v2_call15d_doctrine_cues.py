@@ -25,6 +25,8 @@ from idpr.v2 import expressions
 from idpr.v2.doctrine_cues import DoctrineCueAssessment, load_doctrine_cues
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.doctrine_raising import raise_doctrines
+from idpr.v2.runtime.doctrine_targets import materialize_doctrine_leaf_targets
+from idpr.v2.runtime.identity import OffenseInstanceKey
 
 DEFAULT_CUES = ROOT / "data/v2/doctrine_raising_cues.yaml"
 DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
@@ -105,43 +107,61 @@ def main() -> None:
         )
 
     # top-level instance만 대상이다 (카드 C). 참가 후보는 link 확정 후로 미룬다.
-    delta_targets: set[tuple[str, str, str, str, str]] = set()
+    # planner가 실제로 쓸 것과 같은 게이트를 통과시킨다 -- 여기서 세는 수와 나중에 열리는
+    # target이 달라지면 이 보고는 의미가 없다.
+    delta: list[Any] = []
+    unmaterialized: list[Any] = []
     per_case_delta: collections.Counter = collections.Counter()
+    raised_by_case: dict[str, list[Any]] = collections.defaultdict(list)
     for value in raised:
-        plan = plans.get(value.case_id)
+        raised_by_case[value.case_id].append(value)
+    for case_id, values in raised_by_case.items():
+        plan = plans.get(case_id)
         if plan is None:
             continue
-        top_level = {
-            (
-                item["instance_key"]["actor_id"],
-                item["instance_key"]["offense_ref"],
-                item["instance_key"]["occurrence_id"],
-            ): item["factual_episode_id"]
-            for item in plan["instance_provenance"]
-        }
         planned_top_level = {
             (item["actor_id"], item["offense_ref"], item["occurrence_id"])
             for item in plan["top_level_instances"]
         }
-        existing = {
+        universe = [
             (
+                OffenseInstanceKey(
+                    case_id,
+                    item["instance_key"]["actor_id"],
+                    item["instance_key"]["offense_ref"],
+                    item["instance_key"]["occurrence_id"],
+                ),
+                item["factual_episode_id"],
+            )
+            for item in plan["instance_provenance"]
+            if (
                 item["instance_key"]["actor_id"],
                 item["instance_key"]["offense_ref"],
                 item["instance_key"]["occurrence_id"],
+            )
+            in planned_top_level
+        ]
+        existing = [
+            (
+                OffenseInstanceKey(
+                    case_id,
+                    item["instance_key"]["actor_id"],
+                    item["instance_key"]["offense_ref"],
+                    item["instance_key"]["occurrence_id"],
+                ),
                 item["predicate_ref"],
             )
             for item in plan["assessment_targets"]
-        }
-        for key, episode_id in top_level.items():
-            if key not in planned_top_level:
-                continue
-            if key[0] != value.actor_id or episode_id != value.target_episode_id:
-                continue
-            for leaf in leaves_by_doctrine[value.doctrine_ref]:
-                if (*key, leaf) in existing:
-                    continue
-                delta_targets.add((value.case_id, *key, leaf))
-                per_case_delta[value.case_id] += 1
+        ]
+        targets, blocked = materialize_doctrine_leaf_targets(
+            values,
+            instances=universe,
+            leaves_by_doctrine=leaves_by_doctrine,
+            existing_targets=existing,
+        )
+        delta.extend(targets)
+        unmaterialized.extend(blocked)
+        per_case_delta[case_id] += len(targets)
 
     spot: list[dict[str, Any]] = []
     for value in assessments:
@@ -158,9 +178,10 @@ def main() -> None:
             ref: len(values) for ref, values in sorted(raised_by_doctrine.items())
         },
         "raised_total": len(raised),
-        "delta_call2_target_count": len(delta_targets),
+        "delta_call2_target_count": len(delta),
+        "not_materialized_raisings": [value.as_dict() for value in unmaterialized],
         "delta_gate": GATE,
-        "delta_within_gate": len(delta_targets) <= GATE,
+        "delta_within_gate": len(delta) <= GATE,
         "delta_by_case": dict(per_case_delta.most_common()),
         "risky_cue_true_examples": spot,
     }

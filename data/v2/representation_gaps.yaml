@@ -65,3 +65,26 @@ gaps:
       없다. `r13_p2_q1`은 반대로 현재 상태가 정답이다 -- 본범의 장물취득죄 불성립은
       후보가 아예 생기지 않는 것으로 충족되고, 절취 카드 사용 사기죄가 불가벌적
       사후행위가 아니라는 결론도 흡수 규칙 부재가 그대로 정답이다.
+
+  - id: gap.justifying_premise_vs_object_identity
+    kind: factual_representation
+    marker: NOT_RAISED_REPRESENTATION_GAP
+    blocks:
+      - doctrine.mistaken_justifying_circumstance
+    withdrawn_cue: cue.justifying_premise_belief_mismatch_stated
+    summary: >-
+      위법성조각사유의 전제사실 착오를 사실 층에서 제기할 수 없다. 단서를 두 번 좁혔는데도
+      사람·객체의 동일성 착오를 계속 잡았다.
+    why_not_narrowed_further: >-
+      문구의 정교함 문제가 아니다. episode_text 하나만 보고 "행위를 허용할 수 있는 외부 사정을
+      잘못 믿은 것"과 "사람·객체를 잘못 안 것"을 안정적으로 분리할 수 없다.
+      `gap.intended_object_identity`가 존재하는 이유와 같은 뿌리다. 2026-08-13 2차 실행에서
+      `r12_p2_q1_ga`의 "침실에서 자고 있던 사람은 A의 운전기사 B였다"가 TRUE로 나와 Call 2
+      target 8개를 열었다 -- harmless false raise가 아니다.
+    consequence: >-
+      `doctrine.mistaken_justifying_circumstance`는 저작되어 있고 런타임과 Scallop 경로도 있으나
+      production에서 raised되지 않는다. cue는 `raising_status: representation_gap`으로 카탈로그에
+      남아 있고, 테스트가 "제기 경로 또는 명시적 공백 둘 중 하나"를 요구한다.
+    future_design: >-
+      `gap.intended_object_identity`가 닫혀 `directed_action_target`/`actual_result_bearer`가
+      사실로 결박되면, 그 둘이 같은데 외부 사정 인식만 어긋난 경우로 이 cue를 다시 열 수 있다.
