@@ -44,7 +44,14 @@ from idpr.v2.runtime.concurrence import (
     plan_specialty_candidates,
     resolve_concurrence,
 )
-from idpr.v2.runtime.excess import ExcessAssessment, classify_excess
+from idpr.v2.runtime.excess import (
+    LIABLE_FOR_AGGRAVATED_RESULT,
+    LIABLE_FOR_INSTIGATED_SCOPE,
+    NO_LIABILITY_FOR_EXCESS,
+    UNRESOLVED as EXCESS_UNRESOLVED,
+    ExcessAssessment,
+    classify_excess,
+)
 from idpr.v2.runtime.excess_candidates import (
     INSTIGATED_PROVENANCE_REF,
     REALIZED_PROVENANCE_REF,
@@ -101,6 +108,98 @@ class ExcessFinding:
         }
 
 
+ATTRIBUTED = "attributed"
+NOT_ATTRIBUTABLE_BY_EXCESS = "NOT_ATTRIBUTABLE_BY_EXCESS"
+UNRESOLVED_EXCESS_ATTRIBUTION = "UNRESOLVED_EXCESS_ATTRIBUTION"
+
+_EXCESS_DECISION: Mapping[str, str] = {
+    # 교사한 범위까지만 책임진다. 그 범위를 넘은 죄로의 귀속은 열리지 않는다.
+    LIABLE_FOR_INSTIGATED_SCOPE: NOT_ATTRIBUTABLE_BY_EXCESS,
+    # 결과적 가중범이고 가담자에게 예견가능성이 있었다. 중한 죄로의 귀속이 열린다.
+    LIABLE_FOR_AGGRAVATED_RESULT: ATTRIBUTED,
+    # 질적 초과. 교사한 죄와 양립하지 않는 죄가 실현됐다.
+    NO_LIABILITY_FOR_EXCESS: NOT_ATTRIBUTABLE_BY_EXCESS,
+    # 무책으로 접지도, 중한 죄를 세우지도 않는다. 기존 책임은 그대로 두고 초과 귀속만 미정.
+    EXCESS_UNRESOLVED: UNRESOLVED_EXCESS_ATTRIBUTION,
+}
+
+
+@dataclass(frozen=True, slots=True)
+class ExcessAttribution:
+    """초과 판정이 가담자에게 실제로 미치는 효과 하나.
+
+    2026-08-13 검수 확정: 이것은 서술 문제가 아니라 가담자의 책임 범위를 제한하는 심볼릭
+    결론이므로 이 단계가 소비한다. 다만 효과의 범위가 좁다는 것이 핵심이다.
+
+    * 가담자의 전체 liability를 뒤집지 않는다. 교사·방조한 죄의 책임은 그대로 유지된다.
+    * 초과하여 실현된 죄로 가는 **귀속 edge만** 차단한다.
+    * finding 자체는 provenance로 남는다 -- Call 3가 "乙의 상해는 甲의 교사 범위를 질적으로
+      초과하므로 그 부분에 대한 책임은 없다"고 설명할 근거가 여기서 나온다.
+    """
+
+    accessory_instance: OffenseInstanceKey
+    """가담자가 교사·방조한 죄의 instance. 이 죄의 책임은 초과와 무관하게 유지된다."""
+
+    excess_offense_ref: str
+    decision: str
+    effect: str
+    blocked_instance: OffenseInstanceKey | None = None
+    """차단된 귀속의 실제 instance. `None`이면 애초에 그런 귀속이 만들어지지 않았다는 뜻이고,
+    그것도 기록한다 -- "생성되지 않음"과 "생성 후 제거"는 결론이 같아도 근거가 다르다."""
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "accessory_instance": {
+                "case_id": self.accessory_instance.case_id,
+                "actor_id": self.accessory_instance.actor_id,
+                "offense_ref": self.accessory_instance.offense_ref,
+                "occurrence_id": self.accessory_instance.occurrence_id,
+            },
+            "excess_offense_ref": self.excess_offense_ref,
+            "decision": self.decision,
+            "effect": self.effect,
+            "blocked_instance": None
+            if self.blocked_instance is None
+            else {
+                "case_id": self.blocked_instance.case_id,
+                "actor_id": self.blocked_instance.actor_id,
+                "offense_ref": self.blocked_instance.offense_ref,
+                "occurrence_id": self.blocked_instance.occurrence_id,
+            },
+        }
+
+
+def plan_excess_attributions(
+    findings: Iterable[ExcessFinding],
+    *,
+    derivative_links: Iterable[tuple[OffenseInstanceKey, OffenseInstanceKey, str]],
+) -> tuple[ExcessAttribution, ...]:
+    """각 초과 판정을 하나의 귀속 결정으로 바꾼다. 다른 죄책은 건드리지 않는다."""
+    accessory_instances = {
+        (accessory.actor_id, accessory.offense_ref): accessory
+        for accessory, _principal, _mode in derivative_links
+    }
+    output: list[ExcessAttribution] = []
+    for finding in findings:
+        accessory = finding.candidate.accessory_instance
+        excess_ref = finding.candidate.realized_offense_ref
+        decision = _EXCESS_DECISION.get(finding.assessment.effect)
+        if decision is None:
+            raise FinalResponsibilityError(
+                f"unhandled excess effect: {finding.assessment.effect!r}"
+            )
+        output.append(
+            ExcessAttribution(
+                accessory_instance=accessory,
+                excess_offense_ref=excess_ref,
+                decision=decision,
+                effect=finding.assessment.effect,
+                blocked_instance=accessory_instances.get((accessory.actor_id, excess_ref)),
+            )
+        )
+    return tuple(dict.fromkeys(output))
+
+
 @dataclass(frozen=True, slots=True)
 class FinalResponsibilityView:
     case_id: str
@@ -109,6 +208,8 @@ class FinalResponsibilityView:
     specialty_candidates: tuple[ConcurrenceCandidate, ...]
     authored_candidates: tuple[ConcurrenceCandidate, ...]
     excess_findings: tuple[ExcessFinding, ...]
+    excess_attributions: tuple[ExcessAttribution, ...]
+    attribution_withheld_instances: frozenset[OffenseInstanceKey]
     status_redirections: tuple[AggravatingStatusRedirection, ...]
     unresolved: tuple[UnresolvedFinding, ...]
 
@@ -150,7 +251,16 @@ class FinalResponsibilityView:
             ],
             "specialty_candidate_count": len(self.specialty_candidates),
             "authored_candidate_count": len(self.authored_candidates),
+            "final_instances": [
+                instance(value)
+                for value in sorted(self.concurrence.retained_instances, key=repr)
+            ],
             "excess_findings": [value.as_dict() for value in self.excess_findings],
+            "excess_attributions": [value.as_dict() for value in self.excess_attributions],
+            "attribution_withheld_instances": [
+                instance(value)
+                for value in sorted(self.attribution_withheld_instances, key=repr)
+            ],
             "status_redirections": [
                 {
                     "accessory_instance": instance(value.accessory_instance),
@@ -248,7 +358,11 @@ def resolve_final_responsibility(
     status_redirections: Iterable[AggravatingStatusRedirection] = (),
     status_redirection_findings: Iterable[UnresolvedFinding] = (),
 ) -> FinalResponsibilityView:
-    """성립한 죄들 위에서 경합·초과·공백을 한 번에 계산한다."""
+    """성립한 죄들 위에서 초과 귀속 -> 경합 -> 공백을 순서대로 계산한다.
+
+    초과가 경합보다 먼저 도는 것이 순서상 중요하다. 초과로 귀속이 차단된 죄는 애초에 그
+    가담자의 죄가 아니므로, 다른 죄를 흡수하거나 흡수당하는 자리에 서면 안 된다.
+    """
     established = established_instances(results)
     scoped_episodes = {
         instance: episode_by_instance[instance]
@@ -256,23 +370,6 @@ def resolve_final_responsibility(
         if instance in episode_by_instance
     }
     missing_episode = tuple(value for value in established if value not in scoped_episodes)
-
-    specialty = plan_specialty_candidates(
-        tuple(scoped_episodes),
-        registry=registry,
-        episode_by_instance=scoped_episodes,
-        source_bindings_by_instance=source_bindings_by_instance,
-    )
-    authored = plan_concurrence_candidates(
-        tuple(scoped_episodes),
-        episode_by_instance=scoped_episodes,
-        rules=concurrence_rules,
-    )
-    resolution = resolve_concurrence(
-        tuple(scoped_episodes),
-        (*specialty, *authored),
-        condition_truths=condition_truths,
-    )
 
     # 가담자 instance는 성립하지 않았을 수 있다. 성립 여부야말로 초과가 바꾸려는 것이므로
     # link의 양 끝은 established가 아니라 전체 provenance에서 찾는다.
@@ -288,6 +385,35 @@ def resolve_final_responsibility(
         episode_by_instance=dict(episode_by_instance),
         episode_order=tuple(episode_order),
         truths=truths,
+    )
+    attributions = plan_excess_attributions(excess_findings, derivative_links=links)
+    withheld = frozenset(
+        attribution.blocked_instance
+        for attribution in attributions
+        if attribution.blocked_instance is not None
+        and attribution.decision != ATTRIBUTED
+    )
+    attributed_episodes = {
+        instance: episode
+        for instance, episode in scoped_episodes.items()
+        if instance not in withheld
+    }
+
+    specialty = plan_specialty_candidates(
+        tuple(attributed_episodes),
+        registry=registry,
+        episode_by_instance=attributed_episodes,
+        source_bindings_by_instance=source_bindings_by_instance,
+    )
+    authored = plan_concurrence_candidates(
+        tuple(attributed_episodes),
+        episode_by_instance=attributed_episodes,
+        rules=concurrence_rules,
+    )
+    resolution = resolve_concurrence(
+        tuple(attributed_episodes),
+        (*specialty, *authored),
+        condition_truths=condition_truths,
     )
 
     unresolved = [
@@ -323,6 +449,8 @@ def resolve_final_responsibility(
         specialty_candidates=specialty,
         authored_candidates=authored,
         excess_findings=excess_findings,
+        excess_attributions=attributions,
+        attribution_withheld_instances=withheld,
         status_redirections=tuple(status_redirections),
         unresolved=tuple(unresolved),
     )
@@ -462,7 +590,12 @@ def _probe_gap_findings(
 
 
 __all__ = [
+    "ATTRIBUTED",
     "MULTIPLE_EXCESS_CANDIDATES",
+    "NOT_ATTRIBUTABLE_BY_EXCESS",
+    "UNRESOLVED_EXCESS_ATTRIBUTION",
+    "ExcessAttribution",
+    "plan_excess_attributions",
     "UNRESOLVED_STATUS_REDIRECTION_TARGET",
     "excess_parity_rows",
     "ExcessFinding",

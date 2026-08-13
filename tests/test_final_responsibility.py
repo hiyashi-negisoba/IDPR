@@ -15,6 +15,8 @@ from idpr.v2.runtime.excess import (
 )
 from idpr.v2.runtime.final_responsibility import (
     MULTIPLE_EXCESS_CANDIDATES,
+    NOT_ATTRIBUTABLE_BY_EXCESS,
+    UNRESOLVED_EXCESS_ATTRIBUTION,
     UNRESOLVED_STATUS_REDIRECTION_TARGET,
     excess_parity_rows,
     plan_status_redirections,
@@ -309,3 +311,67 @@ def test_the_r11_shape_now_opens_a_candidate_across_episodes(registry) -> None:
     finding = view.excess_findings[0]
     assert finding.assessment.classification == "qualitative"
     assert finding.assessment.effect == "no_liability_for_excess"
+
+
+def test_qualitative_excess_blocks_only_the_excess_attribution(registry) -> None:
+    """甲의 절도 교사 책임은 유지되고, 상해로 가는 귀속 edge만 끊긴다."""
+    instigated = _instance("offense.theft", "participation_binding:001", actor="甲")
+    principal = _instance("offense.theft", "binding:001", actor="乙")
+    injury = _instance("offense.injury", "binding:003", actor="乙")
+    # 모델이 상해에도 참가를 인정해 가담자 instance가 만들어진 경우.
+    excess_accessory = _instance("offense.injury", "participation_binding:002", actor="甲")
+    view = _view(
+        registry,
+        results={
+            instigated: _established(instigated),
+            principal: _established(principal),
+            injury: _established(injury),
+            excess_accessory: _established(excess_accessory),
+        },
+        provenance={
+            instigated: ("factual_episode:001", ()),
+            principal: ("factual_episode:004", ()),
+            injury: ("factual_episode:005", ()),
+            excess_accessory: ("factual_episode:005", ()),
+        },
+        links=(
+            (instigated, principal, "instigator"),
+            (excess_accessory, injury, "instigator"),
+        ),
+    )
+    attributions = [
+        value for value in view.excess_attributions if value.excess_offense_ref == "offense.injury"
+    ]
+    assert len(attributions) == 1
+    assert attributions[0].decision == NOT_ATTRIBUTABLE_BY_EXCESS
+    assert attributions[0].blocked_instance == excess_accessory
+    # 초과한 죄로의 귀속만 빠지고 교사한 죄는 그대로다.
+    assert excess_accessory in view.attribution_withheld_instances
+    assert excess_accessory not in view.concurrence.retained_instances
+    assert instigated in view.concurrence.retained_instances
+
+
+def test_an_unresolved_excess_neither_convicts_nor_acquits(registry) -> None:
+    """미저작 관계는 무책으로 접지도, 중한 죄를 세우지도 않는다."""
+    instigated = _instance("offense.theft", "participation_binding:001", actor="甲")
+    principal = _instance("offense.theft", "binding:001", actor="乙")
+    other = _instance("offense.dwelling_intrusion", "binding:002", actor="乙")
+    view = _view(
+        registry,
+        results={
+            instigated: _established(instigated),
+            principal: _established(principal),
+            other: _established(other),
+        },
+        provenance={
+            instigated: ("factual_episode:001", ()),
+            principal: ("factual_episode:002", ()),
+            other: ("factual_episode:002", ()),
+        },
+        links=((instigated, principal, "instigator"),),
+    )
+    assert [value.decision for value in view.excess_attributions] == [
+        UNRESOLVED_EXCESS_ATTRIBUTION
+    ]
+    assert view.excess_attributions[0].blocked_instance is None
+    assert instigated in view.concurrence.retained_instances

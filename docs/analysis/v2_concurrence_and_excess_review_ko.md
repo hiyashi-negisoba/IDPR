@@ -113,3 +113,36 @@ principal이며, 세 join으로 제한한다.
 `r11_p1_q1`이 발화한다 -- 甲 `offense.theft` -> 乙 `offense.injury`,
 `qualitative / no_liability_for_excess`. host 분류와 전용 Scallop relation의 parity도 통과했다.
 폭행치상 미저작은 `gap.assault_offense_family`로 그대로 남겼다.
+
+---
+
+## 카드 ③. 초과 효과를 누가 소비하는가 (후속 검수, 반영 완료)
+
+> comment: **1번부터 정해야 하고, 이건 Call 3에 맡기면 안 됩니다.** `no_liability_for_excess`는
+> 서술 문제가 아니라 가담자의 책임 범위를 제한하는 substantive symbolic conclusion이니까
+> final responsibility 단계가 소비해야 합니다. 초과하여 실현된 offense에 대해서는 가담자
+> liability를 생성·유지하지 않고, 원래 교사·방조한 offense에 대한 liability는 그대로 유지하며,
+> excess finding 자체는 provenance로 기록합니다. 전체 liability result를 FALSE로 덮어쓰는 것도
+> 아니고 Call 3에 메모만 넘기는 것도 아니고, **해당 excess offense로의 attribution edge만
+> 차단하는 효과**입니다. `unresolved`일 때는 무책임으로 접으면 안 되고 반대로 중한 죄
+> liability를 세워서도 안 됩니다. Call 3는 나중에 이 typed 결과를 보고 설명만 해야 합니다.
+
+### 검수 결과 -- 반영 완료
+
+`plan_excess_attributions`가 각 초과 판정을 하나의 귀속 결정으로 바꾼다.
+
+| effect | 귀속 결정 |
+| --- | --- |
+| `liable_for_instigated_scope` | `NOT_ATTRIBUTABLE_BY_EXCESS` |
+| `liable_for_aggravated_result` | `attributed` |
+| `no_liability_for_excess` | `NOT_ATTRIBUTABLE_BY_EXCESS` |
+| `unresolved` | `UNRESOLVED_EXCESS_ATTRIBUTION` |
+
+차단은 그 excess offense의 가담자 instance 하나에만 미친다. 뷰가 `final_instances`와
+`attribution_withheld_instances`를 따로 내며, 원래 교사한 죄의 liability는 건드리지 않는다.
+순서도 바꿨다 -- 초과가 경합보다 먼저 돈다. 귀속이 차단된 죄는 애초에 그 가담자의 죄가 아니므로
+흡수하거나 흡수당하는 자리에 서면 안 된다.
+
+`r11_p1_q1`에서 甲의 `offense.injury` 귀속은 `NOT_ATTRIBUTABLE_BY_EXCESS`이고
+`blocked_instance`는 `None`이다 -- 甲의 상해 참가가 애초에 성립하지 않아 차단할 instance가
+없었다. "생성되지 않음"과 "생성 후 제거"를 구분해 기록한다.

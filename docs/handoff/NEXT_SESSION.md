@@ -626,24 +626,34 @@ artifact는 `call2_v8_indirect_principal`을 그대로 재사용했다.
   없으면 가담자 instance가 최종 책임 단계에서 통째로 빠진다.
 - participation target 49개는 frozen v7과 완전히 동일하다.
 
-검증은 로컬 전체 `254 passed, 16 skipped`.
+- 초과 효과 소비: `no_liability_for_excess`는 Call 3 메모가 아니라 심볼릭 결론으로 처리한다.
+  가담자의 전체 liability를 뒤집지 않고 **초과한 죄로 가는 귀속 edge만** 차단하며, `unresolved`는
+  무책으로 접지도 중한 죄를 세우지도 않는다. 초과가 경합보다 먼저 돈다 -- 귀속이 차단된 죄는
+  흡수 자리에 서면 안 된다. 뷰가 `final_instances`와 `attribution_withheld_instances`를 낸다.
+
+검증은 로컬 전체 `256 passed, 16 skipped`.
 
 ### 검수 완료 항목
 
 `docs/analysis/v2_concurrence_and_excess_review_ko.md`의 두 카드는 답변을 받아 반영됐다.
-① 조건을 좁힌 뒤 승인, ② 링크 기반 join으로 교체. 각 카드의 "검수 결과" 절이 정본이다.
+① 조건을 좁힌 뒤 승인, ② 링크 기반 join으로 교체, ③ 초과 효과는 final responsibility가
+소비(귀속 edge만 차단). 각 카드의 "검수 결과" 절과 위 delta가 정본이다.
 
 ### 다음 세션
 
-남은 것은 세 갈래다.
+승인된 순서대로 두 갈래가 남았다.
 
-1. 초과 효과의 소비자가 없다. `no_liability_for_excess`는 지금 finding으로 기록만 되고 甲의
-   liability result를 고쳐 쓰지 않는다. 초과 부분에 대한 무책이 최종 답안에서 어떻게 표현되는지는
-   Call 3 소관인지 심볼릭 결론인지 먼저 정해야 한다.
-2. 흡수 조건 assessment 채널. 인장위조 규칙은 승인됐으나 조건을 물을 곳이 없어 후보가 열려도
-   UNKNOWN이다. 이것은 Call 2 target 추가이므로 프롬프트 승인 게이트에 걸린다.
-3. 제33조 단서의 신분 leaf를 planner target으로 여는 것. probe compiler는 이미 요구를
-   선언하고 있으나 planner가 participation candidate scope의 probe를 target으로 만들지 않는다.
+1. **제33조 단서 probe target wiring.** probe compiler는 이미
+   `legal_element.lineal_ascendant_of_self_or_spouse_status`를 요구하고 있으나 planner가
+   participation-candidate scope의 probe를 Call 2 target으로 만들지 않는다. 이것이 닫히면
+   `UNRESOLVED_AGGRAVATING_STATUS` 4건이 실제 판정으로 바뀐다. planner 변경이며 프롬프트
+   변경은 아니다.
+2. **흡수 조건 assessment 채널.** 인장위조 규칙은 승인됐으나 조건
+   (`condition.forged_seal_impression_is_a_constituent_part_of_the_document`)을 물을 곳이 없어
+   후보가 열려도 UNKNOWN이다. Call 2 target 추가이므로 프롬프트 승인 게이트에 걸린다.
+
+Call 3는 이 typed 결과를 **설명만** 한다 -- "乙의 상해는 甲의 교사 범위를 질적으로 초과하므로
+그 부분에 대한 책임은 없다". 초과 판정 자체를 Call 3가 하지 않는다.
 
 그 뒤가 Call 1.5-D 프롬프트 승인과 222907 라이브 실행이다. 프롬프트는 아직 작성하지 않았고,
 활성 프롬프트이므로 전문 승인이 필요하다. IssuePlanner/Call3/judge는 계속 보류한다.
