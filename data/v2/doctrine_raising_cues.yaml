@@ -37,13 +37,15 @@
 #   payload에는 role 토큰이 아니라 그 role에서 렌더링한 지시문 한 줄만 나간다. doctrine과
 #   scope는 여전히 모델에게 보이지 않는다.
 
-version: 2
+version: 3
 status: awaiting_final_read
 # 2026-08-13 조건부 승인. 아래 세 수정을 반영했다.
 #   - competing_duty / legal_or_occupational_basis 문구를 좁혔다.
 #   - actor_mental_condition 을 지속적/일시적 두 cue로 분리했다.
 #   - 위전착(mistaken_justifying_circumstance) cue를 신설했다.
 #   - cue별 subject_role을 저작해 subject 귀속을 모델 해석에서 뺐다.
+# v3 (1차 실행 감사 후): coercion / justifying-premise 두 cue를 semantic false raise가
+# 확인되어 좁혔다. 기존 assessment는 수선하지 않고 재실행 결과를 정본으로 삼는다.
 # 남은 게이트는 이 수정본과 Call 1.5-D 프롬프트 전문의 최종 열람이다.
 
 cues:
@@ -75,7 +77,10 @@ cues:
   - id: cue.coercion_against_actor_stated
     subject_role: acting_subject
     scope: episode
-    factual_cue: "행위자가 다른 사람의 폭력이나 협박을 받고 그 행위를 하였다는 사실이 적혀 있다"
+    # 좁힘(2026-08-13, 1차 실행 감사). 이전 문구는 피해자가 협박받은 사실까지 잡았다
+    # ("A를 협박하여 이에 겁을 먹은 A로 하여금" -> subject=A). 강제를 받은 사람과 doctrine이
+    # 적용될 행위자가 동일인이라는 것을 cue 자체가 요구하게 한다.
+    factual_cue: "행위자 자신이 폭행·협박 또는 이에 준하는 강제를 받고, 그 영향 아래 문제된 행위를 하였다는 사실이 서술되어 있다"
     raises: [doctrine.coerced_act_defeat]
 
   - id: cue.actor_belief_of_permission_stated
@@ -137,5 +142,10 @@ cues:
     # 신설(2026-08-13). 위전착에 단서가 없어 구조적으로 영원히 raised되지 않던 것을 닫는다.
     # 모델은 인식과 실제 사실관계의 불일치가 적혀 있는지만 탐지한다. 그것이 위법성조각사유의
     # 전제사실 착오인지, 정당한 이유가 있는지는 기존 doctrine leaf가 판단한다.
-    factual_cue: "행위자가 공격·위험·승낙 등 자신의 행위를 허용할 수 있는 사실이 존재한다고 인식하였으나, 실제 사실관계에는 그 전제가 없거나 불분명하다는 서술이 있다"
+    # 좁힘(2026-08-13, 1차 실행 감사). 이전 문구는 단순한 객체 동일성 착오까지 잡았다
+    # (乙인 줄 알고 다른 사람을 상해, 자고 있던 사람이 B였다). 그것은 구성요건적 착오이고
+    # `gap.intended_object_identity`의 영역이다. 행위를 허용할 수 있는 **외부 사정**에 관한
+    # 오인임을 cue가 요구하게 한다. 사람·물건의 동일성을 잘못 알았거나 대상이 빗나간 사실만
+    # 으로는 TRUE가 되지 않는다.
+    factual_cue: "행위자가 상대방의 공격이나 위험, 피해자의 허락·동의, 또는 자신의 행위를 허용할 수 있는 그 밖의 구체적 외부 사정이 실제로 존재한다고 믿었으나, 사건 사실에는 그 사정이 실제로 존재하지 않았다고 서술되어 있다"
     raises: [doctrine.mistaken_justifying_circumstance]
