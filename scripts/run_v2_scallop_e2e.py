@@ -240,6 +240,34 @@ def _instance_provenance(
     return output
 
 
+def _concurrence_condition_truths(
+    path: Path,
+) -> dict[str, dict[tuple[str, OffenseInstanceKey, OffenseInstanceKey], str]]:
+    """`{case: {(rule, absorbed, absorbing): truth}}` from the pair assessment artifact.
+
+    실패한 pair는 싣지 않는다. 계약을 통과하지 못한 응답은 UNKNOWN으로 취급되어 두 죄가 모두
+    유지되고 unresolved로 남는다 -- 근거 없는 흡수는 흡수하지 않는 것보다 나쁘다.
+    """
+    output: dict[str, dict[tuple[str, OffenseInstanceKey, OffenseInstanceKey], str]] = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if not line:
+            continue
+        row = json.loads(line)
+        case = str(row["sub_question_id"])
+        truths: dict[tuple[str, OffenseInstanceKey, OffenseInstanceKey], str] = {}
+        for value in row.get("concurrence_condition_assessments") or ():
+            if value.get("error") or "truth" not in value:
+                continue
+            key = (
+                str(value["rule_id"]),
+                _instance(value["absorbed_instance_key"]),
+                _instance(value["absorbing_instance_key"]),
+            )
+            truths[key] = str(value["truth"])
+        output[case] = truths
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--call2-artifact", type=Path, required=True)
@@ -260,6 +288,11 @@ def main() -> None:
         default=ROOT / "data/v2/concurrence_rules.yaml",
     )
     parser.add_argument(
+        "--concurrence-condition-assessments",
+        type=Path,
+        help="pair carrier artifact from run_v2_absorption_condition_pairs.py",
+    )
+    parser.add_argument(
         "--diagnostic-skip-rejected-participation",
         action="store_true",
         help="preserve rejected Call 2 rows as skipped diagnostics instead of executing them",
@@ -277,6 +310,11 @@ def main() -> None:
         load_concurrence_rules(args.concurrence_rules)
         if args.plan and args.concurrence_rules.exists()
         else ()
+    )
+    condition_truths_by_case = (
+        _concurrence_condition_truths(args.concurrence_condition_assessments)
+        if args.concurrence_condition_assessments
+        else {}
     )
     excess_policy = excess_policy_for(registry)
     foreseeability_ref = (
@@ -511,6 +549,9 @@ def main() -> None:
                 derivative_links=derivative_links,
                 truths=truths,
                 concurrence_rules=concurrence_rules,
+                condition_truths=condition_truths_by_case.get(
+                    str(row["sub_question_id"]), {}
+                ),
                 episode_order=episode_order_by_case.get(str(row["sub_question_id"]), ()),
                 available_predicate_refs=tuple(
                     dict.fromkeys(ref for _instance_key, ref in truths.predicate)
@@ -538,6 +579,24 @@ def main() -> None:
             "co_principal_source_count": len(bindings.co_principal_sources),
             "derivative_link_count": len(derivative_links),
             "final_responsibility": None if final_view is None else final_view.as_dict(),
+            # 조건 truth가 실제로 이 단계에 도착했는지를 artifact에 남긴다. 남기지 않으면
+            # "효과 없음"과 "플래그가 무시됨"이 출력에서 구별되지 않는다.
+            "concurrence_condition_truths": [
+                {
+                    "rule_id": rule_id,
+                    "absorbed_instance_key": _json_value(absorbed),
+                    "absorbing_instance_key": _json_value(absorbing),
+                    "truth": truth,
+                    "both_instances_established": bool(
+                        final_view is not None
+                        and absorbed in final_view.established_instances
+                        and absorbing in final_view.established_instances
+                    ),
+                }
+                for (rule_id, absorbed, absorbing), truth in condition_truths_by_case.get(
+                    str(row["sub_question_id"]), {}
+                ).items()
+            ],
             "accessory_excess_scallop_effects": excess_parity,
             "article263_dedicated_instance_count": len(article263_instances),
             "indirect_principal_instance_count": len(indirect_dependencies),
