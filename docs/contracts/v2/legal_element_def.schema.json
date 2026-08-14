@@ -33,6 +33,16 @@
       "minLength": 1,
       "description": "The evaluative standard Call 3 applies, e.g. '사회통념상 반항을 억압할 정도의 폭행·협박인지 여부'. This is prose guidance for the neural assessor, not a symbolic rule — the symbolic layer only ever sees the resulting Assessment.evidence_state (runtime layer, out of scope for this schema)."
     },
+    "semantic_exclusions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Authored boundary statements identifying adjacent concepts that must not be mistaken for this predicate. They refine meaning only and never provide case truth."
+    },
+    "evidence_scope": {
+      "enum": ["exact_actor_action", "same_actor_episode", "offense_realization", "typed_relation"],
+      "description": "Largest provenance-typed factual carrier admissible for an UNKNOWN fallback. Omission means exact_actor_action; it never authorizes full-case evidence."
+    },
     "authority_refs": {
       "type": "array",
       "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref" }

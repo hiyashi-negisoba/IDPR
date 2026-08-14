@@ -54,6 +54,10 @@
     - {name: act, type: entity}
     - {name: object, type: entity}
   canonical_meaning: "수단·대상 착오로 결과발생 애초 불가능"
+  semantic_exclusions:
+    - "의도한 재물이 실제 장소에 존재하지 않는 대상의 부재·결함은 이 predicate의 긍정 사유이며, FALSE 사유가 아니다."
+    - "결과가 실제로 발생하지 않았다는 사실만으로는 수단·대상 결함을 인정하지 않는다."
+  evidence_scope: same_actor_episode
   source_refs:
     - comment_id: "comm_001692_제27조_Ⅲ.2_5"
       section_path: "Ⅲ.2"
@@ -198,6 +202,7 @@
 - id: ground_fact.vaginal_intercourse_conduct
   arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
   canonical_meaning: "성기 삽입·결합"
+  evidence_scope: same_actor_episode
   source_refs: [{comment_id: "comm_001692_제297조_Ⅰ.1_0", section_path: "Ⅰ.1", quote: "강간죄의 간음은 성기의 삽입 또는 결합을 의미한다."}]
 
 - id: ground_fact.injury_conduct

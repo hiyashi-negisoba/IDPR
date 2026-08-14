@@ -94,6 +94,13 @@ def main() -> None:
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--max-targets-per-request", type=int, default=24)
     parser.add_argument("--max-tokens", type=int, default=4096)
+    parser.add_argument("--candidate-system", type=Path, default=CANDIDATE_PROMPT)
+    parser.add_argument("--candidate-user", type=Path, default=CANDIDATE_USER)
+    parser.add_argument(
+        "--candidate-arms-only",
+        action="store_true",
+        help="run candidate occurrence/context only; omits the unrelated current-prompt arm",
+    )
     parser.add_argument("--prompt-approved", action="store_true")
     parser.add_argument(
         "--source-binding-only",
@@ -127,8 +134,8 @@ def main() -> None:
     client = VLLMClient(args.base_url, args.model)
     current_system = load_prompt("v2_call2_grounding")
     current_user = load_prompt("v2_call2_grounding_user")
-    candidate_system = CANDIDATE_PROMPT.read_text(encoding="utf-8")
-    candidate_user = CANDIDATE_USER.read_text(encoding="utf-8")
+    candidate_system = args.candidate_system.read_text(encoding="utf-8")
+    candidate_user = args.candidate_user.read_text(encoding="utf-8")
     aggregate_usage = Counter()
     findings: list[dict[str, Any]] = []
 
@@ -172,11 +179,12 @@ def main() -> None:
                 [],
             ).append(target)
 
-        arms = (
-            ("actor_prompt_occurrence", "actor_prompt_source_binding")
-            if args.source_binding_only
-            else ("current_occurrence", "actor_prompt_occurrence", "actor_prompt_context")
-        )
+        if args.source_binding_only:
+            arms = ("actor_prompt_occurrence", "actor_prompt_source_binding")
+        elif args.candidate_arms_only:
+            arms = ("actor_prompt_occurrence", "actor_prompt_context")
+        else:
+            arms = ("current_occurrence", "actor_prompt_occurrence", "actor_prompt_context")
         for arm in arms:
             system_prompt = current_system if arm == "current_occurrence" else candidate_system
             user_prompt = current_user if arm == "current_occurrence" else candidate_user
@@ -250,8 +258,8 @@ def main() -> None:
                 "call2_artifact_sha256": _sha(args.call2_artifact),
                 "issue_bindings_sha256": _sha(args.issue_bindings),
                 "current_prompt_sha256": _sha(CURRENT_PROMPT),
-                "candidate_prompt_sha256": _sha(CANDIDATE_PROMPT),
-                "candidate_user_prompt_sha256": _sha(CANDIDATE_USER),
+                "candidate_prompt_sha256": _sha(args.candidate_system),
+                "candidate_user_prompt_sha256": _sha(args.candidate_user),
                 "case_ids": list(selected),
                 "source_binding_only": args.source_binding_only,
                 "residual_unknown_target_count": sum(

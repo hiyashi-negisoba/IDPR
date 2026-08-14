@@ -115,3 +115,14 @@ GroundFact conflict를 만들어 AnswerPlan이 계속 실패한다. 같은 actor
 현재 판단은 **candidate prompt 기각 / actor-aware realization carrier 트랙 승인**이다. N/P는 계속
 동결한다.
 
+> 2026-08-14 후속 정정: B packet에는 원문·rubric과 불일치하는 counterfactual label이 최소
+> 2개(`RU-049`, `RU-093`) 있었다. 따라서 이 문서의 25/32 agreement는 packet 재현값이지
+> 법적 정확도 수치가 아니다. 32-target whitelist와 그 counterfactual downstream 수치는
+> production 채택 근거로 사용하지 않는다. 구조적 결론—한 문장 carrier가 부족하고 full-case
+> 확대는 위험하다는 점—만 유지한다.
+# 후속 인간 검수 확정
+
+`RU-097 unlawful_appropriation_intent`는 검수 packet의 TRUE를 유지한다. 처분권자의 동의가
+있다고 착오한 경우에도 경제적 이용·처분 의사 자체는 TRUE이며, 착오의 법적 효과는 기존
+mistake/doctrine route에서 별도로 처리한다. 이 구별을 Definition Layer의
+`semantic_exclusions`로 고정했다.

@@ -1,11 +1,19 @@
 from pathlib import Path
 
+import pytest
+
 from idpr.v2.gold_factual_identity import GoldOccurrence
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.evaluation_instance_planner import _instance_predicate_refs
-from idpr.v2.runtime.grounding import AssessmentTarget
+from idpr.v2.runtime.grounding import (
+    AssessmentTarget,
+    GroundingContractError,
+    PredicateAssessment,
+)
 from idpr.v2.runtime.grounding_evidence import (
     actor_aware_realization_context,
+    authored_unknown_fallback_context,
+    merge_authored_unknown_fallback,
     source_binding_realization_context,
 )
 from idpr.v2.runtime.identity import OffenseInstanceKey
@@ -192,6 +200,78 @@ def test_source_binding_context_does_not_admit_same_actor_episode_sibling():
     assert context is not None
     assert context["source_binding_ids"] == ["binding:1"]
     assert context["same_actor_action_evidence"] == ["甲이 가방을 들었다."]
+
+
+def test_unknown_fallback_requires_definition_authored_evidence_scope():
+    registry = load_definitions(Path("data/v2/definitions"))
+    appropriation = registry.get("legal_element.unlawful_appropriation_intent")
+    assert appropriation is not None
+    assert appropriation.payload["evidence_scope"] == "same_actor_episode"
+    assert any(
+        "mistake/doctrine route" in value
+        for value in appropriation.payload["semantic_exclusions"]
+    )
+    instance = OffenseInstanceKey("case", "甲", "offense.theft", "binding:1")
+    issue = {
+        "seed_results": [{
+            "bindings": [{
+                "binding_id": "binding:1",
+                "factual_episode_id": "episode:1",
+                "actor_id": "甲",
+                "actor_action_fragments": [{"source_quote": "甲이 집에 들어갔다."}],
+                "context_fragments": [{"source_quote": "그곳은 A의 주거였다."}],
+            }]
+        }]
+    }
+    common = {
+        "registry": registry,
+        "plan_row": {"derived_binding_candidates": []},
+        "issue_row": issue,
+    }
+    assert authored_unknown_fallback_context(
+        target=AssessmentTarget(instance, "legal_element.possession"), **common
+    ) is None
+    context = authored_unknown_fallback_context(
+        target=AssessmentTarget(
+            instance, "legal_element.dwelling_or_managed_premises_object"
+        ),
+        **common,
+    )
+    assert context is not None
+    assert context["carrier_policy"] == "actor_aware_realization_v1"
+
+
+def test_unknown_fallback_merge_replaces_only_unknown_and_preserves_order():
+    instance = OffenseInstanceKey("case", "甲", "offense.theft", "binding:1")
+    unknown = AssessmentTarget(instance, "legal_element.unlawful_appropriation_intent")
+    known = AssessmentTarget(instance, "legal_element.intent")
+    merged, ledger = merge_authored_unknown_fallback(
+        (
+            PredicateAssessment(unknown, "UNKNOWN"),
+            PredicateAssessment(known, "TRUE"),
+        ),
+        (PredicateAssessment(unknown, "TRUE"),),
+    )
+    assert [(value.target, value.truth) for value in merged] == [
+        (unknown, "TRUE"),
+        (known, "TRUE"),
+    ]
+    assert ledger == ({
+        **unknown.as_dict(),
+        "original_truth": "UNKNOWN",
+        "fallback_truth": "TRUE",
+        "adopted_truth": "TRUE",
+    },)
+
+
+def test_unknown_fallback_merge_rejects_overwriting_known_truth():
+    instance = OffenseInstanceKey("case", "甲", "offense.theft", "binding:1")
+    target = AssessmentTarget(instance, "legal_element.intent")
+    with pytest.raises(GroundingContractError, match="cannot replace a known"):
+        merge_authored_unknown_fallback(
+            (PredicateAssessment(target, "TRUE"),),
+            (PredicateAssessment(target, "FALSE"),),
+        )
 
 
 def test_target_placement_buckets_keep_role_review_separate_from_provenance():

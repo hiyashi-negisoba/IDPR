@@ -10,7 +10,11 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 
 from idpr.v2.registry import DefinitionRegistry
-from idpr.v2.runtime.grounding import AssessmentTarget
+from idpr.v2.runtime.grounding import (
+    AssessmentTarget,
+    GroundingContractError,
+    PredicateAssessment,
+)
 
 _ACTOR_ARGUMENTS = frozenset(
     {"actor", "witness", "offender", "disposer", "possessor", "official"}
@@ -28,6 +32,16 @@ def actor_bound_ground_fact(
         isinstance(value, Mapping) and value.get("name") in _ACTOR_ARGUMENTS
         for value in entry.payload.get("arguments", ())
     )
+
+
+def predicate_evidence_scope(
+    registry: DefinitionRegistry, predicate_ref: str
+) -> str:
+    """Largest authored carrier allowed for an UNKNOWN fallback."""
+    entry = registry.get(predicate_ref)
+    if entry is None or entry.kind not in {"ground_fact", "legal_element"}:
+        return "exact_actor_action"
+    return str(entry.payload.get("evidence_scope", "exact_actor_action"))
 
 
 def direct_bindings(issue_row: Mapping[str, object]) -> dict[str, Mapping[str, object]]:
@@ -200,9 +214,87 @@ def source_binding_realization_context(
     }
 
 
+def authored_unknown_fallback_context(
+    *,
+    registry: DefinitionRegistry,
+    target: AssessmentTarget,
+    plan_row: Mapping[str, object],
+    issue_row: Mapping[str, object],
+) -> dict[str, object] | None:
+    """Build only the carrier explicitly admitted by the predicate definition.
+
+    This function is for fallback evaluation after an exact-occurrence UNKNOWN.  It
+    never broadens an unreviewed predicate and never supplies untyped full-case text.
+    """
+    scope = predicate_evidence_scope(registry, target.predicate_ref)
+    if scope == "same_actor_episode":
+        return actor_aware_realization_context(
+            registry=registry,
+            target=target,
+            plan_row=plan_row,
+            issue_row=issue_row,
+        )
+    if scope == "offense_realization":
+        return source_binding_realization_context(
+            registry=registry,
+            target=target,
+            plan_row=plan_row,
+            issue_row=issue_row,
+        )
+    return None
+
+
+def merge_authored_unknown_fallback(
+    base: Sequence[PredicateAssessment],
+    fallback: Sequence[PredicateAssessment],
+) -> tuple[tuple[PredicateAssessment, ...], tuple[dict[str, object], ...]]:
+    """Replace only exact UNKNOWN base targets and retain a complete decision ledger.
+
+    Carrier authorization happens before this function.  This final merge is deliberately
+    ignorant of legal meaning: it enforces the non-negotiable monotonicity contract that a
+    fallback can never overwrite an already known occurrence-scoped assessment.
+    """
+    base_values = tuple(base)
+    fallback_values = tuple(fallback)
+    base_by_target = {value.target: value for value in base_values}
+    fallback_by_target = {value.target: value for value in fallback_values}
+    errors: list[str] = []
+    if len(base_by_target) != len(base_values):
+        errors.append("base assessments contain duplicate targets")
+    if len(fallback_by_target) != len(fallback_values):
+        errors.append("fallback assessments contain duplicate targets")
+    for target in fallback_by_target:
+        original = base_by_target.get(target)
+        if original is None:
+            errors.append(f"fallback target is outside base assessments: {target.as_dict()}")
+        elif original.truth != "UNKNOWN":
+            errors.append(
+                "fallback cannot replace a known assessment: "
+                f"{target.as_dict()}={original.truth}"
+            )
+    if errors:
+        raise GroundingContractError(errors)
+
+    merged = tuple(fallback_by_target.get(value.target, value) for value in base_values)
+    ledger = tuple(
+        {
+            **value.target.as_dict(),
+            "original_truth": value.truth,
+            "fallback_truth": fallback_by_target[value.target].truth,
+            "adopted_truth": fallback_by_target[value.target].truth,
+        }
+        for value in base_values
+        if value.target in fallback_by_target
+    )
+    return merged, ledger
+
+
 __all__ = [
     "actor_aware_realization_context",
     "actor_bound_ground_fact",
+    "authored_unknown_fallback_context",
     "direct_bindings",
+    "merge_authored_unknown_fallback",
+    "predicate_evidence_scope",
     "source_binding_realization_context",
 ]

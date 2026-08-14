@@ -123,6 +123,7 @@
   arguments: [{name: victim, type: entity}]
   canonical_meaning: "출생 후 사망하지 않은 자연인, 타인"
   legal_standard: "보호법익의 주체가 출생 후 사망하지 않은 타인의 자연인인지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: commentary_synthesis, citation: "predicate_dictionary_master_v3.md §2.1 (배치⑨ 250조 재사용)"}]
 
 - id: legal_element.duty_of_care
@@ -135,6 +136,10 @@
   arguments: [{name: actor, type: entity}, {name: result, type: entity}]
   canonical_meaning: "결과 예견가능성"
   legal_standard: "행위 당시 결과 발생을 예견할 수 있었는지 여부"
+  semantic_exclusions:
+    - "결과가 실제 발생했다는 사후 사실만으로 예견가능성을 긍정하거나 부정하지 않고, 행위 당시 명시된 위험 사정을 평가한다."
+    - "주의의무 위반, 결과회피가능성 및 실제 인과관계는 인접하지만 서로 다른 predicate다."
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제14조"}]
 
 - id: legal_element.avoidability
@@ -388,6 +393,9 @@
   arguments: [{name: actor, type: entity}, {name: property, type: entity}]
   canonical_meaning: "불법영득의사"
   legal_standard: "권리자를 배제하고 재물을 경제적 용법에 따라 이용·처분하려는 의사가 있는지 여부"
+  semantic_exclusions:
+    - "처분권자의 동의가 있다고 착오한 사실만으로 경제적 이용·처분 의사 자체를 부정하지 않는다. 그 착오가 범죄 성립에 미치는 효과는 mistake/doctrine route에서 별도로 평가한다."
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제329조"}]
 
 - id: legal_element.possession
@@ -553,6 +561,7 @@
   arguments: [{name: actor, type: entity}]
   canonical_meaning: "공무원 지위"
   legal_standard: "형법상 공무원에 해당하는 지위인지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제122조"}]
 
 - id: legal_element.duty_has_concrete_lawful_basis
@@ -577,6 +586,7 @@
   arguments: [{name: actor, type: entity}]
   canonical_meaning: "의식적 방임 고의"
   legal_standard: "직무의 방임·포기를 인식하고 의도하였는지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제122조"}]
 
 - id: legal_element.current_or_former_public_official
@@ -601,30 +611,37 @@
   arguments: [{name: actor, type: entity}]
   canonical_meaning: "공무원·중재인"
   legal_standard: "공무원 또는 중재인에 해당하는지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제129조"}]
 
 - id: legal_element.job_relatedness
   arguments: [{name: actor, type: entity}, {name: matter, type: entity}]
   canonical_meaning: "직무관련성"
   legal_standard: "뇌물과 공무원 또는 중재인의 직무 사이에 관련성이 있는지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제129조"}]
 
 - id: legal_element.quid_pro_quo
   arguments: [{name: bribe, type: entity}]
   canonical_meaning: "대가관계"
   legal_standard: "뇌물이 직무행위에 대한 대가라는 관계가 인정되는지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제129조"}]
 
 - id: legal_element.solicitation_received
   arguments: [{name: actor, type: entity}]
   canonical_meaning: "청탁"
   legal_standard: "직무에 관하여 청탁을 받은 사실이 있는지 여부"
+  semantic_exclusions:
+    - "actor가 타인에게 급부·지원을 먼저 요구하거나 부탁한 사실은 actor가 청탁을 받은 사실과 다르다."
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제130조"}]
 
 - id: legal_element.appropriation_intent_of_bribe
   arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
   canonical_meaning: "뇌물 영득의사"
   legal_standard: "뇌물을 자기 또는 제3자의 이익으로 취득하려는 의사가 있는지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제129조"}]
 
 - id: legal_element.prospective_official_probability
@@ -643,6 +660,7 @@
   arguments: [{name: actor, type: entity}]
   canonical_meaning: "제3자 자기이득 목적 수수(+NOT())"
   legal_standard: "증뢰물의 전달·수령이 자기의 이익을 위한 것인지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제133조 제2항"}]
 
 - id: legal_element.lawful_performance_of_duty
@@ -685,6 +703,9 @@
   arguments: [{name: actor, type: entity}, {name: offender, type: entity}]
   canonical_meaning: "범인 본인 이익 목적"
   legal_standard: "은닉·도피 행위가 범인 본인의 이익을 위한 것인지 여부"
+  semantic_exclusions:
+    - "범인에게 도피자금을 제공하여 도피를 용이하게 한 사실은 범인 본인의 이익을 위한 행위의 긍정 사유다."
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제151조"}]
 
 - id: legal_element.offender_status_of_object
@@ -731,18 +752,24 @@
   arguments: [{name: actor, type: entity}, {name: document, type: entity}]
   canonical_meaning: "권한 없는 명의사용 작성·현출"
   legal_standard: "작성권한 없는 자가 작성명의인의 의사에 반하여 타인 명의의 문서·도화 또는 인장 등을 작성·현출하였는지 여부. 명의자가 직접 작성하거나 명시적·묵시적으로 승낙·위임한 경우에는 해당하지 않으며, 내용의 허위만으로는 명의모용이 되지 않는다."
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제225조; 제231조; 제239조"}]
 
 - id: legal_element.alteration_of_genuine_document
   arguments: [{name: document, type: entity}]
   canonical_meaning: "진정문서 내용 변경"
   legal_standard: "진정하게 성립한 문서의 내용을 권한 없이 변경하였는지 여부"
+  semantic_exclusions:
+    - "새 문서를 작성하면서 허위 내용을 기재한 것은 기존 진정문서의 내용을 변경한 변조와 다르다."
+    - "내용의 허위만으로는 진정문서 변경이 되지 않는다."
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제225조; 제231조"}]
 
 - id: legal_element.purpose_to_use_as_genuine
   arguments: [{name: actor, type: entity}, {name: document, type: entity}]
   canonical_meaning: "진정한 것처럼 사용할 목적"
   legal_standard: "위조·변조 또는 허위문서를 진정한 것처럼 행사할 목적이 있었는지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제225조; 제227조; 제231조; 제239조"}]
 
 - id: legal_element.utterance_conduct
@@ -912,6 +939,7 @@
   arguments: [{name: premises, type: entity}]
   canonical_meaning: "주거·관리 건조물 등"
   legal_standard: "사람의 주거·관리하는 건조물·선박 또는 점유하는 방실에 해당하는지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제319조"}]
 
 - id: legal_element.trespass_entry
@@ -954,6 +982,7 @@
   arguments: [{name: property, type: entity}]
   canonical_meaning: "타인점유·권리객체"
   legal_standard: "타인이 점유하거나 타인의 권리의 목적이 된 물건인지 여부"
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제323조"}]
 
 - id: legal_element.taking_of_own_property_conduct

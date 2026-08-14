@@ -1388,3 +1388,93 @@ recall을 확인할 때까지 기존 N/P는 역사적 artifact다. Call 3 output
 (3) downstream 영향 있는 offense/participation/card bridge 누락, (4) global engineering gap의
 case-scoped 격리다. 그 뒤 final Call 2부터 N/P까지 한 번만 재생성하고 baseline 포함 blind judge를
 돌린다.
+
+---
+
+## 2026-08-14 -- 세션 종료 체크포인트: 26문항 E2E A/B가 다음 작업
+
+### 사용자가 재확인한 작업 원칙
+
+특정 4개 사례나 KCL 정답에 맞춘 route를 계속 추가하지 않는다. 26문항 전체를
+`Call 1 -> Call 1.5 -> planner -> Call 2 -> symbolic runtime -> AnswerPlan -> N/P` 순서로 한 번
+관통하여 단계 사이의 사실·actor·episode·offense provenance 누락/오귀속 같은 일반 구조 결함만
+찾는다. authored doctrine 또는 문제 전용 지식이 필요하면 자동 구현하지 말고 사용자 검수를
+요청한다.
+
+그러나 다음 세션의 첫 작업은 추가 감사가 아니다. 이 세션에서 변경이 많이 쌓였는데 아직
+baseline 대비 E2E 효과를 재지 않았으므로 **A/B를 먼저 실행**한다.
+
+### 이 체크포인트에 포함된 변경
+
+- Definition schema/runtime에 `semantic_exclusions`와 authored `evidence_scope`를 추가했다.
+- 사용자가 승인한 의미 경계: 처분권자의 동의가 있다고 착오해도
+  `unlawful_appropriation_intent`의 경제적 이용·처분 의사는 TRUE로 평가할 수 있고, 동의 착오의
+  범죄성립 효과는 기존 mistake/doctrine route가 별도로 처리한다.
+- UNKNOWN fallback carrier builder와 known truth overwrite 금지 merge contract를 구현했다.
+  **이 fallback은 아직 active Call 2 runner에 연결하지 않았다.** 연결 전 A/B가 필요하다.
+- broad typed-context와 deliberative prompt diagnostic은 polarity/quote 문제 때문에 production에서
+  기각했다. 후보 prompt와 진단 script는 재현용으로만 보존한다.
+- all-50 unbound seed direct-conduct recovery를 독립 verifier로 거른 뒤 7 binding만 합쳤고,
+  authored aggravated/base carrier closure 1개를 추가했다.
+- 새 issue binding: `issue_bindings_direct_recovery_v1.jsonl` (78 -> 86 bindings).
+- 새 direct-only plan: `direct_recovery_plan_v1/evaluation_instance_plan.jsonl`.
+  top-level 87 -> 95, final targets 531 -> 595, neural predicate targets 531 -> 552,
+  unbound 50 -> 42다.
+- participation까지 materialize한 실행 plan은
+  `direct_recovery_participation_plan_v1/evaluation_instance_plan.jsonl`이다. top-level/assessment
+  instance 105, final assessment targets 698, neural predicate targets 552, relation 17,
+  participation local targets 60이다. 아래 B 실행에는 이 plan을 쓴다.
+- whole-corpus invariant auditor `scripts/audit_v2_structural_invariants.py`를 추가했다.
+- direct recovery review는 `docs/analysis/v2_call15_direct_recovery_50_review_ko.md`다.
+
+### 하지 않은 일
+
+- 새 595-target plan의 Call 2를 실행하지 않았다.
+- 새 plan의 symbolic runtime, AnswerPlan, N/P를 만들지 않았다.
+- 따라서 현재 변경이 final liability/required conclusions/KCL 답안에 주는 순효과는 아직 모른다.
+- dwelling-intrusion rape, harboring, third-party preparation, deceptive obstruction 네 사례는 진단 중
+  발견된 예일 뿐 구현 목록이 아니다. 별도 route를 추가하지 않았다.
+
+### 다음 세션 첫 작업: frozen A vs patched B
+
+A는 재호출하지 않고 이미 동결된 정본을 쓴다.
+
+- plan: `experiments/v2_call15_directscope_26_causal/evaluation_instance_plan.jsonl`
+- Call 2: `experiments/v2_call15_directscope_26_causal/call2_guard_sched_26_v2/grounding_output.jsonl`
+- symbolic: `experiments/v2_call15_directscope_26_causal/scallop_guard_ab_sched_v2/results.jsonl`
+
+B는 이 커밋의 새 plan으로 한 번 실행한다. job 222907은 2026-08-14 세션 종료 시 RUNNING,
+node n03, port 45773, model `idpr-gemma-4-26b-a4b`였다. 실행 전 `squeue`로 한 번만 확인한다.
+plan upper bound는 neural predicate 552개이며 실제 guard-aware asked target은 실행 중 줄어든다.
+
+```bash
+srun --jobid=222907 --ntasks=1 --cpus-per-task=1 \
+  env PYTHONPATH=$PWD/src /data5/jaehoonjeong/miniconda3/bin/python \
+  scripts/run_v2_call2_pilot.py \
+    --base-url http://127.0.0.1:45773 \
+    --model idpr-gemma-4-26b-a4b \
+    --call1-artifact experiments/v2_restart_rebuild/call1/router_output.jsonl \
+    --gold-occurrences data/v2/gold_occurrences.jsonl \
+    --gold-article263-pairs data/v2/gold_article263_pairs.jsonl \
+    --plan-artifact experiments/v2_call15_directscope_26_causal/direct_recovery_participation_plan_v1/evaluation_instance_plan.jsonl \
+    --out experiments/v2_call15_directscope_26_causal/call2_direct_recovery_ab_v1/grounding_output.jsonl \
+    --planner-occurrence-evidence --prompt-approved
+```
+
+완료 후 `audit_v2_call2_pilot.py`로 exact audit하고 같은 symbolic/AnswerPlan builder를 A/B에 적용한다.
+비교 항목은 target 추가/삭제, 공통 target truth drift, final liability, unresolved required conclusion,
+contested point, required authority다. UNKNOWN 총량만 개선 지표로 쓰지 않는다.
+
+### A/B 종료 게이트
+
+다음 중 하나로 결론 내리고 더 진단을 확장하지 않는다.
+
+1. B가 provenance invariant를 통과하고 final liability/required conclusion을 구조적으로 개선하며
+   known polarity regression이 없으면 채택한다.
+2. 새 direct recovery target이 final output에 영향이 없으면 recovery는 limitation/diagnostic으로
+   남기고 기존 plan을 유지한다.
+3. actor/case 오귀속 또는 known polarity regression이 있으면 B 전체를 채택하지 않고, 재현 가능한
+   일반 코드 결함 하나만 수정한 뒤 A/B를 한 번 더 한다.
+
+그 뒤 upstream을 닫고 final `Call 2 -> symbolic -> AnswerPlan -> N/P -> baseline bundle -> blind judge`
+를 실행한다. 새 하위 진단 트랙이나 문제별 route는 열지 않는다.

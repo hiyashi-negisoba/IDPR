@@ -20,6 +20,16 @@
       "minItems": 1,
       "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/source_ref" }
     },
+    "semantic_exclusions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Authored boundary statements distinguishing this factual proposition from adjacent concepts; these statements never provide case truth."
+    },
+    "evidence_scope": {
+      "enum": ["exact_actor_action", "same_actor_episode", "offense_realization", "typed_relation"],
+      "description": "Largest provenance-typed factual carrier admissible for an UNKNOWN fallback. Omission means exact_actor_action."
+    },
     "semantic_sort": {
       "type": "string",
       "minLength": 1,

@@ -120,3 +120,56 @@ LegalElement 포섭이며, actor-local GroundFact·source-binding 계약을 느�
 따라서 이 문서의 prompt 수정안은 **기각**한다. production prompt는 변경하지 않는다. 반면 현행
 prompt + attribution-safe episode evidence는 B 32개 중 25개를 의도한 known 값으로 복구했고
 반대 known 값은 0이었다. 후속 소유권은 prompt가 아니라 actor-aware realization carrier다.
+
+## 후속 검증에서 발견한 review-label 오류와 추가 기각
+
+후속 typed-context 및 quote-validated deliberative 진단에서 B packet의 `counterfactual_truth`를
+원문·rubric과 다시 대조한 결과 최소 두 라벨이 잘못되었음을 확인했다.
+
+- `RU-049 for_the_offenders_benefit`: 丙이 乙에게 도피자금 1천만 원을 건넸고 rubric도 이를
+  범인도피죄의 적극적 도피 원조로 요구한다. 기존 packet의 FALSE가 아니라 TRUE 방향이다.
+- `RU-093 solicitation_received`: 甲이 丙에게 제3자 乙 지원을 먼저 요구한 사실이다. 甲이
+  청탁을 *받은* 사실로 보는 기존 packet TRUE는 predicate 방향과 맞지 않는다.
+
+따라서 위의 `25/32`, `반대 known 0`은 당시 packet에 대한 재현 수치일 뿐 법적 정답 정확도로
+사용하지 않는다. B 32 target whitelist의 production 채택은 철회한다.
+
+현행 계약을 유지하고 typed context 설명만 추가한 최소 prompt의 232-target paired 결과도
+occurrence TRUE/FALSE/UNKNOWN 39/13/180, context 63/9/160이었다. UNKNOWN 25개가 known으로
+이동했지만 FALSE->TRUE 직접 역전 2개와 검수상 잘못된 `foreseeability=FALSE`가 남았다.
+
+exact evidence quote, 포섭 basis, 한 문장 application을 강제한 49-target deliberative 진단은
+TRUE/FALSE/UNKNOWN 22/4/23, packet agreement 21/49, opposite-known 5였다. quote provenance를
+검증해도 모델의 predicate 경계 혼동은 사라지지 않았다. 따라서 긴 rationale이나 단순 prompt
+완화도 production 해법으로 채택하지 않는다.
+
+후속 production 소유권은 다음 둘이다.
+
+1. predicate definition에 다른 법적 층위와 혼동하면 안 되는 `semantic_exclusions`를 저작한다.
+2. evidence 확대는 case whitelist가 아니라 definition-level `evidence_scope`가 허용한 predicate의
+   초기 UNKNOWN에만 적용한다. 기존 known truth는 fallback이 덮어쓰지 못한다.
+# 2026-08-14 인간 전문가 승인: 불법영득의사와 동의 착오의 분리
+
+`legal_element.unlawful_appropriation_intent`는 권리자를 배제하고 재물을 경제적 용법에 따라
+이용·처분하려는 **의사 자체**를 뜻한다. 처분권자의 동의가 있다고 착오했더라도 이 경제적
+이용·처분 의사는 TRUE로 평가하고, 동의 착오가 범죄 성립에 미치는 효과는 기존
+mistake/doctrine route에서 별도로 처리한다. 따라서 동의 착오만을 근거로 이 predicate를
+FALSE로 내리는 것은 인접 법효과의 오귀속이다.
+
+## semantic-boundary 49-target 승인 게이트: production fallback 기각
+
+위 경계와 기존 검수 correction을 넣은 quote-validated deliberative 진단을 동일 49 target에
+적용했다. 32개까지 진행된 partial artifact에서 `RU-095 alteration_of_genuine_document`는
+FALSE로 교정되고 `RU-049 for_the_offenders_benefit`는 사실관계에 맞는 TRUE를 유지했다.
+그러나 `RU-093 solicitation_received`에서 세 번 연속 반환한 evidence quote가 허용된 typed
+carrier의 exact substring이 아니어서 host validator가 실행을 중단했다.
+
+- artifact: `diagnostics/deliberative_grounding_49_semantic_boundaries_v2.json`
+- 완료: 32/49, TRUE 13 / FALSE 3 / UNKNOWN 16
+- 종료 사유: `RU-093` exact-quote validation 3회 실패
+- 판정: **typed UNKNOWN fallback은 production에 채택하지 않는다.**
+
+Definition Layer의 `semantic_exclusions`는 predicate 의미 경계로 유지하되 사건 truth를 제공하지
+않는다. `evidence_scope`와 typed context builder는 실험·준비 인프라로 남기며, 활성 Call 2의
+UNKNOWN을 덮어쓰는 경로에는 아직 연결하지 않는다. host merge 계약은 이미 known인 TRUE/FALSE를
+fallback이 덮어쓰는 것을 오류로 거부한다.

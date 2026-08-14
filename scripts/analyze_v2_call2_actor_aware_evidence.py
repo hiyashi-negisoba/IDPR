@@ -42,9 +42,15 @@ def build_report(
             arms[arm][key] = str(value["truth"])
             policies[key] = str(value["carrier_policy"])
             raw[key] = value
-    expected = {"current_occurrence", "actor_prompt_occurrence", "actor_prompt_context"}
-    if set(arms) != expected:
+    full_arms = {"current_occurrence", "actor_prompt_occurrence", "actor_prompt_context"}
+    paired_arms = {"actor_prompt_occurrence", "actor_prompt_context"}
+    if frozenset(arms) not in {frozenset(full_arms), frozenset(paired_arms)}:
         raise ValueError(f"unexpected arms: {set(arms)}")
+    arm_order = tuple(
+        arm for arm in (
+            "current_occurrence", "actor_prompt_occurrence", "actor_prompt_context"
+        ) if arm in arms
+    )
 
     placement_by_key = {_key(value): value for value in placement["records"]}
     reviewed_by_key = {_key(value): value for value in factorial["records"]}
@@ -93,7 +99,7 @@ def build_report(
             values.append(
                 {
                     "intended": intended,
-                    **{arm: arms[arm][key] for arm in expected},
+                    **{arm: arms[arm][key] for arm in arm_order},
                 }
             )
         reviewed_agreement[group] = {"target_count": len(values)}
@@ -106,7 +112,7 @@ def build_report(
                     for row in values
                 ),
                 }
-                for arm in expected
+                for arm in arm_order
             }
         )
 
@@ -120,8 +126,9 @@ def build_report(
         "truth_counts": {
             arm: dict(Counter(values.values())) for arm, values in arms.items()
         },
-        "prompt_drift": _transitions(
-            arms["current_occurrence"], arms["actor_prompt_occurrence"]
+        "prompt_drift": (
+            _transitions(arms["current_occurrence"], arms["actor_prompt_occurrence"])
+            if "current_occurrence" in arms else None
         ),
         "evidence_effect": _transitions(carrier_control, carrier_treatment),
         "evidence_effect_by_carrier": {

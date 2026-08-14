@@ -32,6 +32,8 @@ class PredicateDefinition:
     canonical_meaning: str
     arguments: tuple[Mapping[str, Any], ...]
     legal_standard: str | None = None
+    semantic_exclusions: tuple[str, ...] = ()
+    evidence_scope: str = "exact_actor_action"
 
     def as_dict(self) -> dict[str, Any]:
         value: dict[str, Any] = {
@@ -42,6 +44,9 @@ class PredicateDefinition:
         }
         if self.legal_standard is not None:
             value["legal_standard"] = self.legal_standard
+        if self.semantic_exclusions:
+            value["semantic_exclusions"] = list(self.semantic_exclusions)
+        value["evidence_scope"] = self.evidence_scope
         return value
 
 
@@ -96,6 +101,12 @@ def predicate_definitions(
         if not isinstance(meaning, str) or not isinstance(arguments, list):
             raise GroundingContractError([f"malformed predicate definition: {ref!r}"])
         standard = entry.payload.get("legal_standard")
+        exclusions = tuple(
+            str(value) for value in entry.payload.get("semantic_exclusions", ())
+        )
+        evidence_scope = str(
+            entry.payload.get("evidence_scope", "exact_actor_action")
+        )
         values.append(
             PredicateDefinition(
                 predicate_ref=ref,
@@ -103,6 +114,8 @@ def predicate_definitions(
                 canonical_meaning=meaning,
                 arguments=tuple(dict(argument) for argument in arguments),
                 legal_standard=standard if isinstance(standard, str) else None,
+                semantic_exclusions=exclusions,
+                evidence_scope=evidence_scope,
             )
         )
     return tuple(values)
