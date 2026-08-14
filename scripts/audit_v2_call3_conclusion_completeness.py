@@ -18,7 +18,11 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from idpr.v2.runtime.answer_plan import extract_final_conclusion_section
+from idpr.v2.runtime.answer_plan import (
+    _normalize_offense_text,
+    extract_final_conclusion_section,
+    offense_label_variants,
+)
 
 
 def _rows(path: Path) -> dict[str, dict[str, Any]]:
@@ -69,11 +73,18 @@ def main() -> None:
             raise SystemExit(f"{case_id}: no answer plan")
         answer_text = str(answer_row["answer"])
         section = extract_final_conclusion_section(answer_text)
+        # Same rule the builder's own check applies, so the two cannot disagree about
+        # whether an anchor was named.  Matching the plan's label literally would score
+        # how closely the answer echoes the plan rather than whether it named the crime.
+        normalized = _normalize_offense_text(section)
         anchors = _anchors(str(plan_row.get("required_final_conclusions", "")))
         missing = [
             anchor
             for anchor in anchors
-            if anchor["actor"] not in section or anchor["offense_label"] not in section
+            if anchor["actor"] not in section
+            or not any(
+                name in normalized for name in offense_label_variants(anchor["offense_label"])
+            )
         ]
         findings.append(
             {

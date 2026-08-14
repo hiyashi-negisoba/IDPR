@@ -25,7 +25,11 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
-from idpr.v2.runtime.answer_plan import extract_final_conclusion_section
+from idpr.v2.runtime.answer_plan import (
+    _normalize_offense_text,
+    extract_final_conclusion_section,
+    offense_label_variants,
+)
 
 _REQUIRED_LINE = re.compile(r"^\s*·\s*(?P<actor>\S+)\s*—\s*(?P<offense>[^:]+?)\s*:\s*(?P<state>.+)$")
 _SENTENCE_SPLIT = re.compile(r"(?<=[.。])\s*|\n+")
@@ -34,11 +38,18 @@ _ACTOR = re.compile(r"[甲乙丙丁戊己庚辛]")
 # Ordered: the first match wins, so the negative form is tested before the positive one
 # it contains as a substring.
 _STATE_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
-    ("불성립", re.compile(r"성립하지\s*(?:않|아니)|성립되지\s*않|불성립")),
+    ("불성립", re.compile(r"성립하지\s*(?:않|아니)|성립되지\s*않|불성립|처벌(?:되지|할)\s*(?:않|수\s*없)")),
     ("미확정", re.compile(r"(?:확정|단정|판단)하기\s*어렵|확정할\s*수\s*없|불분명")),
     # Never a bare `성립`: it is a prefix of `성립하지 않는다`, so `과실치사죄가 성립하지
     # 않는다` would read as an affirmative at the earlier offset.
-    ("성립", re.compile(r"성립(?:한다|된다|하며|하고|하는|함|하나)|죄책을\s*진다")),
+    (
+        "성립",
+        re.compile(
+            r"성립(?:한다|된다|하며|하고|하는|함|하나)|죄책을\s*진다|"
+            # `공무집행방해죄의 기수범으로 처벌된다` asserts the offence just as plainly.
+            r"처벌(?:된다|한다|받는다)|기수범으로"
+        ),
+    ),
 ]
 
 
@@ -76,17 +87,75 @@ def _required_anchors(plan: dict[str, Any]) -> list[dict[str, str]]:
     return anchors
 
 
-def _mentions_offense(sentence: str, offense: str) -> bool:
-    """True only for a whole offence name.
+#: What a writer may insert inside an offence name without renaming the crime: whitespace,
+#: and the particles that turn `위계공무집행방해죄` into `위계에 의한 공무집행방해죄`.
+_NAME_FILLER = r"(?:\s|에\s*의(?:한|하여))*"
 
-    `강도상해죄` contains `상해죄`, and a closing section that lists both would otherwise
-    report the wrong sentence as the carrier of the shorter anchor.
+
+def _offense_pattern(name: str) -> re.Pattern[str]:
+    return re.compile(_NAME_FILLER.join(re.escape(char) for char in name))
+
+
+def _offense_spans(sentence: str, offense: str) -> list[tuple[int, int]]:
+    """Spans of whole-name mentions of one offence, in the sentence as written.
+
+    Two things have to hold at once.  The name must flex -- the answer may write
+    `위계에 의한 공무집행방해죄` for `위계공무집행방해죄` -- and it must still be a whole
+    name, because `강도상해죄` contains `상해죄` and a closing section that lists both would
+    otherwise hand the shorter anchor the wrong carrier.  Stripping the text's whitespace
+    to make the first work destroys the boundary the second needs (`강간죄 및 상해죄` becomes
+    `강간죄및상해죄`), so the flexing belongs in the pattern, not in the text.
     """
-    for match in re.finditer(re.escape(offense), sentence):
-        before = sentence[match.start() - 1] if match.start() else ""
-        if not re.match(r"[가-힣]", before):
-            return True
-    return False
+    spans = []
+    for name in offense_label_variants(offense):
+        for match in _offense_pattern(name).finditer(sentence):
+            before = sentence[match.start() - 1] if match.start() else ""
+            if not re.match(r"[가-힣]", before):
+                spans.append((match.start(), match.end()))
+    return sorted(set(spans))
+
+
+def _mentions_offense(sentence: str, offense: str) -> bool:
+    return bool(_offense_spans(sentence, offense))
+
+
+def _clause_for_offense(sentence: str, offense: str) -> str | None:
+    """The clause that actually predicates something of this offence.
+
+    One sentence often disposes of several crimes at once -- `존속살해죄는 성립하지
+    않는다, 주거침입죄는 확정하기 어렵다` -- so reading the sentence's first state keyword
+    would assign the first crime's state to every crime named in it.  The clause runs from
+    this offence's mention to the next offence-like mention after it.
+    """
+    spans = _offense_spans(sentence, offense)
+    if not spans:
+        return None
+    start, own_end = spans[0]
+    following = [
+        match.start() for match in re.finditer(r"[가-힣]+죄", sentence) if match.start() >= own_end
+    ]
+    return sentence[start : following[0] if following else len(sentence)]
+
+
+def _state_for_offense(sentence: str, offense: str) -> str | None:
+    """The state this sentence asserts of this offence, under either enumeration shape.
+
+    Writers list crimes two ways.  Each can carry its own predicate (`존속살해죄는 성립하지
+    않는다, 주거침입죄는 확정하기 어렵다`), where the clause holds the answer; or several
+    can share one predicate at the end (`수뢰죄, 직무유기죄, 횡령죄는 모두 ... 확정하기
+    어렵다`), where the clause is just a name and the predicate sits after the last of
+    them.  Reading only the clause silently drops every crime in the second shape.
+    """
+    clause = _clause_for_offense(sentence, offense)
+    if clause is None:
+        return None
+    state = _state_of(clause)
+    if state is not None:
+        return state
+    mentions = list(re.finditer(r"[가-힣]+죄", sentence))
+    if not mentions:
+        return None
+    return _state_of(sentence[mentions[-1].end() :])
 
 
 def _attributed_sentences(text: str) -> list[tuple[str | None, str]]:
@@ -148,7 +217,11 @@ def main() -> None:
             carriers = [s for a, s in named if a == actor]
             if not carriers:
                 carriers = [s for _, s in named]
-            answer_states = {state for s in carriers if (state := _state_of(s))}
+            answer_states = {
+                state
+                for sentence in carriers
+                if (state := _state_for_offense(sentence, offense))
+            }
             plan_states = {anchor["plan_state"] for anchor in group}
 
             if not answer_states:

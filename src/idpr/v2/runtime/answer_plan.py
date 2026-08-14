@@ -1099,8 +1099,48 @@ def missing_required_final_conclusions(
     fact for an offline audit, not a repair signal.
     """
     section = extract_final_conclusion_section(answer_text)
+    normalized = _normalize_offense_text(section)
     missing: list[RequiredFinalConclusion] = []
     for item in plan.required_final_conclusions:
-        if item.actor not in section or item.offense_label not in section:
+        names = offense_label_variants(item.offense_label)
+        if item.actor not in section or not any(name in normalized for name in names):
             missing.append(item)
     return tuple(missing)
+
+
+#: Particles a writer inserts into an offence name without changing which offence it is:
+#: `위계공무집행방해죄` and `위계에 의한 공무집행방해죄` are the same crime.
+_OFFENSE_PARTICLES = ("에의한", "에의하여", "에관한")
+
+
+def _normalize_offense_text(text: str) -> str:
+    stripped = re.sub(r"\s+", "", text)
+    for particle in _OFFENSE_PARTICLES:
+        stripped = stripped.replace(particle, "")
+    return stripped
+
+
+def offense_label_variants(offense_label: str) -> tuple[str, ...]:
+    """Forms of one offence name that all denote the same offence.
+
+    The completeness check would otherwise measure how closely the answer echoes the
+    plan's own label rather than whether it named the crime.  That distinction is not
+    cosmetic here: a condition whose plan carries more material writes more freely, so an
+    echo-sensitive check would report it as less complete for writing better Korean.
+
+    Three rewritings are accepted, all of which preserve identity.  A `·` alternation
+    (`공문서위조·변조죄`) may be answered by either branch; the particles above may be
+    dropped; and the enumeration marker `등` may be left out, since `현주건조물등방화죄`
+    and `현주건조물방화죄` are the same article.  Nothing widens a name into a different
+    crime -- callers still match on whole names, so `상해죄` never satisfies `강도상해죄`.
+    """
+    label = _normalize_offense_text(offense_label)
+    variants = {label}
+    if "·" in label:
+        head, _, tail = label.partition("·")
+        variants.add(head if head.endswith("죄") else f"{head}죄")
+        variants.add(tail)
+    for variant in tuple(variants):
+        if "등" in variant:
+            variants.add(variant.replace("등", ""))
+    return tuple(sorted(variants))
