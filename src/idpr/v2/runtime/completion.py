@@ -24,6 +24,13 @@ Exclusivity between states is an authoring obligation (see the fixture: 상해�
 kept disjoint by an explicit `NOT(impossibility_without_danger)` conjunct, not by ranking). When
 authoring fails and two conditions hold at once, the runtime says `unresolved` and records both in
 provenance -- it does not pick a winner.
+
+The one exception is authored too: a state may declare `defeated_by_state`, which makes it yield
+to a named sibling *when that sibling is TRUE*. This is still not runtime ranking -- the pair is
+written in the policy and validated by axis 8 -- and it is what lets a general state avoid
+requiring an exception's non-occurrence as a positive premise. Some exceptions (자의적 중지) are
+never stated as case facts, so demanding their negation leaves the general state permanently
+UNKNOWN. Yielding gets the exception right without reading UNKNOWN as a negation.
 """
 
 from __future__ import annotations
@@ -34,7 +41,7 @@ from typing import Literal
 
 from idpr.v2 import expressions
 from idpr.v2.compile import CompiledOffense
-from idpr.v2.evaluate import TRUE, UNKNOWN, TruthValue, evaluate
+from idpr.v2.evaluate import FALSE, TRUE, UNKNOWN, TruthValue, evaluate
 from idpr.v2.expressions import CanonicalExpr
 from idpr.v2.registry import DefinitionEntry, DefinitionRegistry
 from idpr.v2.relations import RelationInstanceKey, iter_relation_instances
@@ -194,7 +201,7 @@ def resolve_completion(
         if name in states
     )
 
-    state = _derive_state(outcomes)
+    state = _derive_state(outcomes, states)
     if state in ("unresolved", "not_applicable"):
         return CompletionResult(state=state, provenance=outcomes)
 
@@ -259,9 +266,19 @@ def _resolve_candidate(
         predicate_view = truths.predicate_view(component_instance)
     else:
         predicate_view = truths.predicate_view(instance)
+    truth = evaluate(expressions.canonicalize(state_policy["when"]), predicate_view)
+    blocker = state_policy.get("blocked_when")
+    if blocker is not None and truth != FALSE:
+        # A blocker excludes the state only when it is CONFIRMED, which is what makes it
+        # different from adding `NOT(...)` to `when`.  Under Kleene, that conjunct also
+        # withholds the state while the blocker is UNKNOWN, and conditions like 수단·대상의
+        # 착오 are only ever written down when they happened -- so requiring their negation
+        # made 장애미수 permanently underivable.  An unknown blocker blocks nothing.
+        if evaluate(expressions.canonicalize(blocker), predicate_view) == TRUE:
+            truth = FALSE
     return CompletionCandidateOutcome(
         state=state,
-        truth=evaluate(expressions.canonicalize(state_policy["when"]), predicate_view),
+        truth=truth,
         component_instance=component_instance,
     )
 
@@ -319,8 +336,19 @@ def expression_after_component_suspensions(
     return expression
 
 
-def _derive_state(outcomes: tuple[CompletionCandidateOutcome, ...]) -> CompletionState:
-    """Set cardinalities only -- no ordering, no priority, no fallback.
+def _derive_state(
+    outcomes: tuple[CompletionCandidateOutcome, ...],
+    states: Mapping[str, Mapping[str, object]] | None = None,
+) -> CompletionState:
+    """Set cardinalities, plus the yielding an author declared explicitly.
+
+    Before counting, a TRUE state that declares `defeated_by_state` yields to any state it
+    names that is *also* TRUE.  This is not the runtime picking a winner: the pair is written
+    in the policy, and an undeclared collision still falls through to `unresolved` below.  It
+    exists because 형법 제26조 중지미수 is a special rule over 제25조's general attempt, and the
+    general state cannot be made to require proof that the special one did not occur -- "자의로
+    중지하지 않았다" is never an affirmative case fact, so that conjunct is permanently UNKNOWN.
+    Yielding keeps the exception exact without ever reading UNKNOWN as a negation.
 
         |T| == 1          -> that state          (regardless of U: a confirmed state is decided)
         |T| >= 2          -> unresolved          (authoring defect; never broken by ranking)
@@ -335,6 +363,13 @@ def _derive_state(outcomes: tuple[CompletionCandidateOutcome, ...]) -> Completio
     위험성 was unassessed, which is the failure mode step 6A's first draft had.
     """
     true_states = [outcome.state for outcome in outcomes if outcome.truth == TRUE]
+    if states:
+        confirmed = set(true_states)
+        true_states = [
+            state
+            for state in true_states
+            if not (set(states[state].get("defeated_by_state") or ()) & confirmed)
+        ]
     if len(true_states) == 1:
         return true_states[0]  # type: ignore[return-value]
     if len(true_states) > 1:

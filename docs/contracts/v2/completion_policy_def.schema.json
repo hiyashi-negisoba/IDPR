@@ -2,21 +2,40 @@
   "$id": "https://schemas.idpr.local/v2/CompletionPolicyDef",
   "description": "v2.1.0 section 14 — Completion as an orthogonal runtime axis. Attaches to an OffenseDef and declares, per completion STATE, (a) the condition under which the case is in that state, (b) whether that state is a punishable legal shape at all, and (c) how the offense's obligations differ in it. 2026-08-08 7th addendum reframed this file: it is NOT a menu of selectable programs. Completion is a legal judgement about one offense instance, derived symbolically from case truths — CompletionPolicyDef + case truths -> CompletionResult (section 14.2). There is no form-selection engine, no priority order, and no 'completed failed -> attach attempt label' fallback: every state carries its own explicit `when`, and the runtime derives the state from the set of conditions that hold. See docs/contracts/v2/SCHEMA_NOTES.md, '7차 수정'.",
   "type": "object",
-  "required": ["id", "offense", "states"],
+  "required": [
+    "id",
+    "offense",
+    "states"
+  ],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
-    "offense": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "OffenseDef id this policy governs." },
+    "id": {
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+    },
+    "offense": {
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+      "description": "OffenseDef id this policy governs."
+    },
     "states": {
       "type": "object",
       "additionalProperties": false,
       "minProperties": 1,
       "properties": {
-        "completed": { "$ref": "#/$defs/state_policy" },
-        "attempted": { "$ref": "#/$defs/state_policy" },
-        "preparation": { "$ref": "#/$defs/state_policy" },
-        "abandoned_attempt": { "$ref": "#/$defs/state_policy" },
-        "impossible_attempt": { "$ref": "#/$defs/state_policy" }
+        "completed": {
+          "$ref": "#/$defs/state_policy"
+        },
+        "attempted": {
+          "$ref": "#/$defs/state_policy"
+        },
+        "preparation": {
+          "$ref": "#/$defs/state_policy"
+        },
+        "abandoned_attempt": {
+          "$ref": "#/$defs/state_policy"
+        },
+        "impossible_attempt": {
+          "$ref": "#/$defs/state_policy"
+        }
       },
       "description": "The completion states section 14.2 lists, keyed by state name. Named `states`, not `forms`: 'form' invited reading these as interchangeable programs one of which gets selected, which is exactly the abstraction the 7th addendum removed. Omitting a key and declaring it with punishable:false are DIFFERENT statements — omitted means this offense has no such legal state at all (it can never be derived), while punishable:false means the state IS derivable and nameable but carries no punishment (위험성 없는 불능미수, 예비 불벌). The runtime needs the second one to terminate honestly at Completion instead of silently producing nothing."
     }
@@ -24,7 +43,10 @@
   "$defs": {
     "state_policy": {
       "type": "object",
-      "required": ["when", "punishable"],
+      "required": [
+        "when",
+        "punishable"
+      ],
       "additionalProperties": false,
       "properties": {
         "when": {
@@ -42,17 +64,23 @@
         "suspends": {
           "type": "array",
           "uniqueItems": true,
-          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name" },
+          "items": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name"
+          },
           "description": "Fixed slots whose obligation DOES NOT EXIST in this state. Absent/empty = the completed shape, every slot obligated. This is what makes 미수 expressible without lying: an attempt is not the completed offense with death rewritten to TRUE, it is a program in which the result and causation obligations are absent. The runtime drops these slots from the fold entirely — it never substitutes TRUE, so this is also distinct from the evaluator's 'empty slot -> vacuous TRUE' path. Typical: attempted/impossible_attempt/abandoned_attempt -> [result, causation]; preparation -> [conduct, result, causation], with the preparatory act supplied by that state's `requires`. `completed` must not declare any."
         },
         "component_suspends": {
           "type": "array",
-          "items": { "$ref": "#/$defs/component_suspension" },
+          "items": {
+            "$ref": "#/$defs/component_suspension"
+          },
           "description": "Phase 5.1 Article 339 only: remove named slot contributions from one offense-family component occurrence, without removing sibling component contributions to that same top-level slot. This is not a general slot-suspension replacement."
         },
         "relations": {
           "type": "array",
-          "items": { "$ref": "#/$defs/relation_disposition" },
+          "items": {
+            "$ref": "#/$defs/relation_disposition"
+          },
           "description": "Explicit disposition of this offense's relation obligations in this state. Required to cover EVERY relation instance of the offense whenever `suspends` is non-empty, and unnecessary otherwise (a state that suspends nothing retains everything). The compiler does not infer which relations are 'affected' by a suspension: slot topology does not determine it (in a result-crime attempt only the result side is suspended, yet causal_nexus must still disappear), and an inference rule that got it wrong would silently execute a wrong program. Requiring the author to dispose of each relation leaves evidence that a human made that legal judgement. Type checker axis 8 (checks/completion.py) enforces the coverage."
         },
         "requires": {
@@ -62,49 +90,103 @@
         "punishability_note": {
           "type": "string",
           "description": "Free text for now. Open Question #5 (v2.1.0 section 25) — how far sentencing/punishment modification goes is undecided; this is a placeholder, not a typed effect. Section 14.2's `applicable_effects` is deliberately not modelled yet for the same reason."
+        },
+        "defeated_by_state": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "completed",
+              "attempted",
+              "preparation",
+              "abandoned_attempt",
+              "impossible_attempt"
+            ]
+          },
+          "minItems": 1,
+          "uniqueItems": true,
+          "description": "Sibling states of THIS policy that this state yields to when they are TRUE. The only authored exception to 'no ranking': a general state (형법 제25조 장애미수) may not require proof that a special one (제26조 중지미수) did not occur, because facts like 자의적 중지 are never stated in the negative and that conjunct would leave the general state permanently UNKNOWN. Yielding never turns an UNKNOWN into a negation: the named state must be independently TRUE before this one steps aside. Axis 8 (checks/completion.py) requires the target to be a sibling of the same policy and forbids self-reference and cycles; collisions between states that declare nothing stay `unresolved` as before."
+        },
+        "blocked_when": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression",
+          "description": "A factual condition that excludes this state when it is CONFIRMED TRUE. Distinct from adding `NOT(...)` to `when`: under Kleene that conjunct also withholds the state while the condition is UNKNOWN, and exceptional facts such as 수단·대상의 착오 (형법 제27조) or 자의적 중지 (제26조) are only ever written into a case when they occurred. Requiring their negation therefore left the general attempt of 제25조 permanently underivable rather than merely unproven. An UNKNOWN or FALSE blocker blocks nothing. Distinct from `defeated_by_state`, which yields to a sibling state that is itself confirmed; this excludes on a raw predicate regardless of whether any sibling has been derived."
         }
       }
     },
     "relation_disposition": {
       "type": "object",
-      "required": ["relation", "left", "right", "disposition"],
+      "required": [
+        "relation",
+        "left",
+        "right",
+        "disposition"
+      ],
       "additionalProperties": false,
       "properties": {
-        "relation": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "RelationDef id, same as derived_offense_def.schema.json's relation_binding.relation." },
-        "left": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key" },
-        "right": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key" },
+        "relation": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+          "description": "RelationDef id, same as derived_offense_def.schema.json's relation_binding.relation."
+        },
+        "left": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key"
+        },
+        "right": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key"
+        },
         "path": {
           "type": "array",
-          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key" },
+          "items": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key"
+          },
           "description": "The local_key chain from the top-level offense down to the derivation that owns this relation binding, empty/absent for the offense's own relations. Together with relation/left/right this reconstructs relations.RelationInstanceKey.occurrence_path, so that two occurrences of the same nested definition get disposed of separately rather than one disposition silently answering for both (the collision Step 5 fixed). Axis 8 resolves these against relations.iter_relation_instances() output — no new traversal logic."
         },
         "disposition": {
-          "enum": ["retain", "suspend"],
+          "enum": [
+            "retain",
+            "suspend"
+          ],
           "description": "retain = this relation obligation still holds in this state; suspend = it does not exist in this state (the runtime drops it from the fold, exactly as with a suspended slot). There is no third 'infer' value and no default: the whole point is that this is authored, not derived."
         }
       }
     },
     "component_scope": {
       "type": "object",
-      "required": ["local_key", "offense"],
+      "required": [
+        "local_key",
+        "offense"
+      ],
       "additionalProperties": false,
       "properties": {
-        "local_key": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key" },
-        "offense": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" }
+        "local_key": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key"
+        },
+        "offense": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+        }
       }
     },
     "component_suspension": {
       "type": "object",
-      "required": ["local_key", "offense", "slots"],
+      "required": [
+        "local_key",
+        "offense",
+        "slots"
+      ],
       "additionalProperties": false,
       "properties": {
-        "local_key": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key" },
-        "offense": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+        "local_key": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key"
+        },
+        "offense": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+        },
         "slots": {
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name" }
+          "items": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name"
+          }
         }
       }
     }

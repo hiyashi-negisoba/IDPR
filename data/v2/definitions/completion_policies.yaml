@@ -112,9 +112,9 @@
         args:
           - {op: ref, ref: legal_element.commencement_of_execution}
           - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
-          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
-          - {op: not, arg: {op: ref, ref: legal_element.voluntary_cessation_or_prevention}}
       punishable: true
+      blocked_when: {op: ref, ref: ground_fact.means_or_object_defect}
+      defeated_by_state: [abandoned_attempt]
       suspends: [result, causation]
       requires: {op: ref, ref: legal_element.commencement_of_execution}
     abandoned_attempt:
@@ -123,9 +123,9 @@
         args:
           - {op: ref, ref: legal_element.commencement_of_execution}
           - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
-          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
           - {op: ref, ref: legal_element.voluntary_cessation_or_prevention}
       punishable: true
+      blocked_when: {op: ref, ref: ground_fact.means_or_object_defect}
       suspends: [result, causation]
       requires:
         op: all
@@ -158,6 +158,7 @@
               - {op: ref, ref: legal_element.conspiracy_agreement}
           - {op: not, arg: {op: ref, ref: legal_element.commencement_of_execution}}
       punishable: true
+      defeated_by_state: [completed]
       suspends: [conduct, result, causation]
       requires: {op: ref, ref: legal_element.purpose_to_commit_target_offense}
 
@@ -173,9 +174,9 @@
         args:
           - {op: ref, ref: legal_element.commencement_of_execution}
           - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
-          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
-          - {op: not, arg: {op: ref, ref: legal_element.voluntary_cessation_or_prevention}}
       punishable: true
+      blocked_when: {op: ref, ref: ground_fact.means_or_object_defect}
+      defeated_by_state: [abandoned_attempt]
       suspends: [result, causation]
       requires: {op: ref, ref: legal_element.commencement_of_execution}
     abandoned_attempt:
@@ -184,9 +185,9 @@
         args:
           - {op: ref, ref: legal_element.commencement_of_execution}
           - {op: not, arg: {op: ref, ref: ground_fact.death_of_victim}}
-          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
           - {op: ref, ref: legal_element.voluntary_cessation_or_prevention}
       punishable: true
+      blocked_when: {op: ref, ref: ground_fact.means_or_object_defect}
       suspends: [result, causation]
       requires:
         op: all
@@ -222,9 +223,9 @@
         args:
           - {op: ref, ref: legal_element.commencement_of_execution}
           - {op: not, arg: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}}
-          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
-          - {op: not, arg: {op: ref, ref: legal_element.voluntary_cessation_or_prevention}}
       punishable: true
+      blocked_when: {op: ref, ref: ground_fact.means_or_object_defect}
+      defeated_by_state: [abandoned_attempt]
       suspends: [conduct, causation]
       requires: {op: ref, ref: legal_element.commencement_of_execution}
     abandoned_attempt:
@@ -233,9 +234,9 @@
         args:
           - {op: ref, ref: legal_element.commencement_of_execution}
           - {op: not, arg: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}}
-          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
           - {op: ref, ref: legal_element.voluntary_cessation_or_prevention}
       punishable: true
+      blocked_when: {op: ref, ref: ground_fact.means_or_object_defect}
       suspends: [conduct, causation]
       requires:
         op: all
@@ -276,8 +277,8 @@
           - {op: ref, ref: legal_element.commencement_of_execution}
           - {op: ref, ref: legal_element.mental_incapacity_or_physical_helplessness_status}
           - {op: not, arg: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}}
-          - {op: not, arg: {op: ref, ref: legal_element.voluntary_cessation_or_prevention}}
       punishable: true
+      blocked_when: {op: ref, ref: ground_fact.means_or_object_defect}
       suspends: [conduct]
       requires: {op: ref, ref: legal_element.commencement_of_execution}
     impossible_attempt:
@@ -309,8 +310,8 @@
         args:
           - {op: ref, ref: legal_element.commencement_of_execution}
           - {op: not, arg: {op: ref, ref: ground_fact.taking_conduct}}
-          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
       punishable: true
+      blocked_when: {op: ref, ref: ground_fact.means_or_object_defect}
       suspends: [conduct]
       requires: {op: ref, ref: legal_element.commencement_of_execution}
     impossible_attempt:
@@ -342,8 +343,8 @@
         args:
           - {op: ref, ref: legal_element.commencement_of_execution}
           - {op: not, arg: {op: ref, ref: ground_fact.taking_conduct}}
-          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
       punishable: true
+      blocked_when: {op: ref, ref: ground_fact.means_or_object_defect}
       suspends: [conduct]
       requires: {op: ref, ref: legal_element.commencement_of_execution}
     impossible_attempt:
@@ -375,8 +376,8 @@
         args:
           - {op: ref, ref: legal_element.commencement_of_execution}
           - {op: not, arg: {op: ref, ref: legal_element.injury_result}}
-          - {op: not, arg: {op: ref, ref: ground_fact.means_or_object_defect}}
       punishable: true
+      blocked_when: {op: ref, ref: ground_fact.means_or_object_defect}
       suspends: [result]
       requires: {op: ref, ref: legal_element.commencement_of_execution}
     impossible_attempt:
@@ -421,6 +422,7 @@
               - {op: ref, ref: legal_element.conspiracy_agreement}
           - {op: not, arg: {op: ref, ref: legal_element.commencement_of_execution}}
       punishable: true
+      defeated_by_state: [completed]
       suspends: [conduct]
       requires: {op: ref, ref: legal_element.purpose_to_commit_target_offense}
 

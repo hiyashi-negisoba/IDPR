@@ -66,6 +66,7 @@ def check_completion(registry: DefinitionRegistry) -> list[Finding]:
 
         states = entry.payload.get("states") or {}
         findings.extend(_check_states_declared(entry, states))
+        findings.extend(_check_defeat_declarations(entry, states))
 
         compiled = compile.compile_offense(registry, offense_ref, memo=memo, in_progress=in_progress)
         if not isinstance(compiled, CompiledOffense):
@@ -92,6 +93,55 @@ def _check_states_declared(entry: DefinitionEntry, states: Mapping[str, object])
     return []
 
 
+def _check_defeat_declarations(
+    entry: DefinitionEntry, states: Mapping[str, Mapping[str, object]]
+) -> list[Finding]:
+    """`defeated_by_state` is the only authored yielding, so it has to stay inspectable.
+
+    A target outside this policy, a self-reference, or a cycle would each turn the declaration
+    into the hidden priority the runtime refuses to have.  Collisions between states that
+    declare nothing remain `unresolved` -- that path is untouched here.
+    """
+    findings: list[Finding] = []
+    declared = {
+        name: tuple(state.get("defeated_by_state") or ())
+        for name, state in states.items()
+        if isinstance(state, Mapping)
+    }
+    for name, targets in declared.items():
+        path = f"states.{name}.defeated_by_state"
+        for target in targets:
+            if target == name:
+                findings.append(Finding(
+                    _AXIS, "completion_defeat_self_reference", entry.id, path,
+                    "a state cannot yield to itself",
+                ))
+            elif target not in states:
+                findings.append(Finding(
+                    _AXIS, "completion_defeat_target_absent", entry.id, path,
+                    f"{target!r} is not declared by this policy -- yielding may only name a "
+                    "sibling state of the same offense",
+                ))
+    for name in declared:
+        seen: set[str] = set()
+        frontier = [name]
+        while frontier:
+            current = frontier.pop()
+            for target in declared.get(current, ()):
+                if target == name:
+                    findings.append(Finding(
+                        _AXIS, "completion_defeat_cycle", entry.id,
+                        f"states.{name}.defeated_by_state",
+                        "yielding forms a cycle -- no state could ever be derived from it",
+                    ))
+                    frontier = []
+                    break
+                if target not in seen:
+                    seen.add(target)
+                    frontier.append(target)
+    return findings
+
+
 def _check_state(
     entry: DefinitionEntry,
     name: str,
@@ -102,6 +152,14 @@ def _check_state(
     findings: list[Finding] = []
     path = f"states.{name}"
     suspends = tuple(state.get("suspends") or ())
+
+    blocker = state.get("blocked_when")
+    if blocker is not None and name == "completed":
+        findings.append(Finding(
+            _AXIS, "completion_completed_state_blocked", entry.id, f"{path}.blocked_when",
+            "the completed state cannot be excluded by a factual blocker -- a completed offence "
+            "is decided by its own `when`, and anything that defeats it belongs in that condition",
+        ))
 
     if name == "completed" and suspends:
         findings.append(Finding(
