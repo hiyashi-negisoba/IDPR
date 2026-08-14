@@ -32,13 +32,26 @@ def build_vanilla_user_prompt(question_text: str, question_prompt: str) -> str:
 class VanillaBaseline(BaseBaseline):
     """Vanilla Zero-shot LLM Baseline."""
 
-    def __init__(self, client: VLLMClient | None = None) -> None:
+    def __init__(
+        self,
+        client: VLLMClient | None = None,
+        *,
+        temperature: float = 0.0,
+        max_tokens: int = 4096,
+    ) -> None:
+        """``temperature`` and ``max_tokens`` default to the values the first baseline
+        sweep ran at, so an unparameterised call reproduces that artifact.  They are
+        settable because a condition comparison wants every knob equal across arms except
+        the pipeline under test, and the IDPR runs decode at 0.7 / 8192.
+        """
         super().__init__(
             baseline_id="vanilla_zero_shot",
             name="Vanilla LLM (Zero-shot)",
             description="Direct zero-shot parametric reasoning by LLM without additional context or structured prompt."
         )
         self.client = client
+        self.temperature = temperature
+        self.max_tokens = max_tokens
 
     def run_case(self, case_data: Dict[str, Any]) -> Dict[str, Any]:
         question_text = case_data.get("question_text", "")
@@ -53,8 +66,8 @@ class VanillaBaseline(BaseBaseline):
                 response_text = self.client.complete_text(
                     system_prompt=system_prompt,
                     user_template=user_prompt,
-                    temperature=0.0,
-                    max_tokens=4096
+                    temperature=self.temperature,
+                    max_tokens=self.max_tokens,
                 )
             except Exception as e:
                 response_text = f"[vLLM Direct Call Failure: {e}]"
@@ -76,6 +89,8 @@ class VanillaBaseline(BaseBaseline):
             "reasoning_trace": {
                 "method": "zero_shot_direct",
                 "vllm_connected": self.client is not None,
-                "system_prompt": system_prompt
+                "system_prompt": system_prompt,
+                "temperature": self.temperature,
+                "max_tokens": self.max_tokens,
             }
         }

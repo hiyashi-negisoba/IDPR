@@ -35,7 +35,11 @@ class BaselineExperimentRunner:
         vllm_base_url: Optional[str] = None,
         vllm_model: Optional[str] = None,
         output_dir: str | Path = "experiments/results",
+        temperature: Optional[float] = None,
+        max_tokens: Optional[int] = None,
     ) -> None:
+        self.temperature = temperature
+        self.max_tokens = max_tokens
         self.output_dir = Path(output_dir)
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -56,7 +60,17 @@ class BaselineExperimentRunner:
 
         # Register 7 Comparison Baselines
         self.baselines: Dict[str, BaseBaseline] = {
-            "vanilla_zero_shot": VanillaBaseline(client=self.vllm_client),
+            "vanilla_zero_shot": VanillaBaseline(
+                client=self.vllm_client,
+                **{
+                    key: value
+                    for key, value in (
+                        ("temperature", self.temperature),
+                        ("max_tokens", self.max_tokens),
+                    )
+                    if value is not None
+                },
+            ),
             "chain_of_thought": CoTBaseline(client=self.vllm_client),
             "standard_rag": StandardRAGBaseline(client=self.vllm_client),
             "legal_chain_reasoner": LegalChainReasonerBaseline(client=self.vllm_client),
@@ -98,9 +112,19 @@ class BaselineExperimentRunner:
         selected_baseline_ids: Optional[Sequence[str]] = None,
         limit: Optional[int] = None,
         verbose: bool = True,
+        case_ids: Optional[Sequence[str]] = None,
     ) -> Dict[str, List[Dict[str, Any]]]:
         """Runs specified baselines against benchmark dataset and persists results."""
         cases = self.load_dataset(dataset_path, limit=limit)
+        if case_ids is not None:
+            wanted = set(case_ids)
+            cases = [case for case in cases if str(case.get("sub_question_id")) in wanted]
+            found = {str(case.get("sub_question_id")) for case in cases}
+            if wanted - found:
+                raise ValueError(
+                    f"dataset is missing {len(wanted - found)} requested cases: "
+                    f"{sorted(wanted - found)[:3]}"
+                )
         
         target_ids = (
             list(selected_baseline_ids)

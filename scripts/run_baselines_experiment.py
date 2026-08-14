@@ -63,6 +63,24 @@ def main() -> None:
         help="vLLM model name (e.g. gemma-4-26b-it)",
     )
     parser.add_argument(
+        "--temperature",
+        type=float,
+        default=None,
+        help="Decoding temperature; omit to keep each baseline's own default",
+    )
+    parser.add_argument(
+        "--max-tokens",
+        type=int,
+        default=None,
+        help="Decoding max_tokens; omit to keep each baseline's own default",
+    )
+    parser.add_argument(
+        "--case-id-file",
+        type=str,
+        default=None,
+        help="One sub_question_id per line; restricts the run to that subset",
+    )
+    parser.add_argument(
         "--list",
         action="store_true",
         help="List all registered comparison baselines and exit",
@@ -73,6 +91,8 @@ def main() -> None:
     runner = BaselineExperimentRunner(
         vllm_base_url=args.vllm_url,
         vllm_model=args.vllm_model,
+        temperature=args.temperature,
+        max_tokens=args.max_tokens,
         output_dir=args.outdir,
     )
 
@@ -89,11 +109,20 @@ def main() -> None:
     selected_ids = [b.strip() for b in args.baseline.split(",") if b.strip()]
 
     print("\n🚀 Initializing IDPR Baseline Experiment Runner...")
+    case_ids = None
+    if args.case_id_file:
+        case_ids = [
+            line.strip()
+            for line in Path(args.case_id_file).read_text(encoding="utf-8").splitlines()
+            if line.strip() and not line.startswith("#")
+        ]
+
     results = runner.run_experiments(
         dataset_path=args.dataset,
         selected_baseline_ids=selected_ids,
         limit=args.limit,
         verbose=True,
+        case_ids=case_ids,
     )
 
     print("\n📊 Summary of Results Generated:")
