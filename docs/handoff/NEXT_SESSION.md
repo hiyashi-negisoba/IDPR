@@ -1321,3 +1321,23 @@ upper-bound counterfactual 결과:
 
 **활성 prompt는 아직 변경하지 않았고 승인 대기다.** 승인 후에도 exact 17 target paired arm만
 먼저 실행하며, 통과 전 production Call 2와 N/P는 계속 동결한다.
+
+---
+
+## 2026-08-14 -- UNKNOWN 49-target prompt × evidence factorial
+
+정본은 `docs/analysis/v2_call2_uncertainty_factorial_49_run_review_ko.md`다. 사용자의 지적대로 C만
+떼지 않고 B_SAFE 32 + C 17을 합쳐 현행/수정 prompt × occurrence/episode 2×2를 job 222907에서
+실행했다.
+
+- candidate prompt: occurrence C agreement **1/17 -> 1/17**, 개선 0. mixed에서도 2/17뿐이며
+  B target TRUE -> UNKNOWN 1, TRUE -> FALSE 1 발생. **기각**.
+- 현행 prompt + safe episode: B intended agreement **25/32**, 반대 known 0, UNKNOWN 7.
+- 복구 25개 downstream: symbolic 8문항, **final responsibility 3문항**, required-final conclusion
+  4문항 변화.
+
+결론: dead branch 다음 큰 UNKNOWN 원인은 prompt 어조가 아니라 **offense-level predicate에
+actor-action 한 문장만 준 evidence packaging**이다. 후속은 actor-aware realization carrier다.
+모든 episode 전문을 주지 말고 다른 actor action을 기본 제외한 typed context를 만들며,
+direct/derived GroundFact는 한 번 평가 후 projection해 conflict를 막는다. production prompt와 N/P는
+변경하지 않았다.

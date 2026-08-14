@@ -12,12 +12,14 @@ from scripts.analyze_v2_call2_target_placement import (
     placement_bucket,
     review_records_from_call2,
 )
+from scripts.analyze_v2_call2_uncertainty_factorial import _transition_counts
 from scripts.analyze_v2_realization_link_impact import assessment_truths
 from scripts.diagnose_v2_call2_evidence_scope import factual_episode_evidence
 from scripts.diagnose_v2_call2_mixed_evidence import (
     actor_bound_ground_fact,
     mixed_carrier,
 )
+from scripts.diagnose_v2_call2_overliteral_policy import reviewed_targets
 
 
 def test_residual_unknown_operational_buckets_are_conservative():
@@ -209,6 +211,29 @@ def test_overliteral_impact_separates_instance_and_final_view_changes():
             "final_responsibility_changed": False,
         }
     ]
+
+
+def test_overliteral_policy_runner_loads_exact_reviewed_targets(tmp_path):
+    path = tmp_path / "review.json"
+    path.write_text(
+        '{"records":[{"review_id":"RU-1","tier":"C_HIGH",'
+        '"instance_key":{"case_id":"case","actor_id":"A",'
+        '"offense_ref":"offense.theft","occurrence_id":"binding:1"},'
+        '"predicate_ref":"legal_element.intent","counterfactual_truth":"TRUE"}]}'
+        "\n",
+        encoding="utf-8",
+    )
+    by_case, metadata = reviewed_targets(path)
+    assert list(by_case) == ["case"]
+    assert by_case["case"][0].predicate_ref == "legal_element.intent"
+    assert next(iter(metadata.values()))["review_id"] == "RU-1"
+
+
+def test_uncertainty_factorial_transition_counts_are_exact():
+    keys = [("case", "A", "offense", "binding:1", "predicate")]
+    assert _transition_counts({keys[0]: "UNKNOWN"}, {keys[0]: "TRUE"}, keys) == {
+        "UNKNOWN->TRUE": 1
+    }
 
 
 def test_mixed_carrier_keeps_actor_ground_fact_local_and_expands_legal_element():

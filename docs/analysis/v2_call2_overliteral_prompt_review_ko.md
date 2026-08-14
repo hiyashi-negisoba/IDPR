@@ -108,5 +108,15 @@ LegalElement 포섭이며, actor-local GroundFact·source-binding 계약을 느�
 4. C 외 residual target을 추가 표본 검수하여 closed-world FALSE와 D 소거가 없는지 확인한다.
 5. 통과해도 full Call 2는 아직 돌리지 않고 D dispute route와 함께 final lineage에서 한 번만 실행한다.
 
-현재 상태는 **문언 승인 대기**다. 승인 전에는 prompt 파일, production truth, N/P를 변경하지 않는다.
+## 실행 후 판정
 
+승인된 exact-target 진단을 B_SAFE episode subset과 합쳐 49-target 2×2로 실행했다. 정본은
+`docs/analysis/v2_call2_uncertainty_factorial_49_run_review_ko.md`다.
+
+- candidate prompt는 occurrence-scope C 17개를 하나도 바꾸지 못했다.
+- mixed evidence에서도 C intended agreement는 1/17 -> 2/17에 그쳤다.
+- B target에서 TRUE -> UNKNOWN 1, TRUE -> FALSE 1 부작용이 있었다.
+
+따라서 이 문서의 prompt 수정안은 **기각**한다. production prompt는 변경하지 않는다. 반면 현행
+prompt + attribution-safe episode evidence는 B 32개 중 25개를 의도한 known 값으로 복구했고
+반대 known 값은 0이었다. 후속 소유권은 prompt가 아니라 actor-aware realization carrier다.
