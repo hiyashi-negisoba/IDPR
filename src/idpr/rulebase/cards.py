@@ -25,10 +25,11 @@ from __future__ import annotations
 
 import json
 import re
+from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Iterable, Mapping, Sequence
+from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[3]
 
@@ -81,6 +82,7 @@ class Card:
     source_section_paths: tuple[str, ...] = ()
     authority_basis: str = ""
     review_notes: str = ""
+    variant_group: str | None = None
 
     @property
     def is_standard_input(self) -> bool:
@@ -203,6 +205,7 @@ def _card_from_raw(
         source_section_paths=tuple(section_paths),
         authority_basis=raw.get("authority_basis", ""),
         review_notes=raw.get("review_notes", ""),
+        variant_group=(str(raw["variant_group"]) if raw.get("variant_group") else None),
     )
 
 

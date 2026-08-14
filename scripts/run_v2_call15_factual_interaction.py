@@ -16,6 +16,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from idpr.eval.input_formatter import assert_no_leaked_fields
 from idpr.neural.vllm_client import VLLMClient, VLLMClientError
 from idpr.prompts import load_prompt, prompt_path
+from idpr.v2.deterministic_interactions import explicit_conspiracy_interactions
 from idpr.v2.factual_interaction import (
     FactualInteractionContractError,
     factual_interaction_request_payload,
@@ -86,6 +87,8 @@ def main() -> None:
     parser.add_argument("--seed", type=int, default=1)
     parser.add_argument("--contract-retries", type=int, default=2)
     parser.add_argument("--prompt-approved", action="store_true")
+    parser.add_argument("--system-prompt-file", type=Path)
+    parser.add_argument("--user-prompt-file", type=Path)
     args = parser.parse_args()
     if not args.prompt_approved:
         parser.error("--prompt-approved is required before a Call 1.5-P model run")
@@ -102,7 +105,18 @@ def main() -> None:
         raise ValueError(f"missing selected cases: {missing}")
 
     client = VLLMClient(args.base_url, args.model, args.api_key)
-    system_prompt, user_prompt = (load_prompt(value) for value in PROMPTS)
+    if bool(args.system_prompt_file) != bool(args.user_prompt_file):
+        parser.error("--system-prompt-file and --user-prompt-file must be supplied together")
+    if args.system_prompt_file:
+        system_prompt = args.system_prompt_file.read_text(encoding="utf-8")
+        user_prompt = args.user_prompt_file.read_text(encoding="utf-8")
+        prompt_manifest = {
+            "system": _sha256(args.system_prompt_file),
+            "user": _sha256(args.user_prompt_file),
+        }
+    else:
+        system_prompt, user_prompt = (load_prompt(value) for value in PROMPTS)
+        prompt_manifest = {value: _sha256(prompt_path(value)) for value in PROMPTS}
     args.out.parent.mkdir(parents=True, exist_ok=True)
     output_rows: list[dict[str, Any]] = []
     usage_total = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
@@ -175,6 +189,29 @@ def main() -> None:
                                 else args.repair_temperature
                             ),
                             seed=args.seed + attempt - 1,
+                        )
+                        deterministic = explicit_conspiracy_interactions(
+                            episode_source_quotes=payload["episode_source_quotes"],
+                            episode_participant_ids=payload["episode_participant_ids"],
+                            responsibility_actor_ids=payload["responsibility_actor_ids"],
+                        )
+                        existing_routes = {
+                            (
+                                value.get("interaction_type"),
+                                value.get("source_actor_id"),
+                                tuple(value.get("target_actor_ids") or ()),
+                            )
+                            for value in raw.get("interactions", ())
+                        }
+                        raw["interactions"].extend(
+                            value
+                            for value in deterministic
+                            if (
+                                value["interaction_type"],
+                                value["source_actor_id"],
+                                tuple(value["target_actor_ids"]),
+                            )
+                            not in existing_routes
                         )
                         usage = metadata.get("usage", {})
                         for key in usage_total:
@@ -268,7 +305,7 @@ def main() -> None:
         "call15_artifact_sha256": _sha256(args.call15_artifact),
         "inventory_sha256": _sha256(args.inventory),
         "case_list_sha256": _sha256(args.case_list),
-        "prompts": {value: _sha256(prompt_path(value)) for value in PROMPTS},
+        "prompts": prompt_manifest,
     }
     args.out.with_suffix(".manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",

@@ -137,6 +137,8 @@ def main() -> None:
     parser.add_argument("--binding-cues", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--max-tokens", type=int, default=1536)
+    parser.add_argument("--system-prompt-file", type=Path)
+    parser.add_argument("--user-prompt-file", type=Path)
     args = parser.parse_args()
 
     call1 = {row["sub_question_id"]: row for row in _jsonl(args.call1)}
@@ -164,7 +166,27 @@ def main() -> None:
     registry = load_definitions(args.definitions)
     cues = load_binding_seed_cue_catalog(args.binding_cues)
     client = VLLMClient(args.base_url, args.model, args.api_key)
-    system_prompt, user_prompt = (load_prompt(name) for name in PROMPTS)
+    if bool(args.system_prompt_file) != bool(args.user_prompt_file):
+        parser.error("--system-prompt-file and --user-prompt-file must be supplied together")
+    if args.system_prompt_file:
+        system_prompt = args.system_prompt_file.read_text(encoding="utf-8")
+        user_prompt = args.user_prompt_file.read_text(encoding="utf-8")
+        prompt_sources = {
+            "system": {
+                "path": str(args.system_prompt_file),
+                "sha256": _sha256(args.system_prompt_file),
+            },
+            "user": {
+                "path": str(args.user_prompt_file),
+                "sha256": _sha256(args.user_prompt_file),
+            },
+        }
+    else:
+        system_prompt, user_prompt = (load_prompt(name) for name in PROMPTS)
+        prompt_sources = {
+            name: {"path": str(prompt_path(name)), "sha256": _sha256(prompt_path(name))}
+            for name in PROMPTS
+        }
     rows = []
     usage_total = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
     for index, target in enumerate(targets, 1):
@@ -258,7 +280,7 @@ def main() -> None:
         "targets_sha256": _sha256(args.targets) if args.targets is not None else None,
         "call1_sha256": _sha256(args.call1),
         "call15_sha256": _sha256(args.call15),
-        "prompts": {name: _sha256(prompt_path(name)) for name in PROMPTS},
+        "prompts": prompt_sources,
     }
     args.out.with_suffix(".manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"

@@ -4,7 +4,10 @@ from idpr.v2.gold_factual_identity import GoldOccurrence
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.evaluation_instance_planner import _instance_predicate_refs
 from idpr.v2.runtime.grounding import AssessmentTarget
-from idpr.v2.runtime.grounding_evidence import actor_aware_realization_context
+from idpr.v2.runtime.grounding_evidence import (
+    actor_aware_realization_context,
+    source_binding_realization_context,
+)
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from scripts.analyze_v2_call2_mixed_evidence import transition_counts
 from scripts.analyze_v2_call2_overliteral_impact import changed_symbolic_cases
@@ -150,6 +153,45 @@ def test_actor_bound_ground_fact_never_receives_realization_context():
         },
     )
     assert context is None
+
+
+def test_source_binding_context_does_not_admit_same_actor_episode_sibling():
+    registry = load_definitions(Path("data/v2/definitions"))
+    target = AssessmentTarget(
+        OffenseInstanceKey("case", "甲", "offense.theft", "binding:1"),
+        "legal_element.unlawful_appropriation_intent",
+    )
+    issue = {
+        "seed_results": [
+            {
+                "bindings": [
+                    {
+                        "binding_id": "binding:1",
+                        "factual_episode_id": "episode:1",
+                        "actor_id": "甲",
+                        "actor_action_fragments": [{"source_quote": "甲이 가방을 들었다."}],
+                        "context_fragments": [{"source_quote": "가방은 A의 것이었다."}],
+                    },
+                    {
+                        "binding_id": "binding:2",
+                        "factual_episode_id": "episode:1",
+                        "actor_id": "甲",
+                        "actor_action_fragments": [{"source_quote": "甲이 나중에 도망쳤다."}],
+                        "context_fragments": [],
+                    },
+                ]
+            }
+        ]
+    }
+    context = source_binding_realization_context(
+        registry=registry,
+        target=target,
+        plan_row={"derived_binding_candidates": []},
+        issue_row=issue,
+    )
+    assert context is not None
+    assert context["source_binding_ids"] == ["binding:1"]
+    assert context["same_actor_action_evidence"] == ["甲이 가방을 들었다."]
 
 
 def test_target_placement_buckets_keep_role_review_separate_from_provenance():

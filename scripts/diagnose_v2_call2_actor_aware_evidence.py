@@ -29,7 +29,10 @@ from idpr.v2.runtime.grounding import (
     shard_assessment_targets,
     validate_call2_output,
 )
-from idpr.v2.runtime.grounding_evidence import actor_aware_realization_context
+from idpr.v2.runtime.grounding_evidence import (
+    actor_aware_realization_context,
+    source_binding_realization_context,
+)
 from idpr.v2.runtime.identity import OffenseInstanceKey
 
 CURRENT_PROMPT = ROOT / "prompts/v2_call2_grounding.md"
@@ -92,6 +95,11 @@ def main() -> None:
     parser.add_argument("--max-targets-per-request", type=int, default=24)
     parser.add_argument("--max-tokens", type=int, default=4096)
     parser.add_argument("--prompt-approved", action="store_true")
+    parser.add_argument(
+        "--source-binding-only",
+        action="store_true",
+        help="paired control vs narrow planner-source carrier; excludes same-actor siblings",
+    )
     args = parser.parse_args()
     if not args.prompt_approved:
         parser.error("--prompt-approved is required before a Call 2 model run")
@@ -143,8 +151,13 @@ def main() -> None:
             if value.get("truth") == "UNKNOWN"
         )
         request_targets = grounding_request_targets(registry, semantic_targets)
+        context_builder = (
+            source_binding_realization_context
+            if args.source_binding_only
+            else actor_aware_realization_context
+        )
         context_by_target = {
-            target: actor_aware_realization_context(
+            target: context_builder(
                 registry=registry,
                 target=target,
                 plan_row=plan,
@@ -159,11 +172,12 @@ def main() -> None:
                 [],
             ).append(target)
 
-        for arm in (
-            "current_occurrence",
-            "actor_prompt_occurrence",
-            "actor_prompt_context",
-        ):
+        arms = (
+            ("actor_prompt_occurrence", "actor_prompt_source_binding")
+            if args.source_binding_only
+            else ("current_occurrence", "actor_prompt_occurrence", "actor_prompt_context")
+        )
+        for arm in arms:
             system_prompt = current_system if arm == "current_occurrence" else candidate_system
             user_prompt = current_user if arm == "current_occurrence" else candidate_user
             assessments: list[dict[str, Any]] = []
@@ -176,7 +190,7 @@ def main() -> None:
                     occurrence = occurrences[shard[0].instance_key.occurrence_id]
                     context = (
                         context_by_target[shard[0]]
-                        if arm == "actor_prompt_context"
+                        if arm in {"actor_prompt_context", "actor_prompt_source_binding"}
                         else None
                     )
                     refs = tuple(dict.fromkeys(value.predicate_ref for value in shard))
@@ -239,6 +253,7 @@ def main() -> None:
                 "candidate_prompt_sha256": _sha(CANDIDATE_PROMPT),
                 "candidate_user_prompt_sha256": _sha(CANDIDATE_USER),
                 "case_ids": list(selected),
+                "source_binding_only": args.source_binding_only,
                 "residual_unknown_target_count": sum(
                     1
                     for case_id in selected

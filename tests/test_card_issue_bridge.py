@@ -70,6 +70,11 @@ def test_criminal_act_article_key_preserves_subarticle_shape() -> None:
     assert criminal_act_article_key("특정범죄 가중처벌 등에 관한 법률 제5조") is None
 
 
+def test_live_card_preserves_reviewed_variant_group_for_dispute_routing() -> None:
+    card = card_corpus().by_id["art329_sec2_2.dead_person_possession_continuing"]
+    assert card.variant_group == "art329_sec2_2.dead_person_possession"
+
+
 def test_projection_uses_only_authored_identity_for_derived_offense() -> None:
     registry = load_definitions(DEFINITIONS)
     direct = project_offense_articles(registry, "offense.theft")

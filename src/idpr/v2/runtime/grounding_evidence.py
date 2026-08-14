@@ -140,8 +140,69 @@ def actor_aware_realization_context(
     }
 
 
+def source_binding_realization_context(
+    *,
+    registry: DefinitionRegistry,
+    target: AssessmentTarget,
+    plan_row: Mapping[str, object],
+    issue_row: Mapping[str, object],
+) -> dict[str, object] | None:
+    """Use only the planner-authored source bindings for an offense-level predicate.
+
+    This is the narrow production candidate between a one-sentence occurrence and the
+    broad same-actor episode carrier.  It follows explicit derived provenance but never
+    admits a sibling binding merely because it shares an episode id.
+    """
+    if actor_bound_ground_fact(registry, target.predicate_ref):
+        return None
+    bindings = direct_bindings(issue_row)
+    occurrence_id = target.instance_key.occurrence_id
+    derived = next(
+        (
+            value
+            for value in plan_row.get("derived_binding_candidates", ())
+            if isinstance(value, Mapping)
+            and str(value.get("binding_id", "")) == occurrence_id
+        ),
+        None,
+    )
+    source_ids = (
+        tuple(str(value) for value in derived.get("source_binding_ids", ()))
+        if derived is not None
+        else (occurrence_id,)
+    )
+    actor_id = target.instance_key.actor_id
+    selected = [
+        bindings[source_id]
+        for source_id in source_ids
+        if source_id in bindings and str(bindings[source_id].get("actor_id")) == actor_id
+    ]
+    if not selected:
+        return None
+    actor_actions = _deduplicate(
+        [quote for binding in selected for quote in _quotes(binding, "actor_action_fragments")]
+    )
+    contexts = _deduplicate(
+        [quote for binding in selected for quote in _quotes(binding, "context_fragments")]
+    )
+    if not actor_actions and not contexts:
+        return None
+    return {
+        "carrier_policy": "source_binding_realization_v1",
+        "target_actor_id": actor_id,
+        "same_actor_action_evidence": actor_actions,
+        "context_evidence": contexts,
+        "source_binding_ids": [str(value.get("binding_id")) for value in selected],
+        "attribution_rule": (
+            "planner가 이 realization의 source로 명시한 binding만 사용한다. "
+            "context_evidence는 target actor의 별도 행위로 확장하지 않는다."
+        ),
+    }
+
+
 __all__ = [
     "actor_aware_realization_context",
     "actor_bound_ground_fact",
     "direct_bindings",
+    "source_binding_realization_context",
 ]
