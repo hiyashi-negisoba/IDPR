@@ -21,6 +21,7 @@ from idpr.v2.runtime.target_scheduling import (
     live_predicate_refs,
     next_round_targets,
 )
+from scripts.run_v2_call2_pilot import _recorded_request_counts
 
 DEFINITIONS = Path(__file__).resolve().parents[1] / "data/v2/definitions"
 
@@ -128,6 +129,20 @@ def test_an_unanswered_target_cannot_spin_the_loop(registry):
     assert all(ref not in asked for _, ref in again)
 
 
+def test_an_assessed_unknown_advances_to_a_later_conjunct(registry):
+    """UNKNOWN does not kill ALL, so a later FALSE can still settle the guard."""
+    target = instance()
+    known = {COMMENCEMENT: TRUE, DEATH: FALSE, DEFECT: UNKNOWN}
+    batch = next_round_targets(
+        registry,
+        [target],
+        {target: known},
+        already_asked={target: set(known)},
+        candidate_refs={target: {COMMENCEMENT, DEATH, DEFECT, DANGEROUSNESS}},
+    )
+    assert batch == ((target, DANGEROUSNESS),)
+
+
 def test_scheduling_does_not_depend_on_the_blocker_being_a_ground_fact(registry):
     """The blocker here is `commencement_of_execution`, a legal_element.
 
@@ -146,3 +161,12 @@ def test_scheduling_does_not_depend_on_the_blocker_being_a_ground_fact(registry)
     assert cessation not in blocked
     assert DEFECT not in blocked
     assert DANGEROUSNESS not in blocked
+
+
+def test_request_counts_cover_every_scheduling_round():
+    shards = [
+        {"shard_kind": "predicate", "scheduling_round": 1, "target_count": 7},
+        {"shard_kind": "predicate", "scheduling_round": 2, "target_count": 2},
+        {"shard_kind": "relation", "target_count": 3},
+    ]
+    assert _recorded_request_counts(shards, article263_requested=True) == (4, 9)

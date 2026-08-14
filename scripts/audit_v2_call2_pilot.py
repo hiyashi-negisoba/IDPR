@@ -179,23 +179,68 @@ def main() -> None:
         if smoke_limit is not None:
             expected_values = expected_values[:smoke_limit]
         expected = tuple(_target_key(value) for value in expected_values)
-        semantic_targets = tuple(
-            AssessmentTarget(
-                OffenseInstanceKey(*_target_key(value)[:4]),
-                _target_key(value)[4],
-            )
-            for value in expected_values
+        scheduling = row.get("target_scheduling")
+        guard_aware = (
+            isinstance(scheduling, dict) and scheduling.get("mode") == "guard_aware"
         )
-        expected_neural_count = len(
-            grounding_request_targets(registry, semantic_targets)
-        )
-        if row.get("neural_predicate_request_target_count") != expected_neural_count:
-            errors.append(f"{case_id}: neural predicate request target count mismatch")
+        if guard_aware:
+            planned = scheduling.get("planned_targets")
+            asked = scheduling.get("asked_targets")
+            skipped = scheduling.get("skipped_targets")
+            rounds = scheduling.get("rounds")
+            if planned != len(expected):
+                errors.append(f"{case_id}: scheduled planned target count mismatch")
+            if asked != len(row.get("assessments", [])):
+                errors.append(f"{case_id}: scheduled asked target count mismatch")
+            if not isinstance(rounds, list) or any(
+                not isinstance(value, dict) for value in rounds
+            ):
+                errors.append(f"{case_id}: malformed target scheduling rounds")
+            else:
+                if [value.get("round") for value in rounds] != list(
+                    range(1, len(rounds) + 1)
+                ):
+                    errors.append(f"{case_id}: non-contiguous target scheduling rounds")
+                if sum(int(value.get("targets", 0)) for value in rounds) != asked:
+                    errors.append(f"{case_id}: scheduling round target aggregate mismatch")
+            if (
+                not isinstance(planned, int)
+                or not isinstance(asked, int)
+                or not isinstance(skipped, int)
+                or planned != asked + skipped
+            ):
+                errors.append(f"{case_id}: target scheduling cardinality mismatch")
+            if row.get("planned_assessment_target_count") != len(expected):
+                errors.append(f"{case_id}: planned assessment target count mismatch")
         actual = tuple(_target_key(value) for value in row.get("assessments", []))
-        if actual != expected:
+        if guard_aware and not set(actual).issubset(set(expected)):
+            errors.append(f"{case_id}: scheduled assessment is outside planner targets")
+        elif not guard_aware and actual != expected:
             errors.append(f"{case_id}: general assessments do not exactly equal planner targets")
         if len(actual) != len(set(actual)):
             errors.append(f"{case_id}: duplicate general assessment key")
+        actual_semantic_targets = tuple(
+            AssessmentTarget(
+                OffenseInstanceKey(*value[:4]),
+                value[4],
+            )
+            for value in actual
+        )
+        episode_by_occurrence = {
+            str(value["instance_key"]["occurrence_id"]): str(
+                value["factual_episode_id"]
+            )
+            for value in plan.get("instance_provenance", [])
+        }
+        expected_neural_count = len(
+            grounding_request_targets(
+                registry,
+                actual_semantic_targets,
+                episode_by_occurrence=episode_by_occurrence,
+            )
+        )
+        if row.get("neural_predicate_request_target_count") != expected_neural_count:
+            errors.append(f"{case_id}: neural predicate request target count mismatch")
         truths = tuple(_target_key(value) for value in row.get("case_truths", []))
         if len(truths) != len(set(truths)):
             errors.append(f"{case_id}: duplicate CaseTruths key")
@@ -357,6 +402,22 @@ def main() -> None:
             errors.append(
                 f"{case_id}: CaseTruths keys differ from general + Article263 projections"
             )
+        shards = row.get("shards", [])
+        if not isinstance(shards, list) or any(
+            not isinstance(value, dict) for value in shards
+        ):
+            errors.append(f"{case_id}: malformed physical request shard ledger")
+            shards = []
+        recorded_predicate_targets = sum(
+            int(value.get("target_count", 0))
+            for value in shards
+            if value.get("shard_kind") == "predicate"
+        )
+        if recorded_predicate_targets != expected_neural_count:
+            errors.append(f"{case_id}: predicate shard target aggregate mismatch")
+        expected_physical_count = len(shards) + int(bool(dedicated))
+        if row.get("physical_request_count") != expected_physical_count:
+            errors.append(f"{case_id}: physical request count mismatch")
         physical += int(row.get("physical_request_count", 0))
         general_targets += len(actual)
         neural_predicate_targets += expected_neural_count

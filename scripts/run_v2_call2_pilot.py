@@ -7,7 +7,7 @@ import argparse
 import hashlib
 import json
 import sys
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable, Mapping, Sequence
 from itertools import count
 from pathlib import Path
 from typing import Any
@@ -156,6 +156,19 @@ def _episode_by_occurrence(row: Mapping[str, Any]) -> dict[str, str]:
         str(value["instance_key"]["occurrence_id"]): str(value["factual_episode_id"])
         for value in row.get("instance_provenance", ())
     }
+
+
+def _recorded_request_counts(
+    shard_records: Sequence[Mapping[str, Any]], *, article263_requested: bool
+) -> tuple[int, int]:
+    """Return physical requests and neural predicate targets from the full ledger."""
+    physical = len(shard_records) + int(article263_requested)
+    neural_targets = sum(
+        int(value["target_count"])
+        for value in shard_records
+        if value["shard_kind"] == "predicate"
+    )
+    return physical, neural_targets
 
 
 def _article263_pair_candidates(
@@ -953,19 +966,21 @@ def main() -> None:
             }
             for value in relation_assessments
         ]
+        recorded_physical_requests, recorded_neural_targets = _recorded_request_counts(
+            shard_records, article263_requested=bool(article263_pairs)
+        )
         output.append({
             "sub_question_id": case_id,
             "logical_stage": "Call 2",
-            "physical_request_count": (
-                len(shards)
-                + len(relation_shards)
-                + len(participation_targets)
-                + len(utilization_targets)
-                + len(outcome_bundles)
-                + int(bool(article263_pairs))
-            ),
+            # `shards` above is rebound on every scheduling round.  Counting that
+            # variable therefore retained only the final predicate round.  The shard
+            # ledger is append-only across every request kind and is the authoritative
+            # per-case physical request record.
+            "physical_request_count": recorded_physical_requests,
             "assessment_target_count": len(targets),
-            "neural_predicate_request_target_count": len(request_targets),
+            # `request_targets` has the same final-round problem.  Count all predicate
+            # shards so multi-round scheduling remains exactly auditable.
+            "neural_predicate_request_target_count": recorded_neural_targets,
             "relation_assessment_target_count": len(relation_assessments),
             "planned_relation_assessment_target_count": len(planned_relation_targets),
             "participation_local_target_count": len(participation_assessments),

@@ -1166,3 +1166,26 @@ srun --jobid=<service> --ntasks=1 --cpus-per-task=1   env PYTHONPATH=$PWD/src /d
 
 스모크 산출물: `experiments/v2_call15_directscope_26_causal/call2_sched_smoke/`
 (gitignore 대상이라 커밋되지 않았다).
+
+---
+
+## 2026-08-14 -- guard-aware 26문항 실행 관찰 완료
+
+정본 검토는 `docs/analysis/v2_call2_guard_scheduling_26_run_review_ko.md`다.
+
+- 정본 Call 2: `call2_guard_sched_26_v2`, 26/26, audit errors 0.
+- 531 -> 452 target, 79개(14.9%) 생략. final truth에서 skipped-but-live 0.
+- 생략 79개의 과거 truth를 전부 다시 채운 반사실 Scallop과 scheduled Scallop의 semantic
+  output은 26/26 완전 동일했다.
+- physical request 99 -> 124, total token 173,356 -> 182,580(+5.3%). 현재 가치는 비용 절감이
+  아니라 죽은 completion branch의 UNKNOWN 제거다.
+- 공통 452 target truth에도 재호출 drift가 있으므로 flat/new liability 변화 11건을 scheduler
+  효과로 귀속하지 않는다.
+
+첫 `call2_guard_sched_26_v1`은 UNKNOWN frontier 고착을 발견한 진단 artifact다. 이미 답한
+UNKNOWN 뒤에도 FALSE가 연언을 죽일 수 있으므로 다음 conjunct로 진행하도록 고쳤다. 함께 발견한
+다중 라운드 계측 누락과 old auditor exact-equality 가정도 수정했다. 검증은 **330 passed,
+16 skipped**, focused Ruff, `git diff --check` 통과.
+
+다음은 새 452-target truth 기준 residual UNKNOWN 재진단이다. evidence scope / occurrence 오배치 /
+초literal 판정 / 진짜 법적 논점을 다시 분리하며, 활성 프롬프트 변경은 계속 승인 게이트 뒤에 둔다.

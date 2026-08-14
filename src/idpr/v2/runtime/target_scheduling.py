@@ -147,7 +147,10 @@ def live_predicate_refs(
 
 
 def _frontier_of_raw(
-    expr: Mapping[str, Any] | None, truths: Mapping[str, TruthValue]
+    expr: Mapping[str, Any] | None,
+    truths: Mapping[str, TruthValue],
+    *,
+    settled_refs: Iterable[str] = (),
 ) -> frozenset[str]:
     """Refs an ALL-rooted authored expression is ready to ask about right now.
 
@@ -159,14 +162,20 @@ def _frontier_of_raw(
     """
     if expr is None:
         return frozenset()
+    settled = set(truths) | set(settled_refs)
     if expr["op"] != "all":
-        return expressions.leaf_refs(expr)
+        return expressions.leaf_refs(expr) - settled
     for child in expr["args"]:
         value = evaluate(expressions.canonicalize(child), truths)
         if value == FALSE:
             return frozenset()
         if value != TRUE:
-            return expressions.leaf_refs(child)
+            pending = expressions.leaf_refs(child) - settled
+            if pending:
+                return pending
+            # An assessed UNKNOWN is settled for scheduling even though it is not
+            # logically TRUE.  A later conjunct can still force ALL to FALSE, so keep
+            # walking instead of stranding the frontier on an unaskable value.
     return frozenset()
 
 
@@ -176,6 +185,7 @@ def frontier_predicate_refs(
     truths: Mapping[str, TruthValue] = {},
     *,
     candidate_refs: Iterable[str] | None = None,
+    settled_refs: Iterable[str] = (),
 ) -> tuple[str, ...]:
     """The live predicates worth asking in this round, in stable order.
 
@@ -191,10 +201,14 @@ def frontier_predicate_refs(
         ready |= expressions.canonical_leaf_refs(compiled.slots[slot])
     if policy is not None:
         for state in policy.payload["states"].values():
-            ready |= _frontier_of_raw(state.get("when"), truths)
+            ready |= _frontier_of_raw(
+                state.get("when"), truths, settled_refs=settled_refs
+            )
             guard = expressions.canonicalize(state.get("when"))
             if state.get("requires") is not None and evaluate(guard, truths) != FALSE:
-                ready |= _frontier_of_raw(state["requires"], truths)
+                ready |= _frontier_of_raw(
+                    state["requires"], truths, settled_refs=settled_refs
+                )
 
     allowed = None if candidate_refs is None else set(candidate_refs)
     return tuple(
@@ -229,7 +243,13 @@ def next_round_targets(
         known = truths.get(instance) or {}
         asked = set(already_asked.get(instance) or ())
         allowed = None if candidate_refs is None else (candidate_refs.get(instance) or ())
-        for ref in frontier_predicate_refs(registry, instance, known, candidate_refs=allowed):
+        for ref in frontier_predicate_refs(
+            registry,
+            instance,
+            known,
+            candidate_refs=allowed,
+            settled_refs=asked,
+        ):
             if ref not in known and ref not in asked:
                 targets.append((instance, ref))
     return tuple(targets)
