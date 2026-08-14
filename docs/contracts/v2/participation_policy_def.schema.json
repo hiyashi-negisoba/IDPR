@@ -30,6 +30,7 @@
       "required": ["dominant_mode", "subsumed_modes"],
       "additionalProperties": false,
       "properties": {
+        "legal_standard": { "type": "string", "minLength": 1 },
         "dominant_mode": { "enum": ["co_principal", "instigator", "aider"] },
         "subsumed_modes": {
           "type": "array",

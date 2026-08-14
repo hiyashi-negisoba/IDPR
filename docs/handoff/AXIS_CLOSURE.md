@@ -113,9 +113,12 @@ mode의 `requires`를 target으로 연다 (`opened_by: participation_mode_requir
 Scallop runner의 endpoint 승격은 이제 없는 instance를 만들어 내는 것이 아니라 이미 있는
 instance를 top_level로 올리는 일이 된다.
 
-공동정범과 종범의 우선관계는 저작에 추가했다(`co_principal` ⊃ `instigator`, `aider`).
-**법률 검수 필요** — 정범성이 종범을 흡수한다는 통설을 코드가 아니라 저작으로 옮긴 것이므로
-승인 대상이다. 런타임은 저작된 양보만 적용하고, 선언이 없으면 종전대로 계약 위반으로 올린다.
+공동정범과 종범의 우선관계는 저작에 추가했고 검수를 통과했다(`co_principal` ⊃ `instigator`,
+`aider`). 저작 문구는 "정범성이 종범을 흡수한다"가 아니라 **동일 범죄 realization에 대한
+participation-role resolution**이다 — 법조경합상 흡수로 이름 붙이지 않는 이유는 교사행위와
+공동실행 사실이 함께 존재할 수 있고 교사범이 독자의 성립구조를 갖기 때문이다. 원 관계·증거·
+provenance는 보존하고 최종 책임에서만 derivative mode를 내린다. 런타임은 저작된 양보만
+적용하고, 선언이 없으면 종전대로 계약 위반으로 올린다.
 
 종료 테스트: [`tests/test_participation_axis_contract.py`](../../tests/test_participation_axis_contract.py)
 — 저작된 derivative mode의 `requires` 전수, 동시 성립 가능한 mode 쌍의 우선관계 전수,
@@ -124,6 +127,17 @@ instance를 top_level로 올리는 일이 된다.
 미측정: 위 수정은 Call 1.5-P 재실행(episode 스코프)과 Call 2 재실행(677 target)을 거쳐야
 숫자로 나타난다. symbolic 단계는 기존 Call 2 산출물에 대해 변화 없음을 확인했다(비의미적
 정렬 차이 1건 외 26/26 동일).
+
+## 재실행 시점 (2026-08-15 확정)
+
+축마다 GPU를 돌리지 않는다. doctrine 축에서 구조 결함이 나오면 1.5 계열·plan·Call 2 artifact가
+다시 바뀌어 중간 checkpoint가 하나 더 생긴다. 순서는:
+
+> participation 감사 완료 → **doctrine 감사** → 구조 수정 전부 동결 → 필요한 1.5 계열 재생성
+> → 최종 plan → Call 2 한 번
+
+지금 GPU로 확인해야 할 긴급 회귀는 없다. reachability와 mode resolution은 계약 테스트로
+고정되어 있고, 기존 Call 2 산출물에 대한 symbolic 회귀는 26/26 동일하다.
 
 ## 남은 축 순서
 
