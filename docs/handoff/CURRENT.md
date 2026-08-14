@@ -1,11 +1,11 @@
 # Current handoff
 
-> **최신 checkpoint (2026-08-11):** 이 문서 아래에는 이전 세션 기록이 누적되어 있어
-> 현재 상태와 충돌하는 숫자와 계획이 포함돼 있다. 다음 작업자는 먼저
-> [`NEXT_SESSION.md`](NEXT_SESSION.md)를 읽는다. 현재 시작점은 새 global closed-option
-> participation 계약의 real-Gemma smoke이며, 기존 `call2_full`과 `call2_full_v3`는
-> acceptance artifact가 아니다. 오프라인 기준은 84 passed / 6 skipped, 최신 planner는
-> 26 cases, predicate 5,182, relation 423, participation 719, audit errors 0이다.
+> **최신 checkpoint (2026-08-15):** 현재 상태의 정본은
+> [`AXIS_CLOSURE.md`](AXIS_CLOSURE.md)다. 다음 작업자는 그것부터 읽는다.
+> 이 문서와 [`NEXT_SESSION.md`](NEXT_SESSION.md)는 append-only 역사 로그이며, 그 안의
+> "최신"·"다음 작업" 표기는 모두 낡았다. 특히 NEXT_SESSION.md 말미의 frozen A vs patched B
+> 지시는 실행하지 않는다 -- 그 계획이 전제한 plan/occurrence 체계가 action·realization
+> 개편으로 대체됐다.
 
 기준: 2026-08-11 · 브랜치 `deadline_v2_0808` · 데드라인 **2026-08-19 21:00**(1주 연장)
 

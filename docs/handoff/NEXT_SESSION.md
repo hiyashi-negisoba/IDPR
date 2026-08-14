@@ -1478,3 +1478,14 @@ contested point, required authority다. UNKNOWN 총량만 개선 지표로 쓰�
 
 그 뒤 upstream을 닫고 final `Call 2 -> symbolic -> AnswerPlan -> N/P -> baseline bundle -> blind judge`
 를 실행한다. 새 하위 진단 트랙이나 문제별 route는 열지 않는다.
+
+## 2026-08-15 -- 이 문서는 역사 로그다
+
+현재 상태의 정본은 [`AXIS_CLOSURE.md`](AXIS_CLOSURE.md)다. 위의 모든 "다음 작업" 지시,
+특히 바로 앞 절의 frozen A vs patched B 실행 계획은 더 이상 유효하지 않다. 그 계획이 전제한
+binding 기반 occurrence 체계가 action·realization 개편으로 대체되어 exact target join 자체가
+성립하지 않는다.
+
+작업 방식도 바뀌었다. 답안 하나가 이상할 때마다 아래층을 여는 대신, 축마다 룰베이스 구조를
+전수 감사해 구조적 결함만 고치고 종료 테스트를 남긴 뒤 닫는다. 판정 기준과 닫은 축, 남은 축
+순서는 모두 정본 문서에 있다.
