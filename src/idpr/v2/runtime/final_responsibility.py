@@ -348,6 +348,7 @@ def resolve_final_responsibility(
     results: Mapping[OffenseInstanceKey, LiabilityEvaluation],
     episode_by_instance: Mapping[OffenseInstanceKey, str],
     source_bindings_by_instance: Mapping[OffenseInstanceKey, tuple[str, ...]],
+    focal_action_by_instance: Mapping[OffenseInstanceKey, str] = {},
     derivative_links: Iterable[tuple[OffenseInstanceKey, OffenseInstanceKey, str]] = (),
     truths: CaseTruths | None = None,
     concurrence_rules: Iterable[ConcurrenceRule] = (),
@@ -410,6 +411,7 @@ def resolve_final_responsibility(
         tuple(attributed_episodes),
         episode_by_instance=attributed_episodes,
         rules=concurrence_rules,
+        focal_action_by_instance=focal_action_by_instance,
     )
     resolution = resolve_concurrence(
         tuple(attributed_episodes),

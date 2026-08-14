@@ -36,7 +36,37 @@ if 특수절도 is established for this actor on the very theft binding that mat
 :func:`plan_specialty_candidates` for the three joins that must all hold.
 """
 
+DEFINITIONAL_RESOLUTION = "definitional_resolution"
+"""An authored displacement that needs no case condition.
+
+Two offences can be alternative readings of one and the same realized conduct -- 제337조 writes
+"상해하거나 상해에 이르게 한 때" in a single article, and 살인 and 상해치사 divide the same death by
+whether the intent is established.  The fact that separates them (상해·살인의 고의) is already an
+element of the intentional offence, so asking it again as a concurrence condition would put one
+proposition in two places and let the two answers disagree.  Establishment of the displacing
+offence is therefore the whole ground: no condition is looked up, exactly as for SPECIALTY.
+
+`resolution_type` records which doctrine the pair belongs to.  It is metadata for the writer and
+the audit trail; the runtime behaviour of both types is identical.
+"""
+
+ALTERNATIVE_SUBTYPE = "alternative_subtype"
+"""Two branches of one article (제337조 강도상해/치상, 제301조 강간상해/치상)."""
+
+INTENT_DISPLACEMENT = "intent_displacement"
+"""Separate articles where a confirmed intent governs the same result (살인 over 상해치사)."""
+
+RESOLUTION_TYPES = frozenset({ALTERNATIVE_SUBTYPE, INTENT_DISPLACEMENT})
+
 SAME_EPISODE = "same_episode"
+
+SAME_REALIZATION = "same_realization"
+"""Both instances must rest on the same realized conduct, not merely the same episode.
+
+One episode can carry the same actor injuring one victim and killing another.  Displacing an
+offence on nothing more than a shared episode would then delete a conviction earned by different
+conduct, so a definitional rule joins on the focal action the two instances were built from.
+"""
 
 ACTOR_SAME = "same"
 ACTOR_ANY = "any"
@@ -67,13 +97,38 @@ class ConcurrenceRule:
     source_card_ids: tuple[str, ...] = ()
     condition_statement: str = ""
     legal_standard: str = ""
+    resolution_type: str = ""
 
     def __post_init__(self) -> None:
-        if self.kind not in {ABSORPTION, IMAGINATIVE_CONCURRENCE, SPECIALTY}:
+        if self.kind not in {
+            ABSORPTION,
+            IMAGINATIVE_CONCURRENCE,
+            SPECIALTY,
+            DEFINITIONAL_RESOLUTION,
+        }:
             raise ValueError(f"unsupported concurrence kind: {self.kind!r}")
-        if self.occurrence_constraint != SAME_EPISODE:
+        if self.kind == DEFINITIONAL_RESOLUTION:
+            if self.resolution_type not in RESOLUTION_TYPES:
+                raise ValueError(
+                    f"{self.rule_id}: definitional resolution must state a known resolution_type"
+                )
+            if self.condition_statement:
+                raise ValueError(
+                    f"{self.rule_id}: a definitional resolution has no assessable condition -- "
+                    "put the doctrine in legal_standard instead of condition_statement"
+                )
+            if self.occurrence_constraint != SAME_REALIZATION:
+                raise ValueError(
+                    f"{self.rule_id}: definitional resolution must join on same_realization; a "
+                    "shared episode can hold separate conduct against different victims"
+                )
+        elif self.resolution_type:
             raise ValueError(
-                "v2 concurrence currently requires occurrence_constraint=same_episode"
+                f"{self.rule_id}: resolution_type belongs to definitional resolutions only"
+            )
+        if self.occurrence_constraint not in {SAME_EPISODE, SAME_REALIZATION}:
+            raise ValueError(
+                f"unsupported occurrence_constraint: {self.occurrence_constraint!r}"
             )
         if self.actor_constraint not in {ACTOR_SAME, ACTOR_ANY}:
             raise ValueError(f"unsupported actor_constraint: {self.actor_constraint!r}")
@@ -110,7 +165,13 @@ def load_concurrence_rules(
         # itself (specialty), not as a place for an authoring omission to hide.
         if "actor_constraint" not in entry:
             raise ValueError(f"{rule_id}: authored rules must state actor_constraint")
-        for field in ("condition_statement", "legal_standard"):
+        # `legal_standard` is always required; `condition_statement` only where a condition is
+        # actually assessed.  A definitional resolution has nothing to ask, and filling the field
+        # anyway would invite the next reader to wire it to a neural condition.
+        required = ("legal_standard",)
+        if str(entry.get("kind")) != DEFINITIONAL_RESOLUTION:
+            required = ("condition_statement", "legal_standard")
+        for field in required:
             if not str(entry.get(field) or "").strip():
                 raise ValueError(
                     f"{rule_id}: {field} must be authored -- the assessment payload carries it "
@@ -126,8 +187,9 @@ def load_concurrence_rules(
                 occurrence_constraint=str(entry.get("occurrence_constraint", SAME_EPISODE)),
                 actor_constraint=str(entry["actor_constraint"]),
                 source_card_ids=tuple(str(value) for value in entry.get("source_card_ids") or ()),
-                condition_statement=str(entry["condition_statement"]).strip(),
+                condition_statement=str(entry.get("condition_statement") or "").strip(),
                 legal_standard=str(entry["legal_standard"]).strip(),
+                resolution_type=str(entry.get("resolution_type") or "").strip(),
             )
         )
     return tuple(output)
@@ -155,6 +217,7 @@ def plan_concurrence_candidates(
     *,
     episode_by_instance: Mapping[OffenseInstanceKey, str],
     rules: Iterable[ConcurrenceRule],
+    focal_action_by_instance: Mapping[OffenseInstanceKey, str] | None = None,
 ) -> tuple[ConcurrenceCandidate, ...]:
     """Join exact authored offense pairs only inside one factual episode.
 
@@ -191,6 +254,16 @@ def plan_concurrence_candidates(
                         and first.actor_id != second.actor_id
                     ):
                         continue
+                    if rule.occurrence_constraint == SAME_REALIZATION:
+                        focal = focal_action_by_instance or {}
+                        first_focal = focal.get(first)
+                        second_focal = focal.get(second)
+                        if (
+                            first_focal is None
+                            or second_focal is None
+                            or first_focal != second_focal
+                        ):
+                            continue
                     output.append(
                         ConcurrenceCandidate(rule, first, second, first_episode)
                     )
@@ -211,8 +284,9 @@ def plan_specialty_candidates(
     * the derived offense's `derivation.kind` is `qualify` and names this base ref;
     * both instances belong to the same actor -- one factual episode can carry 甲, 乙 and 丙 each
       committing theft, and 甲's 특수절도 must not swallow 乙's 절도;
-    * the base instance's occurrence is one the planner actually recorded in
-      `source_binding_ids` when it materialized the derived candidate.
+    * the base instance's occurrence is one the planner actually recorded as a
+      source realization when it materialized the derived candidate.  (The
+      parameter name remains for historical callers.)
 
     The third is what keeps this deterministic: the absorption link is read back out of the
     host's own materialization record, never re-derived from the text.
@@ -275,7 +349,7 @@ def resolve_concurrence(
     for candidate in candidate_values:
         if candidate.first not in established or candidate.second not in established:
             raise ValueError("concurrence candidate refers to a non-established instance")
-        if candidate.rule.kind == SPECIALTY:
+        if candidate.rule.kind in (SPECIALTY, DEFINITIONAL_RESOLUTION):
             # Definitional: the qualify-derivation itself is the ground, so there is no condition
             # to look up. It still folds through the same conflict handling below, which is the
             # point -- two parents claiming one child stay unresolved here as anywhere else.
@@ -330,9 +404,14 @@ __all__ = [
     "ABSORPTION",
     "ACTOR_ANY",
     "ACTOR_SAME",
+    "ALTERNATIVE_SUBTYPE",
     "APPROVED",
+    "DEFINITIONAL_RESOLUTION",
     "IMAGINATIVE_CONCURRENCE",
+    "INTENT_DISPLACEMENT",
+    "RESOLUTION_TYPES",
     "SAME_EPISODE",
+    "SAME_REALIZATION",
     "SPECIALTY",
     "ConcurrenceCandidate",
     "ConcurrenceResolution",

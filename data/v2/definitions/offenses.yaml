@@ -146,9 +146,7 @@
       - offense.bribe_giving
   elements:
     conduct: {op: ref, ref: ground_fact.intermediary_delivery_receipt_conduct}
-    mental:
-      op: not
-      arg: {op: ref, ref: legal_element.self_benefit_purpose}
+    mental: {op: ref, ref: legal_element.knowledge_of_bribery_destination}
 
 - id: offense.obstruction_of_official_duty
   identity: {name: "공무집행방해죄", statutory_refs: ["형법 제136조 제1항"]}

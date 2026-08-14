@@ -58,3 +58,50 @@ rules:
       재저작된 subtype-neutral 조건 아래에서는 모델이 판단할 대상이 된다. 다만 그 문항에서
       두 위조죄는 모두 elements에서 멈추므로 조건이 TRUE여도 해소 단계에서 흡수할 대상이
       성립하지 않는다.
+
+  # 2026-08-15 저작. 결과적 가중범의 element에서 고의의 부존재를 요구하던 gate를 제거하면서,
+  # 고의범이 실제로 성립했을 때의 배제를 이 층으로 옮긴 것이다. 구별 사실(상해·살인의 고의)은
+  # 고의범 instance의 element가 이미 판단하므로 여기서 다시 묻지 않는다. 두 instance가 모두
+  # established라는 사실이 유일한 근거이고, 그래서 assessable condition이 없다.
+  - rule_id: definitional.robbery_intentional_injury_over_aggravated_result
+    status: approved
+    kind: definitional_resolution
+    resolution_type: alternative_subtype
+    # 밀려나는 쪽이 first다.
+    first_offense_ref: derived_offense.robbery_causing_injury_by_aggravated_result
+    second_offense_ref: derived_offense.robbery_causing_intentional_injury
+    occurrence_constraint: same_realization
+    actor_constraint: same
+    condition_ref: definitional.same_article_alternative_subtype
+    legal_standard: >-
+      형법 제337조는 "상해하거나 상해에 이르게 한 때"를 하나의 조문에서 병렬로 규정한다. 강도상해와
+      강도치상은 별개의 죄수관계가 아니라 같은 조문의 대안적 하위유형이므로, 상해의 고의가 인정되어
+      강도상해가 성립하면 같은 실현행위를 강도치상으로 다시 분류하지 않는다. 반대로 상해 고의의
+      부존재는 강도치상의 성립요건이 아니다.
+
+  - rule_id: definitional.rape_intentional_injury_over_aggravated_result
+    status: approved
+    kind: definitional_resolution
+    resolution_type: alternative_subtype
+    first_offense_ref: derived_offense.rape_causing_injury_by_aggravated_result
+    second_offense_ref: derived_offense.rape_causing_intentional_injury
+    occurrence_constraint: same_realization
+    actor_constraint: same
+    condition_ref: definitional.same_article_alternative_subtype
+    legal_standard: >-
+      형법 제301조도 강간 등의 기회에 "상해하거나 상해에 이르게 한 때"를 함께 규정한다. 상해의 고의가
+      인정되어 강간상해가 성립하면 같은 실현행위를 강간치상으로 다시 분류하지 않는다.
+
+  - rule_id: definitional.homicide_over_injury_causing_death
+    status: approved
+    kind: definitional_resolution
+    resolution_type: intent_displacement
+    first_offense_ref: derived_offense.injury_causing_death
+    second_offense_ref: offense.homicide
+    occurrence_constraint: same_realization
+    actor_constraint: same
+    condition_ref: definitional.confirmed_intent_displaces_aggravated_result
+    legal_standard: >-
+      상해치사(제259조)와 살인(제250조)은 같은 조문의 하위유형이 아니라 별개 구성요건이다. 살인의
+      고의가 인정되어 살인죄가 성립하면 같은 사망 결과를 상해치사로 중복 분류하지 않는다. 살인
+      고의의 부존재를 상해치사의 성립요건으로 요구하지는 않는다.

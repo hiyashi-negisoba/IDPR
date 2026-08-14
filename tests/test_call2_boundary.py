@@ -230,3 +230,69 @@ def test_ground_fact_dedups_across_bindings_that_share_a_factual_episode() -> No
         episode_by_occurrence=episode_by_occurrence,
     )
     assert [value.truth for value in expanded] == ["TRUE", "TRUE"]
+
+
+def test_ground_fact_carrier_map_overrides_episode_wide_projection() -> None:
+    """One broad episode can contain both a receipt and a later personal use.
+
+    The receipt's direct and derived offense consumers share their authored realization
+    carrier, but the later use must receive a separate GroundFact answer even though
+    all three instances belong to the same actor and factual episode.
+    """
+    receipt = AssessmentTarget(
+        OffenseInstanceKey(
+            "case", "甲", "offense.bribe_delivery", "realization:receipt"
+        ),
+        "ground_fact.taking_conduct",
+    )
+    receipt_derived = AssessmentTarget(
+        OffenseInstanceKey(
+            "case", "甲", "derived_offense.bribe_delivery_variant", "realization:receipt"
+        ),
+        "ground_fact.taking_conduct",
+    )
+    later_use = AssessmentTarget(
+        OffenseInstanceKey(
+            "case", "甲", "offense.embezzlement", "realization:later_use"
+        ),
+        "ground_fact.taking_conduct",
+    )
+    targets = (receipt, receipt_derived, later_use)
+    episode_by_occurrence = {
+        "realization:receipt": "factual_episode:001",
+        "realization:later_use": "factual_episode:001",
+    }
+    carrier_by_target = {
+        receipt: "realization:receipt",
+        receipt_derived: "realization:receipt",
+        later_use: "realization:later_use",
+    }
+
+    request_targets = grounding_request_targets(
+        REGISTRY,
+        targets,
+        episode_by_occurrence=episode_by_occurrence,
+        carrier_by_target=carrier_by_target,
+    )
+    assert request_targets == (receipt, later_use)
+
+    request_assessments = validate_call2_output(
+        {"truths": ["TRUE", "FALSE"]}, targets=request_targets
+    )
+    expanded = expand_ground_fact_assessments(
+        REGISTRY,
+        request_assessments,
+        expected_targets=targets,
+        episode_by_occurrence=episode_by_occurrence,
+        carrier_by_target=carrier_by_target,
+    )
+    assert [value.truth for value in expanded] == ["TRUE", "TRUE", "FALSE"]
+
+
+def test_ground_fact_carrier_map_requires_every_ground_fact_assignment() -> None:
+    target = AssessmentTarget(
+        OffenseInstanceKey("case", "甲", "offense.theft", "realization:001"),
+        "ground_fact.taking_conduct",
+    )
+    with pytest.raises(GroundingContractError, match="carrier_by_target"):
+        grounding_request_targets(REGISTRY, (target,), carrier_by_target={})

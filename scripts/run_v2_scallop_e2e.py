@@ -254,14 +254,18 @@ def _episode_order(plan_path: Path) -> dict[str, tuple[str, ...]]:
 
 def _instance_provenance(
     plan_path: Path,
-) -> dict[str, dict[OffenseInstanceKey, tuple[str, tuple[str, ...]]]]:
-    """`{case: {instance: (factual episode, source bindings)}}` straight from the planner.
+) -> dict[
+    str, dict[OffenseInstanceKey, tuple[str, tuple[str, ...], tuple[str, ...], str]]
+]:
+    """`{case: {instance: (episode, source bindings, source realizations, focal action)}}`.
 
     The final-responsibility stage needs the factual episode of each instance, and the planner is
     the only honest source: recomputing it here would mean a second reading of the case text in a
     stage that must not read it at all.
     """
-    output: dict[str, dict[OffenseInstanceKey, tuple[str, tuple[str, ...]]]] = {}
+    output: dict[
+        str, dict[OffenseInstanceKey, tuple[str, tuple[str, ...], tuple[str, ...], str]]
+    ] = {}
     for line in plan_path.read_text(encoding="utf-8").splitlines():
         if not line:
             continue
@@ -276,6 +280,13 @@ def _instance_provenance(
             _instance(value["instance_key"]): (
                 str(value["factual_episode_id"]),
                 tuple(str(item) for item in value["source_binding_ids"]),
+                tuple(
+                    str(item)
+                    for item in value.get(
+                        "source_realization_ids", value["source_binding_ids"]
+                    )
+                ),
+                str(value.get("focal_action_id") or ""),
             )
             for value in entries
         }
@@ -477,6 +488,30 @@ def main() -> None:
             expected_targets=expected_participation_targets,
             registry=registry,
         )
+        # A co-principal or accessory relation the model established at Call 2 can
+        # name a participant the plan never materialized as an ordinary instance:
+        # the planner deliberately keeps participation candidates out of the
+        # ordinary assessment universe until their relation is actually true.
+        # Once it is true, that participant is a real responsibility endpoint, so
+        # it has to exist here or the chain rejects its own established relation.
+        known_instances = set(instances)
+        established_endpoints = tuple(
+            dict.fromkeys(
+                endpoint
+                for endpoints in (
+                    *bindings.co_principal_sources,
+                    *(
+                        (accessory, principal)
+                        for accessory, principal, _mode in bindings.derivative_links
+                    ),
+                )
+                for endpoint in endpoints
+                if endpoint not in known_instances
+            )
+        )
+        if established_endpoints:
+            instances = instances + established_endpoints
+            top_level_instances = top_level_instances + established_endpoints
         truths, co_principal_truth_projections = add_co_principal_established_truths(
             registry, truths, bindings
         )
@@ -602,10 +637,17 @@ def main() -> None:
                 case_id=str(row["sub_question_id"]),
                 results=results,
                 episode_by_instance={
-                    instance: episode for instance, (episode, _) in provenance.items()
+                    instance: values[0] for instance, values in provenance.items()
                 },
                 source_bindings_by_instance={
-                    instance: sources for instance, (_, sources) in provenance.items()
+                    instance: values[2] for instance, values in provenance.items()
+                },
+                # A definitional resolution joins on the realized conduct, not the episode:
+                # one episode can hold the same actor injuring one victim and killing another.
+                focal_action_by_instance={
+                    instance: values[3]
+                    for instance, values in provenance.items()
+                    if values[3]
                 },
                 derivative_links=derivative_links,
                 truths=truths,

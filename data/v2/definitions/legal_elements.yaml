@@ -656,11 +656,35 @@
   legal_standard: "청탁이 직무의 공정성을 해하는 부정한 청탁인지 여부"
   authority_refs: [{authority_basis: statute_text, citation: "형법 제130조"}]
 
+- id: legal_element.knowledge_of_bribery_destination
+  arguments: [{name: actor, type: entity}, {name: bribe, type: entity}]
+  canonical_meaning: "교부받을 당시 증뢰자가 수뢰자에게 뇌물로 공여하기 위하여 자신에게 금품을 교부한다는 사정을 앎"
+  legal_standard: >-
+    금품을 교부받을 당시, 증뢰자가 그 금품을 수뢰자에게 뇌물로 공여하기 위하여 자신에게
+    교부한다는 객관적 사정을 행위자가 인식하였는지 여부.
+  semantic_exclusions:
+    - "금품 제공자가 막연히 장차 로비나 증뢰에 사용할 주관적 의도를 가지고 있다는 점을 아는 것만으로는 부족하고, 해당 금품이 수뢰자에게 뇌물로 전달되기 위하여 자신에게 교부된다는 사정을 인식하여야 한다."
+    - "금품을 교부받은 뒤에 비로소 증뢰 목적을 알게 된 사정만으로 교부받을 당시의 인식을 긍정하지 않는다."
+    - "단순히 금품을 보관·전달하였다는 사실만으로 증뢰 목적에 대한 인식을 추정하지 않는다."
+  temporal_anchor: focal_action
+  evidence_scope: offense_realization
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제133조 제2항"}]
+
+# DEPRECATED (2026-08-15 검수). 제133조 제2항의 주관적 요건을 자기이득 목적의 부재로 저작한 것은
+# 법적 구별기준 자체가 틀린 것이었다. 증뢰 목적 금품임을 알면서 받았다면 자기가 가질 생각이었더라도
+# 증뢰물전달죄는 성립하므로 두 사정은 양립 가능하고, 부재를 성립요건으로 요구할 근거가 없다. 자기이득
+# 목적을 횡령으로 옮기는 것도 맞지 않다 -- 횡령은 타인 재물 보관자 지위가 먼저 성립해야 하고
+# 불법원인급여이면 타인 재물성 자체가 다투어진다. 현재 어느 offense도 참조하지 않으며 다음 registry
+# cleanup에서 삭제한다.
 - id: legal_element.self_benefit_purpose
   arguments: [{name: actor, type: entity}]
-  canonical_meaning: "제3자 자기이득 목적 수수(+NOT())"
-  legal_standard: "증뢰물의 전달·수령이 자기의 이익을 위한 것인지 여부"
-  evidence_scope: same_actor_episode
+  canonical_meaning: "해당 교부·수령 당시 자기이득 목적(+NOT())"
+  legal_standard: "증뢰물을 해당 제3자에게 교부하거나 그 제3자가 교부받을 당시 그 행위가 전달이 아니라 자기의 이익을 위한 취득이었는지 여부"
+  semantic_exclusions:
+    - "전달 목적으로 교부받아 범죄가 기수에 이른 뒤 금품 일부를 임의 소비한 사후행위만으로, 앞선 교부·수령 당시의 자기이득 목적을 긍정하지 않는다."
+    - "같은 factual episode에 사후 소비가 있더라도 해당 instance의 교부·수령 시점을 기준으로 판단한다."
+  temporal_anchor: focal_action
+  evidence_scope: offense_realization
   authority_refs: [{authority_basis: statute_text, citation: "형법 제133조 제2항"}]
 
 - id: legal_element.lawful_performance_of_duty

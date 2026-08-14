@@ -552,10 +552,6 @@
       - {kind: offense, ref: offense.injury, local_key: injury_part}
       - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
       - {kind: exported_component, ref: exported_component.death_of_victim, local_key: aggravated_result, slot: result}
-      - kind: bundle
-        ref: bundle.nonintentional_homicide_result
-        local_key: no_homicide_intent
-        placement: {legal_element.homicide_intent: mental}
     relations:
       - {relation: relation.causal_nexus, left: injury_part, right: aggravated_result, left_view: event, right_view: event}
   flattened_elements:
@@ -567,12 +563,7 @@
         - {op: ref, ref: legal_element.injury_result}
         - {op: ref, ref: ground_fact.death_of_victim}
     causation: {op: ref, ref: legal_element.aggravated_result_attribution}
-    mental:
-      op: all
-      args:
-        - {op: ref, ref: legal_element.intent}
-        - op: not
-          arg: {op: ref, ref: legal_element.homicide_intent}
+    mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.rape_causing_injury_by_aggravated_result
   identity:
@@ -589,10 +580,6 @@
       - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
       - {kind: exported_component, ref: exported_component.injury_conduct, local_key: injury_conduct, slot: conduct}
       - {kind: exported_component, ref: exported_component.injury_result, local_key: aggravated_result, slot: result}
-      - kind: bundle
-        ref: bundle.nonintentional_injury_result
-        local_key: no_injury_intent
-        placement: {legal_element.injury_intent: mental}
     relations:
       - {relation: relation.causal_nexus, left: rape_part, right: aggravated_result, left_view: event, right_view: event}
       - {relation: relation.occasion_identity, left: rape_part, right: injury_conduct, left_view: conduct, right_view: conduct}
@@ -614,12 +601,7 @@
         - {op: ref, ref: legal_element.coercion_induced_sexual_act_causation}
         - {op: ref, ref: legal_element.aggravated_result_attribution}
     result: {op: ref, ref: legal_element.injury_result}
-    mental:
-      op: all
-      args:
-        - {op: ref, ref: legal_element.intent}
-        - op: not
-          arg: {op: ref, ref: legal_element.injury_intent}
+    mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.robbery_causing_injury_by_aggravated_result
   identity:
@@ -637,10 +619,6 @@
       - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
       - {kind: exported_component, ref: exported_component.injury_conduct, local_key: injury_conduct, slot: conduct}
       - {kind: exported_component, ref: exported_component.injury_result, local_key: aggravated_result, slot: result}
-      - kind: bundle
-        ref: bundle.nonintentional_injury_result
-        local_key: no_injury_intent
-        placement: {legal_element.injury_intent: mental}
     relations:
       - {relation: relation.causal_nexus, left: robbery_part, right: aggravated_result, left_view: event, right_view: event}
       - {relation: relation.occasion_identity, left: robbery_part, right: injury_conduct, left_view: conduct, right_view: conduct}
@@ -653,12 +631,7 @@
         - {op: ref, ref: ground_fact.injury_conduct}
     result: {op: ref, ref: legal_element.injury_result}
     causation: {op: ref, ref: legal_element.aggravated_result_attribution}
-    mental:
-      op: all
-      args:
-        - {op: ref, ref: legal_element.unlawful_appropriation_intent}
-        - op: not
-          arg: {op: ref, ref: legal_element.injury_intent}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.robbery_causing_death_by_aggravated_result
   identity:
@@ -671,10 +644,6 @@
       - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
       - {kind: exported_component, ref: exported_component.killing_conduct, local_key: killing_conduct, slot: conduct}
       - {kind: exported_component, ref: exported_component.death_of_victim, local_key: aggravated_result, slot: result}
-      - kind: bundle
-        ref: bundle.nonintentional_homicide_result
-        local_key: no_homicide_intent
-        placement: {legal_element.homicide_intent: mental}
     relations:
       - {relation: relation.causal_nexus, left: robbery_part, right: aggravated_result, left_view: event, right_view: event}
       - {relation: relation.occasion_identity, left: robbery_part, right: killing_conduct, left_view: conduct, right_view: conduct}
@@ -687,9 +656,4 @@
         - {op: ref, ref: ground_fact.killing_conduct}
     result: {op: ref, ref: ground_fact.death_of_victim}
     causation: {op: ref, ref: legal_element.aggravated_result_attribution}
-    mental:
-      op: all
-      args:
-        - {op: ref, ref: legal_element.unlawful_appropriation_intent}
-        - op: not
-          arg: {op: ref, ref: legal_element.homicide_intent}
+    mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
