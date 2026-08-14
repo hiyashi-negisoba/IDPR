@@ -17,26 +17,34 @@ necessity 판정은 **3치 반사실**이다. `{TRUE, FALSE, UNKNOWN}` 전부를
 "어느 쪽이어도 가드가 UNKNOWN"인 predicate를 moot로 잘못 지우게 된다. 이 데이터에서는
 2치와 3치의 결과가 같았지만(317/164/72), 판정 근거는 3치가 맞다.
 
-## denominator
+## denominator -- 어느 plan인지부터
 
-| | |
+이 실행에는 **evaluation instance plan이 두 개** 있고, 처음에 잘못된 쪽을 봤다.
+
+| artifact | 타깃 | 쓰인 곳 |
+| --- | --- | --- |
+| `evaluation_instance_plan.jsonl` (sha `a025da…`) | **531** | 26문항 Call 2 본실행 |
+| `call15d_v4/evaluation_instance_plan.jsonl` (sha `1a10c5…`) | 553 | 이후 3문항 delta 실행 |
+
+아래 숫자는 **본실행이 쓴 531 타깃 기준**이다. 두 plan의 차이 22건은 **전부 moot·정의없음
+버킷**이고 live는 317로 동일하므로, 어느 쪽을 보든 결론은 같다. 그래도 인용할 수치는
+본실행 쪽이어야 한다.
+
+| bucket | 계획 531 |
 | --- | --- |
-| 계획된 (instance, predicate) 타깃 | **553** |
-| GroundFact factual-episode 중복 제거로 접힘 | −46 (전부 `ground_fact`) |
-| 실제 평가된 (occurrence, predicate) 키 | **507** |
+| live | **317** |
+| moot | **148** |
+| 정의 없음 | **66** |
 
-Call 2는 GroundFact를 factual episode당 한 번만 평가한다. 형제 occurrence에 걸린 같은
-GroundFact는 자기 키로 돌아오지 않는다 — 두 denominator의 차이는 전부 이것이다.
+Call 2는 GroundFact를 factual episode당 한 번만 평가하므로, 형제 occurrence에 걸린 같은
+GroundFact는 자기 키로 돌아오지 않는다(46건, 전부 `ground_fact`).
+`kcl_criminal_r12_p2_q1_na`는 assessment target이 0이다.
 
-| bucket | 계획 553 | 접힘 46 | 평가 507 |
-| --- | --- | --- | --- |
-| live | 317 | 20 | 297 |
-| moot | 164 | 11 | 153 |
-| 정의 없음 | 72 | 15 | 57 |
+**미결:** 증거창 진단(507 키)은 `call15d_v4` 타깃으로 돌렸으므로 531 plan과 키 집합이
+어긋난다. 아래 UNKNOWN 3분할은 그래서 근사치이고, 두 진단을 같은 plan으로 맞춰
+재계산해야 확정된다.
 
-`kcl_criminal_r12_p2_q1_na`는 assessment target이 0이라 재생 대상이 아니다.
-
-## UNKNOWN 275건의 3분할 (평가된 507 기준)
+## UNKNOWN 275건의 3분할 (평가된 507 기준, 근사)
 
 | 원인 | 건수 | 비중 |
 | --- | --- | --- |
@@ -93,10 +101,14 @@ impossible_attempt:
 
 ### 이 수치를 논문에 쓸 때
 
-`moot = 164`는 **회고적**이다. 어떤 항이 blocker인지 알려면 그 항을 먼저 물어야 하므로,
-prospective 실행에서 164개를 처음부터 전부 생략할 수 있다는 뜻이 아니다. 실제 절감량은
-guard-aware iterative scheduler를 돌린 뒤 측정한다. 현 단계의 정확한 표현은
-"164 targets were retrospectively non-influential"이다.
+`moot = 148`은 **회고적**이다. 어떤 항이 blocker인지 알려면 그 항을 먼저 물어야 하므로,
+prospective 실행에서 148개를 처음부터 전부 생략할 수 있다는 뜻이 아니다. 정확한 표현은
+"148 targets were retrospectively non-influential"이다.
+
+동결 truth를 오라클로 삼아 새 스케줄러를 시뮬레이션하면 **531 → 436 (17.9% 감소)**이고,
+생략된 95건의 동결 truth는 UNKNOWN 62 / FALSE 23 / TRUE 10이다. 회고적 148과 실제 95의
+차이가 정확히 "blocker를 알기 위해 물어야 했던 몫"이다. 26문항 중 21개가 1라운드,
+3개가 2라운드, 1개가 3라운드에 수렴한다.
 
 절감보다 중요한 것은 품질이다: **성립 가능성이 이미 죽은 completion branch의 UNKNOWN을
 최종 AnswerPlan에 legal uncertainty처럼 흘려보내지 않는다.** 살인예비·불능미수 같은 죽은
@@ -136,15 +148,46 @@ UNKNOWN이다. 시스템 프롬프트의 *"문항의 다른 부분, 일반적인
 가지고 나왔다" — 사자의 점유 문제다. UNKNOWN이 법적으로 옳다. 문제는 AnswerPlan이 이걸
 논점이 아니라 미확정으로 흘려버린다는 것이다. rubric이 요구하는 것은 바로 이 대립이다.
 
+## (b) 구현 -- `src/idpr/v2/runtime/target_scheduling.py`
+
+두 규칙을 분리했다.
+
+- `live_predicate_refs` = **정합성 규칙.** 어떤 slot 식·state 가드·살아 있는 state의
+  `requires`가 그 predicate 값에 따라 다른 말을 하면 live다. 대입은 3치 전부에 대해 한다.
+- `frontier_predicate_refs` = **일정 규칙.** 연언은 저작 순서로 읽고 아직 정해지지 않은
+  첫 항에서 멈춘다. 뒤의 항은 앞의 항이 가드를 죽이지 못한 뒤에야 도달한다.
+
+**predicate 종류를 보는 규칙은 어디에도 없다.** `means_or_object_defect`가
+`dangerousness`를 막는다는 지식도 없다. blocker가 `legal_element`인 경우
+(`commencement_of_execution`가 세 attempt state를 한꺼번에 죽이는 경우)도 동일하게 처리되고,
+그것이 `tests/test_target_scheduling.py`의 검사 항목이다.
+
+`live`와 `frontier`가 다른 것이 핵심이다. 아무것도 모르는 상태에서 `dangerousness`는
+live지만 frontier가 아니다 — 생략이 아니라 유예다.
+
+스케줄링은 플래너의 후보 집합에서 **빼기만 한다**(`candidate_refs`). 플래너는 predicate
+scoping·doctrine raising·participation 때문에 타깃을 좁히는데, 그 이유를 이 모듈은 모른다.
+
+실행기(`scripts/run_v2_call2_pilot.py`)가 라운드를 돌린다. 각 라운드의 답은
+`expand_ground_fact_assessments`를 거쳐 되먹임되므로, episode 단위 GroundFact 하나가
+그 episode를 쓰는 모든 instance의 가드를 함께 죽인다. `--flat-targets`로 이전 동작을
+그대로 재현할 수 있고, 케이스마다 `target_scheduling`(모드·라운드·planned/asked/skipped)이
+artifact에 남는다.
+
+dev 2문항 실제 실행 결과:
+
+| 문항 | planned → asked | 라운드 | 결과 |
+| --- | --- | --- | --- |
+| `r13_p1_q3` | 12 → 9 | 7, 2 | TRUE 6 / FALSE 2 / UNKNOWN 1 |
+| `r14_p2_q2` | 28 → 21 | 21 | TRUE 6 / FALSE 2 / **UNKNOWN 13** (동결 22) |
+
 ## 순서
 
-1. **(b) guard-aware iterative planner.** 하드코딩된 "ground fact 먼저"가 아니라 일반형:
-   확보된 truth → Kleene 부분평가 → 아직 결과를 바꿀 수 있는 ref만 live → 그것만 Call 2
-   요청 → truth 추가 → 재평가 → fixpoint. attempted / abandoned / impossible / preparation이
-   전부 같은 기계로 처리된다.
-2. 26문항 재실행 → residual UNKNOWN 재진단.
-3. 증거 스코프.
-4. 마지막에 초literal 프롬프트 문언. **활성 프롬프트 변경이므로 승인 게이트 대상.**
+1. ~~**(b) guard-aware iterative planner.**~~ 완료.
+2. 두 진단을 같은 plan으로 재계산(위 미결 항목).
+3. 26문항 재실행 → residual UNKNOWN 재진단.
+4. 증거 스코프.
+5. 마지막에 초literal 프롬프트 문언. **활성 프롬프트 변경이므로 승인 게이트 대상.**
 
 ③의 "진짜 논점을 미확정이 아니라 쟁점으로 승격"도 나머지가 정리된 뒤 검토한다.
 

@@ -8,6 +8,7 @@ import hashlib
 import json
 import sys
 from collections.abc import Iterable, Mapping
+from itertools import count
 from pathlib import Path
 from typing import Any
 
@@ -75,6 +76,7 @@ from idpr.v2.runtime.relation_grounding import (
     shard_relation_targets_by_occurrence,
     validate_relation_output,
 )
+from idpr.v2.runtime.target_scheduling import next_round_targets
 from idpr.v2.runtime.utilized_participant_outcome import (
     UtilizedParticipantOutcomeTarget,
     UtilizedParticipantPredicateTarget,
@@ -358,6 +360,13 @@ def main() -> None:
             "acceptance artifact"
         ),
     )
+    parser.add_argument(
+        "--flat-targets",
+        action="store_true",
+        help="ask every planned target in one round, reproducing the pre-scheduling "
+        "behaviour; kept so a frozen run can be replayed exactly",
+    )
+    parser.add_argument("--max-scheduling-rounds", type=int, default=12)
     parser.add_argument("--prompt-approved", action="store_true")
     args = parser.parse_args()
     if not args.prompt_approved:
@@ -458,60 +467,125 @@ def main() -> None:
         if args.smoke_target_limit is not None and args.smoke_target_limit <= 0:
             raise ValueError("--smoke-target-limit must be positive")
         episode_by_occurrence = _episode_by_occurrence(plan_row)
-        request_targets = grounding_request_targets(
-            registry, targets, episode_by_occurrence=episode_by_occurrence
-        )
-        shards = shard_assessment_targets_by_occurrence(
-            request_targets, max_targets=args.max_targets_per_request
-        )
         request_assessments = []
         shard_records = []
         occurrence_by_id = {value.occurrence_id: value for value in occurrences}
         predicate_by_ref = {value.predicate_ref: value for value in predicates}
-        for shard_index, shard in enumerate(shards, start=1):
-            shard_occurrence_ids = tuple(
-                dict.fromkeys(value.instance_key.occurrence_id for value in shard)
+
+        # The planner decides which predicates this case is in scope for; the scheduler
+        # decides which of them are still capable of changing an outcome, round by round.
+        # Asking everything at once is what let `dangerousness` be assessed on instances
+        # whose `means_or_object_defect` was already FALSE, and that UNKNOWN then read as
+        # legal uncertainty in the written answer.
+        candidate_refs: dict[Any, set[str]] = {}
+        for target in targets:
+            candidate_refs.setdefault(target.instance_key, set()).add(target.predicate_ref)
+        scheduled_instances = tuple(dict.fromkeys(target.instance_key for target in targets))
+        known_truths: dict[Any, dict[str, str]] = {}
+        asked_refs: dict[Any, set[str]] = {}
+        asked_targets: list[AssessmentTarget] = []
+        round_records: list[dict[str, Any]] = []
+        shard_index = 0
+
+        for round_index in count(1):
+            if args.flat_targets:
+                batch = tuple(
+                    (target.instance_key, target.predicate_ref)
+                    for target in targets
+                ) if round_index == 1 else ()
+            else:
+                batch = next_round_targets(
+                    registry,
+                    scheduled_instances,
+                    known_truths,
+                    already_asked=asked_refs,
+                    candidate_refs=candidate_refs,
+                )
+            if not batch:
+                break
+            if round_index > args.max_scheduling_rounds:
+                raise ValueError(
+                    f"{case_id}: target scheduling did not converge in "
+                    f"{args.max_scheduling_rounds} rounds"
+                )
+            round_targets = tuple(
+                AssessmentTarget(instance_key=instance, predicate_ref=ref)
+                for instance, ref in batch
             )
-            if len(shard_occurrence_ids) != 1:
-                raise AssertionError("physical Call 2 shard crossed an occurrence boundary")
-            evidence_occurrence = occurrence_by_id[shard_occurrence_ids[0]]
-            shard_predicate_refs = tuple(
-                dict.fromkeys(value.predicate_ref for value in shard)
+            for instance, ref in batch:
+                asked_refs.setdefault(instance, set()).add(ref)
+            asked_targets.extend(round_targets)
+
+            request_targets = grounding_request_targets(
+                registry, round_targets, episode_by_occurrence=episode_by_occurrence
             )
-            payload = call2_request_payload(
-                evidence_occurrence=evidence_occurrence,
-                question_assumptions=question_assumptions.get(case_id, ()),
-                predicates=tuple(predicate_by_ref[value] for value in shard_predicate_refs),
-                targets=shard,
+            shards = shard_assessment_targets_by_occurrence(
+                request_targets, max_targets=args.max_targets_per_request
             )
-            assert_no_leaked_fields(payload)
-            raw, metadata = client.complete_json(
-                system_prompt=system_prompt,
-                payload=payload,
-                schema_name="v2_occurrence_scoped_call2",
-                schema=call2_schema(shard),
-                max_tokens=args.max_tokens,
-                temperature=args.temperature,
-                user_template=user_prompt,
-            )
-            validated = validate_call2_output(raw, targets=shard)
-            request_assessments.extend(validated)
-            usage = metadata.get("usage", {})
-            for key in aggregate_usage:
-                aggregate_usage[key] += int(usage.get(key, 0) or 0)
-            physical_requests += 1
-            shard_records.append({
-                "shard_kind": "predicate",
-                "shard_index": shard_index,
-                "target_count": len(shard),
-                "evidence_occurrence_id": evidence_occurrence.occurrence_id,
-                "predicate_definition_count": len(shard_predicate_refs),
-                "usage": usage,
-                "model_response": {
-                    "id": metadata.get("id"),
-                    "finish_reason": metadata.get("finish_reason"),
-                },
-            })
+            round_assessments = []
+            for shard in shards:
+                shard_index += 1
+                shard_occurrence_ids = tuple(
+                    dict.fromkeys(value.instance_key.occurrence_id for value in shard)
+                )
+                if len(shard_occurrence_ids) != 1:
+                    raise AssertionError("physical Call 2 shard crossed an occurrence boundary")
+                evidence_occurrence = occurrence_by_id[shard_occurrence_ids[0]]
+                shard_predicate_refs = tuple(
+                    dict.fromkeys(value.predicate_ref for value in shard)
+                )
+                payload = call2_request_payload(
+                    evidence_occurrence=evidence_occurrence,
+                    question_assumptions=question_assumptions.get(case_id, ()),
+                    predicates=tuple(predicate_by_ref[value] for value in shard_predicate_refs),
+                    targets=shard,
+                )
+                assert_no_leaked_fields(payload)
+                raw, metadata = client.complete_json(
+                    system_prompt=system_prompt,
+                    payload=payload,
+                    schema_name="v2_occurrence_scoped_call2",
+                    schema=call2_schema(shard),
+                    max_tokens=args.max_tokens,
+                    temperature=args.temperature,
+                    user_template=user_prompt,
+                )
+                validated = validate_call2_output(raw, targets=shard)
+                request_assessments.extend(validated)
+                round_assessments.extend(validated)
+                usage = metadata.get("usage", {})
+                for key in aggregate_usage:
+                    aggregate_usage[key] += int(usage.get(key, 0) or 0)
+                physical_requests += 1
+                shard_records.append({
+                    "shard_kind": "predicate",
+                    "scheduling_round": round_index,
+                    "shard_index": shard_index,
+                    "target_count": len(shard),
+                    "evidence_occurrence_id": evidence_occurrence.occurrence_id,
+                    "predicate_definition_count": len(shard_predicate_refs),
+                    "usage": usage,
+                    "model_response": {
+                        "id": metadata.get("id"),
+                        "finish_reason": metadata.get("finish_reason"),
+                    },
+                })
+            # Feed this round's answers back before the next frontier is computed.  The
+            # projection matters: one episode-level GroundFact answer settles the same
+            # fact for every instance consuming that episode, and a guard those instances
+            # share can die on it without being asked again.
+            for value in expand_ground_fact_assessments(
+                registry,
+                tuple(round_assessments),
+                expected_targets=round_targets,
+                episode_by_occurrence=episode_by_occurrence,
+            ):
+                known_truths.setdefault(value.target.instance_key, {})[
+                    value.target.predicate_ref
+                ] = value.truth
+            round_records.append({"round": round_index, "targets": len(round_targets)})
+
+        targets = tuple(asked_targets)
         assessments = expand_ground_fact_assessments(
             registry,
             request_assessments,
@@ -910,6 +984,17 @@ def main() -> None:
                 participant_predicate_assessments
             ),
             "planned_assessment_target_count": len(planned_targets),
+            # What the guard-aware schedule cost and saved, per case.  A target the
+            # planner scoped but no round ever reached is one whose answer could not have
+            # changed an outcome; recording the gap is what makes that claim auditable
+            # rather than asserted.
+            "target_scheduling": {
+                "mode": "flat" if args.flat_targets else "guard_aware",
+                "rounds": round_records,
+                "planned_targets": len(planned_targets),
+                "asked_targets": len(targets),
+                "skipped_targets": len(planned_targets) - len(targets),
+            },
             "assessments": [value.as_dict() for value in assessments],
             "case_truths": projected_truths,
             "case_relation_truths": projected_relation_truths,

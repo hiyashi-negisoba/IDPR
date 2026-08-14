@@ -95,6 +95,13 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--run-root", type=Path, default=ROOT / "experiments/v2_call15_directscope_26_causal")
     parser.add_argument("--definitions", type=Path, default=ROOT / "data/v2/definitions")
+    parser.add_argument(
+        "--plan",
+        type=Path,
+        help="evaluation instance plan; defaults to the run root's call15d_v4 artifact. "
+        "The 26-question Call 2 run and a later 3-case delta used different plans, so "
+        "which one the denominator comes from has to be stated, not assumed",
+    )
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument(
         "--assessed",
@@ -118,7 +125,7 @@ def main() -> None:
         for entry in yaml.safe_load((args.definitions / name).read_text(encoding="utf-8")):
             meanings[str(entry["id"])] = str(entry.get("canonical_meaning") or "")
 
-    plans = rows(args.run_root / "call15d_v4/evaluation_instance_plan.jsonl")
+    plans = rows(args.plan or (args.run_root / "call15d_v4/evaluation_instance_plan.jsonl"))
     frozen = rows(args.run_root / "call2_v10_ground_fact_rebase/grounding_output_rebased.jsonl")
 
     per_predicate: dict[str, Counter[str]] = defaultdict(Counter)

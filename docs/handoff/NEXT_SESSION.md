@@ -1111,17 +1111,33 @@ P는 법률 문장으로 바꿔 썼는데, 문자열 일치 검사가 **죄명�
   `means_or_object_defect`가 FALSE인 자리였다. **DSL은 맞게 적혀 있고 플래너가 안 읽었다.**
 - 증거 창을 사실관계 전문으로 넓히면 UNKNOWN이 54.2% -> 39.6%로 줄지만 FALSE->TRUE 정면
   모순 5건을 새로 산다. 전면 교체는 답이 아니다.
-- `moot = 164`는 **회고적** 수치다. prospective 절감량은 새 스케줄러를 돌린 뒤 측정한다.
+- `moot = 148`은 **회고적** 수치다. 새 스케줄러를 동결 truth로 시뮬레이션하면 실제로는
+  531 -> 436 (17.9%)이고, 그 차이가 "blocker를 알기 위해 물어야 했던 몫"이다.
 
-denominator는 닫아뒀다: 계획 553 = 평가 507 + GroundFact episode 중복 46,
-live 317 = 297 + 20. 진단기가 이 대조를 artifact에 직접 쓴다(`--assessed`).
+**plan artifact 주의.** 이 실행에는 plan이 둘이다 -- 26문항 본실행은 루트
+`evaluation_instance_plan.jsonl`(531 타깃), 이후 3문항 delta는 `call15d_v4`(553 타깃)를
+썼다. 처음에 v4로 집계했다가 정정했다. 두 plan의 차이 22건은 전부 moot/undefined이고
+live는 317로 동일해서 결론은 안 바뀌지만, **인용 수치는 531 쪽이다.**
+
+## 2026-08-14 -- (b) guard-aware target scheduling 구현
+
+`src/idpr/v2/runtime/target_scheduling.py`. `live`(정합성: 3치 반사실로 결과를 바꾸는가)와
+`frontier`(일정: 연언을 저작 순서로 읽어 미정인 첫 항에서 멈춤)를 분리했다. predicate 종류나
+특정 predicate 쌍을 아는 규칙은 없다. 스케줄링은 플래너 후보 집합에서 빼기만 한다.
+
+실행기가 라운드를 돌리고, 각 라운드 답을 `expand_ground_fact_assessments`로 되먹인다 --
+episode 단위 GroundFact 하나가 그 episode를 쓰는 모든 instance의 가드를 함께 죽인다.
+`--flat-targets`로 이전 동작 재현 가능. 케이스마다 `target_scheduling` 블록이 남는다.
+
+dev 2문항 실제 실행: `r13_p1_q3` 12->9(라운드 7,2), `r14_p2_q2` 28->21,
+**UNKNOWN 22 -> 13.** 전체 스위트 328 passed.
 
 ### 다음
 
-1. **(b) guard-aware iterative planner.** "ground fact 먼저"가 아니라 일반형 fixpoint:
-   확보된 truth -> Kleene 부분평가 -> 결과를 바꿀 수 있는 ref만 live -> 그것만 요청 -> 반복.
+1. 두 진단(necessity / evidence scope)을 같은 plan으로 재계산. 증거창 진단이 v4 타깃으로
+   돌아가 있어 507 키가 531 plan과 어긋난다.
 2. 26문항 재실행 -> residual UNKNOWN 재진단.
 3. 증거 스코프.
 4. 마지막에 초literal 프롬프트 문언 -- **활성 프롬프트라 승인 게이트 대상.**
 
-rubric judge는 (b) 이후로 미룬다.
+rubric judge는 그 뒤로 미룬다.
