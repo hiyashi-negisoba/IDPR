@@ -1189,3 +1189,31 @@ UNKNOWN 뒤에도 FALSE가 연언을 죽일 수 있으므로 다음 conjunct로 
 
 다음은 새 452-target truth 기준 residual UNKNOWN 재진단이다. evidence scope / occurrence 오배치 /
 초literal 판정 / 진짜 법적 논점을 다시 분리하며, 활성 프롬프트 변경은 계속 승인 게이트 뒤에 둔다.
+
+---
+
+## 2026-08-14 -- residual UNKNOWN 232개 3-arm 진단
+
+정본은 `docs/analysis/v2_call2_residual_unknown_26_diagnosis_ko.md`다. 같은 residual UNKNOWN
+232 exact target을 occurrence / factual episode / full case evidence로 paired replay했다.
+
+- occurrence 동일 재생만으로 26/232가 known으로 drift했다. 정본과 replay의 단순 차이는 evidence
+  효과가 아니다.
+- 보수적 operational bucket: episode-scope confirmed 44, outside-episode review 50,
+  persistent review 93, unstable/drift 45.
+- occurrence U -> episode known은 63개이고 TRUE/FALSE 직접 역전은 0. 그중 full case에서도 같은
+  값을 유지한 44개만 B-confirmed다.
+- full case는 episode known 25개를 UNKNOWN으로 되돌리고 FALSE -> TRUE 1개를 만들었다. 전면
+  evidence 확대는 다시 기각한다.
+- occurrence 오배치가 명확히 재현됐다. 다른 actor의 taking을 full case에서 끌어와 TRUE로 만드는
+  경우가 있으므로 full-known 50개를 복구로 세지 않는다.
+- 진짜 법적 쟁점 D는 persistent UNKNOWN으로 검출할 수 없다. 사자의 점유는 정본 UNKNOWN이지만
+  이번 세 arm에서 모두 TRUE로 drift했다. D는 authored dispute/rubric bridge가 필요하다.
+
+새 진단기 `scripts/diagnose_v2_call2_evidence_scope.py`는 hardcoded v4/과거 truth를 제거하고 explicit
+plan/Call2/issue-binding lineage, question assumptions, residual UNKNOWN exact keys를 쓴다.
+`scripts/analyze_v2_call2_residual_unknown.py`가 재현 가능한 JSON/Markdown review packet을 만든다.
+검증은 **332 passed, 16 skipped**, focused Ruff, `git diff --check` 통과.
+
+다음은 review packet의 A-or-context 50 + persistent 93을 target placement로 먼저 줄이는 것이다.
+그 뒤 C prompt-policy와 D legal-dispute/AnswerPlan 트랙을 분리한다. N/P는 계속 재실행하지 않는다.
