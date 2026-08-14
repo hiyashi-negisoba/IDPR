@@ -265,6 +265,7 @@ def call2_request_payload(
     question_assumptions: Iterable[QuestionAssumption] = (),
     predicates: Iterable[PredicateDefinition],
     targets: Iterable[AssessmentTarget],
+    realization_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build one shard whose only factual evidence is one gold occurrence span."""
     predicate_values = tuple(predicates)
@@ -290,7 +291,7 @@ def call2_request_payload(
             errors.append(f"unknown selected predicate: {target.predicate_ref!r}")
     if errors:
         raise GroundingContractError(errors)
-    return {
+    payload = {
         "evidence_occurrence": evidence_occurrence.as_dict(),
         "question_assumptions": [value.as_dict() for value in question_assumptions],
         "predicate_catalog": [value.as_dict() for value in predicate_values],
@@ -310,6 +311,14 @@ def call2_request_payload(
             for target in target_values
         ],
     }
+    if realization_context is not None:
+        target_actors = {target.instance_key.actor_id for target in target_values}
+        if target_actors != {str(realization_context.get("target_actor_id"))}:
+            raise GroundingContractError(
+                ["realization context actor differs from request target actor"]
+            )
+        payload["realization_context"] = dict(realization_context)
+    return payload
 
 
 def call2_schema(targets: Iterable[AssessmentTarget]) -> dict[str, Any]:

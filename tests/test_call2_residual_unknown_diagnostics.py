@@ -4,6 +4,7 @@ from idpr.v2.gold_factual_identity import GoldOccurrence
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.evaluation_instance_planner import _instance_predicate_refs
 from idpr.v2.runtime.grounding import AssessmentTarget
+from idpr.v2.runtime.grounding_evidence import actor_aware_realization_context
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from scripts.analyze_v2_call2_mixed_evidence import transition_counts
 from scripts.analyze_v2_call2_overliteral_impact import changed_symbolic_cases
@@ -72,6 +73,83 @@ def test_factual_episode_evidence_maps_direct_and_derived_bindings():
         "binding:1": "2345678",
         "derived:1": "2345678",
     }
+
+
+def test_actor_aware_context_keeps_peer_actions_out_of_actor_evidence():
+    registry = load_definitions(Path("data/v2/definitions"))
+    target = AssessmentTarget(
+        OffenseInstanceKey("case", "乙", "offense.theft", "binding:2"),
+        "legal_element.unlawful_appropriation_intent",
+    )
+    issue = {
+        "seed_results": [
+            {
+                "bindings": [
+                    {
+                        "binding_id": "binding:1",
+                        "factual_episode_id": "episode:1",
+                        "actor_id": "甲",
+                        "actor_action_fragments": [
+                            {"source_quote": "甲이 지갑을 꺼냈다."}
+                        ],
+                        "context_fragments": [],
+                    },
+                    {
+                        "binding_id": "binding:2",
+                        "factual_episode_id": "episode:1",
+                        "actor_id": "乙",
+                        "actor_action_fragments": [
+                            {"source_quote": "乙이 길을 물었다."}
+                        ],
+                        "context_fragments": [
+                            {"source_quote": "甲과 乙은 함께 범행하기로 했다."}
+                        ],
+                    },
+                ]
+            }
+        ]
+    }
+    context = actor_aware_realization_context(
+        registry=registry,
+        target=target,
+        plan_row={"derived_binding_candidates": []},
+        issue_row=issue,
+    )
+    assert context is not None
+    assert context["same_actor_action_evidence"] == ["乙이 길을 물었다."]
+    assert context["context_evidence"] == ["甲과 乙은 함께 범행하기로 했다."]
+    assert context["excluded_peer_actor_binding_ids"] == ["binding:1"]
+
+
+def test_actor_bound_ground_fact_never_receives_realization_context():
+    registry = load_definitions(Path("data/v2/definitions"))
+    target = AssessmentTarget(
+        OffenseInstanceKey("case", "乙", "offense.theft", "binding:2"),
+        "ground_fact.taking_conduct",
+    )
+    context = actor_aware_realization_context(
+        registry=registry,
+        target=target,
+        plan_row={"derived_binding_candidates": []},
+        issue_row={
+            "seed_results": [
+                {
+                    "bindings": [
+                        {
+                            "binding_id": "binding:2",
+                            "factual_episode_id": "episode:1",
+                            "actor_id": "乙",
+                            "actor_action_fragments": [
+                                {"source_quote": "乙이 길을 물었다."}
+                            ],
+                            "context_fragments": [],
+                        }
+                    ]
+                }
+            ]
+        },
+    )
+    assert context is None
 
 
 def test_target_placement_buckets_keep_role_review_separate_from_provenance():

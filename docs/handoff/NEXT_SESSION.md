@@ -1341,3 +1341,50 @@ actor-action 한 문장만 준 evidence packaging**이다. 후속은 actor-aware
 모든 episode 전문을 주지 말고 다른 actor action을 기본 제외한 typed context를 만들며,
 direct/derived GroundFact는 한 번 평가 후 projection해 conflict를 막는다. production prompt와 N/P는
 변경하지 않았다.
+
+---
+
+## 2026-08-14 -- actor-aware 232-target 실행과 production gate
+
+정본은 `docs/analysis/v2_call2_actor_aware_232_run_review_ko.md`다.
+
+- exact residual UNKNOWN 232개를 current occurrence / actor prompt occurrence / actor prompt
+  context 세 arm으로 실행했다. 총 382,340 tokens.
+- prompt drift와 evidence effect를 분리했다. 같은 candidate prompt에서 context만 추가한 효과는
+  U->known 24, known->U 4, TRUE<->FALSE 직접 역전 0이다.
+- actor-bound GroundFact 35개는 context를 받지 않았고 두 candidate arm에서 35/35 동일했다.
+- B_SAFE32 intended agreement는 12->18, C17은 2->5였으나 reviewed opposite 이동 1개가 있다.
+
+결론: actor-aware typed carrier 구조는 유효하지만 197개 전면 production 채택은 기각한다.
+registry가 `exact_actor_action | same_actor_episode | offense_realization` evidence scope를
+predicate별로 저작해야 한다. active Call 2 prompt와 production truth, N/P는 계속 동결한다.
+
+---
+
+## 2026-08-14 -- KCL 답안 품질 전체 장애물 감사
+
+정본은 `docs/analysis/v2_kcl_quality_barriers_26_audit_ko.md`, 재현 JSON은
+`diagnostics/kcl_quality_barriers_v1.json`이다. 아직 blind LLM judge를 돌린 것이 아니며 아래는
+생성 후 rubric을 읽은 deterministic lower-bound 진단이다.
+
+- Call 2 scheduled 452 중 UNKNOWN 232(51.3%), required conclusion 106개 중 unresolved 78(73.6%).
+- reviewed gold offense ref structural reach 65/86, explicit seed 50/57, occurrence span 48/67.
+- participation reviewed positive universe coverage 13/23; 10개는 질문되지 않는다.
+- rubric dispute 45 atom/20 case인데 dispute marker 하한은 P 2/20, N 4/20, baseline 9/20.
+  `AnswerPlan.contested_points`는 schema만 있고 builder injection이 없어 실행상 비어 있다.
+- explicit article requirement 38개 중 P 7, N 14, baseline 11. P는 plan의 authored 조문을 writer가
+  대량 누락한다.
+- 카드 target 560개 중 no-ground 143(derived article 미매핑 49, episode quote 없음 94), 검색한
+  417개 중 cards present 288.
+- global representation gap 4개가 26 case에 모두 반복되고 `UNRESOLVED_MISTAKE_BINDING`은 25 case다.
+
+writer의 조문 누락을 막기 위해 AnswerPlan/Call 3에 `required_authorities` closed list를 추가했다.
+기존 P lineage를 재구성한 dry-run은 26/26 성공, 25 case/총 201 citation anchor다. 새 법리를
+추가하지 않고 이미 plan에 있는 governing provision만 deduplicate한다. final N/P에서 실제 citation
+recall을 확인할 때까지 기존 N/P는 역사적 artifact다. Call 3 output/manifest에는 exact citation
+누락 audit가 기록되며 host post-edit나 자동 repair는 하지 않는다.
+
+다음 우선순위는 (1) predicate evidence scope 승인, (2) authored dispute registry -> contested_points,
+(3) downstream 영향 있는 offense/participation/card bridge 누락, (4) global engineering gap의
+case-scoped 격리다. 그 뒤 final Call 2부터 N/P까지 한 번만 재생성하고 baseline 포함 blind judge를
+돌린다.

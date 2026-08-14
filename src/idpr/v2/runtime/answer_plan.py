@@ -23,8 +23,8 @@ from __future__ import annotations
 
 import json
 import re
-from collections.abc import Iterable, Mapping, Sequence
-from dataclasses import dataclass, field
+from collections.abc import Mapping, Sequence
+from dataclasses import dataclass
 from typing import Any
 
 from idpr.v2.registry import DefinitionRegistry
@@ -1037,6 +1037,52 @@ def serialize_required_final_conclusions(plan: AnswerPlan) -> str:
     assert_no_internal_markers(payload)
     assert_no_rubric_fields(payload)
     return payload
+
+
+def serialize_required_authorities(plan: AnswerPlan) -> str:
+    """Closed list of authored statute citations the writer must not drop.
+
+    This adds no authority and makes no new judgment.  It only deduplicates governing
+    provisions already attached to the plan's anchored issues and findings.
+    """
+    citations: list[str] = []
+    for issue in plan.anchored_issues:
+        if issue.governing_provision:
+            citations.extend(
+                value.strip()
+                for value in issue.governing_provision.split(";")
+                if value.strip()
+            )
+        for finding in (*issue.satisfied, *issue.failed, *issue.blocking):
+            if finding.governing_provision:
+                citations.extend(
+                    value.strip()
+                    for value in finding.governing_provision.split(";")
+                    if value.strip()
+                )
+    payload = "\n".join(f"· {value}" for value in dict.fromkeys(citations)) or "없음"
+    assert_no_internal_markers(payload)
+    assert_no_rubric_fields(payload)
+    return payload
+
+
+def missing_required_authorities(
+    answer_text: str, required_authorities: str
+) -> tuple[str, ...]:
+    """Return authored citation anchors absent from the generated answer.
+
+    This is deliberately an exact presence audit.  It neither repairs a citation nor
+    treats a different provision as equivalent, because the closed list already carries
+    the exact authored strings the writer received.
+    """
+    if not required_authorities.strip() or required_authorities.strip() == "없음":
+        return ()
+    required = tuple(
+        line.removeprefix("·").strip()
+        for line in required_authorities.splitlines()
+        if line.strip() and line.strip() != "없음"
+    )
+    return tuple(value for value in required if value not in answer_text)
 
 
 #: Words that mark a closing-summary heading.  The prompt asks for "최종 죄책과 죄수관계"

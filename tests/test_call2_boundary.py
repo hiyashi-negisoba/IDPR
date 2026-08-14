@@ -77,6 +77,37 @@ def test_request_keeps_question_assumption_separate_from_occurrence_evidence() -
     assert payload["question_assumptions"] == [assumption.as_dict()]
 
 
+def test_request_accepts_actor_checked_realization_context() -> None:
+    target = AssessmentTarget(
+        OffenseInstanceKey("case", "甲", "offense.injury", "gocc:001"),
+        "legal_element.intent",
+    )
+    payload = call2_request_payload(
+        evidence_occurrence=_occurrence(1),
+        predicates=predicate_definitions(REGISTRY, ("legal_element.intent",)),
+        targets=(target,),
+        realization_context={
+            "target_actor_id": "甲",
+            "carrier_policy": "actor_aware_realization_v1",
+        },
+    )
+    assert payload["realization_context"]["target_actor_id"] == "甲"
+
+
+def test_request_rejects_wrong_realization_context_actor() -> None:
+    target = AssessmentTarget(
+        OffenseInstanceKey("case", "甲", "offense.injury", "gocc:001"),
+        "legal_element.intent",
+    )
+    with pytest.raises(GroundingContractError, match="context actor"):
+        call2_request_payload(
+            evidence_occurrence=_occurrence(1),
+            predicates=predicate_definitions(REGISTRY, ("legal_element.intent",)),
+            targets=(target,),
+            realization_context={"target_actor_id": "乙"},
+        )
+
+
 def test_request_rejects_cross_occurrence_or_cross_actor_targets() -> None:
     with pytest.raises(GroundingContractError):
         call2_request_payload(

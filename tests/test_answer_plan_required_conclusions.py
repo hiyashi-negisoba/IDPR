@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from dataclasses import replace
+
 import pytest
 
 from idpr.v2.runtime.answer_plan import (
@@ -10,11 +12,14 @@ from idpr.v2.runtime.answer_plan import (
     AnchoredIssue,
     AnswerPlan,
     FinalResponsibility,
+    Finding,
     ParticipationRoute,
     RequiredFinalConclusion,
     _required_final_conclusions,
     extract_final_conclusion_section,
+    missing_required_authorities,
     missing_required_final_conclusions,
+    serialize_required_authorities,
     serialize_required_final_conclusions,
 )
 
@@ -87,6 +92,39 @@ def test_serialization_carries_no_internal_markers() -> None:
     assert "甲" in payload and "횡령죄" in payload
     assert "ABSORBED" not in payload
     assert "UNKNOWN" not in payload
+
+
+def test_required_authorities_deduplicate_authored_issue_and_finding_citations() -> None:
+    first = replace(
+        _issue("i1", "甲", "사기죄", NOT_ESTABLISHED),
+        governing_provision="형법 제347조 제1항",
+        failed=(
+            Finding(
+                label="처분행위",
+                truth="FALSE",
+                governing_provision="형법 제347조 제1항",
+            ),
+        ),
+    )
+    second = replace(
+        _issue("i2", "乙", "상해죄", ESTABLISHED),
+        governing_provision="형법 제257조 제1항; 형법 제347조 제1항",
+    )
+
+    assert serialize_required_authorities(_plan((first, second))) == (
+        "· 형법 제347조 제1항\n· 형법 제257조 제1항"
+    )
+
+
+def test_required_authorities_is_empty_when_plan_has_no_authored_citations() -> None:
+    assert serialize_required_authorities(_plan((_issue("i1", "甲", "사기죄", UNRESOLVED),))) == "없음"
+
+
+def test_missing_required_authorities_is_an_exact_non_repairing_audit() -> None:
+    required = "· 형법 제347조 제1항\n· 형법 제257조 제1항"
+    answer = "사기죄는 형법 제347조 제1항에 따라 판단한다."
+    assert missing_required_authorities(answer, required) == ("형법 제257조 제1항",)
+    assert missing_required_authorities(answer, "없음") == ()
 
 
 def test_missing_required_conclusions_flags_an_issue_dropped_from_the_closing_section() -> None:

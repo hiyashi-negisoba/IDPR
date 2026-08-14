@@ -14,14 +14,17 @@ import json
 import sys
 import time
 from pathlib import Path
-from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from idpr.neural.vllm_client import VLLMClient, VLLMClientError
 from idpr.prompts import load_prompt, prompt_path
-from idpr.v2.runtime.answer_plan import assert_no_internal_markers, assert_no_rubric_fields
+from idpr.v2.runtime.answer_plan import (
+    assert_no_internal_markers,
+    assert_no_rubric_fields,
+    missing_required_authorities,
+)
 
 PROMPTS = ("v2_call3_irac", "v2_call3_irac_user")
 
@@ -62,6 +65,8 @@ def main() -> None:
     answers_path = args.out / "answers.jsonl"
     written = 0
     errors: list[dict[str, str]] = []
+    authority_missing_case_count = 0
+    authority_missing_count = 0
 
     with answers_path.open("w", encoding="utf-8") as handle:
         for plan in plans:
@@ -71,13 +76,17 @@ def main() -> None:
             assert_no_internal_markers(plan["analysis"])
             assert_no_rubric_fields(plan)
             required_final_conclusions = plan.get("required_final_conclusions", "")
+            required_authorities = plan.get("required_authorities", "")
             if required_final_conclusions:
                 assert_no_internal_markers(required_final_conclusions)
+            if required_authorities:
+                assert_no_internal_markers(required_authorities)
             user_content = (
                 user_template.replace("{{CASE_TEXT}}", plan["case_text"])
                 .replace("{{QUESTION}}", plan["question"])
                 .replace("{{ANALYSIS}}", plan["analysis"])
                 .replace("{{OPEN_POINTS}}", plan["open_points"])
+                .replace("{{REQUIRED_AUTHORITIES}}", required_authorities)
                 .replace("{{REQUIRED_FINAL_CONCLUSIONS}}", required_final_conclusions)
             )
             started = time.monotonic()
@@ -91,6 +100,11 @@ def main() -> None:
             except VLLMClientError as error:
                 errors.append({"case_id": case_id, "error": str(error)})
                 continue
+            missing_authorities = missing_required_authorities(
+                answer, required_authorities
+            )
+            authority_missing_case_count += bool(missing_authorities)
+            authority_missing_count += len(missing_authorities)
             handle.write(
                 json.dumps(
                     {
@@ -98,6 +112,8 @@ def main() -> None:
                         "answer": answer,
                         "answer_chars": len(answer),
                         "prompt_chars": len(system_prompt) + len(user_content),
+                        "missing_required_authorities": list(missing_authorities),
+                        "missing_required_authority_count": len(missing_authorities),
                         "elapsed_seconds": round(time.monotonic() - started, 1),
                     },
                     ensure_ascii=False,
@@ -119,6 +135,11 @@ def main() -> None:
         "cases_written": written,
         "errors": errors,
         "host_post_edit": False,
+        "required_authority_audit": {
+            "missing_case_count": authority_missing_case_count,
+            "missing_authority_count": authority_missing_count,
+            "answer_rewritten": False,
+        },
     }
     (args.out / "answers.manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
