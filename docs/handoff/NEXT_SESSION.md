@@ -1132,12 +1132,37 @@ episode 단위 GroundFact 하나가 그 episode를 쓰는 모든 instance의 가
 dev 2문항 실제 실행: `r13_p1_q3` 12->9(라운드 7,2), `r14_p2_q2` 28->21,
 **UNKNOWN 22 -> 13.** 전체 스위트 328 passed.
 
-### 다음
+### 다음 -- 미결 판단 하나부터
 
-1. 두 진단(necessity / evidence scope)을 같은 plan으로 재계산. 증거창 진단이 v4 타깃으로
-   돌아가 있어 507 키가 531 plan과 어긋난다.
-2. 26문항 재실행 -> residual UNKNOWN 재진단.
+증거창 진단(507 키)이 v4 타깃으로 돌아가 있어 531 plan과 어긋난다. 이걸 먼저 맞출지,
+바로 26문항을 재실행할지는 **아직 정하지 않았다.** 재실행하면 truth가 통째로 바뀌어
+지금 진단을 다시 해야 하므로 앞의 재계산이 무의미해질 수 있다. 사용자에게 물을 것.
+
+1. (선택) 증거창 진단을 531 plan으로 재실행 -> UNKNOWN 3분할 확정. GPU, 무료, ~15분.
+2. **26문항 Call 2 재실행** -> 하류(scallop -> final_responsibility -> AnswerPlan -> Call 3)
+   재생성 -> residual UNKNOWN 재진단 -> N/P 재실행.
 3. 증거 스코프.
 4. 마지막에 초literal 프롬프트 문언 -- **활성 프롬프트라 승인 게이트 대상.**
 
 rubric judge는 그 뒤로 미룬다.
+
+### 재실행 레시피 (실측 확인됨)
+
+dev 스모크가 이 인자로 통과했다. 전체 실행은 `--case-id`만 빼면 된다.
+
+```
+srun --jobid=<service> --ntasks=1 --cpus-per-task=1   env PYTHONPATH=$PWD/src /data5/jaehoonjeong/miniconda3/bin/python   scripts/run_v2_call2_pilot.py     --base-url http://127.0.0.1:<port> --model idpr-gemma-4-26b-a4b     --call1-artifact experiments/v2_restart_rebuild/call1/router_output.jsonl     --gold-occurrences data/v2/gold_occurrences.jsonl     --gold-article263-pairs data/v2/gold_article263_pairs.jsonl     --plan-artifact experiments/v2_call15_directscope_26_causal/evaluation_instance_plan.jsonl     --out <run_root>/grounding_output.jsonl     --planner-occurrence-evidence --prompt-approved
+```
+
+함정 셋:
+
+- **`--planner-occurrence-evidence`가 없으면** `planner/gold occurrence identity mismatch`로
+  죽는다. 동결 실행의 `evidence_mode`가 `binding_scoped_planner_occurrences`다.
+- **plan은 루트 artifact다.** `call15d_v4`를 주면
+  `target instance is outside assessment universe`로 죽는다(v4 자체의 사전 결함이고 새
+  스케줄러와 무관하다).
+- **`--out`을 `/tmp` 아래에 두지 말 것.** 계산 노드의 `/tmp`은 노드 로컬이라 결과가 그
+  노드에만 남는다. `experiments/` 아래로 쓸 것.
+
+스모크 산출물: `experiments/v2_call15_directscope_26_causal/call2_sched_smoke/`
+(gitignore 대상이라 커밋되지 않았다).
