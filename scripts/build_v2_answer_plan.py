@@ -21,6 +21,7 @@ import yaml
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.answer_plan import (
     AnswerPlanError,
+    RuleStatement,
     build_answer_plan,
     serialize_analysis,
     serialize_open_points,
@@ -65,6 +66,38 @@ def _representation_gaps(path: Path) -> list[str]:
     return out
 
 
+def _card_rule_statements(
+    path: Path | None,
+) -> dict[str, dict[tuple[str, str], tuple[RuleStatement, ...]]]:
+    """Load the SPEC 5.5 retrieval, keyed per case on `(instance ref, predicate ref)`.
+
+    Only ``reviewed_card`` statements are accepted here.  The authored precedent refs are
+    projected from the predicate dictionary inside the builder and are present in both
+    conditions, so letting a second origin in through this file would blur which of the two
+    P-N actually measures.
+    """
+    if path is None:
+        return {}
+    out: dict[str, dict[tuple[str, str], tuple[RuleStatement, ...]]] = {}
+    for row in path.read_text(encoding="utf-8").splitlines():
+        if not row.strip():
+            continue
+        record = json.loads(row)
+        case = out.setdefault(str(record["sub_question_id"]), {})
+        for entry in record.get("rule_statements") or []:
+            key = (str(entry["instance_ref"]), str(entry["predicate_ref"]))
+            case[key] = case.get(key, ()) + tuple(
+                RuleStatement(
+                    statement=str(statement["statement"]),
+                    origin=str(statement["origin"]),
+                    source_id=str(statement["source_id"]),
+                )
+                for statement in entry.get("statements") or []
+                if str(statement.get("origin")) == "reviewed_card"
+            )
+    return out
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--e2e-results", type=Path, required=True)
@@ -91,6 +124,15 @@ def main() -> None:
         default=ROOT / "data/v2/binding_seed_cues.yaml",
         help="reviewed catalogue carrying the Korean name of each offence",
     )
+    parser.add_argument(
+        "--rule-statements",
+        type=Path,
+        help=(
+            "SPEC 5.5 card retrieval artifact from build_v2_card_rule_statements.py.  "
+            "Its absence is the N condition; its presence is P.  It can only add to "
+            "rule_statements[] -- no truth, state or conclusion derives from it (SPEC 4-10)"
+        ),
+    )
     parser.add_argument("--case-id-file", type=Path)
     parser.add_argument("--out", type=Path, required=True)
     args = parser.parse_args()
@@ -102,6 +144,7 @@ def main() -> None:
     plans = _rows(args.plan_artifact) if args.plan_artifact else {}
     inventory = _inventory(args.inventory)
     gaps = _representation_gaps(args.representation_gaps)
+    card_statements = _card_rule_statements(args.rule_statements)
     cue_catalogue = yaml.safe_load(args.offense_labels.read_text(encoding="utf-8")) or {}
     offense_labels = {
         ref: str(entry["display_name"])
@@ -135,6 +178,7 @@ def main() -> None:
                     registry=registry,
                     offense_labels=offense_labels,
                     representation_gaps=gaps,
+                    rule_statements=card_statements.get(case_id),
                     plan_row=plans.get(case_id),
                 )
                 analysis = serialize_analysis(plan)

@@ -328,6 +328,7 @@ def _findings_for_instance(
     truths: Sequence[Mapping[str, Any]],
     ref: str,
     quotes_by_predicate: Mapping[str, tuple[str, ...]],
+    card_statements: Mapping[tuple[str, str], Sequence[RuleStatement]] | None = None,
 ) -> tuple[tuple[Finding, ...], tuple[Finding, ...], tuple[Finding, ...]]:
     """Findings for one already-selected instance, from the authoritative truth store.
 
@@ -340,7 +341,14 @@ def _findings_for_instance(
     This does not widen the issue universe.  Every finding still has to match a `ref` that
     came from the run's liability results, so a truth about an instance no legal conclusion
     was reached for contributes nothing here, exactly as before.
+
+    ``card_statements`` is the SPEC 5.5 retrieval, keyed on the pair it searched for --
+    ``(instance ref, predicate ref)``.  It reaches every finding, not just the satisfied
+    ones: stating why an element was not met is exactly where the norm behind it matters.
+    It can only lengthen ``rule_statements``; which list a finding lands in is decided by
+    its truth alone (SPEC 4-10).
     """
+    card_statements = card_statements or {}
     satisfied: list[Finding] = []
     failed: list[Finding] = []
     blocking: list[Finding] = []
@@ -356,7 +364,10 @@ def _findings_for_instance(
             truth=str(row.get("truth", "")),
             legal_standard=predicate_standard(registry, predicate_ref),
             governing_provision=predicate_provision(registry, predicate_ref),
-            rule_statements=authored_precedent_statements(registry, predicate_ref),
+            rule_statements=(
+                authored_precedent_statements(registry, predicate_ref)
+                + tuple(card_statements.get((ref, predicate_ref), ()))
+            ),
             supporting_quotes=quotes_by_predicate.get(predicate_ref, ()),
         )
         if finding.truth == "TRUE":
@@ -529,13 +540,14 @@ def build_answer_plan(
     offense_labels: Mapping[str, str] | None = None,
     representation_gaps: Sequence[str] = (),
     contested_points: Mapping[str, Sequence[ContestedPoint]] | None = None,
-    rule_statements: Mapping[str, Sequence[RuleStatement]] | None = None,
+    rule_statements: Mapping[tuple[str, str], Sequence[RuleStatement]] | None = None,
     plan_row: Mapping[str, Any] | None = None,
 ) -> AnswerPlan:
     """Assemble one case's plan from the three canonical artifacts.
 
-    ``contested_points`` and ``rule_statements`` are injected by the caller keyed on
-    ``issue_id`` so their provenance is decided outside this projection.  Nothing is
+    ``contested_points`` is injected by the caller keyed on ``issue_id`` and
+    ``rule_statements`` on ``(issue_id, predicate_ref)`` -- the pair SPEC 5.5 searches
+    for -- so their provenance is decided outside this projection.  Nothing is
     invented here when they are absent -- an empty slot means the answer simply will not
     be prompted for that discussion.  ``plan_row`` is the optional Step 8 planner artifact
     row; it extends the GroundFact conflict guard's episode identity to derived bindings.
@@ -567,7 +579,9 @@ def build_answer_plan(
         result = entry.get("result") or {}
         ref = instance_ref(instance)
         offense_ref = str(instance.get("offense_ref", ""))
-        satisfied, failed, blocking = _findings_for_instance(registry, truths, ref, {})
+        satisfied, failed, blocking = _findings_for_instance(
+            registry, truths, ref, {}, rule_statements
+        )
         state = _final_state(result, ref, retained, absorbed, withheld, bool(blocking))
         completion = result.get("completion") or {}
         route = _participation_route(registry, result)
@@ -582,9 +596,7 @@ def build_answer_plan(
             completion_why=None,
             participation=route,
             decisive_stage=result.get("decisive_stage"),
-            satisfied=tuple(
-                _with_rule_statements(f, rule_statements.get(ref, ())) for f in satisfied
-            ),
+            satisfied=satisfied,
             failed=failed,
             blocking=blocking,
             doctrines=tuple(_doctrines_for(e2e_row, ref)),
@@ -626,19 +638,6 @@ def build_answer_plan(
     )
     check_contracts(plan)
     return plan
-
-
-def _with_rule_statements(finding: Finding, extra: Sequence[RuleStatement]) -> Finding:
-    if not extra:
-        return finding
-    return Finding(
-        label=finding.label,
-        truth=finding.truth,
-        legal_standard=finding.legal_standard,
-        governing_provision=finding.governing_provision,
-        rule_statements=tuple(finding.rule_statements) + tuple(extra),
-        supporting_quotes=finding.supporting_quotes,
-    )
 
 
 def _doctrines_for(e2e_row: Mapping[str, Any], ref: str) -> list[Mapping[str, Any]]:
@@ -798,6 +797,12 @@ def check_contracts(plan: AnswerPlan) -> None:
         for point in issue.contested_points:
             if point.origin not in _ALLOWED_CONTESTED_ORIGINS:
                 raise AnswerPlanError(f"{issue.issue_id}: contested point from {point.origin!r}")
+        for finding in (*issue.satisfied, *issue.failed, *issue.blocking):
+            for statement in finding.rule_statements:
+                if statement.origin not in _ALLOWED_CONTESTED_ORIGINS:
+                    raise AnswerPlanError(
+                        f"{issue.issue_id}: rule statement from {statement.origin!r}"
+                    )
     for record in plan.final_responsibility.absorbed:
         if not record.get("absorbed_offense") or not record.get("absorbing_offense"):
             raise AnswerPlanError("absorbed pair is missing one of its two sides")

@@ -197,6 +197,12 @@ AnswerPlan 빌더가 지켜야 하는 것. 전부 테스트로 고정한다.
    갖고 그 출처 id(`doctrine_ref` 또는 `card_id`)를 동반해야 한다. **evaluation rubric에서
    생성하거나 보완하지 않는다.** origin 없는 항목이 들어오면 hard-fail한다(§2.2).
 
+10. **카드는 truth를 바꾸지 않는다.** 회수된 카드를 주입한 plan은 주입하지 않은 plan과
+    issue 집합·`final_state`·`decisive` 3분할·`required_final_conclusions`가 **완전히 동일**해야
+    한다. 카드는 `rule_statements[]`에만 나타난다. 이것이 §5.3이 Call 2 카드 A/B를 부결한
+    사유가 Call 3에서 재발하지 않음을 코드 수준에서 보증하는 방식이다. 빌더 테스트가
+    N plan과 P plan을 실제로 비교해서 지킨다.
+
 계약 7·8·9는 하나의 원칙이다 — **평가 자료는 설계 근거로만 쓰고 산출물에 흘려보내지 않는다.**
 세 항목 모두 빌더 테스트로 고정하고, 위반 시 plan 생성이 실패하도록 한다.
 
@@ -258,7 +264,14 @@ Call 2 앞이 아니다. 근거 셋:
 
 ### 5.5 회수 절차
 
-검색 unit은 `(offense_instance, decisive/blocking predicate)`. 3단 폴백:
+검색 unit은 `(offense_instance, decisive/blocking predicate)`이고, 회수 결과도 **그 쌍에
+키가 걸린다.** instance 단위로 붙이면 같은 죄 안에서 어느 요건 때문에 성립·불성립·미확정인지가
+사라지고, 그 구별이 이 채널의 존재 이유다.
+
+부착 대상은 `satisfied`에 한정하지 않는다 -- **`failed`와 `blocking`에도 붙인다.** 불성립·미확정을
+서술하려면 그 요건이 왜 필요한지에 대한 법리가 오히려 더 중요하다.
+
+3단 폴백:
 
 1. **결박.** `data/v2/card_target_issue_bridge.yaml`에 route가 있으면 그 issue로 확정한다
    (52 routes / 40 predicate / 21 offense, 검수 완료). 검색 점수로 parent issue를 고르지
@@ -291,12 +304,24 @@ gold를 배제해도 단일 변수 실험은 그대로 성립한다. AnswerPlan�
 
 | 조건 | `rule_statements[]` 출처 |
 |---|---|
-| **P (production)** | §5.5의 카드 회수 |
-| **N (floor)** | 없음. `legal_standard` + `governing_provision`만 |
+| **P (production)** | 저작된 `authority_refs` 전부 + §5.5의 카드 회수 |
+| **N (floor)** | 저작된 `authority_refs` 전부(조문 148 / 판례 12). **카드 회수 없음** |
 
-rubric type-2(판례 인용, 15.6%) 점수의 P−N 차이가 곧 **우리 rule base가 서술 근거로
-기여하는 몫**이다. 두 조건의 symbolic anchor가 동일하므로 결론 정확도 축은 움직이지 않고
-서술 축만 분리해서 측정된다. 추가 저작이나 외부 자산 없이 지금 자산으로 나온다.
+rubric type-2(판례 인용, 15.6%) 점수의 P−N 차이가 곧 **카드 코퍼스가 서술 근거로 기여하는
+몫**이다. 두 조건의 symbolic anchor가 동일하므로 결론 정확도 축은 움직이지 않고 서술 축만
+분리해서 측정된다. 추가 저작이나 외부 자산 없이 지금 자산으로 나온다.
+
+**N을 "근거 없음"으로 적지 않는 이유.** authored `authority_refs`는 조문 근거와 판례 근거를 한
+리스트에 담고 있고, `governing_provision`은 그중 `statute_text`를, precedent 항목은 같은
+리스트의 나머지를 투영한 것이다. 판례 근거 12개 중 8개는 케이스노트 항목 참조이고 사건번호가
+붙은 인용은 둘뿐이며, 26문항 plan에 실제로 나타난 것은 5건이다. 이 12개를 N에서 떼어낼 수는
+없다 -- `legal_element.coercion_sufficiency_for_forcible_indecency`의 `canonical_meaning`이
+`낮은 기준(2018도13877 전합)`이어서, 인용을 빼면 더 깨끗한 floor가 아니라 뜻을 잃은 predicate가
+된다. 저작 자산을 양쪽에 동일하게 깔고 **카드 채널만 켜고 끄는 것**이 단일 변수다.
+
+그러므로 P−N을 "규칙베이스 전체의 서술 근거 기여"로 서술하지 않는다. 저작된 12개 판례 근거도
+규칙베이스 자산이므로, 그 문장은 N에 이미 깔린 몫을 카드 채널의 공로로 돌리는 것이 된다. 이
+어긋남의 방향은 안전한 쪽이다 -- N이 그만큼 강한 floor이므로 P−N은 과소추정이다.
 
 ---
 
