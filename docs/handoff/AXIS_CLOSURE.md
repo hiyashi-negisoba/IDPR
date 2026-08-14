@@ -41,7 +41,7 @@
 | 장치 | 위치 | 의미 |
 |---|---|---|
 | `defeated_by_state` | completion policy | 형제 상태가 **확정**되면 양보 |
-| `blocked_when` | completion policy | 사실조건이 **확정**되면 그 상태 배제 |
+| `blocked_when` | completion policy · doctrine | 예외가 **확정**되면 그 상태·법리 배제 |
 | `definitional_resolution` | concurrence rule | 밀어내는 죄가 **성립**하면 밀려남 |
 | `same_realization` | concurrence rule | episode가 아니라 실현된 행위 단위로 결합 |
 
@@ -128,32 +128,65 @@ provenance는 보존하고 최종 책임에서만 derivative mode를 내린다. 
 숫자로 나타난다. symbolic 단계는 기존 Call 2 산출물에 대해 변화 없음을 확인했다(비의미적
 정렬 차이 1건 외 26/26 동일).
 
+### doctrine (2026-08-15)
+
+| 결함 | 유형 |
+|---|---|
+| 예외의 부존재를 성립요건으로 요구해 13개 중 5개가 발화 불가 | 1 |
+| `statutory_bar_on_consent`의 뜻이 이름·사용처의 반대로 적혀 이중부정 | 1 |
+| doctrine 단계 자체가 26문항 파이프라인에 없음 | 파이프라인 |
+
+**발화 불가 5개**: 심신상실(원인에 있어서 자유로운 행위), 강요된행위(자초한 강제상태),
+긴급피난(위난감수의무), 피해자승낙·추정적승낙(승낙배제 특별규정). 모두 예외가 있었을 때만
+사건에 적히는 사실인데 `requires` 안에 `NOT(...)`으로 들어 있었다. completion 축에서 쓴
+`blocked_when`을 DoctrineDef로 이식했다 — 예외가 **확정**될 때만 배제하고, UNKNOWN인 예외는
+아무것도 막지 않는다. Scallop lowering, 활성화 게이트, leaf target opener 모두 통과시켰다.
+결과: 발화 불가 5 → 0.
+
+**이중부정**: `legal_element.statutory_bar_on_consent`는 이름이 "승낙배제 규정이 있다"인데
+`canonical_meaning`이 "특례규정 없음", `legal_standard`가 "…특별법규가 **없는지** 여부"로
+적혀 있었고 사용처는 `NOT(...)`이었다. 그대로 두면 승낙이 유효할 때 오히려 위법성조각이
+부정된다. 이름·사용처에 맞춰 긍정형으로 되돌렸다. **법률 검수 필요.**
+
+**파이프라인 공백**: 13개 doctrine이 25개 사건에서 후보로 열려 있는데 그 leaf는 한 번도
+Call 2 target이 아니었고 `active_doctrines`는 26/26 전부 비어 있다. 규칙베이스 결함이 아니라
+Call 1.5-D와 `build_v2_doctrine_target_plan.py`가 현재 체인에 없어서다. frozen root에서는
+동작했다(cue 13개 production, leaf target 19개, 제기 3개). 재실행 때 체인에 넣는다.
+
+**공백으로 남기는 것**: `UNRESOLVED_MISTAKE_BINDING` 25건과
+`doctrine.mistaken_justifying_circumstance`의 비활성화는 둘 다
+`gap.intended_object_identity`의 하류다. `factual_targets`를 intended_object로 재해석하는
+우회는 2026-08-13 검수에서 명시적으로 거부되었고, `data/v2/representation_gaps.yaml`에
+사유·미래 설계와 함께 기록되어 있다. 이 축에서 열지 않는다.
+
+종료 테스트: [`tests/test_doctrine_axis_contract.py`](../../tests/test_doctrine_axis_contract.py)
+— 13개 doctrine × "예외 미서술 시 발화 가능" 전수, blocker의 확정/UNKNOWN 구분, blocker
+predicate의 긍정형 저작, 제기 경로 또는 공백 기록의 존재.
+
 ## 재실행 시점 (2026-08-15 확정)
 
-축마다 GPU를 돌리지 않는다. doctrine 축에서 구조 결함이 나오면 1.5 계열·plan·Call 2 artifact가
+축마다 GPU를 돌리지 않는다. 남은 축에서 구조 결함이 나오면 1.5 계열·plan·Call 2 artifact가
 다시 바뀌어 중간 checkpoint가 하나 더 생긴다. 순서는:
 
-> participation 감사 완료 → **doctrine 감사** → 구조 수정 전부 동결 → 필요한 1.5 계열 재생성
-> → 최종 plan → Call 2 한 번
+> participation 감사 완료 → doctrine 감사 완료 → **concurrence 감사** → 구조 수정 전부 동결
+> → Call 1.5-P(episode 스코프) · Call 1.5-D 재생성 → 최종 plan → Call 2 한 번
+
+재실행 체인에 doctrine 단계를 넣어야 한다. 현재 26문항 체인에는 Call 1.5-D와
+`build_v2_doctrine_target_plan.py`가 없어서 13개 doctrine 전부가 잠들어 있다.
 
 지금 GPU로 확인해야 할 긴급 회귀는 없다. reachability와 mode resolution은 계약 테스트로
 고정되어 있고, 기존 Call 2 산출물에 대한 symbolic 회귀는 26/26 동일하다.
 
 ## 남은 축 순서
 
-### 1. Doctrine / stage-effect
-
-- 착오, 간접정범, 제33조, excess, doctrine activation/effect
-- 감사 질문: trigger는 존재하는데 effect가 symbolic liability까지 실제 도달 가능한가
-
-### 2. Concurrence / final resolution
+### 1. Concurrence / final resolution
 
 - absorption, specialty, imaginative concurrence, 이번에 추가한 `definitional_resolution`
 - occurrence / same-realization 정합, established liability 사이 최종 중복·배제
 - `definitional_resolution` 3규칙은 단위 테스트로 발화를 고정했으나 26문항에서는 아직
   발동하지 않았다(두 죄가 모두 established여야 한다). doctrine 축이 열리면 발동 여지가 생긴다
 
-### 3. AnswerPlan / Call 3 E2E handoff
+### 2. AnswerPlan / Call 3 E2E handoff
 
 축이 아니라 전달 감사다. LiabilityResult → AnswerPlan → Call 3에서 symbolic conclusion 누락,
 authority·dispute 전달, 내부 status/ID 유출, final conclusion completeness를 본다.

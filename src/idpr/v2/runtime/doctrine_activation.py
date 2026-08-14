@@ -5,7 +5,7 @@ from __future__ import annotations
 from collections.abc import Iterable
 
 from idpr.v2 import expressions
-from idpr.v2.evaluate import FALSE, UNKNOWN, evaluate
+from idpr.v2.evaluate import FALSE, TRUE, UNKNOWN, evaluate
 from idpr.v2.registry import DefinitionRegistry
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.truths import CaseTruths
@@ -42,6 +42,11 @@ def raised_active_doctrines(
             leaf_refs = expressions.leaf_refs(raw)
             known = any(view.get(ref, UNKNOWN) != UNKNOWN for ref in leaf_refs)
             if not known:
+                continue
+            # 예외가 **확정**되었으면 이 법리는 이 instance에서 배제된다. UNKNOWN인 blocker는
+            # 아무것도 막지 않는다 -- 그것이 requires에 NOT으로 넣지 않은 이유다.
+            blocker = expressions.canonicalize(doctrine.payload.get("blocked_when"))
+            if blocker is not None and evaluate(blocker, view) == TRUE:
                 continue
             result = evaluate(expressions.canonicalize(raw), view)
             if result != FALSE:

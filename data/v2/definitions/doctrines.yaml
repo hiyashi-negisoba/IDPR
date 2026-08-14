@@ -14,8 +14,9 @@
         arg: {op: ref, ref: legal_element.discrimination_capacity}
       - op: not
         arg: {op: ref, ref: legal_element.control_capacity}
-      - op: not
-        arg: {op: ref, ref: legal_element.self_induced_disorder}
+  # 원인에 있어서 자유로운 행위는 있었을 때만 사건에 적힌다. 부존재를 성립요건으로 요구하면
+  # UNKNOWN이 곧 불성립이 되어 제10조 제1항·제2항이 영구히 발화하지 못한다.
+  blocked_when: {op: ref, ref: legal_element.self_induced_disorder}
   effect: {effect: DEFEAT, stage: culpability}
 
 - id: doctrine.deaf_mute_mandatory_reduction
@@ -34,8 +35,7 @@
     args:
       - {op: ref, ref: legal_element.irresistible_coercion}
       - {op: ref, ref: ground_fact.coerced_act_performed}
-      - op: not
-        arg: {op: ref, ref: legal_element.self_induced_coercion}
+  blocked_when: {op: ref, ref: legal_element.self_induced_coercion}
   effect: {effect: DEFEAT, stage: culpability}
 
 - id: doctrine.mistake_of_law_defeat
@@ -75,8 +75,7 @@
       - {op: ref, ref: legal_element.imminent_danger}
       - {op: ref, ref: legal_element.act_to_avert_danger}
       - {op: ref, ref: legal_element.necessity_of_avoidance}
-      - op: not
-        arg: {op: ref, ref: legal_element.duty_bound_to_endure_danger}
+  blocked_when: {op: ref, ref: legal_element.duty_bound_to_endure_danger}
   effect: {effect: DEFEAT, stage: unlawfulness}
 
 - id: doctrine.conflict_of_duties_defeat
@@ -105,9 +104,8 @@
     args:
       - {op: ref, ref: legal_element.valid_consent_by_disposer}
       - {op: ref, ref: legal_element.harm_caused_pursuant_to_consent}
-      - op: not
-        arg: {op: ref, ref: legal_element.statutory_bar_on_consent}
       - {op: ref, ref: legal_element.consent_based_act_not_against_social_norms}
+  blocked_when: {op: ref, ref: legal_element.statutory_bar_on_consent}
   effect: {effect: DEFEAT, stage: unlawfulness}
 
 - id: doctrine.presumed_consent_defeat
@@ -117,9 +115,8 @@
     args:
       - {op: ref, ref: legal_element.presumed_consent}
       - {op: ref, ref: legal_element.actual_consent_unobtainable}
-      - op: not
-        arg: {op: ref, ref: legal_element.statutory_bar_on_consent}
       - {op: ref, ref: legal_element.consent_based_act_not_against_social_norms}
+  blocked_when: {op: ref, ref: legal_element.statutory_bar_on_consent}
   effect: {effect: DEFEAT, stage: unlawfulness}
 
 - id: doctrine.mistaken_justifying_circumstance

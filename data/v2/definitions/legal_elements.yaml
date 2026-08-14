@@ -319,8 +319,10 @@
 
 - id: legal_element.statutory_bar_on_consent
   arguments: [{name: interest, type: entity}]
-  canonical_meaning: "특례규정 없음"
-  legal_standard: "해당 법익에 관하여 승낙의 효력을 배제하는 특별법규가 없는지 여부"
+  # 이름은 "배제규정이 있다"인데 뜻은 "없다"로 적혀 있었고 사용처는 NOT(...)이었다. 이중부정이
+  # 되어 승낙이 유효할 때 오히려 위법성조각이 부정된다. 이름·사용처에 맞춰 긍정형으로 되돌린다.
+  canonical_meaning: "승낙의 효력을 배제하는 특별규정 있음"
+  legal_standard: "해당 법익에 관하여 승낙의 효력을 배제하는 특별법규가 있는지 여부"
   authority_refs: [{authority_basis: statute_text, citation: "형법 제24조"}]
 
 - id: legal_element.consent_based_act_not_against_social_norms

@@ -925,6 +925,12 @@ def _emit_doctrine_effect(doctrine: DefinitionEntry, lines: list[str], emitted: 
     expression = expressions.canonicalize(doctrine.payload["requires"])
     assert expression is not None
     helper = _emit_attribution_aware_expression(expression, lines, emitted)
+    blocker = expressions.canonicalize(doctrine.payload.get("blocked_when"))
+    blocker_helper = (
+        _emit_attribution_aware_expression(blocker, lines, emitted)
+        if blocker is not None
+        else None
+    )
     effect_helper = _step4_helper_name("doctrine_effect", doctrine.id)
     for suffix in ("true", "false", "unknown"):
         lines.append(f"type {effect_helper}_{suffix}(String, String, String, String)")
@@ -932,8 +938,25 @@ def _emit_doctrine_effect(doctrine: DefinitionEntry, lines: list[str], emitted: 
         f"v2_stage_effect_target(c, a, o, i, {_scl_string(stage)}) and "
         f"v2_active_doctrine(c, a, o, i, {_scl_string(doctrine.id)})"
     )
+    # 예외는 **확정**되었을 때만 doctrine을 배제한다. UNKNOWN인 blocker는 아무것도 막지 않으므로
+    # requires의 진리값이 그대로 간다.
+    unblocked = (
+        f" and not {blocker_helper}_true(c, a, o, i)"
+        if blocker_helper is not None
+        else ""
+    )
     for truth, suffix in (("TRUE", "true"), ("FALSE", "false"), ("UNKNOWN", "unknown")):
-        lines.append(f"rel {effect_helper}_{suffix}(c, a, o, i) = {gate} and {helper}_{suffix}(c, a, o, i)")
+        if suffix == "false" and blocker_helper is not None:
+            lines.append(
+                f"rel {effect_helper}_false(c, a, o, i) = {gate} and {helper}_false(c, a, o, i)"
+            )
+            lines.append(
+                f"rel {effect_helper}_false(c, a, o, i) = {gate} and {blocker_helper}_true(c, a, o, i)"
+            )
+        else:
+            lines.append(
+                f"rel {effect_helper}_{suffix}(c, a, o, i) = {gate} and {helper}_{suffix}(c, a, o, i){unblocked}"
+            )
         lines.append(
             f"rel {STAGE_EFFECT_TRUTH_QUERY_RELATION}(c, a, o, i, {_scl_string(doctrine.id)}, {_scl_string(effect)}, {_scl_string(truth)}) = "
             f"{effect_helper}_{suffix}(c, a, o, i)"
@@ -1136,6 +1159,12 @@ def _checked_doctrines(registry: DefinitionRegistry) -> tuple[DefinitionEntry, .
         expression = expressions.canonicalize(doctrine.payload.get("requires"))
         if expression is None:
             raise ScallopBackendContractError(f"DoctrineDef {doctrine.id!r} requires a non-None expression")
+        if "blocked_when" in doctrine.payload and (
+            expressions.canonicalize(doctrine.payload.get("blocked_when")) is None
+        ):
+            raise ScallopBackendContractError(
+                f"DoctrineDef {doctrine.id!r} declares an empty blocked_when"
+            )
     return doctrines
 
 

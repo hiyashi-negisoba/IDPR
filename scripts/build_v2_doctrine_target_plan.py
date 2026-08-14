@@ -60,8 +60,19 @@ def main() -> None:
 
     cues = load_doctrine_cues(args.cues)
     registry = load_definitions(args.definitions)
+    # blocker leaf도 함께 연다. 예외가 실제로 있었는지는 물어봐야 알고, 묻지 않으면
+    # UNKNOWN으로 남아 아무것도 막지 않는다 -- 그것이 blocked_when의 의도된 기본값이다.
     leaves_by_doctrine = {
-        ref: tuple(expressions.leaf_refs(registry.get(ref).payload["requires"]))
+        ref: tuple(
+            dict.fromkeys(
+                (
+                    *expressions.leaf_refs(registry.get(ref).payload["requires"]),
+                    *expressions.leaf_refs(
+                        registry.get(ref).payload.get("blocked_when")
+                    ),
+                )
+            )
+        )
         for cue in cues
         for ref in cue.raises
     }
