@@ -6,6 +6,7 @@ from idpr.v2.runtime.evaluation_instance_planner import _instance_predicate_refs
 from idpr.v2.runtime.grounding import AssessmentTarget
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from scripts.analyze_v2_call2_mixed_evidence import transition_counts
+from scripts.analyze_v2_call2_overliteral_impact import changed_symbolic_cases
 from scripts.analyze_v2_call2_residual_unknown import bucket
 from scripts.analyze_v2_call2_target_placement import (
     placement_bucket,
@@ -180,6 +181,34 @@ def test_realization_link_impact_reads_exact_assessment_keys(tmp_path):
             "ground_fact.taking_conduct",
         ): "TRUE"
     }
+
+
+def test_overliteral_impact_separates_instance_and_final_view_changes():
+    instance = {
+        "case_id": "case",
+        "actor_id": "A",
+        "offense_ref": "offense.theft",
+        "occurrence_id": "binding:1",
+    }
+    baseline = {
+        "case": {
+            "liability_results": [{"instance_key": instance, "result": {"state": "U"}}],
+            "final_responsibility": {"final": []},
+        }
+    }
+    counterfactual = {
+        "case": {
+            "liability_results": [{"instance_key": instance, "result": {"state": "T"}}],
+            "final_responsibility": {"final": []},
+        }
+    }
+    assert changed_symbolic_cases(baseline, counterfactual) == [
+        {
+            "case_id": "case",
+            "changed_instance_count": 1,
+            "final_responsibility_changed": False,
+        }
+    ]
 
 
 def test_mixed_carrier_keeps_actor_ground_fact_local_and_expands_legal_element():

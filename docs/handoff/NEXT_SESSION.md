@@ -1295,3 +1295,29 @@ production truth와 N/P는 계속 동결한다.
 필요하면 exact-source deterministic projection과 `r11_p1_q1`의 좁은 typed link만 별도 승인하며,
 same actor + same predicate 자동 복사는 금지한다. 다음은 C 초literal 후보와 D authored dispute
 route다. production Call 2와 N/P는 변경하지 않았다.
+
+---
+
+## 2026-08-14 -- C 초literal 후보 impact와 prompt 승인안
+
+정본은 `docs/analysis/v2_call2_overliteral_prompt_review_ko.md`다. persistent UNKNOWN 93개 중
+명시 사실의 통상적 포섭으로 방향이 고정되는 후보를 C_HIGH 10 / C_PROBABLE 7로 보수적으로
+추렸다. 나머지 76개는 placement/role, 부재 기반 부정, 정의 오류, 실제 법적 검토가 섞여 C로
+세지 않았다.
+
+upper-bound counterfactual 결과:
+
+- C_HIGH 10: symbolic 5문항 변화, final responsibility 0.
+- HIGH+PROBABLE 17: symbolic 7문항 변화, final responsibility 0.
+- link blocker를 양 arm에 동일하게 채운 AnswerPlan 24개 비교에서 analysis 8문항 변화,
+  required-final conclusion 변화 **2문항**.
+  - `r14_p1_q2` 丙 증뢰물전달죄 미확정 -> 불성립
+  - `r14_p2_q1` 乙 강도치상죄 미확정 -> 불성립
+
+따라서 full prompt 재실행의 근거는 아니지만 exact 17-target paired prompt diagnostic을 해볼
+가치는 있다. 승인안은 "원문에 법적 결론어가 없어도 명시 사실의 통상적 포섭은 허용하되,
+새 사건/actor/관계 창작과 단순 부재 기반 FALSE는 금지"하는 세 bullet이다. 상세 전문은 정본
+문서에 있다.
+
+**활성 prompt는 아직 변경하지 않았고 승인 대기다.** 승인 후에도 exact 17 target paired arm만
+먼저 실행하며, 통과 전 production Call 2와 N/P는 계속 동결한다.
