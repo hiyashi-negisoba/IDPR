@@ -128,7 +128,7 @@ def test_real_gemma_respects_occurrence_evidence_firewall() -> None:
         source=source,
         specs=(
             ("offense.rape", "ground_fact.vaginal_intercourse_conduct", "FALSE"),
-            ("offense.bribe_giving", "ground_fact.bribe_acceptance", "UNKNOWN"),
+            ("offense.bribe_giving", "ground_fact.bribe_delivery", "UNKNOWN"),
             ("offense.robbery", "ground_fact.taking_conduct", "UNKNOWN"),
             ("offense.injury", "ground_fact.injury_conduct", "TRUE"),
         ),
@@ -160,7 +160,7 @@ def test_real_gemma_keeps_right_exercise_case_inside_its_factual_paragraph() -> 
                 "TRUE",
             ),
             ("offense.arson_of_occupied_structure", "legal_element.burning_result", "UNKNOWN"),
-            ("offense.bribe_giving", "ground_fact.bribe_acceptance", "UNKNOWN"),
+            ("offense.bribe_giving", "ground_fact.bribe_delivery", "UNKNOWN"),
         ),
     )
 

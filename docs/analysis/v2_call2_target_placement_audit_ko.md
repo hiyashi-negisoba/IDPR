@@ -122,3 +122,33 @@ known regression/reversal queue는 `RU-081`, `RU-093`, `RU-095`, `RU-113`, `RU-1
 3. 다음 검수는 regression/reversal 5개와 B collision 12개를 먼저 닫고, 그 뒤 반복-stable known
    66개 중 안전한 subset만 candidate로 남긴다.
 4. 아직 production Call 2, symbolic truth, N/P는 변경하지 않는다.
+
+## regression 5 + B collision 12 수동 검수
+
+두 queue의 합집합은 17개다. 원문과 exact binding을 확인한 결과는 다음과 같다. 이 표는 새 truth를
+주입하는 gold patch가 아니라 carrier/definition 결함의 소유권을 정한다.
+
+| review | 판정 | 소유권 |
+| --- | --- | --- |
+| RU-074 | giver 丙에게 recipient의 `bribe_acceptance`를 물은 definition 오류 | `bribe_delivery`로 predicate 분리 |
+| RU-077 | recipient 乙의 현실 수수 사실은 episode에 있으나 actor GroundFact라 local evidence 유지 | C/local-binding 검수 |
+| RU-081 | 사채업자 乙의 공무원성에 군수 甲 사실이 섞여 FALSE -> UNKNOWN | episode 기각, actor-local 유지 |
+| RU-083 | 甲은 제3자 乙에게 이익을 주게 했지 직접 수수하지 않음 | direct 수뢰 candidate의 local conduct 유지 |
+| RU-085 | 甲의 제3자 이익 취득 의사는 episode context가 필요 | episode candidate 유지 |
+| RU-086/087 | 甲의 직무관련성·군수 신분 | episode candidate 유지 |
+| RU-090/091 | 甲의 제3자뇌물제공죄 직무관련성·군수 신분 | episode candidate 유지 |
+| RU-093 | 甲이 요구를 시작했으며 청탁을 받은 사실은 없음; episode TRUE는 방향 역전 | episode 기각, relation-role 오류 |
+| RU-095 | 새 허위 공문서를 작성한 사안이지 진정문서를 변경한 사안이 아님 | evidence 충분, C FALSE 포섭 후보 |
+| RU-113 | 乙에게 A는 직계존속이 아니며 다른 actor 甲의 신분이 섞임 | episode 기각, 잘못 열린 offense candidate |
+| RU-116 | 乙의 A 살해 목적 | episode candidate 유지 |
+| RU-118 | 절취 전 A의 시계 점유는 local 사실로 충분; episode가 TRUE -> UNKNOWN으로 후퇴 | episode 기각, C/local 후보 |
+| RU-119 | 甲은 양부 A의 신분을 인식 | episode candidate 유지 |
+| RU-160 | 甲의 주거 진입과 丙의 문 열기가 같은 realization을 구성 | episode candidate 유지 |
+| RU-163 | 빈 금고라 甲의 taking은 FALSE지만 actor GroundFact이므로 principal-local 유지 | C/local-binding 검수 |
+
+여기서 registry-level 오류 하나는 바로 수정했다. `offense.bribe_giving`의 현실 공여 branch가
+제129조 수뢰행위인 `ground_fact.bribe_acceptance`를 쓰고 있었으므로, 제133조 공여행위인
+`ground_fact.bribe_delivery`를 새로 authoring해 교체했다. canonical 531 plan에서 영향받는 것은
+bribe-giving instance 4개의 target 한 개씩, 합계 **4 target one-for-one replacement**다. target 수는
+늘지 않지만 predicate identity와 registry hash가 바뀌므로 최종 Call 2 전에 plan을 새 lineage로
+재생성해야 한다. 기존 실행 artifact는 소급 수정하지 않는다.

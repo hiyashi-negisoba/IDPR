@@ -2,6 +2,7 @@ from pathlib import Path
 
 from idpr.v2.gold_factual_identity import GoldOccurrence
 from idpr.v2.registry import load_definitions
+from idpr.v2.runtime.evaluation_instance_planner import _instance_predicate_refs
 from idpr.v2.runtime.grounding import AssessmentTarget
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from scripts.analyze_v2_call2_mixed_evidence import transition_counts
@@ -159,3 +160,13 @@ def test_mixed_evidence_transition_counts_require_exact_paired_keys():
     assert transition_counts({key: "UNKNOWN"}, {key: "TRUE"}) == {
         ("UNKNOWN", "TRUE"): 1
     }
+
+
+def test_bribe_giver_is_asked_delivery_not_recipient_acceptance():
+    registry = load_definitions(Path("data/v2/definitions"))
+    refs = _instance_predicate_refs(
+        registry,
+        OffenseInstanceKey("case", "甲", "offense.bribe_giving", "binding:001"),
+    )
+    assert "ground_fact.bribe_delivery" in refs
+    assert "ground_fact.bribe_acceptance" not in refs

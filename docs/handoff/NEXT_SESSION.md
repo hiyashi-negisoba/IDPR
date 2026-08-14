@@ -1258,3 +1258,18 @@ v1은 control 부재, v2는 batching 불일치 때문에 기각한다.
 
 결론: mixed carrier 전면 production 채택은 보류. regression 5 + B collision 12를 먼저 검수한다.
 production truth와 N/P는 계속 동결한다.
+
+### placement queue 17개 검수와 첫 definition 수정
+
+17개 합집합을 원문으로 검수했다. 상세 표는
+`docs/analysis/v2_call2_target_placement_audit_ko.md`에 있다.
+
+- episode 유지 후보: RU-085/086/087/090/091/116/119/160
+- episode 기각 또는 local 유지: RU-077/081/083/093/095/113/118/163
+- RU-074에서 실제 registry bug 확인: `offense.bribe_giving`이 giver에게 제129조
+  `bribe_acceptance`를 묻고 있었다.
+- `ground_fact.bribe_delivery`를 제133조 source로 새로 authoring하고 bribe-giving conduct branch를
+  교체했다. canonical 531 plan 영향은 4 target one-for-one replacement다.
+
+정의 hash가 바뀌었으므로 기존 plan/Call2 artifact는 역사적 정본으로만 유지한다. 최종 Call 2 전
+새 lineage plan이 필요하며 기존 artifact를 제자리 수정하지 않는다. N/P는 계속 동결한다.
