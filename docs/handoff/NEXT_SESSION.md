@@ -1094,3 +1094,34 @@ P는 법률 문장으로 바꿔 썼는데, 문자열 일치 검사가 **죄명�
 
 **rubric judge.** 26문항 서브셋, N/P/baseline 동일 rubric, 출력 경로 분리. type-2(판례 인용,
 15.6%)의 P−N이 카드 코퍼스 기여분이다. sealed 4문항도 판정 없이 함께 넘긴다.
+
+---
+
+## 2026-08-14 -- judge 보류, 상류 진단 (diagnostic checkpoint)
+
+돈을 쓰기 전에 답안을 열어봤더니 rubric은 확정 결론을 요구하는데 N·P는 앵커 105개 중
+81개(73%)가 미확정이었다. 채점을 멈추고 상류를 봤다. **판정은 아직 실행하지 않았다.**
+
+전말과 숫자는 `docs/analysis/v2_call2_unknown_causes_ko.md`에 있다. 요지만:
+
+- UNKNOWN 275건(507 타깃)은 거의 3등분된다 -- **죽은 가지 타깃 47% / 증거 창 26% /
+  정의·판정 27%.**
+- 가장 큰 몫은 플래너 결함이다. completion policy의 연언 가드를 평탄화해서, 앞 항이 이미
+  FALSE인 가지의 predicate까지 전부 묻는다. `dangerousness` 33건 중 14건은
+  `means_or_object_defect`가 FALSE인 자리였다. **DSL은 맞게 적혀 있고 플래너가 안 읽었다.**
+- 증거 창을 사실관계 전문으로 넓히면 UNKNOWN이 54.2% -> 39.6%로 줄지만 FALSE->TRUE 정면
+  모순 5건을 새로 산다. 전면 교체는 답이 아니다.
+- `moot = 164`는 **회고적** 수치다. prospective 절감량은 새 스케줄러를 돌린 뒤 측정한다.
+
+denominator는 닫아뒀다: 계획 553 = 평가 507 + GroundFact episode 중복 46,
+live 317 = 297 + 20. 진단기가 이 대조를 artifact에 직접 쓴다(`--assessed`).
+
+### 다음
+
+1. **(b) guard-aware iterative planner.** "ground fact 먼저"가 아니라 일반형 fixpoint:
+   확보된 truth -> Kleene 부분평가 -> 결과를 바꿀 수 있는 ref만 live -> 그것만 요청 -> 반복.
+2. 26문항 재실행 -> residual UNKNOWN 재진단.
+3. 증거 스코프.
+4. 마지막에 초literal 프롬프트 문언 -- **활성 프롬프트라 승인 게이트 대상.**
+
+rubric judge는 (b) 이후로 미룬다.
