@@ -1,6 +1,17 @@
+from pathlib import Path
+
+from idpr.v2.gold_factual_identity import GoldOccurrence
+from idpr.v2.registry import load_definitions
+from idpr.v2.runtime.grounding import AssessmentTarget
+from idpr.v2.runtime.identity import OffenseInstanceKey
+from scripts.analyze_v2_call2_mixed_evidence import transition_counts
 from scripts.analyze_v2_call2_residual_unknown import bucket
 from scripts.analyze_v2_call2_target_placement import placement_bucket
 from scripts.diagnose_v2_call2_evidence_scope import factual_episode_evidence
+from scripts.diagnose_v2_call2_mixed_evidence import (
+    actor_bound_ground_fact,
+    mixed_carrier,
+)
 
 
 def test_residual_unknown_operational_buckets_are_conservative():
@@ -116,3 +127,35 @@ def test_target_placement_buckets_keep_role_review_separate_from_provenance():
         same_actor_other_episode=0,
         same_episode_peer_actors=0,
     ) == "DERIVED_SOURCE_PARTICIPATION_REVIEW"
+
+
+def test_mixed_carrier_keeps_actor_ground_fact_local_and_expands_legal_element():
+    registry = load_definitions(Path("data/v2/definitions"))
+    instance = OffenseInstanceKey("case", "甲", "offense.theft", "binding:001")
+    occurrences = {
+        "binding:001": GoldOccurrence("binding:001", "甲", "local", 0, 5)
+    }
+    common = {
+        "registry": registry,
+        "plan": {},
+        "issue": {"seed_results": []},
+        "occurrences": occurrences,
+        "episode_evidence": {"binding:001": "whole episode"},
+    }
+    assert actor_bound_ground_fact(registry, "ground_fact.taking_conduct")
+    assert not actor_bound_ground_fact(registry, "ground_fact.means_or_object_defect")
+    carrier, evidence = mixed_carrier(
+        target=AssessmentTarget(instance, "ground_fact.taking_conduct"), **common
+    )
+    assert (carrier, evidence.source_text) == ("actor_action_binding", "local")
+    carrier, evidence = mixed_carrier(
+        target=AssessmentTarget(instance, "legal_element.possession"), **common
+    )
+    assert (carrier, evidence.source_text) == ("factual_episode", "whole episode")
+
+
+def test_mixed_evidence_transition_counts_require_exact_paired_keys():
+    key = ("case", "甲", "offense.theft", "binding:001", "predicate")
+    assert transition_counts({key: "UNKNOWN"}, {key: "TRUE"}) == {
+        ("UNKNOWN", "TRUE"): 1
+    }

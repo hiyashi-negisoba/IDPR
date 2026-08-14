@@ -1242,3 +1242,19 @@ target은 변경하지 않았다. 검증은 **333 passed, 16 skipped**, focused 
 다음은 target별 mixed carrier(actor-bound GroundFact=local/source binding, legal/non-actor=
 realization episode)를 production 변경 전 진단 arm으로 구현한다. collision 12와 cross-episode 2는
 별도 queue로 남긴다. 활성 prompt는 아직 바꾸지 않는다.
+
+### mixed-carrier paired 결과
+
+정본 `residual_unknown_mixed_evidence_paired_26_v3.json`은 두 arm의 target grouping까지 같게 맞췄다.
+v1은 control 부재, v2는 batching 불일치 때문에 기각한다.
+
+- carrier: actor-action 31, derived exact source 4, factual episode 197
+- actor-action: 29 U->U + 2 T->T로 31/31 동일
+- derived source: 4/4 U->U
+- episode: U->known 51이나 known->U 4, F->T 1도 발생
+- 전체 UNKNOWN 205 -> 158은 correctness 검수 전 성능 향상으로 쓰지 않는다.
+- known regression/reversal: RU-081/093/095/113/118
+- 독립 episode 실행 두 번에서 같은 known 66개, 그중 actor collision 14개
+
+결론: mixed carrier 전면 production 채택은 보류. regression 5 + B collision 12를 먼저 검수한다.
+production truth와 N/P는 계속 동결한다.

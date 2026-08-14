@@ -81,3 +81,44 @@ carrier를 **진단 arm**으로 만들고, 12개 collision queue와 cross-episod
 그 결과를 보기 전에는 production Call 2 정본이나 N/P를 바꾸지 않는다.
 
 검증은 `333 passed, 16 skipped`, focused Ruff, `git diff --check`를 통과했다.
+
+## mixed-carrier paired 실행
+
+위 contract를 production에 넣기 전에 같은 residual 232 target을 occurrence control과 mixed evidence로
+paired 실행했다. 정본은 다음이다.
+
+- `diagnostics/residual_unknown_mixed_evidence_paired_26_v3.json`
+- `diagnostics/residual_unknown_mixed_evidence_review_26_v1.{json,md}`
+- paired artifact sha: `72a11d65171b5e1c19a7f095f9afbdd7fd49b29ef1a8bb0d7c26d9f032f48e50`
+- review sha: `f03aa7400842be2b4bfab1794cc11a69d8588a9d1b5ed381957934a7d9dd239d`
+- 94 requests/arm, 244,700 tokens
+
+v1은 mixed arm만 실행해 drift control이 없으므로 preflight다. v2는 두 arm의 target batching이 달라
+evidence와 batching 효과가 섞였으므로 기각했다. **v3는 mixed carrier 종류대로 control도 같은 target
+group으로 나눠, 두 arm 사이에 evidence text만 다르다.**
+
+| carrier | target | paired transition |
+| --- | ---: | --- |
+| actor-action binding | 31 | U->U 29, T->T 2 |
+| derived exact-actor source | 4 | U->U 4 |
+| factual episode | 197 | U->U 121, U->T 46, U->F 5, T->T 19, F->F 1, known->U 4, F->T 1 |
+
+전체 UNKNOWN은 control 205에서 mixed 158로 47개 줄었지만 이것을 성능 향상으로 채택하지 않는다.
+같은 evidence와 같은 batching인 actor-action 31개가 전부 동일했다는 것은 local carrier의 안정성을
+확인한다. 반면 episode arm에는 51개 U->known과 함께 4개 known->UNKNOWN, 1개 FALSE->TRUE가 있다.
+
+known regression/reversal queue는 `RU-081`, `RU-093`, `RU-095`, `RU-113`, `RU-118`이다. 특히
+`RU-081`은 사채업자 乙의 공무원성을 같은 episode의 군수 甲 사실과 함께 보자 FALSE에서 UNKNOWN으로
+후퇴했다. 이는 episode 전면 채택 전에 막아야 할 actor attribution 혼선의 직접 반례다.
+
+두 번의 독립 episode 실행에서 같은 known 값을 낸 target은 66개지만, 그중 14개는 same-predicate
+다른-actor collision이 있다. 반복 안정성도 attribution 정확성의 충분조건이 아니다. 따라서 현재
+결론은 다음과 같다.
+
+1. actor-bound GroundFact의 local/source-binding carrier는 유지할 수 있다. 다만 이번 residual
+   subset의 derived source 4개는 모두 UNKNOWN이라 회복 효과는 없었다.
+2. factual episode는 정보 carrier로 유효하지만 predicate별 attribution gate 없이 production에
+   전면 적용할 수 없다.
+3. 다음 검수는 regression/reversal 5개와 B collision 12개를 먼저 닫고, 그 뒤 반복-stable known
+   66개 중 안전한 subset만 candidate로 남긴다.
+4. 아직 production Call 2, symbolic truth, N/P는 변경하지 않는다.
