@@ -1050,6 +1050,10 @@ _FINAL_SECTION_KEYWORDS = ("결론", "최종 죄책", "죄수")
 #: "IV. 결론" from prose like "...결론을 확정하기 어렵다." that merely contains the word.
 _SENTENCE_ENDINGS = (".", "다", "。", ":", "：")
 
+#: Numbered or lettered sub-headings inside a closing section (`1.`, `2)`, `가.`, `나.`).
+#: These sit *under* the section's own heading and never start it.
+_SUB_HEADING = re.compile(r"^(?:\d+|[가-힣])\s*[.)]\s*\S")
+
 
 def extract_final_conclusion_section(answer_text: str) -> str:
     """The mechanically-cut tail of the answer the closing-paragraph instruction targets.
@@ -1069,6 +1073,7 @@ def extract_final_conclusion_section(answer_text: str) -> str:
     the very blind spot this replaces.
     """
     lines = answer_text.splitlines(keepends=True)
+    top_level_offset: int | None = None
     heading_offset: int | None = None
     fallback_offset: int | None = None
     offset = 0
@@ -1078,8 +1083,16 @@ def extract_final_conclusion_section(answer_text: str) -> str:
             fallback_offset = offset
             if not stripped.endswith(_SENTENCE_ENDINGS):
                 heading_offset = offset
+                if not _SUB_HEADING.match(stripped):
+                    top_level_offset = offset
         offset += len(line)
-    start = heading_offset if heading_offset is not None else fallback_offset
+    # A closing section carries its own sub-headings -- `III. 죄수 및 최종 결론` followed by
+    # `1. 乙의 최종 죄책` and `2. 甲의 최종 죄책`.  Taking the last heading starts the section
+    # at the final actor and reports every actor above it as missing, so the section starts
+    # at its outermost heading and a sub-heading is used only when there is no outer one.
+    start = top_level_offset if top_level_offset is not None else heading_offset
+    if start is None:
+        start = fallback_offset
     if start is not None:
         return answer_text[start:]
     paragraphs = [part for part in answer_text.split("\n\n") if part.strip()]

@@ -39,7 +39,13 @@ _ACTOR = re.compile(r"[甲乙丙丁戊己庚辛]")
 # it contains as a substring.
 _STATE_PATTERNS: list[tuple[str, re.Pattern[str]]] = [
     ("불성립", re.compile(r"성립하지\s*(?:않|아니)|성립되지\s*않|불성립|처벌(?:되지|할)\s*(?:않|수\s*없)")),
-    ("미확정", re.compile(r"(?:확정|단정|판단)하기\s*어렵|확정할\s*수\s*없|불분명")),
+    (
+        "미확정",
+        # `확정하기 어렵다` and the nominalized `성부 확정 어려움` are the same holding.
+        # `어렵` alone does not cover `어려움`/`어려운`: the ㅂ-irregular changes the stem,
+        # so the two forms share only `어려` as a literal prefix.
+        re.compile(r"(?:확정|단정|판단)(?:하기)?\s*(?:어렵|어려|곤란)|확정할\s*수\s*없|불분명"),
+    ),
     # Never a bare `성립`: it is a prefix of `성립하지 않는다`, so `과실치사죄가 성립하지
     # 않는다` would read as an affirmative at the earlier offset.
     (
@@ -119,43 +125,24 @@ def _mentions_offense(sentence: str, offense: str) -> bool:
     return bool(_offense_spans(sentence, offense))
 
 
-def _clause_for_offense(sentence: str, offense: str) -> str | None:
-    """The clause that actually predicates something of this offence.
+def _state_for_offense(sentence: str, offense: str) -> str | None:
+    """The state this sentence asserts of this offence: the first one stated at or after it.
 
-    One sentence often disposes of several crimes at once -- `존속살해죄는 성립하지
-    않는다, 주거침입죄는 확정하기 어렵다` -- so reading the sentence's first state keyword
-    would assign the first crime's state to every crime named in it.  The clause runs from
-    this offence's mention to the next offence-like mention after it.
+    One sentence disposes of several crimes in more than one shape.  Each can carry its own
+    predicate (`존속살해죄는 성립하지 않는다, 주거침입죄는 확정하기 어렵다`); several can
+    share one (`수뢰죄, 직무유기죄, 횡령죄는 모두 ... 확정하기 어렵다`); and a sentence can
+    hold both at once (`준강도죄, 특수절도죄는 ... 어렵고, 상해죄는 기수가 된다`).
+
+    Reading forward from the offence's own mention to the first state keyword handles all
+    three: a shared predicate is the first one the earlier crimes reach, and a crime with
+    its own predicate reaches that one before any later group's.  Cutting the clause at the
+    next crime name instead loses the shared predicate, and falling back to the sentence's
+    tail picks up the *last* group's predicate for crimes in the first.
     """
     spans = _offense_spans(sentence, offense)
     if not spans:
         return None
-    start, own_end = spans[0]
-    following = [
-        match.start() for match in re.finditer(r"[가-힣]+죄", sentence) if match.start() >= own_end
-    ]
-    return sentence[start : following[0] if following else len(sentence)]
-
-
-def _state_for_offense(sentence: str, offense: str) -> str | None:
-    """The state this sentence asserts of this offence, under either enumeration shape.
-
-    Writers list crimes two ways.  Each can carry its own predicate (`존속살해죄는 성립하지
-    않는다, 주거침입죄는 확정하기 어렵다`), where the clause holds the answer; or several
-    can share one predicate at the end (`수뢰죄, 직무유기죄, 횡령죄는 모두 ... 확정하기
-    어렵다`), where the clause is just a name and the predicate sits after the last of
-    them.  Reading only the clause silently drops every crime in the second shape.
-    """
-    clause = _clause_for_offense(sentence, offense)
-    if clause is None:
-        return None
-    state = _state_of(clause)
-    if state is not None:
-        return state
-    mentions = list(re.finditer(r"[가-힣]+죄", sentence))
-    if not mentions:
-        return None
-    return _state_of(sentence[mentions[-1].end() :])
+    return _state_of(sentence[spans[0][0] :])
 
 
 def _attributed_sentences(text: str) -> list[tuple[str | None, str]]:

@@ -22,6 +22,11 @@ SERVED_MODEL="idpr-gemma-4-26b-a4b"
 PLANS="${IDPR_ANSWER_PLANS:-$PROJECT_ROOT/experiments/v2_call15_directscope_26_causal/answer_plan_v1/answer_plans.jsonl}"
 RUN_ROOT="${IDPR_CALL3_RUN_ROOT:-$PROJECT_ROOT/experiments/v2_call15_directscope_26_causal/call3_dev_v1}"
 CASE_ID_FILE="${IDPR_CALL3_CASE_ID_FILE:-}"
+# Decoding is a condition variable, not a fixed property of the pipeline: a comparison
+# across arms wants it identical and reproducible.  Left unset, run_v2_call3.py keeps its
+# own defaults.
+TEMPERATURE="${IDPR_CALL3_TEMPERATURE:-}"
+MAX_TOKENS="${IDPR_CALL3_MAX_TOKENS:-}"
 
 test -x "$CLIENT_PYTHON"
 test -s "$PLANS"
@@ -51,6 +56,12 @@ ARGS=(--answer-plans "$PLANS" --out "$RUN_ROOT" \
       --base-url "http://127.0.0.1:${PORT}" --model "$SERVED_MODEL")
 if [ -n "$CASE_ID_FILE" ]; then
     ARGS+=(--case-id-file "$CASE_ID_FILE")
+fi
+if [ -n "$TEMPERATURE" ]; then
+    ARGS+=(--temperature "$TEMPERATURE")
+fi
+if [ -n "$MAX_TOKENS" ]; then
+    ARGS+=(--max-tokens "$MAX_TOKENS")
 fi
 
 "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_call3.py" "${ARGS[@]}"
