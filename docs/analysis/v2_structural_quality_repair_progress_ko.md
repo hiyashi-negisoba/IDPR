@@ -50,3 +50,19 @@ same-actor episode보다 좁혀도 predicate별 evidence role이 없으면 안�
 4. reviewed card의 `variant_group`과 채택 core card를 이용해 truth와 독립된 dispute registry를 만들고
    AnswerPlan `contested_points`에 연결한다.
 5. final lineage가 확정된 뒤 Call 2부터 N/P와 blind judge까지 한 번만 재생성한다.
+
+## authored dispute route 구현
+
+live core card가 하나의 `variant_group` 채택안을 갖고 있고, rulegen 저작물에 같은 group의 대립
+position이 둘 이상 보존된 경우만 compiler가 dispute를 연다. 채택 core card가 둘 이상이라 단일
+채택안을 정할 수 없는 group은 자동 제외한다. 그 결과 55개 registry entry가 만들어졌다.
+
+동결 artifact로 연결 검증한 결과 13/26 case, 27 anchored issue에 `contested_points`가 생겼다. 이
+discussion obligation은 truth가 UNKNOWN인지와 무관하다. 또한 P만 좋아지는 조건 오염을 막기 위해
+retrieval artifact를 두 역할로 분리했다.
+
+- `--dispute-triggers`: N/P 양쪽에 동일하게 사용, authored discussion obligation만 연다.
+- `--rule-statements`: P에만 사용, finding에 reviewed card 문장을 추가한다.
+
+검증상 N에도 27 contested point가 생기지만 `[판례 법리]` card 문장은 0개다. 따라서 P-N의 차이는
+계속 rule statement channel 하나로 제한된다.

@@ -20,6 +20,7 @@ from idpr.v2.runtime.answer_plan import (
     check_contracts,
     serialize_analysis,
 )
+from scripts.build_v2_answer_plan import _case_contested_points, _dispute_registry
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = load_definitions(ROOT / "data/v2/definitions")
@@ -180,3 +181,23 @@ def test_check_contracts_rejects_a_bad_origin_on_any_bucket() -> None:
     )
     with pytest.raises(AnswerPlanError, match="rule statement from"):
         check_contracts(replace(plan, anchored_issues=(bad,)))
+
+
+def test_selected_variant_card_opens_authored_dispute_independent_of_truth() -> None:
+    disputes = _dispute_registry(ROOT / "data/v2/dispute_registry.json")
+    source_id = "art329_sec2_2.dead_person_possession_continuing"
+    statements = {
+        (_ref(), _BLOCKING): (
+            RuleStatement("사자의 점유가 문제된다.", "reviewed_card", source_id),
+        )
+    }
+    routed = _case_contested_points(statements, disputes)
+    assert len(routed[_ref()]) == 1
+    point = routed[_ref()][0]
+    assert point.origin == "authored_doctrine"
+    assert len(point.positions) >= 2
+
+
+def test_unselected_dispute_card_opens_no_discussion_route() -> None:
+    disputes = _dispute_registry(ROOT / "data/v2/dispute_registry.json")
+    assert _case_contested_points({(_ref(), _BLOCKING): (_CARD,)}, disputes) == {}
