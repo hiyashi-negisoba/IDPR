@@ -729,10 +729,15 @@ def main() -> None:
             )
         participation_compile_status = "SUCCEEDED"
         participation_compile_errors: list[str] = []
+        participation_mode_resolutions: list[dict[str, Any]] = []
         try:
-            compile_participation_bindings(
+            compiled_participation = compile_participation_bindings(
                 participation_assessments,
                 expected_targets=participation_targets,
+                registry=registry,
+            )
+            participation_mode_resolutions = list(
+                compiled_participation.mode_resolutions
             )
         except ParticipationGroundingError as exc:
             truth_counts = {
@@ -1041,6 +1046,7 @@ def main() -> None:
             ],
             "participation_compile_status": participation_compile_status,
             "participation_compile_errors": participation_compile_errors,
+            "participation_mode_resolutions": participation_mode_resolutions,
             "top_level_instances": list(plan_row["top_level_instances"]),
             "assessment_instances": list(plan_row["assessment_instances"]),
             "candidate_doctrine_refs": list(plan_row["candidate_doctrine_refs"]),

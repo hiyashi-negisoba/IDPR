@@ -340,8 +340,55 @@ def materialize_factual_participation_candidates(
     )
 
 
+def derived_co_principal_targets(
+    registry: DefinitionRegistry,
+    targets: Iterable[ParticipationLocalTarget],
+) -> tuple[ParticipationLocalTarget, ...]:
+    """Open authored same-episode derived groups after a base co-group is discovered.
+
+    The original planner can materialize ``special_theft`` only when both actors already
+    have direct theft bindings.  Call 1.5-P may create the missing member later.  This
+    function closes exactly that ordering gap from the derived definition's
+    ``distinct_actor_binding_sets``; it performs no case-text or liability inference.
+    """
+    values = tuple(targets)
+    existing = set(values)
+    output: list[ParticipationLocalTarget] = []
+    derived_entries = registry.by_kind.get("derived_offense", ())
+    for target in values:
+        if target.kind != "co_principal_group":
+            continue
+        for entry in derived_entries:
+            metadata = entry.payload.get("candidate_materialization")
+            if not isinstance(metadata, Mapping):
+                continue
+            peer_sets = metadata.get("distinct_actor_binding_sets") or ()
+            if [target.offense_ref] not in peer_sets:
+                continue
+            derivation = entry.payload.get("derivation") or {}
+            if derivation.get("base") != target.offense_ref:
+                continue
+            candidate = ParticipationLocalTarget(
+                "co_principal_group",
+                tuple(
+                    OffenseInstanceKey(
+                        member.case_id,
+                        member.actor_id,
+                        entry.id,
+                        member.occurrence_id,
+                    )
+                    for member in target.members
+                ),
+            )
+            if candidate not in existing:
+                existing.add(candidate)
+                output.append(candidate)
+    return tuple(output)
+
+
 __all__ = [
     "FactualParticipationError",
     "FactualParticipationPlan",
+    "derived_co_principal_targets",
     "materialize_factual_participation_candidates",
 ]

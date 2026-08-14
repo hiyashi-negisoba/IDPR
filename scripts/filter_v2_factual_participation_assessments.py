@@ -14,6 +14,7 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
+from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.participation_grounding import (
     ParticipationGroundingError,
@@ -60,7 +61,11 @@ def main() -> None:
     parser.add_argument("--plan-artifact", type=Path, required=True)
     parser.add_argument("--source-assessments", type=Path, required=True)
     parser.add_argument("--out", type=Path, required=True)
+    parser.add_argument(
+        "--definitions", type=Path, default=ROOT / "data/v2/definitions"
+    )
     args = parser.parse_args()
+    registry = load_definitions(args.definitions)
 
     plans = {row["sub_question_id"]: row for row in _rows(args.plan_artifact)}
     sources = {
@@ -112,14 +117,18 @@ def main() -> None:
         co_count = derivative_count = 0
         try:
             compiled = compile_participation_bindings(
-                typed_assessments, expected_targets=typed_targets
+                typed_assessments,
+                expected_targets=typed_targets,
+                registry=registry,
             )
             co_count = len(compiled.co_principal_sources)
             derivative_count = len(compiled.derivative_links)
+            mode_resolutions = list(compiled.mode_resolutions)
         except ParticipationGroundingError as exc:
             rejected += 1
             compile_status = "REJECTED"
             compile_errors = list(exc.errors)
+            mode_resolutions = []
         removed += len(source_targets) - len(targets)
         output.append(
             {
@@ -132,6 +141,7 @@ def main() -> None:
                 "participation_compile_errors": compile_errors,
                 "co_principal_source_count": co_count,
                 "derivative_link_count": derivative_count,
+                "participation_mode_resolutions": mode_resolutions,
                 "causal_reuse_source": str(args.source_assessments),
             }
         )

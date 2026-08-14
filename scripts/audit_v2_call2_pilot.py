@@ -347,6 +347,7 @@ def main() -> None:
                     _parse_participation_target(value)
                     for value in expected_participation_values
                 ),
+                registry=registry,
             )
         except ParticipationGroundingError as exc:
             compile_error = exc

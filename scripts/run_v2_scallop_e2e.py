@@ -38,6 +38,7 @@ from idpr.v2.runtime.indirect_principal_grounding import IndirectPrincipalDepend
 from idpr.v2.runtime.participation_grounding import (
     ParticipationLocalAssessment,
     ParticipationLocalTarget,
+    add_co_principal_established_truths,
     compile_participation_bindings,
 )
 from idpr.v2.runtime.relation_grounding import (
@@ -474,6 +475,10 @@ def main() -> None:
         bindings = compile_participation_bindings(
             participation_assessments,
             expected_targets=expected_participation_targets,
+            registry=registry,
+        )
+        truths, co_principal_truth_projections = add_co_principal_established_truths(
+            registry, truths, bindings
         )
         # 형법 제33조 단서는 책임 평가 *이전에* 적용된다. 가담자가 어느 죄에서 평가되는지를
         # 바꾸는 것이므로, 평가가 끝난 뒤에 결론만 갈아끼우는 것은 다른 일이 된다.
@@ -633,6 +638,8 @@ def main() -> None:
             "case_truth_count": len(truths.predicate),
             "case_relation_truth_count": len(truths.relation),
             "co_principal_source_count": len(bindings.co_principal_sources),
+            "co_principal_truth_projections": list(co_principal_truth_projections),
+            "participation_mode_resolutions": list(bindings.mode_resolutions),
             "derivative_link_count": len(derivative_links),
             "final_responsibility": None if final_view is None else final_view.as_dict(),
             # 조건 truth가 실제로 이 단계에 도착했는지를 artifact에 남긴다. 남기지 않으면

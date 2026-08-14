@@ -24,8 +24,10 @@ from idpr.v2.issue_binding import (
     question_actor_ids,
 )
 from idpr.v2.registry import load_definitions
+from idpr.v2.runtime.evaluation_instance_planner import _instance_predicate_refs
 from idpr.v2.runtime.factual_participation import (
     FactualParticipationError,
+    derived_co_principal_targets,
     materialize_factual_participation_candidates,
 )
 from idpr.v2.runtime.policy_probe_targets import (
@@ -138,6 +140,9 @@ def main() -> None:
                 responsibility_actor_ids=responsibility,
                 registry=registry,
             )
+            post_participation_derived = derived_co_principal_targets(
+                registry, compiled.targets
+            )
         except (
             IssueBindingContractError,
             FactualInteractionContractError,
@@ -149,10 +154,14 @@ def main() -> None:
         row["occurrences"].extend(
             value.as_dict() for value in compiled.evidence_occurrences
         )
+        participation_targets = (*compiled.targets, *post_participation_derived)
         row["participation_local_targets"] = [
-            value.as_dict() for value in compiled.targets
+            value.as_dict() for value in participation_targets
         ]
-        row["participation_local_target_count"] = len(compiled.targets)
+        row["participation_local_target_count"] = len(participation_targets)
+        row["post_participation_derived_group_count"] = len(
+            post_participation_derived
+        )
         row["factual_interaction_count"] = len(factual_interactions)
         row["factual_interaction_candidate_count"] = len(
             {
@@ -195,7 +204,63 @@ def main() -> None:
 
         # 저작된 참가 정책이 요구하는 predicate를 Call 2 target으로 연다. planner는 어느
         # 법리인지 모른 채 probe가 선언한 offense/mode 범위만 읽는다.
-        probe_targets = participation_candidate_probe_targets(registry, compiled.targets)
+        # A derived co-group discovered after Call 1.5-P must also enter the ordinary
+        # liability universe.  It reuses the members' exact occurrences; no new evidence
+        # span or actor attribution is synthesized here.
+        existing_instances = {
+            (
+                value["case_id"], value["actor_id"], value["offense_ref"], value["occurrence_id"]
+            )
+            for value in row["assessment_instances"]
+        }
+        episode_by_occurrence = {
+            value.binding_id: value.factual_episode_id
+            for value in binding_result.bindings
+        }
+        episode_by_occurrence.update(
+            {instance.occurrence_id: episode_id for instance, episode_id in compiled.candidate_episodes}
+        )
+        episode_by_occurrence.update(
+            {
+                value["instance_key"]["occurrence_id"]: value["factual_episode_id"]
+                for value in row.get("instance_provenance", ())
+            }
+        )
+        for target in post_participation_derived:
+            for member in target.members:
+                key = (member.case_id, member.actor_id, member.offense_ref, member.occurrence_id)
+                if key in existing_instances:
+                    continue
+                existing_instances.add(key)
+                serialized = {
+                    "case_id": member.case_id,
+                    "actor_id": member.actor_id,
+                    "offense_ref": member.offense_ref,
+                    "occurrence_id": member.occurrence_id,
+                }
+                row["assessment_instances"].append(serialized)
+                row["top_level_instances"].append(serialized)
+                row["instances"].append(serialized)
+                episode_id = episode_by_occurrence.get(member.occurrence_id)
+                if episode_id is None:
+                    raise ValueError(
+                        f"{case_id}: derived participation member lacks episode provenance"
+                    )
+                row.setdefault("instance_provenance", []).append(
+                    {
+                        "instance_key": serialized,
+                        "factual_episode_id": episode_id,
+                        "source_binding_ids": [member.occurrence_id],
+                    }
+                )
+                if member.offense_ref not in row["candidate_offense_refs"]:
+                    row["candidate_offense_refs"].append(member.offense_ref)
+        row["assessment_instance_count"] = len(row["assessment_instances"])
+        row["top_level_instance_count"] = len(row["top_level_instances"])
+        row["instances"] = list(row["assessment_instances"])
+        row["instance_provenance_count"] = len(row.get("instance_provenance", ()))
+
+        probe_targets = participation_candidate_probe_targets(registry, participation_targets)
         existing = {
             (
                 value["instance_key"]["case_id"],
@@ -231,9 +296,36 @@ def main() -> None:
                 }
             )
             added += 1
+        for target in post_participation_derived:
+            for instance in target.members:
+                for predicate_ref in _instance_predicate_refs(registry, instance):
+                    key = (
+                        instance.case_id,
+                        instance.actor_id,
+                        instance.offense_ref,
+                        instance.occurrence_id,
+                        predicate_ref,
+                    )
+                    if key in existing:
+                        continue
+                    existing.add(key)
+                    row["assessment_targets"].append(
+                        {
+                            "instance_key": {
+                                "case_id": instance.case_id,
+                                "actor_id": instance.actor_id,
+                                "offense_ref": instance.offense_ref,
+                                "occurrence_id": instance.occurrence_id,
+                            },
+                            "predicate_ref": predicate_ref,
+                            "opened_by": "post_participation_derived_group",
+                        }
+                    )
+                    if predicate_ref not in row["selected_predicate_refs"]:
+                        row["selected_predicate_refs"].append(predicate_ref)
         row["participation_probe_target_count"] = added
         row["final_assessment_target_count"] = len(row["assessment_targets"])
-        unreachable = unreachable_mode_findings(registry, compiled.targets)
+        unreachable = unreachable_mode_findings(registry, participation_targets)
         row["participation_probe_unreachable_modes"] = [
             {"policy_id": policy_id, "mode": mode, "relation_kind": relation_kind}
             for policy_id, mode, relation_kind in unreachable

@@ -1,9 +1,13 @@
 - id: participation_policy.standard
+  mode_subsumptions:
+    - dominant_mode: instigator
+      subsumed_modes: [aider]
   modes:
     principal: {basis: direct}
     co_principal:
       basis: attribution
       attributable_slots: [conduct]
+      establishes_predicate_refs: [legal_element.joint_commission_by_two_or_more]
     instigator:
       basis: derivative
       requires_conclusion: offense_realization

@@ -8,9 +8,14 @@ from itertools import combinations
 from typing import Any, Literal
 
 from idpr.v2.gold_factual_identity import GoldOccurrence
+from idpr.v2.participation import (
+    co_principal_established_predicate_refs,
+    derivative_mode_subsumptions,
+    participation_policy_for,
+)
 from idpr.v2.registry import DefinitionRegistry
 from idpr.v2.runtime.identity import OffenseInstanceKey
-from idpr.v2.runtime.truths import TruthValue
+from idpr.v2.runtime.truths import CaseTruths, TruthValue
 
 ParticipationRelationKind = Literal["instigation", "aiding", "co_principal_group"]
 
@@ -79,6 +84,48 @@ class ParticipationLocalAssessment:
 class ParticipationBindings:
     co_principal_sources: tuple[tuple[OffenseInstanceKey, OffenseInstanceKey], ...]
     derivative_links: tuple[tuple[OffenseInstanceKey, OffenseInstanceKey, str], ...]
+    mode_resolutions: tuple[dict[str, Any], ...] = ()
+
+
+def add_co_principal_established_truths(
+    registry: DefinitionRegistry,
+    truths: CaseTruths,
+    bindings: ParticipationBindings,
+) -> tuple[CaseTruths, tuple[dict[str, Any], ...]]:
+    """Project predicates entailed by validated TRUE co-principal relations."""
+    policy = participation_policy_for(registry)
+    if policy is None:
+        return truths, ()
+    refs = co_principal_established_predicate_refs(policy)
+    if not refs:
+        return truths, ()
+    members = {
+        instance for pair in bindings.co_principal_sources for instance in pair
+    }
+    predicate = dict(truths.predicate)
+    projections: list[dict[str, Any]] = []
+    for instance in sorted(
+        members,
+        key=lambda value: (
+            value.case_id,
+            value.actor_id,
+            value.offense_ref,
+            value.occurrence_id,
+        ),
+    ):
+        for ref in sorted(refs):
+            prior = predicate.get((instance, ref))
+            predicate[(instance, ref)] = "TRUE"
+            projections.append(
+                {
+                    "instance_key": _instance(instance),
+                    "predicate_ref": ref,
+                    "prior_truth": prior,
+                    "truth": "TRUE",
+                    "derived_from": "validated_co_principal_group",
+                }
+            )
+    return CaseTruths(predicate=predicate, relation=truths.relation), tuple(projections)
 
 
 def _validate_target(target: ParticipationLocalTarget) -> None:
@@ -265,8 +312,9 @@ def compile_participation_bindings(
     assessments: Iterable[ParticipationLocalAssessment],
     *,
     expected_targets: Iterable[ParticipationLocalTarget] | None = None,
+    registry: DefinitionRegistry | None = None,
 ) -> ParticipationBindings:
-    """Compile resolved local truths; never repair conflicts or dependency failures."""
+    """Compile local truths, applying only explicitly authored mode subsumption."""
     values = tuple(assessments)
     targets = tuple(value.target for value in values)
     if expected_targets is not None:
@@ -284,7 +332,13 @@ def compile_participation_bindings(
         grouped.setdefault(
             (assessment.target.case_id, assessment.target.offense_ref), []
         ).append(assessment)
+    policy = participation_policy_for(registry) if registry is not None else None
+    authored_subsumptions = (
+        derivative_mode_subsumptions(policy) if policy is not None else {}
+    )
     mode_conflicts: list[str] = []
+    subsumed_targets: set[ParticipationLocalTarget] = set()
+    mode_resolutions: list[dict[str, Any]] = []
     for key, group_values in grouped.items():
         modes_by_logical_edge: dict[
             tuple[str, OffenseInstanceKey], set[ParticipationRelationKind]
@@ -302,13 +356,49 @@ def compile_participation_bindings(
             modes_by_logical_edge.setdefault(logical_edge, set()).add(
                 value.target.kind
             )
-        mode_conflicts.extend(
-            f"{key}: CONFLICTING_PARTICIPATION_MODE for "
-            f"source={actor_id} principal={principal.actor_id}/"
-            f"{principal.occurrence_id}"
-            for (actor_id, principal), modes in modes_by_logical_edge.items()
-            if modes == {"instigation", "aiding"}
-        )
+        for (actor_id, principal), relation_kinds in modes_by_logical_edge.items():
+            if relation_kinds != {"instigation", "aiding"}:
+                continue
+            policy_modes = {
+                "instigation": "instigator",
+                "aiding": "aider",
+            }
+            dominant_kind: ParticipationRelationKind | None = None
+            subsumed_kind: ParticipationRelationKind | None = None
+            for candidate in ("instigation", "aiding"):
+                other = "aiding" if candidate == "instigation" else "instigation"
+                if policy_modes[other] in authored_subsumptions.get(
+                    policy_modes[candidate], frozenset()
+                ):
+                    dominant_kind = candidate
+                    subsumed_kind = other
+                    break
+            if dominant_kind is None or subsumed_kind is None:
+                mode_conflicts.append(
+                    f"{key}: CONFLICTING_PARTICIPATION_MODE for "
+                    f"source={actor_id} principal={principal.actor_id}/"
+                    f"{principal.occurrence_id}"
+                )
+                continue
+            matching = [
+                value for value in group_values
+                if value.truth == "TRUE"
+                and value.target.kind == subsumed_kind
+                and value.target.actor.actor_id == actor_id
+                and value.target.principal == principal
+            ]
+            subsumed_targets.update(value.target for value in matching)
+            mode_resolutions.append({
+                "case_id": key[0],
+                "offense_ref": key[1],
+                "participant_id": actor_id,
+                "principal_instance": _instance(principal),
+                "dominant_mode": policy_modes[dominant_kind],
+                "subsumed_mode": policy_modes[subsumed_kind],
+                "raw_dominant_truth": "TRUE",
+                "raw_subsumed_truth": "TRUE",
+                "resolution_basis": "authored_participation_policy",
+            })
     if mode_conflicts:
         raise ParticipationGroundingError(mode_conflicts)
     co_sources: list[tuple[OffenseInstanceKey, OffenseInstanceKey]] = []
@@ -348,7 +438,9 @@ def compile_participation_bindings(
         true_derivative = tuple(
             value
             for value in group_values
-            if value.truth == "TRUE" and value.target.kind in {"instigation", "aiding"}
+            if value.truth == "TRUE"
+            and value.target.kind in {"instigation", "aiding"}
+            and value.target not in subsumed_targets
         )
         by_actor: dict[OffenseInstanceKey, list[ParticipationLocalAssessment]] = {}
         for value in true_derivative:
@@ -388,7 +480,9 @@ def compile_participation_bindings(
                 path.add(current)
                 current = node_edges[current]
             complete.update(path)
-    return ParticipationBindings(tuple(co_sources), tuple(derivative_links))
+    return ParticipationBindings(
+        tuple(co_sources), tuple(derivative_links), tuple(mode_resolutions)
+    )
 
 
 __all__ = [
@@ -396,6 +490,7 @@ __all__ = [
     "ParticipationGroundingError",
     "ParticipationLocalAssessment",
     "ParticipationLocalTarget",
+    "add_co_principal_established_truths",
     "compile_participation_bindings",
     "participation_local_targets",
     "participation_request_payload",

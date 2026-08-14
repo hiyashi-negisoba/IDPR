@@ -6,7 +6,11 @@ import pytest
 
 from idpr.v2.compile import CompiledOffense, compile_offense
 from idpr.v2.gold_factual_identity import GoldOccurrence
-from idpr.v2.participation import effective_attributable_slots, participation_policy_for
+from idpr.v2.participation import (
+    co_principal_established_predicate_refs,
+    effective_attributable_slots,
+    participation_policy_for,
+)
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.participation import apply_attribution
@@ -14,6 +18,7 @@ from idpr.v2.runtime.participation_grounding import (
     ParticipationGroundingError,
     ParticipationLocalAssessment,
     ParticipationLocalTarget,
+    add_co_principal_established_truths,
     compile_participation_bindings,
     participation_local_targets,
     participation_request_payload,
@@ -57,6 +62,9 @@ def test_standard_co_principal_policy_attributes_conduct() -> None:
     offense = REGISTRY.get("offense.theft")
     assert policy is not None and offense is not None
     assert effective_attributable_slots(policy, offense) == frozenset({"conduct"})
+    assert co_principal_established_predicate_refs(policy) == frozenset(
+        {"legal_element.joint_commission_by_two_or_more"}
+    )
 
 
 def test_co_principal_source_conduct_reaches_target_without_mutating_input() -> None:
@@ -71,6 +79,26 @@ def test_co_principal_source_conduct_reaches_target_without_mutating_input() -> 
     )
     assert truths.predicate[(target, ref)] == "FALSE"
     assert attributed.predicate[(target, ref)] == "TRUE"
+
+
+def test_true_co_group_symbolically_establishes_joint_commission_predicate() -> None:
+    left, right = _instance("甲", 1), _instance("乙", 2)
+    target = ParticipationLocalTarget("co_principal_group", (left, right))
+    bindings = compile_participation_bindings(
+        (ParticipationLocalAssessment(target, "TRUE"),),
+        expected_targets=(target,),
+    )
+    original = CaseTruths(
+        predicate={(left, "legal_element.joint_commission_by_two_or_more"): "UNKNOWN"}
+    )
+    projected, audit = add_co_principal_established_truths(
+        REGISTRY, original, bindings
+    )
+    ref = "legal_element.joint_commission_by_two_or_more"
+    assert original.predicate[(left, ref)] == "UNKNOWN"
+    assert projected.predicate[(left, ref)] == "TRUE"
+    assert projected.predicate[(right, ref)] == "TRUE"
+    assert len(audit) == 2
 
 
 def test_model_request_contains_exactly_one_lightweight_local_relation() -> None:
@@ -210,6 +238,39 @@ def test_same_logical_edge_with_instigation_and_aiding_hard_fails() -> None:
         ParticipationGroundingError, match="CONFLICTING_PARTICIPATION_MODE"
     ):
         compile_participation_bindings(assessments, expected_targets=targets)
+
+
+def test_authored_instigator_mode_subsumes_aider_and_preserves_audit() -> None:
+    principal = _instance("乙", 3)
+    instigator = _instance("甲", 1)
+    aider_identity = _instance("甲", 2)
+    targets = (
+        ParticipationLocalTarget("instigation", (instigator, principal)),
+        ParticipationLocalTarget("aiding", (aider_identity, principal)),
+    )
+    assessments = tuple(
+        ParticipationLocalAssessment(target, "TRUE") for target in targets
+    )
+    bindings = compile_participation_bindings(
+        assessments, expected_targets=targets, registry=REGISTRY
+    )
+    assert bindings.derivative_links == ((instigator, principal, "instigator"),)
+    assert bindings.mode_resolutions == ({
+        "case_id": instigator.case_id,
+        "offense_ref": instigator.offense_ref,
+        "participant_id": "甲",
+        "principal_instance": {
+            "case_id": principal.case_id,
+            "actor_id": "乙",
+            "offense_ref": principal.offense_ref,
+            "occurrence_id": principal.occurrence_id,
+        },
+        "dominant_mode": "instigator",
+        "subsumed_mode": "aider",
+        "raw_dominant_truth": "TRUE",
+        "raw_subsumed_truth": "TRUE",
+        "resolution_basis": "authored_participation_policy",
+    },)
 
 
 def test_unknown_local_relation_emits_no_positive_binding() -> None:

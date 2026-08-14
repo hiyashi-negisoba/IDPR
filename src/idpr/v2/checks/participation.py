@@ -14,8 +14,7 @@ here. What IS checkable at this layer:
 
 from __future__ import annotations
 
-from idpr.v2 import participation
-from idpr.v2 import expressions
+from idpr.v2 import expressions, participation
 from idpr.v2.findings import Finding
 from idpr.v2.registry import DefinitionRegistry
 
@@ -47,6 +46,34 @@ def check_participation(registry: DefinitionRegistry) -> list[Finding]:
         return findings
 
     modes = policy.payload.get("modes") or {}
+    subsumptions = participation.derivative_mode_subsumptions(policy)
+    for dominant, subsumed_modes in subsumptions.items():
+        if dominant not in modes:
+            findings.append(Finding(
+                _AXIS, "subsumption_dominant_mode_undeclared", policy.id,
+                "mode_subsumptions",
+                f"dominant mode {dominant!r} is not declared in modes",
+            ))
+        for subsumed in subsumed_modes:
+            if subsumed not in modes:
+                findings.append(Finding(
+                    _AXIS, "subsumption_mode_undeclared", policy.id,
+                    "mode_subsumptions",
+                    f"subsumed mode {subsumed!r} is not declared in modes",
+                ))
+            if subsumed == dominant:
+                findings.append(Finding(
+                    _AXIS, "self_mode_subsumption", policy.id,
+                    "mode_subsumptions",
+                    f"mode {dominant!r} cannot subsume itself",
+                ))
+    for ref in participation.co_principal_established_predicate_refs(policy):
+        if registry.kind_of(ref) not in {"ground_fact", "legal_element"}:
+            findings.append(Finding(
+                _AXIS, "co_principal_establishes_nonpredicate", policy.id,
+                "modes.co_principal.establishes_predicate_refs",
+                f"{ref!r} is not a GroundFact or LegalElement",
+            ))
     for entry in offenses:
         constraints = entry.payload.get("participation_constraints") or {}
         disabled_modes = frozenset(constraints.get("disabled_modes") or [])

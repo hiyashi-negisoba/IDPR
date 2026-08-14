@@ -55,4 +55,31 @@ def constitutive_status_refs(offense: DefinitionEntry) -> frozenset[str]:
     return frozenset(constraints.get("constitutive_status_refs") or ())
 
 
-__all__ = ["participation_policy_for", "effective_attributable_slots", "constitutive_status_refs"]
+def co_principal_established_predicate_refs(
+    policy: DefinitionEntry,
+) -> frozenset[str]:
+    """Facts entailed by the validated co-principal relation itself."""
+    modes = policy.payload.get("modes") or {}
+    co_principal = modes.get("co_principal") or {}
+    return frozenset(co_principal.get("establishes_predicate_refs") or ())
+
+
+def derivative_mode_subsumptions(
+    policy: DefinitionEntry,
+) -> dict[str, frozenset[str]]:
+    """Authored derivative-mode precedence for one logical participation edge."""
+    result: dict[str, set[str]] = {}
+    for rule in policy.payload.get("mode_subsumptions") or ():
+        result.setdefault(str(rule["dominant_mode"]), set()).update(
+            str(mode) for mode in rule.get("subsumed_modes") or ()
+        )
+    return {mode: frozenset(subsumed) for mode, subsumed in result.items()}
+
+
+__all__ = [
+    "co_principal_established_predicate_refs",
+    "constitutive_status_refs",
+    "derivative_mode_subsumptions",
+    "effective_attributable_slots",
+    "participation_policy_for",
+]

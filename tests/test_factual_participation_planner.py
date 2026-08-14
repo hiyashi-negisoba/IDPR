@@ -15,8 +15,11 @@ from idpr.v2.issue_binding import (
 )
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.factual_participation import (
+    derived_co_principal_targets,
     materialize_factual_participation_candidates,
 )
+from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.participation_grounding import ParticipationLocalTarget
 
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = load_definitions(ROOT / "data/v2/definitions")
@@ -310,3 +313,20 @@ def test_necessary_counterpart_metadata_suppresses_ordinary_probe() -> None:
         registry=REGISTRY,
     )
     assert result.targets == ()
+
+
+def test_base_co_group_opens_authored_special_theft_group_after_participation() -> None:
+    base = ParticipationLocalTarget(
+        "co_principal_group",
+        (
+            OffenseInstanceKey(CASE_ID, "甲", "offense.theft", "binding:甲"),
+            OffenseInstanceKey(CASE_ID, "乙", "offense.theft", "binding:乙"),
+        ),
+    )
+    expanded = derived_co_principal_targets(REGISTRY, (base,))
+    assert len(expanded) == 1
+    assert expanded[0].offense_ref == "derived_offense.special_theft"
+    assert [value.occurrence_id for value in expanded[0].members] == [
+        "binding:甲",
+        "binding:乙",
+    ]

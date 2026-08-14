@@ -16,9 +16,29 @@
         "instigator": { "$ref": "#/$defs/derivative_mode" },
         "aider": { "$ref": "#/$defs/derivative_mode" }
       }
+    },
+    "mode_subsumptions": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": { "$ref": "#/$defs/mode_subsumption" },
+      "description": "Authored precedence when the same participant-principal-offense-realization satisfies more than one derivative mode. Raw assessments remain auditable; only the subsumed mode is omitted from compiled liability links."
     }
   },
   "$defs": {
+    "mode_subsumption": {
+      "type": "object",
+      "required": ["dominant_mode", "subsumed_modes"],
+      "additionalProperties": false,
+      "properties": {
+        "dominant_mode": { "enum": ["instigator", "aider"] },
+        "subsumed_modes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "enum": ["instigator", "aider"] }
+        }
+      }
+    },
     "direct_mode": {
       "type": "object",
       "required": ["basis"],
@@ -37,6 +57,12 @@
           "type": "array",
           "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/fixed_slot_name" },
           "description": "Which fixed slots can be satisfied via ATTRIBUTE(other co-principal's conduct) rather than this actor's own conduct -- section 15.2's example attributes property_taking(by=乙) to 甲 and violence(by=甲) to 乙, both under 'conduct'. Default here (no offense pinned) lists the slots this generally applies to; an offense that needs a narrower set overrides it in OffenseDef.participation_constraints."
+        },
+        "establishes_predicate_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+          "description": "Predicate truths entailed by a validated TRUE co-principal group itself; these are symbolic outputs of the participation relation, not neural guesses."
         }
       }
     },

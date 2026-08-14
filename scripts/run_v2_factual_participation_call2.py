@@ -152,7 +152,7 @@ def main() -> None:
         compile_errors: list[str] = []
         try:
             compiled = compile_participation_bindings(
-                assessments, expected_targets=targets
+                assessments, expected_targets=targets, registry=registry
             )
             co_count = len(compiled.co_principal_sources)
             derivative_count = len(compiled.derivative_links)
@@ -162,6 +162,9 @@ def main() -> None:
             compile_errors = list(exc.errors)
             co_count = 0
             derivative_count = 0
+            mode_resolutions: list[dict[str, Any]] = []
+        else:
+            mode_resolutions = list(compiled.mode_resolutions)
         output.append(
             {
                 "sub_question_id": case_id,
@@ -176,6 +179,7 @@ def main() -> None:
                 "participation_compile_errors": compile_errors,
                 "co_principal_source_count": co_count,
                 "derivative_link_count": derivative_count,
+                "participation_mode_resolutions": mode_resolutions,
                 "requests": requests,
             }
         )
