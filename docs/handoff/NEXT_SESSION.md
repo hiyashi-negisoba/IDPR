@@ -1217,3 +1217,28 @@ plan/Call2/issue-binding lineage, question assumptions, residual UNKNOWN exact k
 
 다음은 review packet의 A-or-context 50 + persistent 93을 target placement로 먼저 줄이는 것이다.
 그 뒤 C prompt-policy와 D legal-dispute/AnswerPlan 트랙을 분리한다. N/P는 계속 재실행하지 않는다.
+
+---
+
+## 2026-08-14 -- residual target-placement provenance 감사
+
+정본은 `docs/analysis/v2_call2_target_placement_audit_ko.md`다.
+
+- 50+93의 143개 중 legal element 113 + non-actor GroundFact 5 = realization-scope 118개였다.
+- actor-bound GroundFact 25개는 direct-content 14, participation-role 6, cross-episode carrier 2,
+  derived-source participation review 2, exact derived source 1로 분리됐다.
+- `r11_p1_q1` robbery/taking은 같은 actor의 앞선 theft binding이 유일한 cross-episode carrier
+  후보로 잡혔다. 자동 복사가 아니라 explicit realization link가 필요하다.
+- `r13_p1_q1`/`r13_p2_q1`의 망보기·제안·길 묻기 actor에게 principal taking을 복사하면 안 된다.
+  개인 GroundFact와 participation attribution을 분리한다.
+- B-confirmed 44개는 same-predicate 다른-actor collision 기준 32개 무충돌 / 12개 검수 필요다.
+  따라서 evidence 효과 44는 유지되지만 attribution-safe 44라고 쓰지 않는다.
+- 기존 Call 1.5-P는 canonical plan sha와 맞지만 `r13_p2_q1` distraction interaction을 놓쳤다.
+  보조 provenance로만 쓰고 role oracle로 쓰지 않는다.
+
+새 감사기 `scripts/analyze_v2_call2_target_placement.py`가 두 packet을 재현한다. production truth와
+target은 변경하지 않았다. 검증은 **333 passed, 16 skipped**, focused Ruff, `git diff --check` 통과.
+
+다음은 target별 mixed carrier(actor-bound GroundFact=local/source binding, legal/non-actor=
+realization episode)를 production 변경 전 진단 arm으로 구현한다. collision 12와 cross-episode 2는
+별도 queue로 남긴다. 활성 prompt는 아직 바꾸지 않는다.

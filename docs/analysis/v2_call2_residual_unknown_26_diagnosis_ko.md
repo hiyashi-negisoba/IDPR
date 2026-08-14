@@ -120,3 +120,8 @@ D는 Call 2 truth와 독립된 authored dispute/rubric bridge로 검출하고, A
 target-placement 관점에서 줄인다. 특히 ground fact는 actor-action episode에, legal element는
 그 offense realization에 붙어 있는지 확인한다. 그 뒤 남은 명시사실 포섭 실패만 C prompt-policy
 후보로 올리고, rubric이 요구하는 견해 대립은 D dispute registry/AnswerPlan 트랙으로 분리한다.
+
+후속 provenance 감사 결과는
+`docs/analysis/v2_call2_target_placement_audit_ko.md`에 기록했다. 50+93의 143개 중 actor-bound
+GroundFact는 25개였고 나머지 118개는 realization-scope predicate였다. B-confirmed 44개도
+same-predicate 다른-actor collision 기준으로 32개 무충돌 / 12개 검수 필요로 갈렸다.
