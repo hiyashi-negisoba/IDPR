@@ -37,6 +37,9 @@
         - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
 
 - id: derived_offense.fraud
+  identity:
+    name: 사기죄
+    statutory_refs: ["형법 제347조 제1항", "형법 제347조 제2항"]
   indirect_principal_capability: {legally_possible: true}
   derivation:
     kind: compose
@@ -309,6 +312,9 @@
         - {op: ref, ref: legal_element.injury_intent}
 
 - id: derived_offense.robbery_causing_intentional_injury
+  identity:
+    name: 강도상해죄
+    statutory_refs: ["형법 제337조"]
   derivation:
     kind: compose
     components:
@@ -379,6 +385,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.special_theft
+  identity:
+    name: 특수절도죄
+    statutory_refs: ["형법 제331조"]
   candidate_materialization:
     episode_constraint: same
     distinct_actor_binding_sets:
@@ -449,6 +458,9 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.quasi_robbery
+  identity:
+    name: 준강도죄
+    statutory_refs: ["형법 제335조"]
   candidate_materialization:
     episode_constraint: same
     binding_sets:
@@ -527,6 +539,9 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.injury_causing_death
+  identity:
+    name: 상해치사죄
+    statutory_refs: ["형법 제259조 제1항"]
   candidate_materialization:
     episode_constraint: same
     binding_sets:
@@ -560,6 +575,9 @@
           arg: {op: ref, ref: legal_element.homicide_intent}
 
 - id: derived_offense.rape_causing_injury_by_aggravated_result
+  identity:
+    name: 강간치상죄
+    statutory_refs: ["형법 제301조"]
   candidate_materialization:
     episode_constraint: same
     binding_sets:
@@ -604,6 +622,9 @@
           arg: {op: ref, ref: legal_element.injury_intent}
 
 - id: derived_offense.robbery_causing_injury_by_aggravated_result
+  identity:
+    name: 강도치상죄
+    statutory_refs: ["형법 제337조"]
   candidate_materialization:
     episode_constraint: same
     binding_sets:
@@ -640,6 +661,9 @@
           arg: {op: ref, ref: legal_element.injury_intent}
 
 - id: derived_offense.robbery_causing_death_by_aggravated_result
+  identity:
+    name: 강도치사죄
+    statutory_refs: ["형법 제338조"]
   derivation:
     kind: compose
     components:

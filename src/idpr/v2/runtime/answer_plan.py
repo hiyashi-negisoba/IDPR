@@ -410,18 +410,40 @@ def _final_state(
     return UNRESOLVED
 
 
-def _episode_quotes(binding_row: Mapping[str, Any], occurrence_id: str) -> tuple[str, ...]:
-    """Exact source spans behind one occurrence, as Call 1.5 recorded them."""
+def _episode_quotes(
+    binding_row: Mapping[str, Any],
+    occurrence_id: str,
+    plan_row: Mapping[str, Any] | None = None,
+) -> tuple[str, ...]:
+    """Exact source spans behind direct or planner-derived occurrence provenance."""
+    source_ids = {occurrence_id}
+    if plan_row:
+        for candidate in plan_row.get("derived_binding_candidates") or ():
+            if str(candidate.get("binding_id", "")) != occurrence_id:
+                continue
+            source_ids.update(str(value) for value in candidate.get("source_binding_ids") or ())
     quotes: list[str] = []
     for seed in binding_row.get("seed_results") or []:
         for binding in seed.get("bindings") or []:
-            if binding.get("binding_id") != occurrence_id:
+            if str(binding.get("binding_id", "")) not in source_ids:
                 continue
             for key in ("actor_action_fragments", "context_fragments"):
                 for fragment in binding.get(key) or []:
                     quote = str(fragment.get("source_quote", "")).strip()
                     if quote and quote not in quotes:
                         quotes.append(quote)
+    # Participation instances are authored by the planner rather than Call 1.5, so they
+    # have no seed binding to follow.  The planner nevertheless records their exact
+    # source span in ``occurrences``.  Use it only as a provenance fallback: direct and
+    # derived source bindings above remain the preferred, narrower evidence carrier.
+    if not quotes and plan_row:
+        for occurrence in plan_row.get("occurrences") or ():
+            if str(occurrence.get("occurrence_id", "")) != occurrence_id:
+                continue
+            quote = str(occurrence.get("source_text", "")).strip()
+            if quote:
+                quotes.append(quote)
+            break
     return tuple(quotes)
 
 
@@ -590,7 +612,11 @@ def build_answer_plan(
             actor=str(instance.get("actor_id", "")),
             offense_label=offense_label(registry, offense_ref, offense_labels),
             governing_provision=governing_provision(registry, offense_ref),
-            episode_quotes=_episode_quotes(binding_row, str(instance.get("occurrence_id", ""))),
+            episode_quotes=_episode_quotes(
+                binding_row,
+                str(instance.get("occurrence_id", "")),
+                plan_row,
+            ),
             final_state=state,
             completion_state=completion.get("state"),
             completion_why=None,

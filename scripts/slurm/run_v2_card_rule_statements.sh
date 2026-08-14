@@ -35,6 +35,7 @@ nvidia-smi --query-gpu=name,memory.total --format=csv,noheader || true
     --e2e-results "$RUN_ROOT/final_responsibility_v13_gf_rebase/results.jsonl" \
     --call2-artifact "$RUN_ROOT/call2_v10_ground_fact_rebase/grounding_output_rebased.jsonl" \
     --issue-bindings "$RUN_ROOT/issue_bindings.jsonl" \
+    --plan-artifact "$RUN_ROOT/participation_plan_v7_necessary_gate/evaluation_instance_plan.jsonl" \
     --out "$OUT"
 
 echo "=== v2 card rule statements end: $(date) ==="

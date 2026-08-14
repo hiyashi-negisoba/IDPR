@@ -120,6 +120,14 @@ def main() -> None:
         "--representation-gaps", type=Path, default=ROOT / "data/v2/representation_gaps.yaml"
     )
     parser.add_argument(
+        "--expose-global-representation-gaps",
+        action="store_true",
+        help=(
+            "Diagnostic only: copy repository-wide engineering gaps into every case plan. "
+            "Production leaves these out unless a later case-scoped route proves applicability."
+        ),
+    )
+    parser.add_argument(
         "--offense-labels",
         type=Path,
         default=ROOT / "data/v2/binding_seed_cues.yaml",
@@ -144,7 +152,8 @@ def main() -> None:
     bindings = _rows(args.issue_bindings)
     plans = _rows(args.plan_artifact) if args.plan_artifact else {}
     inventory = _inventory(args.inventory)
-    gaps = _representation_gaps(args.representation_gaps)
+    global_gaps = _representation_gaps(args.representation_gaps)
+    gaps = global_gaps if args.expose_global_representation_gaps else ()
     card_statements = _card_rule_statements(args.rule_statements)
     cue_catalogue = yaml.safe_load(args.offense_labels.read_text(encoding="utf-8")) or {}
     offense_labels = {
@@ -221,6 +230,10 @@ def main() -> None:
         "cases_requested": len(case_ids),
         "cases_written": written,
         "failures": [{"case_id": case_id, "error": error} for case_id, error in failures],
+        "global_representation_gap_count": len(global_gaps),
+        "global_representation_gaps_exposed_to_writer": bool(
+            args.expose_global_representation_gaps
+        ),
         "gold_precedents_read": False,
         "rubric_fields_read": False,
     }

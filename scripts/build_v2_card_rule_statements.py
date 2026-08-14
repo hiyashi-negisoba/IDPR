@@ -75,6 +75,7 @@ def targets_for_case(
     e2e_row: dict[str, Any],
     call2_row: dict[str, Any],
     binding_row: dict[str, Any],
+    plan_row: dict[str, Any] | None = None,
 ) -> list[dict[str, Any]]:
     """Every `(instance, predicate)` the plan will show, in all three truth lists.
 
@@ -89,7 +90,11 @@ def targets_for_case(
         instance = entry.get("instance_key") or {}
         ref = instance_ref(instance)
         offense_ref = str(instance.get("offense_ref", ""))
-        quotes = episode_quotes(binding_row, str(instance.get("occurrence_id", "")))
+        quotes = episode_quotes(
+            binding_row,
+            str(instance.get("occurrence_id", "")),
+            plan_row,
+        )
         for row in truths:
             if instance_ref(row.get("instance_key") or {}) != ref:
                 continue
@@ -140,6 +145,12 @@ def main() -> None:
     parser.add_argument("--e2e-results", type=Path, required=True)
     parser.add_argument("--call2-artifact", type=Path, required=True)
     parser.add_argument("--issue-bindings", type=Path, required=True)
+    parser.add_argument(
+        "--plan-artifact",
+        type=Path,
+        required=True,
+        help="planner provenance used to resolve derived occurrence source_binding_ids",
+    )
     parser.add_argument("--bridge", type=Path, default=ROOT / "data/v2/card_target_issue_bridge.yaml")
     parser.add_argument("--definitions", type=Path, default=ROOT / "data/v2/definitions")
     parser.add_argument("--out", type=Path, required=True)
@@ -167,13 +178,20 @@ def main() -> None:
     e2e = {row["sub_question_id"]: row for row in rows(args.e2e_results)}
     call2 = {row["sub_question_id"]: row for row in rows(args.call2_artifact)}
     bindings = {row["sub_question_id"]: row for row in rows(args.issue_bindings)}
-    missing = set(e2e) - (set(call2) & set(bindings))
+    plans = {row["sub_question_id"]: row for row in rows(args.plan_artifact)}
+    missing = set(e2e) - (set(call2) & set(bindings) & set(plans))
     if missing:
         raise ValueError(f"artifacts do not cover the same cases: {sorted(missing)[:3]}")
 
     pending: list[dict[str, Any]] = []
     for case_id, e2e_row in e2e.items():
-        for target in targets_for_case(registry, e2e_row, call2[case_id], bindings[case_id]):
+        for target in targets_for_case(
+            registry,
+            e2e_row,
+            call2[case_id],
+            bindings[case_id],
+            plans[case_id],
+        ):
             assigned = assign_tier(registry, routes, issue_by_id, issues_by_article, target)
             pending.append({"case_id": case_id, **assigned})
 
@@ -197,7 +215,12 @@ def main() -> None:
         if not path.exists():
             raise RuntimeError(f"RETRIEVAL_UNAVAILABLE: missing {path}")
 
-    from idpr.retrieval import DenseIndex, LexicalIndex, issue_retrieval_queries, reciprocal_rank_fusion
+    from idpr.retrieval import (
+        DenseIndex,
+        LexicalIndex,
+        issue_retrieval_queries,
+        reciprocal_rank_fusion,
+    )
     from idpr.retrieval.models import CrossEncoderReranker, SentenceTransformerEncoder
 
     encoder = SentenceTransformerEncoder(model_id=str(BE_SNAPSHOT), batch_size=32)
