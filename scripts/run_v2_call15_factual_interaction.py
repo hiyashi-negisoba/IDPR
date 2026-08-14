@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Run offense-free Call 1.5-P over validated Call 1.5 factual episodes."""
+"""Run offense-free Call 1.5-P over atomic actions from validated Call 1.5."""
 
 from __future__ import annotations
 
@@ -122,6 +122,7 @@ def main() -> None:
     usage_total = {"prompt_tokens": 0, "completion_tokens": 0, "total_tokens": 0}
     request_count = 0
     failed_episode_count = 0
+    failed_action_count = 0
 
     for case_index, case_id in enumerate(case_ids, 1):
         source = inventory[case_id]
@@ -146,117 +147,139 @@ def main() -> None:
         case_interactions: list[dict[str, Any]] = []
         episode_results: list[dict[str, Any]] = []
         for episode in binding_result.factual_episodes:
-            request_count += 1
-            payload = factual_interaction_request_payload(
-                case_id=case_id,
-                question_prompt=str(source["question_prompt"]),
-                responsibility_actor_ids=responsibility,
-                episode=episode,
-            )
-            assert_no_leaked_fields(payload)
-            raw: dict[str, Any] | None = None
-            attempt_errors: list[str] = []
             episode_row: dict[str, Any] = {
                 "factual_episode_id": episode.factual_episode_id,
                 "episode_participant_ids": list(episode.participants),
+                "action_results": [],
             }
-            try:
-                for attempt in range(1, args.contract_retries + 2):
-                    try:
-                        attempt_payload = payload
-                        if attempt_errors:
-                            attempt_payload = {
-                                **payload,
-                                "retry_contract_feedback": {
-                                    "validation_errors": attempt_errors[-1:],
-                                    "previous_invalid_output": raw,
-                                    "instruction": (
-                                        "Correct only the factual interaction contract "
-                                        "errors and resubmit the complete output."
-                                    ),
-                                },
+            episode_interactions: list[dict[str, Any]] = []
+            for action in episode.factual_actions:
+                request_count += 1
+                payload = factual_interaction_request_payload(
+                    case_id=case_id,
+                    question_prompt=str(source["question_prompt"]),
+                    responsibility_actor_ids=responsibility,
+                    episode=episode,
+                    action=action,
+                )
+                assert_no_leaked_fields(payload)
+                raw: dict[str, Any] | None = None
+                attempt_errors: list[str] = []
+                action_row: dict[str, Any] = {
+                    "factual_action_id": action.factual_action_id,
+                    "action_participant_ids": list(action.participant_ids),
+                }
+                try:
+                    for attempt in range(1, args.contract_retries + 2):
+                        try:
+                            attempt_payload = payload
+                            if attempt_errors:
+                                attempt_payload = {
+                                    **payload,
+                                    "retry_contract_feedback": {
+                                        "validation_errors": attempt_errors[-1:],
+                                        "previous_invalid_output": raw,
+                                        "instruction": (
+                                            "Correct only the factual interaction contract "
+                                            "errors and resubmit the complete output."
+                                        ),
+                                    },
+                                }
+                            raw, metadata = client.complete_json(
+                                system_prompt=system_prompt,
+                                user_template=user_prompt,
+                                payload=attempt_payload,
+                                schema_name="v2_call15_factual_interaction",
+                                schema=factual_interaction_schema(),
+                                max_tokens=args.max_tokens,
+                                temperature=(
+                                    args.temperature
+                                    if attempt == 1
+                                    else args.repair_temperature
+                                ),
+                                seed=args.seed + attempt - 1,
+                            )
+                            deterministic = explicit_conspiracy_interactions(
+                                action_source_quotes=payload["action_source_quotes"],
+                                action_participant_ids=payload["action_participant_ids"],
+                                responsibility_actor_ids=payload[
+                                    "responsibility_actor_ids"
+                                ],
+                            )
+                            existing_routes = {
+                                (
+                                    value.get("interaction_type"),
+                                    value.get("source_actor_id"),
+                                    tuple(value.get("target_actor_ids") or ()),
+                                )
+                                for value in raw.get("interactions", ())
                             }
-                        raw, metadata = client.complete_json(
-                            system_prompt=system_prompt,
-                            user_template=user_prompt,
-                            payload=attempt_payload,
-                            schema_name="v2_call15_factual_interaction",
-                            schema=factual_interaction_schema(),
-                            max_tokens=args.max_tokens,
-                            temperature=(
-                                args.temperature
-                                if attempt == 1
-                                else args.repair_temperature
-                            ),
-                            seed=args.seed + attempt - 1,
-                        )
-                        deterministic = explicit_conspiracy_interactions(
-                            episode_source_quotes=payload["episode_source_quotes"],
-                            episode_participant_ids=payload["episode_participant_ids"],
-                            responsibility_actor_ids=payload["responsibility_actor_ids"],
-                        )
-                        existing_routes = {
-                            (
-                                value.get("interaction_type"),
-                                value.get("source_actor_id"),
-                                tuple(value.get("target_actor_ids") or ()),
+                            raw["interactions"].extend(
+                                value
+                                for value in deterministic
+                                if (
+                                    value["interaction_type"],
+                                    value["source_actor_id"],
+                                    tuple(value["target_actor_ids"]),
+                                )
+                                not in existing_routes
                             )
-                            for value in raw.get("interactions", ())
+                            usage = metadata.get("usage", {})
+                            for key in usage_total:
+                                usage_total[key] += int(usage.get(key, 0) or 0)
+                            interactions = validate_factual_interaction_output(
+                                raw,
+                                case_text=str(source["question_text"]),
+                                episode=episode,
+                                action=action,
+                            )
+                            break
+                        except (
+                            FactualInteractionContractError,
+                            VLLMClientError,
+                        ) as exc:
+                            attempt_errors.append(
+                                f"attempt {attempt}: {type(exc).__name__}: {exc}"
+                            )
+                            if attempt > args.contract_retries:
+                                raise
+                    serialized = [value.as_dict() for value in interactions]
+                    case_interactions.extend(serialized)
+                    episode_interactions.extend(serialized)
+                    action_row.update(
+                        {
+                            "interactions": serialized,
+                            "interaction_count": len(serialized),
+                            "attempt_count": len(attempt_errors) + 1,
+                            "attempt_errors": attempt_errors,
+                            "raw_response": raw,
+                            "usage": usage,
+                            "model_response": {
+                                "id": metadata.get("id"),
+                                "finish_reason": metadata.get("finish_reason"),
+                            },
                         }
-                        raw["interactions"].extend(
-                            value
-                            for value in deterministic
-                            if (
-                                value["interaction_type"],
-                                value["source_actor_id"],
-                                tuple(value["target_actor_ids"]),
-                            )
-                            not in existing_routes
-                        )
-                        usage = metadata.get("usage", {})
-                        for key in usage_total:
-                            usage_total[key] += int(usage.get(key, 0) or 0)
-                        interactions = validate_factual_interaction_output(
-                            raw,
-                            case_text=str(source["question_text"]),
-                            episode=episode,
-                        )
-                        break
-                    except (
-                        FactualInteractionContractError,
-                        VLLMClientError,
-                    ) as exc:
-                        attempt_errors.append(
-                            f"attempt {attempt}: {type(exc).__name__}: {exc}"
-                        )
-                        if attempt > args.contract_retries:
-                            raise
-                serialized = [value.as_dict() for value in interactions]
-                case_interactions.extend(serialized)
-                episode_row.update(
-                    {
-                        "interactions": serialized,
-                        "interaction_count": len(serialized),
-                        "attempt_count": len(attempt_errors) + 1,
-                        "attempt_errors": attempt_errors,
-                        "raw_response": raw,
-                        "usage": usage,
-                        "model_response": {
-                            "id": metadata.get("id"),
-                            "finish_reason": metadata.get("finish_reason"),
-                        },
-                    }
-                )
-            except (FactualInteractionContractError, VLLMClientError) as exc:
+                    )
+                except (FactualInteractionContractError, VLLMClientError) as exc:
+                    failed_action_count += 1
+                    action_row.update(
+                        {
+                            "error": f"{type(exc).__name__}: {exc}",
+                            "errors": list(getattr(exc, "errors", (str(exc),))),
+                            "attempt_errors": attempt_errors,
+                            "raw_response": raw,
+                        }
+                    )
+                episode_row["action_results"].append(action_row)
+            episode_row.update(
+                {
+                    "interactions": episode_interactions,
+                    "interaction_count": len(episode_interactions),
+                }
+            )
+            if any("error" in value for value in episode_row["action_results"]):
                 failed_episode_count += 1
-                episode_row.update(
-                    {
-                        "error": f"{type(exc).__name__}: {exc}",
-                        "errors": list(getattr(exc, "errors", (str(exc),))),
-                        "attempt_errors": attempt_errors,
-                        "raw_response": raw,
-                    }
-                )
+                episode_row["error"] = "one or more factual actions failed"
             episode_results.append(episode_row)
 
         output_rows.append(
@@ -275,7 +298,8 @@ def main() -> None:
         )
         print(
             f"[{case_index}/{len(case_ids)}] {case_id} "
-            f"episodes={len(episode_results)} interactions={len(case_interactions)}",
+            f"episodes={len(episode_results)} actions={sum(len(value['action_results']) for value in episode_results)} "
+            f"interactions={len(case_interactions)}",
             flush=True,
         )
 
@@ -286,7 +310,10 @@ def main() -> None:
     manifest = {
         "step": "v2_call15_factual_interaction",
         "status": "SUCCEEDED" if failed_episode_count == 0 else "FAILED",
-        "contract": "one episode per request; offense-free exact-quote factual interaction",
+        "contract": (
+            "one atomic factual action per request; offense-free exact-quote factual "
+            "interaction with host-attached factual_action_id"
+        ),
         "model": args.model,
         "sampling": {
             "temperature": args.temperature,
@@ -299,6 +326,7 @@ def main() -> None:
         "case_count": len(output_rows),
         "episode_request_count": request_count,
         "failed_episode_count": failed_episode_count,
+        "failed_action_count": failed_action_count,
         "interaction_count": sum(row["interaction_count"] for row in output_rows),
         "usage": usage_total,
         "call15_artifact": str(args.call15_artifact),

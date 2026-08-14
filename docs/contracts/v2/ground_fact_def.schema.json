@@ -2,13 +2,22 @@
   "$id": "https://schemas.idpr.local/v2/GroundFactDef",
   "description": "v2.1.0 section 5.1 — a normalized proposition directly extractable from case text (Call 1 vocabulary). Purely factual: no legal standard, no evaluative judgment.",
   "type": "object",
-  "required": ["id", "arguments", "canonical_meaning", "source_refs"],
+  "required": [
+    "id",
+    "arguments",
+    "canonical_meaning",
+    "source_refs"
+  ],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+    "id": {
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+    },
     "arguments": {
       "type": "array",
-      "items": { "$ref": "#/$defs/argument" }
+      "items": {
+        "$ref": "#/$defs/argument"
+      }
     },
     "canonical_meaning": {
       "type": "string",
@@ -18,17 +27,27 @@
     "source_refs": {
       "type": "array",
       "minItems": 1,
-      "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/source_ref" }
+      "items": {
+        "$ref": "https://schemas.idpr.local/v2/common#/$defs/source_ref"
+      }
     },
     "semantic_exclusions": {
       "type": "array",
       "uniqueItems": true,
-      "items": { "type": "string", "minLength": 1 },
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
       "description": "Authored boundary statements distinguishing this factual proposition from adjacent concepts; these statements never provide case truth."
     },
     "evidence_scope": {
-      "enum": ["exact_actor_action", "same_actor_episode", "offense_realization", "typed_relation"],
-      "description": "Largest provenance-typed factual carrier admissible for an UNKNOWN fallback. Omission means exact_actor_action."
+      "enum": [
+        "exact_actor_action",
+        "same_actor_episode",
+        "offense_realization",
+        "typed_relation"
+      ],
+      "description": "Largest provenance-typed factual carrier for this predicate. Omission means `offense_realization`: the actions Call 1.5 selected for this legal realization (focal action plus its supports), which is what the planner has always supplied and what the measured runs were built on. A predicate that must be judged on one action alone has to say `exact_actor_action` explicitly. `same_actor_episode` widens to every action of the episode the responsibility actor takes part in and never admits a peer actor's conduct. An explicit scope outranks the generic actor-bound GroundFact narrowing. It never authorizes full-case evidence, and participation targets are outside this contract: they carry a typed relation carrier of their own."
     },
     "semantic_sort": {
       "type": "string",
@@ -39,12 +58,22 @@
   "$defs": {
     "argument": {
       "type": "object",
-      "required": ["name", "type"],
+      "required": [
+        "name",
+        "type"
+      ],
       "additionalProperties": false,
       "properties": {
-        "name": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]*$"
+        },
         "type": {
-          "enum": ["entity", "string", "boolean"],
+          "enum": [
+            "entity",
+            "string",
+            "boolean"
+          ],
           "description": "entity = actor/object/event-typed argument (v1's 'variable' kind renamed for clarity); string/boolean unchanged from v1's rule_ir.schema.json $defs.argument.kind."
         }
       }

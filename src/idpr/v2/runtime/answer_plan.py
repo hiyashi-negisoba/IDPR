@@ -415,23 +415,44 @@ def _episode_quotes(
     occurrence_id: str,
     plan_row: Mapping[str, Any] | None = None,
 ) -> tuple[str, ...]:
-    """Exact source spans behind direct or planner-derived occurrence provenance."""
-    source_ids = {occurrence_id}
+    """Exact action spans behind one realization's planner provenance."""
+    source_ids: set[str] = set()
+    action_ids: set[str] = set()
     if plan_row:
-        for candidate in plan_row.get("derived_binding_candidates") or ():
-            if str(candidate.get("binding_id", "")) != occurrence_id:
+        for provenance in plan_row.get("instance_provenance") or ():
+            instance = provenance.get("instance_key") or {}
+            if str(instance.get("occurrence_id", "")) != occurrence_id:
                 continue
-            source_ids.update(str(value) for value in candidate.get("source_binding_ids") or ())
-    quotes: list[str] = []
+            source_ids.update(
+                str(value) for value in provenance.get("source_binding_ids") or ()
+            )
+            focal = provenance.get("focal_action_id")
+            if focal:
+                action_ids.add(str(focal))
+            action_ids.update(
+                str(value) for value in provenance.get("supporting_action_ids") or ()
+            )
     for seed in binding_row.get("seed_results") or []:
         for binding in seed.get("bindings") or []:
             if str(binding.get("binding_id", "")) not in source_ids:
                 continue
-            for key in ("actor_action_fragments", "context_fragments"):
-                for fragment in binding.get(key) or []:
-                    quote = str(fragment.get("source_quote", "")).strip()
-                    if quote and quote not in quotes:
-                        quotes.append(quote)
+            focal_action_id = binding.get("focal_action_id")
+            if focal_action_id and str(focal_action_id) not in action_ids:
+                # The plan provenance above normally covers this.  Preserve a
+                # binding's own action reference for detached participation joins.
+                action_ids.add(str(focal_action_id))
+            action_ids.update(
+                str(value) for value in binding.get("supporting_action_ids") or ()
+            )
+    quotes: list[str] = []
+    for episode in binding_row.get("factual_episodes") or []:
+        for action in episode.get("factual_actions") or []:
+            if str(action.get("factual_action_id", "")) not in action_ids:
+                continue
+            for fragment in action.get("source_fragments") or []:
+                quote = str(fragment.get("source_quote", "")).strip()
+                if quote and quote not in quotes:
+                    quotes.append(quote)
     # Participation instances are authored by the planner rather than Call 1.5, so they
     # have no seed binding to follow.  The planner nevertheless records their exact
     # source span in ``occurrences``.  Use it only as a provenance fallback: direct and
@@ -500,10 +521,36 @@ def _ground_fact_episode_map(
     return mapping
 
 
+def _ground_fact_carrier_map(
+    plan_row: Mapping[str, Any] | None,
+) -> dict[tuple[str, str, str, str, str], str] | None:
+    """Logical target -> factual carrier from an action-realization plan."""
+    if not plan_row or plan_row.get("assessment_carriers") is None:
+        return None
+    mapping: dict[tuple[str, str, str, str, str], str] = {}
+    for value in plan_row.get("assessment_carriers") or ():
+        instance = value.get("instance_key") or {}
+        key = (
+            str(instance.get("case_id", "")),
+            str(instance.get("actor_id", "")),
+            str(instance.get("offense_ref", "")),
+            str(instance.get("occurrence_id", "")),
+            str(value.get("predicate_ref", "")),
+        )
+        carrier_id = value.get("carrier_id")
+        if not all(key) or not isinstance(carrier_id, str) or not carrier_id:
+            raise AnswerPlanError("malformed action-realization carrier provenance")
+        if key in mapping:
+            raise AnswerPlanError("duplicate action-realization carrier provenance")
+        mapping[key] = carrier_id
+    return mapping
+
+
 def _check_ground_fact_canonicalization(
     registry: DefinitionRegistry,
     truth_rows: Sequence[Mapping[str, Any]],
     episode_by_occurrence: Mapping[str, str],
+    carrier_by_target: Mapping[tuple[str, str, str, str, str], str] | None = None,
 ) -> None:
     """Refuse a plan built on a GroundFact that disagrees with itself about one episode.
 
@@ -527,19 +574,30 @@ def _check_ground_fact_canonicalization(
         if not predicate_ref or registry.kind_of(predicate_ref) != "ground_fact":
             continue
         instance = row.get("instance_key") or {}
-        occurrence_id = str(instance.get("occurrence_id", ""))
-        episode_id = episode_by_occurrence.get(occurrence_id)
-        if episode_id is None:
-            continue
         case_id = str(instance.get("case_id", ""))
         actor_id = str(instance.get("actor_id", ""))
+        offense_ref = str(instance.get("offense_ref", ""))
+        occurrence_id = str(instance.get("occurrence_id", ""))
+        if carrier_by_target is not None:
+            scope_id = carrier_by_target.get(
+                (case_id, actor_id, offense_ref, occurrence_id, predicate_ref)
+            )
+            if scope_id is None:
+                raise AnswerPlanError(
+                    "action-realization plan lacks a GroundFact carrier for "
+                    f"{predicate_ref} @ {occurrence_id}"
+                )
+        else:
+            scope_id = episode_by_occurrence.get(occurrence_id)
+            if scope_id is None:
+                continue
         truth = str(row.get("truth", ""))
-        key = (case_id, actor_id, episode_id, predicate_ref)
+        key = (case_id, actor_id, scope_id, predicate_ref)
         if key in seen:
             prior_truth, prior_occurrence = seen[key]
             if prior_truth != truth:
                 conflicts.append(
-                    f"{predicate_ref} @ {episode_id} ({actor_id}): "
+                    f"{predicate_ref} @ {scope_id} ({actor_id}): "
                     f"{prior_occurrence}={prior_truth} vs {occurrence_id}={truth}"
                 )
         else:
@@ -593,7 +651,13 @@ def build_answer_plan(
     truths = call2_row.get("case_truths") or []
     assessments = call2_row.get("assessments") or []
     episodes = _ground_fact_episode_map(binding_row, plan_row)
-    _check_ground_fact_canonicalization(registry, (*truths, *assessments), episodes)
+    carriers = _ground_fact_carrier_map(plan_row)
+    _check_ground_fact_canonicalization(
+        registry,
+        (*truths, *assessments),
+        episodes,
+        carrier_by_target=carriers,
+    )
 
     issues: list[AnchoredIssue] = []
     for entry in e2e_row.get("liability_results") or []:

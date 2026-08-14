@@ -16,6 +16,9 @@ sys.path.insert(0, str(ROOT / "src"))
 
 from idpr.v2.checks import run_type_checks
 from idpr.v2.registry import load_definitions
+from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.participation_grounding import ParticipationLocalTarget
+from idpr.v2.runtime.policy_probe_targets import participation_candidate_probe_targets
 
 SCOPES = {
     "exact_actor_action",
@@ -38,6 +41,28 @@ def _instance_key(value: dict[str, Any]) -> tuple[str, str, str, str]:
         str(value[name])
         for name in ("case_id", "actor_id", "offense_ref", "occurrence_id")
     )
+
+
+def _instance(value: dict[str, Any]) -> OffenseInstanceKey:
+    return OffenseInstanceKey(*_instance_key(value))
+
+
+def _participation_target(value: dict[str, Any]) -> ParticipationLocalTarget:
+    return ParticipationLocalTarget(
+        str(value["relation_kind"]),
+        tuple(_instance(member) for member in value["member_instances"]),
+    )
+
+
+def _participation_target_key(value: dict[str, Any]) -> str:
+    """Canonical identity shared by planned targets and truth assessments."""
+
+    target = {
+        "group_key": value["group_key"],
+        "member_instances": value["member_instances"],
+        "relation_kind": value["relation_kind"],
+    }
+    return json.dumps(target, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
 
 
 def main() -> None:
@@ -134,6 +159,27 @@ def main() -> None:
                         f"{case_id}/{candidate['binding_id']}: dangling source binding {source_id}"
                     )
         seen_targets = set()
+        assessment_instance_keys = {
+            _instance_key(value) for value in row.get("assessment_instances", ())
+        }
+        detached_probe_targets = {
+            (
+                (
+                    instance.case_id,
+                    instance.actor_id,
+                    instance.offense_ref,
+                    instance.occurrence_id,
+                ),
+                predicate_ref,
+            )
+            for instance, predicate_ref in participation_candidate_probe_targets(
+                registry,
+                tuple(
+                    _participation_target(value)
+                    for value in row.get("participation_local_targets", ())
+                ),
+            )
+        }
         for target in row.get("assessment_targets", ()):
             raw_instance = target["instance_key"]
             key = (*_instance_key(raw_instance), str(target["predicate_ref"]))
@@ -142,6 +188,14 @@ def main() -> None:
             seen_targets.add(key)
             if key[3] not in occurrence_ids:
                 errors.append(f"{case_id}: assessment target has unknown occurrence {key}")
+            if key[:4] not in assessment_instance_keys and not (
+                target.get("opened_by") == "participation_candidate_probe"
+                and (key[:4], key[4]) in detached_probe_targets
+            ):
+                errors.append(
+                    f"{case_id}: assessment target is outside the ordinary instance "
+                    "universe and is not an exact authored participation probe"
+                )
             entry = registry.get(key[4])
             if entry is None or entry.kind not in {"ground_fact", "legal_element"}:
                 errors.append(f"{case_id}: invalid predicate target {key[4]}")
@@ -169,6 +223,40 @@ def main() -> None:
             row.get("participation_local_targets", ())
         ):
             errors.append(f"{case_id}: participation target count mismatch")
+        plan_participation_targets = [
+            _participation_target_key(value)
+            for value in row.get("participation_local_targets", ())
+        ]
+        artifact_planned_targets = [
+            _participation_target_key(value)
+            for value in part_row.get("planned_participation_local_targets", ())
+        ]
+        artifact_assessment_targets = [
+            _participation_target_key(value)
+            for value in part_row.get("participation_local_assessments", ())
+        ]
+        for label, targets in (
+            ("plan", plan_participation_targets),
+            ("artifact planned", artifact_planned_targets),
+            ("artifact assessment", artifact_assessment_targets),
+        ):
+            if len(targets) != len(set(targets)):
+                errors.append(f"{case_id}: duplicate {label} participation target")
+        plan_target_set = set(plan_participation_targets)
+        artifact_planned_set = set(artifact_planned_targets)
+        artifact_assessment_set = set(artifact_assessment_targets)
+        if plan_target_set != artifact_planned_set:
+            errors.append(
+                f"{case_id}: participation artifact planned targets differ from plan "
+                f"(missing={len(plan_target_set - artifact_planned_set)}, "
+                f"extra={len(artifact_planned_set - plan_target_set)})"
+            )
+        if plan_target_set != artifact_assessment_set:
+            errors.append(
+                f"{case_id}: participation assessments differ from plan "
+                f"(missing={len(plan_target_set - artifact_assessment_set)}, "
+                f"extra={len(artifact_assessment_set - plan_target_set)})"
+            )
         plan_counts.update({
             "cases": 1,
             "assessment_targets": len(row.get("assessment_targets", ())),

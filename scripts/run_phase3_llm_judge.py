@@ -265,12 +265,6 @@ async def _run(args: argparse.Namespace) -> None:
     if missing_rubrics:
         raise JudgeContractError(f"sealed cases missing full rubrics: {missing_rubrics}")
 
-    answers, method_paths = load_method_answers(
-        project_root=PROJECT_ROOT,
-        methods_manifest_path=args.methods_manifest,
-        expected_case_ids=sealed_case_ids,
-        selected_methods=args.method_id,
-    )
     selected_case_ids = list(args.case_id) if args.case_id else sealed_case_ids
     unknown_cases = sorted(set(selected_case_ids) - set(sealed_case_ids))
     if unknown_cases:
@@ -284,6 +278,16 @@ async def _run(args: argparse.Namespace) -> None:
     ]
     if not selected_case_ids:
         raise JudgeContractError("case selection is empty after exclusions")
+
+    # A curated judge subset must not require each method artifact to carry
+    # answers for the other sealed questions.  Validate the selected subset
+    # exactly; a full run still passes the entire sealed universe here.
+    answers, method_paths = load_method_answers(
+        project_root=PROJECT_ROOT,
+        methods_manifest_path=args.methods_manifest,
+        expected_case_ids=selected_case_ids,
+        selected_methods=args.method_id,
+    )
 
     jobs = [
         (method_id, case_id)
@@ -406,32 +410,32 @@ async def _run(args: argparse.Namespace) -> None:
         len(selected_records) == len(jobs)
         and all(record.get("status") == "ok" for record in selected_records)
     )
-    if complete and "idpr_nsn" in answers and len(answers) > 1:
+    if complete and args.paired_target_method_id in answers and len(answers) > 1:
         summary["paired_bootstrap"] = {
             "coverage": paired_bootstrap_deltas(
                 selected_records,
-                target_method="idpr_nsn",
+                target_method=args.paired_target_method_id,
                 metric_path=("coverage", "rubric_score"),
                 samples=args.bootstrap_samples,
                 seed=args.bootstrap_seed,
             ),
             "precision": paired_bootstrap_deltas(
                 selected_records,
-                target_method="idpr_nsn",
+                target_method=args.paired_target_method_id,
                 metric_path=("precision", "score"),
                 samples=args.bootstrap_samples,
                 seed=args.bootstrap_seed,
             ),
             "hallucination": paired_bootstrap_deltas(
                 selected_records,
-                target_method="idpr_nsn",
+                target_method=args.paired_target_method_id,
                 metric_path=("hallucination", "score"),
                 samples=args.bootstrap_samples,
                 seed=args.bootstrap_seed,
             ),
             "consistency": paired_bootstrap_deltas(
                 selected_records,
-                target_method="idpr_nsn",
+                target_method=args.paired_target_method_id,
                 metric_path=("consistency", "normalized_score"),
                 samples=args.bootstrap_samples,
                 seed=args.bootstrap_seed,
@@ -462,6 +466,7 @@ async def _run(args: argparse.Namespace) -> None:
         "gateway_model": args.model,
         "transport": gateway.transport,
         "methods": list(answers),
+        "paired_target_method_id": args.paired_target_method_id,
         "sealed_cases": len(sealed_case_ids),
         "excluded_case_ids": sorted(excluded_case_ids),
         "selected_jobs": len(jobs),
@@ -551,6 +556,14 @@ def main() -> None:
         default=PROJECT_ROOT / ".cache/phase3_judge",
     )
     parser.add_argument("--method-id", action="append", default=[])
+    parser.add_argument(
+        "--paired-target-method-id",
+        default="idpr_nsn",
+        help=(
+            "method used as the target in paired bootstrap deltas; defaults to the "
+            "historical IDPR method and may name a fresh bundled condition"
+        ),
+    )
     parser.add_argument("--case-id", action="append", default=[])
     parser.add_argument(
         "--case-id-file",

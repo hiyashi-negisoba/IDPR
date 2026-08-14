@@ -28,8 +28,8 @@ class FactualParticipationPlan:
     candidate_episodes: tuple[tuple[OffenseInstanceKey, str], ...] = ()
     """새로 만든 participation candidate instance와 그 factual episode.
 
-    직접 결박된 instance는 planner가 이미 episode를 기록하지만, 여기서 만드는 후보는
-    planner의 binding이 아니어서 그 기록이 없다. 최종 책임 단계(경합·초과)는 episode 없이는
+    직접 legal realization은 planner가 이미 episode를 기록하지만, 여기서 만드는 후보는
+    planner의 direct realization이 아니어서 그 기록이 없다. 최종 책임 단계(경합·초과)는 episode 없이는
     후보를 열 수 없고, 없는 것을 나중에 사실에서 다시 읽어 내면 그 단계가 사건 텍스트를
     두 번째로 해석하게 된다. 그래서 만든 자리에서 함께 나른다.
     """
@@ -53,7 +53,7 @@ def _participation_occurrence_id(
     identity = f"{offense_ref}\0{identity_discriminator or ''}"
     digest = hashlib.sha256(identity.encode("utf-8")).hexdigest()[:10]
     suffix = interaction.interaction_id.removeprefix("finteraction:")
-    return f"participation_binding:{suffix}:{actor_id}:{digest}"
+    return f"participation_realization:{suffix}:{actor_id}:{digest}"
 
 
 def materialize_factual_participation_candidates(
@@ -74,14 +74,26 @@ def materialize_factual_participation_candidates(
     if not responsibility:
         raise FactualParticipationError("responsibility actor universe is empty")
 
-    episode_by_occurrence = {
-        binding.binding_id: binding.factual_episode_id
-        for binding in binding_result.bindings
-    }
-    for value in plan_row.get("derived_binding_candidates", []):
-        episode_by_occurrence[str(value["binding_id"])] = str(
-            value["factual_episode_id"]
-        )
+    # Binding ids are candidate provenance only.  The planner's realization
+    # provenance is the authoritative occurrence -> factual episode join.
+    episode_by_occurrence: dict[str, str] = {}
+    for value in plan_row.get("instance_provenance", []):
+        if not isinstance(value, Mapping):
+            raise FactualParticipationError("instance provenance is malformed")
+        instance_key = value.get("instance_key")
+        episode_id = value.get("factual_episode_id")
+        if not isinstance(instance_key, Mapping) or not isinstance(episode_id, str):
+            raise FactualParticipationError("instance provenance lacks factual episode lineage")
+        occurrence_id = instance_key.get("occurrence_id")
+        if not isinstance(occurrence_id, str) or not occurrence_id:
+            raise FactualParticipationError(
+                "instance provenance has an invalid occurrence identity"
+            )
+        previous = episode_by_occurrence.setdefault(occurrence_id, episode_id)
+        if previous != episode_id:
+            raise FactualParticipationError(
+                f"{case_id}: realization occurrence maps to multiple factual episodes"
+            )
     top_level = tuple(_instance(value) for value in plan_row["top_level_instances"])
     if any(value.case_id != case_id for value in top_level):
         raise FactualParticipationError("top-level instance crossed a case boundary")
@@ -149,16 +161,27 @@ def materialize_factual_participation_candidates(
             return None
         return min(candidates, key=episode_rank.__getitem__)
 
-    occurrence_by_id = {
-        str(value["occurrence_id"]): GoldOccurrence(
-            str(value["occurrence_id"]),
-            str(value["actor_id"]),
-            str(value["source_text"]),
-            int(value["source_span"]["start"]),
-            int(value["source_span"]["end"]),
-        )
-        for value in plan_row["occurrences"]
-    }
+    occurrence_by_id: dict[str, GoldOccurrence] = {}
+    for value in plan_row["occurrences"]:
+        try:
+            occurrence = GoldOccurrence(
+                str(value["occurrence_id"]),
+                str(value["actor_id"]),
+                str(value["source_text"]),
+                int(value["source_span"]["start"]),
+                int(value["source_span"]["end"]),
+            )
+        except (KeyError, TypeError, ValueError) as exc:
+            raise FactualParticipationError("planner occurrence is malformed") from exc
+        if occurrence.occurrence_id in occurrence_by_id:
+            raise FactualParticipationError("planner occurrence identity is duplicated")
+        occurrence_by_id[occurrence.occurrence_id] = occurrence
+    for instance in top_level:
+        occurrence = occurrence_by_id.get(instance.occurrence_id)
+        if occurrence is None or occurrence.actor_id != instance.actor_id:
+            raise FactualParticipationError(
+                f"{case_id}: realization instance has no matching physical evidence"
+            )
     created_occurrences: dict[str, GoldOccurrence] = {}
     created_episodes: dict[OffenseInstanceKey, str] = {}
     targets: list[ParticipationLocalTarget] = []

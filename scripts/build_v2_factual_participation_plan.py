@@ -8,6 +8,7 @@ import copy
 import hashlib
 import json
 import sys
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
@@ -38,6 +39,9 @@ from idpr.v2.runtime.policy_probe_targets import (
 DEFAULT_INVENTORY = ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
 DEFAULT_CASE_LIST = ROOT / "data/eval/kcl_substantive_case_ids.txt"
 DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
+_ACTOR_BOUND_ARGUMENTS = frozenset(
+    {"actor", "witness", "offender", "disposer", "possessor", "official"}
+)
 
 
 def _sha256(path: Path) -> str:
@@ -72,6 +76,28 @@ def _case_ids(path: Path) -> tuple[str, ...]:
     if not values or len(values) != len(set(values)):
         raise ValueError(f"{path}: case ids must be nonempty and unique")
     return values
+
+
+def _requires_focal_action_carrier(registry: Any, predicate_ref: str) -> bool:
+    """Mirror the planner's authored carrier rule for newly opened targets.
+
+    Participation can add targets after the planner has assigned its original
+    carrier map.  The builder must preserve the same focal-action rule instead
+    of sending an actor-bound fact back to a realization-wide carrier.
+    """
+
+    entry = registry.get(predicate_ref)
+    if entry is None:
+        raise ValueError(f"unknown participation predicate carrier: {predicate_ref}")
+    if entry.payload.get("temporal_anchor") == "focal_action":
+        return True
+    if entry.kind != "ground_fact":
+        return False
+    return any(
+        isinstance(argument, Mapping)
+        and argument.get("name") in _ACTOR_BOUND_ARGUMENTS
+        for argument in entry.payload.get("arguments", ())
+    )
 
 
 def main() -> None:
@@ -186,6 +212,11 @@ def main() -> None:
                 },
                 "factual_episode_id": episode_id,
                 "source_binding_ids": [],
+                "realization_id": instance.occurrence_id,
+                "focal_action_id": None,
+                "supporting_action_ids": [],
+                "source_realization_ids": [],
+                "carrier_ids": {},
             }
             for instance, episode_id in compiled.candidate_episodes
         )
@@ -213,19 +244,47 @@ def main() -> None:
             )
             for value in row["assessment_instances"]
         }
+        provenance_by_occurrence: dict[str, dict[str, Any]] = {}
+        for value in row.get("instance_provenance", ()):
+            if not isinstance(value, dict) or not isinstance(
+                value.get("instance_key"), dict
+            ):
+                raise ValueError(f"{case_id}: malformed instance provenance")
+            occurrence_id = value["instance_key"].get("occurrence_id")
+            episode_id = value.get("factual_episode_id")
+            if not isinstance(occurrence_id, str) or not isinstance(episode_id, str):
+                raise ValueError(f"{case_id}: incomplete instance provenance")
+            previous = provenance_by_occurrence.setdefault(occurrence_id, value)
+            if previous.get("factual_episode_id") != episode_id:
+                raise ValueError(
+                    f"{case_id}: realization occurrence has conflicting episode lineage"
+                )
         episode_by_occurrence = {
-            value.binding_id: value.factual_episode_id
-            for value in binding_result.bindings
+            occurrence_id: str(value["factual_episode_id"])
+            for occurrence_id, value in provenance_by_occurrence.items()
         }
         episode_by_occurrence.update(
             {instance.occurrence_id: episode_id for instance, episode_id in compiled.candidate_episodes}
         )
-        episode_by_occurrence.update(
-            {
-                value["instance_key"]["occurrence_id"]: value["factual_episode_id"]
-                for value in row.get("instance_provenance", ())
-            }
-        )
+        for instance, episode_id in compiled.candidate_episodes:
+            provenance_by_occurrence.setdefault(
+                instance.occurrence_id,
+                {
+                    "instance_key": {
+                        "case_id": instance.case_id,
+                        "actor_id": instance.actor_id,
+                        "offense_ref": instance.offense_ref,
+                        "occurrence_id": instance.occurrence_id,
+                    },
+                    "factual_episode_id": episode_id,
+                    "source_binding_ids": [],
+                    "realization_id": instance.occurrence_id,
+                    "focal_action_id": None,
+                    "supporting_action_ids": [],
+                    "source_realization_ids": [],
+                    "carrier_ids": {},
+                },
+            )
         for target in post_participation_derived:
             for member in target.members:
                 key = (member.case_id, member.actor_id, member.offense_ref, member.occurrence_id)
@@ -246,12 +305,48 @@ def main() -> None:
                     raise ValueError(
                         f"{case_id}: derived participation member lacks episode provenance"
                     )
-                row.setdefault("instance_provenance", []).append(
-                    {
-                        "instance_key": serialized,
-                        "factual_episode_id": episode_id,
-                        "source_binding_ids": [member.occurrence_id],
-                    }
+                source_provenance = provenance_by_occurrence.get(member.occurrence_id)
+                if source_provenance is None:
+                    raise ValueError(
+                        f"{case_id}: derived participation member lacks realization provenance"
+                    )
+                source_binding_ids = source_provenance.get("source_binding_ids") or []
+                supporting_action_ids = (
+                    source_provenance.get("supporting_action_ids") or []
+                )
+                source_realization_ids = tuple(
+                    dict.fromkeys(
+                        (
+                            member.occurrence_id,
+                            *(
+                                str(value)
+                                for value in source_provenance.get(
+                                    "source_realization_ids", ()
+                                )
+                            ),
+                        )
+                    )
+                )
+                source_carrier_ids = source_provenance.get("carrier_ids") or {}
+                if not isinstance(source_carrier_ids, Mapping):
+                    raise ValueError(
+                        f"{case_id}: derived participation member has malformed carrier provenance"
+                    )
+                derived_provenance = {
+                    "instance_key": serialized,
+                    "factual_episode_id": episode_id,
+                    "source_binding_ids": [str(value) for value in source_binding_ids],
+                    "realization_id": member.occurrence_id,
+                    "focal_action_id": source_provenance.get("focal_action_id"),
+                    "supporting_action_ids": [
+                        str(value) for value in supporting_action_ids
+                    ],
+                    "source_realization_ids": list(source_realization_ids),
+                    "carrier_ids": dict(source_carrier_ids),
+                }
+                row.setdefault("instance_provenance", []).append(derived_provenance)
+                provenance_by_occurrence.setdefault(
+                    member.occurrence_id, derived_provenance
                 )
                 if member.offense_ref not in row["candidate_offense_refs"]:
                     row["candidate_offense_refs"].append(member.offense_ref)
@@ -295,6 +390,8 @@ def main() -> None:
                     "opened_by": "participation_candidate_probe",
                 }
             )
+            if predicate_ref not in row["selected_predicate_refs"]:
+                row["selected_predicate_refs"].append(predicate_ref)
             added += 1
         for target in post_participation_derived:
             for instance in target.members:
@@ -323,6 +420,80 @@ def main() -> None:
                     )
                     if predicate_ref not in row["selected_predicate_refs"]:
                         row["selected_predicate_refs"].append(predicate_ref)
+        # Newly opened participation probes are logical targets too.  Give each
+        # one an explicit physical carrier so Call 2 never falls back to its whole
+        # factual episode.  Existing realization targets retain the planner's
+        # action/realization assignment verbatim.
+        carrier_by_target = {
+            (
+                value["instance_key"]["case_id"],
+                value["instance_key"]["actor_id"],
+                value["instance_key"]["offense_ref"],
+                value["instance_key"]["occurrence_id"],
+                value["predicate_ref"],
+            )
+            for value in row.get("assessment_carriers", ())
+        }
+        for target in row["assessment_targets"]:
+            instance = target["instance_key"]
+            key = (
+                instance["case_id"],
+                instance["actor_id"],
+                instance["offense_ref"],
+                instance["occurrence_id"],
+                target["predicate_ref"],
+            )
+            if key in carrier_by_target:
+                continue
+            provenance = provenance_by_occurrence.get(instance["occurrence_id"])
+            if provenance is None:
+                raise ValueError(
+                    f"{case_id}: participation target lacks realization provenance"
+                )
+            carrier_ids = provenance.get("carrier_ids") or {}
+            if not isinstance(carrier_ids, Mapping):
+                raise ValueError(
+                    f"{case_id}: participation target has malformed carrier provenance"
+                )
+            focal_required = _requires_focal_action_carrier(
+                registry, str(target["predicate_ref"])
+            )
+            # An accessory's focal action belongs to the principal, so narrowing
+            # to it would ask about an actor the carrier never mentions.  The
+            # planner already decided this per realization; honour that decision
+            # instead of re-deriving it here.
+            if (
+                focal_required
+                and provenance.get("focal_action_id") is not None
+                and provenance.get("actor_in_focal_action")
+            ):
+                carrier_id = carrier_ids.get("focal_action")
+                carrier_kind = "focal_action"
+                if not isinstance(carrier_id, str) or not carrier_id:
+                    raise ValueError(
+                        f"{case_id}: focal participation predicate lacks focal-action carrier"
+                    )
+            else:
+                # A participation-created realization is itself one explicit
+                # interaction action, so its occurrence is the physical carrier.
+                carrier_id = carrier_ids.get(
+                    "realization", instance["occurrence_id"]
+                )
+                carrier_kind = "participation_action_or_realization"
+            if carrier_id not in occurrence_ids:
+                raise ValueError(
+                    f"{case_id}: participation target has no physical carrier {carrier_id}"
+                )
+            row.setdefault("assessment_carriers", []).append(
+                {
+                    "instance_key": dict(instance),
+                    "predicate_ref": target["predicate_ref"],
+                    "carrier_id": carrier_id,
+                    "carrier_kind": carrier_kind,
+                }
+            )
+            carrier_by_target.add(key)
+        row["assessment_carrier_count"] = len(row.get("assessment_carriers", ()))
         row["participation_probe_target_count"] = added
         row["final_assessment_target_count"] = len(row["assessment_targets"])
         unreachable = unreachable_mode_findings(registry, participation_targets)

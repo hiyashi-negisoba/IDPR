@@ -67,6 +67,7 @@ from idpr.v2.runtime.participation_grounding import (
     participation_schema,
     validate_participation_output,
 )
+from idpr.v2.runtime.policy_probe_targets import participation_candidate_probe_targets
 from idpr.v2.runtime.relation_grounding import (
     RelationAssessmentTarget,
     add_relation_assessments,
@@ -215,6 +216,50 @@ def _targets(row: Mapping[str, Any]) -> tuple[AssessmentTarget, ...]:
             )
         )
     return tuple(values)
+
+
+def _assessment_carriers(
+    row: Mapping[str, Any], targets: Sequence[AssessmentTarget]
+) -> dict[AssessmentTarget, str] | None:
+    """Read the planner's action/realization carrier assignment exactly.
+
+    Older frozen plans have no assignment and intentionally retain their legacy
+    episode projection path.  A new realization plan must be total: falling back
+    for a missing target would merge distinct actions back into one episode.
+    """
+    raw_values = row.get("assessment_carriers")
+    if raw_values is None:
+        return None
+    if not isinstance(raw_values, list):
+        raise ValueError("assessment_carriers must be a list when present")
+    output: dict[AssessmentTarget, str] = {}
+    for raw in raw_values:
+        if not isinstance(raw, Mapping):
+            raise ValueError("assessment carrier is malformed")
+        key = raw.get("instance_key")
+        if not isinstance(key, Mapping):
+            raise ValueError("assessment carrier lacks instance key")
+        target = AssessmentTarget(
+            OffenseInstanceKey(
+                str(key.get("case_id", "")),
+                str(key.get("actor_id", "")),
+                str(key.get("offense_ref", "")),
+                str(key.get("occurrence_id", "")),
+            ),
+            str(raw.get("predicate_ref", "")),
+        )
+        carrier_id = raw.get("carrier_id")
+        if target in output or not isinstance(carrier_id, str) or not carrier_id:
+            raise ValueError("assessment carrier has duplicate target or empty carrier id")
+        output[target] = carrier_id
+    missing = [target for target in targets if target not in output]
+    extra = set(output) - set(targets)
+    if missing or extra:
+        raise ValueError(
+            "assessment carrier coverage differs from planner targets: "
+            f"missing={len(missing)} extra={len(extra)}"
+        )
+    return output
 
 
 def _relation_targets(row: Mapping[str, Any]) -> tuple[RelationAssessmentTarget, ...]:
@@ -470,8 +515,28 @@ def main() -> None:
         refs = tuple(str(value) for value in plan_row["selected_predicate_refs"])
         predicates = predicate_definitions(registry, refs)
         planned_targets = _targets(plan_row)
-        if any(target.instance_key not in set(instances) for target in planned_targets):
-            raise ValueError(f"{case_id}: target instance is outside assessment universe")
+        instance_set = set(instances)
+        planned_participation_targets = _participation_targets(plan_row)
+        detached_probe_targets = set(
+            participation_candidate_probe_targets(
+                registry, planned_participation_targets
+            )
+        )
+        for raw_target, target in zip(
+            plan_row["assessment_targets"], planned_targets, strict=True
+        ):
+            if target.instance_key in instance_set:
+                continue
+            probe_key = (target.instance_key, target.predicate_ref)
+            if (
+                raw_target.get("opened_by") == "participation_candidate_probe"
+                and probe_key in detached_probe_targets
+            ):
+                continue
+            raise ValueError(
+                f"{case_id}: target instance is outside assessment universe and "
+                "is not an exact authored participation probe"
+            )
         targets = (
             planned_targets[: args.smoke_target_limit]
             if args.smoke_target_limit is not None
@@ -480,6 +545,7 @@ def main() -> None:
         if args.smoke_target_limit is not None and args.smoke_target_limit <= 0:
             raise ValueError("--smoke-target-limit must be positive")
         episode_by_occurrence = _episode_by_occurrence(plan_row)
+        carrier_by_target = _assessment_carriers(plan_row, planned_targets)
         request_assessments = []
         shard_records = []
         occurrence_by_id = {value.occurrence_id: value for value in occurrences}
@@ -530,20 +596,33 @@ def main() -> None:
             asked_targets.extend(round_targets)
 
             request_targets = grounding_request_targets(
-                registry, round_targets, episode_by_occurrence=episode_by_occurrence
+                registry,
+                round_targets,
+                episode_by_occurrence=episode_by_occurrence,
+                carrier_by_target=carrier_by_target,
             )
             shards = shard_assessment_targets_by_occurrence(
-                request_targets, max_targets=args.max_targets_per_request
+                request_targets,
+                max_targets=args.max_targets_per_request,
+                carrier_by_target=carrier_by_target,
             )
             round_assessments = []
             for shard in shards:
                 shard_index += 1
-                shard_occurrence_ids = tuple(
-                    dict.fromkeys(value.instance_key.occurrence_id for value in shard)
+                shard_carrier_ids = tuple(
+                    dict.fromkeys(
+                        (
+                            carrier_by_target[value]
+                            if carrier_by_target is not None
+                            else value.instance_key.occurrence_id
+                        )
+                        for value in shard
+                    )
                 )
-                if len(shard_occurrence_ids) != 1:
-                    raise AssertionError("physical Call 2 shard crossed an occurrence boundary")
-                evidence_occurrence = occurrence_by_id[shard_occurrence_ids[0]]
+                if len(shard_carrier_ids) != 1:
+                    raise AssertionError("physical Call 2 shard crossed a carrier boundary")
+                carrier_id = shard_carrier_ids[0]
+                evidence_occurrence = occurrence_by_id[carrier_id]
                 shard_predicate_refs = tuple(
                     dict.fromkeys(value.predicate_ref for value in shard)
                 )
@@ -552,6 +631,7 @@ def main() -> None:
                     question_assumptions=question_assumptions.get(case_id, ()),
                     predicates=tuple(predicate_by_ref[value] for value in shard_predicate_refs),
                     targets=shard,
+                    carrier_id=carrier_id if carrier_by_target is not None else None,
                 )
                 assert_no_leaked_fields(payload)
                 raw, metadata = client.complete_json(
@@ -576,6 +656,7 @@ def main() -> None:
                     "shard_index": shard_index,
                     "target_count": len(shard),
                     "evidence_occurrence_id": evidence_occurrence.occurrence_id,
+                    "carrier_id": carrier_id,
                     "predicate_definition_count": len(shard_predicate_refs),
                     "usage": usage,
                     "model_response": {
@@ -592,6 +673,7 @@ def main() -> None:
                 tuple(round_assessments),
                 expected_targets=round_targets,
                 episode_by_occurrence=episode_by_occurrence,
+                carrier_by_target=carrier_by_target,
             ):
                 known_truths.setdefault(value.target.instance_key, {})[
                     value.target.predicate_ref
@@ -604,6 +686,7 @@ def main() -> None:
             request_assessments,
             expected_targets=targets,
             episode_by_occurrence=episode_by_occurrence,
+            carrier_by_target=carrier_by_target,
         )
         truths = case_truths_from_assessments(assessments, expected_targets=targets)
         planned_relation_targets = _relation_targets(plan_row)
@@ -664,7 +747,6 @@ def main() -> None:
                 }
             )
         truths = add_relation_assessments(truths, relation_assessments)
-        planned_participation_targets = _participation_targets(plan_row)
         participation_targets = (
             planned_participation_targets[: args.smoke_target_limit]
             if args.smoke_target_limit is not None

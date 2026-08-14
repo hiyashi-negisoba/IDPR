@@ -38,7 +38,9 @@ SOURCE_FILES = (
     "src/idpr/v2/closure.py",
     "src/idpr/v2/compile.py",
     "src/idpr/v2/gold_factual_identity.py",
+    "src/idpr/v2/issue_binding.py",
     "src/idpr/v2/runtime/evaluation_instance_planner.py",
+    "src/idpr/v2/runtime/grounding.py",
     "src/idpr/v2/runtime/participation_grounding.py",
     "src/idpr/v2/runtime/indirect_principal_grounding.py",
     "src/idpr/v2/runtime/utilized_participant_outcome.py",
@@ -283,17 +285,17 @@ def main() -> None:
         "git_commit": _git_commit(),
         "planner_source_fingerprint": _source_fingerprint(),
         "binding_rule": (
-            "one validated direct binding plus registry-authored evidence-gated derived "
-            "candidates requiring at least two same-episode same-actor bindings"
+            "validated binding candidates reference atomic factual actions; host groups them "
+            "into legal realizations and applies only registry-authored derived candidates"
         ),
         "factual_identity_rule": (
-            "Call 1.5 binding_id and source fragments only; offline gold occurrence and "
-            "participant annotations are not production inputs"
+            "binding_id is provenance only; occurrence_id is a host-authored legal realization "
+            "over focal/supporting factual actions"
         ),
         "evaluation_actor_rule": "actor_id bound by Call 1.5",
         "candidate_order_rule": (
-            "direct bindings first, then registry-authored derived candidates grouped by "
-            "factual episode and actor"
+            "direct legal realizations first, then registry-authored derived realizations "
+            "linked by source realization ids"
         ),
         "derived_candidate_semantics": (
             "same factual episode and authored supporting bindings open candidate scope only; "
@@ -301,7 +303,7 @@ def main() -> None:
         ),
         "zero_binding_rule": "emit typed UNBOUND_SEED diagnostics; never crash or synthesize a binding",
         "predicate_scope_rule": "scallop_backend._completion_scope_instances parity",
-        "occurrence_rule": "binding_id is case-time candidate identity; source fragments remain auditable",
+        "occurrence_rule": "OffenseInstanceKey.occurrence_id is legal realization identity, never binding_id",
         "case_ids": list(case_ids),
         "aggregate_counts": counts,
         "call1_artifact": str(args.call1_artifact),

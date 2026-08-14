@@ -34,8 +34,17 @@ class IndirectPrincipalGroundingError(ValueError):
 
 @dataclass(frozen=True)
 class FactualUtilizationTarget:
+    """One logical utilization relation and its exact physical action carrier.
+
+    ``utilizer_action.occurrence_id`` remains the legal-realization identity used
+    by the dependency compiler.  It is deliberately distinct from
+    ``utilizer_action_evidence_id``: Call 2 must see the focal factual action,
+    not every action that happened to support the realization.
+    """
+
     utilizer_action: FactualActionKey
     utilized_participant: FactualParticipantKey
+    utilizer_action_evidence_id: str
 
     @property
     def case_id(self) -> str:
@@ -49,6 +58,7 @@ class FactualUtilizationTarget:
                 "actor_id": self.utilizer_action.actor_id,
                 "occurrence_id": self.utilizer_action.occurrence_id,
             },
+            "utilizer_action_evidence_id": self.utilizer_action_evidence_id,
             "utilized_participant": {
                 "case_id": self.utilized_participant.case_id,
                 "participant_id": self.utilized_participant.participant_id,
@@ -126,6 +136,7 @@ def factual_utilization_targets(
         FactualUtilizationTarget(
             action,
             FactualParticipantKey(case_id, participant.participant_id),
+            action.occurrence_id,
         )
         for action in eligible_actions
         for participant in participant_values
@@ -147,10 +158,11 @@ def factual_utilization_request_payload(
             ["one utilization request must contain exactly one factual relation"]
         )
     target = target_values[0]
+    evidence_id = target.utilizer_action_evidence_id
     occurrence_matches = [
         value
         for value in occurrences
-        if value.occurrence_id == target.utilizer_action.occurrence_id
+        if value.occurrence_id == evidence_id
     ]
     participant_matches = [
         value
@@ -158,8 +170,10 @@ def factual_utilization_request_payload(
         if value.participant_id == target.utilized_participant.participant_id
     ]
     errors: list[str] = []
-    if len(occurrence_matches) != 1:
-        errors.append("utilizer occurrence must resolve exactly once")
+    if not isinstance(evidence_id, str) or not evidence_id:
+        errors.append("utilizer action evidence id must be non-empty")
+    elif len(occurrence_matches) != 1:
+        errors.append("utilizer action evidence must resolve exactly once")
     elif (
         target.utilizer_action.case_id != target.case_id
         or occurrence_matches[0].actor_id != target.utilizer_action.actor_id

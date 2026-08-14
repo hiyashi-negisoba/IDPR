@@ -44,7 +44,7 @@ class BindingSeedCue:
 @dataclass(frozen=True)
 class BindingFragment:
     fragment_id: str
-    fragment_kind: Literal["episode_source", "actor_action", "context"]
+    fragment_kind: Literal["episode_source", "factual_action", "context"]
     source_quote: str
     source_start: int
     source_end: int
@@ -59,38 +59,69 @@ class BindingFragment:
 
 
 @dataclass(frozen=True)
+class FactualAction:
+    """One time-local factual act, transfer, result, or status proposition.
+
+    The source actor is the person syntactically/factually performing the action.
+    It intentionally does not have to be the person whose liability is later
+    assessed: a transfer by 乙 can be the focal receipt event for 丙.
+    """
+
+    factual_action_id: str
+    factual_episode_id: str
+    source_actor_id: str
+    participant_ids: tuple[str, ...]
+    source_fragments: tuple[BindingFragment, ...]
+    sequence_index: int
+
+    @property
+    def evidence_text(self) -> str:
+        return "\n".join(value.source_quote for value in self.source_fragments)
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "factual_action_id": self.factual_action_id,
+            "factual_episode_id": self.factual_episode_id,
+            "source_actor_id": self.source_actor_id,
+            "participant_ids": list(self.participant_ids),
+            "source_fragments": [value.as_dict() for value in self.source_fragments],
+            "sequence_index": self.sequence_index,
+        }
+
+
+@dataclass(frozen=True)
 class FactualEpisode:
     factual_episode_id: str
     source_fragments: tuple[BindingFragment, ...]
     participants: tuple[str, ...]
+    factual_actions: tuple[FactualAction, ...] = ()
 
     def as_dict(self) -> dict[str, Any]:
         return {
             "factual_episode_id": self.factual_episode_id,
             "source_fragments": [value.as_dict() for value in self.source_fragments],
             "participants": list(self.participants),
+            "factual_actions": [value.as_dict() for value in self.factual_actions],
         }
 
 
 @dataclass(frozen=True)
 class IssueBinding:
-    """One candidate factual episode, not an established legal realization."""
+    """A seed's factual candidate, deliberately distinct from a realization.
+
+    ``binding_id`` only identifies the Call 1.5 candidate.  It must never be
+    used as a Call 2/Scallop occurrence identity.  The focal and supporting
+    action references are materialized into a legal realization by the planner.
+    """
 
     binding_id: str
     factual_episode_id: str
     seed_index: int
     offense_ref: str
     actor_id: str
-    actor_action_fragments: tuple[BindingFragment, ...]
-    context_fragments: tuple[BindingFragment, ...]
+    focal_action_id: str
+    supporting_action_ids: tuple[str, ...]
     factual_targets: tuple[str, ...]
-
-    @property
-    def evidence_text(self) -> str:
-        return "\n".join(
-            value.source_quote
-            for value in (*self.actor_action_fragments, *self.context_fragments)
-        )
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -99,8 +130,8 @@ class IssueBinding:
             "seed_index": self.seed_index,
             "offense_ref": self.offense_ref,
             "actor_id": self.actor_id,
-            "actor_action_fragments": [value.as_dict() for value in self.actor_action_fragments],
-            "context_fragments": [value.as_dict() for value in self.context_fragments],
+            "focal_action_id": self.focal_action_id,
+            "supporting_action_ids": list(self.supporting_action_ids),
             "factual_targets": list(self.factual_targets),
         }
 
@@ -222,6 +253,7 @@ def issue_binding_request_payload(
     case_text: str,
     factual_scope_text: str,
     seed_cues: Iterable[BindingSeedCue],
+    verified_candidate_hints: Iterable[Mapping[str, Any]] = (),
 ) -> dict[str, Any]:
     cues = tuple(seed_cues)
     if (
@@ -238,13 +270,17 @@ def issue_binding_request_payload(
                 )
             ]
         )
-    return {
+    payload: dict[str, Any] = {
         "question_prompt": question_prompt,
         "candidate_actor_ids": list(question_actor_ids(question_prompt)),
         "case_text": case_text,
         "factual_scope_text": factual_scope_text,
         "seeds": [value.as_dict() for value in cues],
     }
+    hints = tuple(dict(value) for value in verified_candidate_hints)
+    if hints:
+        payload["verified_factual_candidate_hints"] = list(hints)
+    return payload
 
 
 def issue_binding_schema(*, seed_count: int) -> dict[str, Any]:
@@ -267,7 +303,12 @@ def issue_binding_schema(*, seed_count: int) -> dict[str, Any]:
                 "items": {
                     "type": "object",
                     "additionalProperties": False,
-                    "required": ["episode_index", "source_quotes", "participants"],
+                    "required": [
+                        "episode_index",
+                        "source_quotes",
+                        "participants",
+                        "actions",
+                    ],
                     "properties": {
                         "episode_index": {"type": "integer", "minimum": 0},
                         "source_quotes": {**quote_array, "minItems": 1},
@@ -276,6 +317,35 @@ def issue_binding_schema(*, seed_count: int) -> dict[str, Any]:
                             "minItems": 1,
                             "uniqueItems": True,
                             "items": {"type": "string", "minLength": 1},
+                        },
+                        "actions": {
+                            "type": "array",
+                            "minItems": 1,
+                            "maxItems": MAX_BINDINGS_PER_CASE,
+                            "items": {
+                                "type": "object",
+                                "additionalProperties": False,
+                                "required": [
+                                    "action_index",
+                                    "source_actor_id",
+                                    "participant_ids",
+                                    "action_quotes",
+                                ],
+                                "properties": {
+                                    "action_index": {"type": "integer", "minimum": 0},
+                                    "source_actor_id": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                    },
+                                    "participant_ids": {
+                                        "type": "array",
+                                        "minItems": 1,
+                                        "uniqueItems": True,
+                                        "items": {"type": "string", "minLength": 1},
+                                    },
+                                    "action_quotes": {**quote_array, "minItems": 1},
+                                },
+                            },
                         },
                     },
                 },
@@ -304,18 +374,22 @@ def issue_binding_schema(*, seed_count: int) -> dict[str, Any]:
                                 "required": [
                                     "episode_index",
                                     "actor_id",
-                                    "actor_action_quotes",
-                                    "context_quotes",
+                                    "focal_action_index",
+                                    "supporting_action_indexes",
                                     "factual_targets",
                                 ],
                                 "properties": {
                                     "episode_index": {"type": "integer", "minimum": 0},
                                     "actor_id": {"type": "string", "minLength": 1},
-                                    "actor_action_quotes": {
-                                        **quote_array,
-                                        "minItems": 1,
+                                    "focal_action_index": {
+                                        "type": "integer",
+                                        "minimum": 0,
                                     },
-                                    "context_quotes": quote_array,
+                                    "supporting_action_indexes": {
+                                        "type": "array",
+                                        "uniqueItems": True,
+                                        "items": {"type": "integer", "minimum": 0},
+                                    },
                                     "factual_targets": {
                                         "type": "array",
                                         "uniqueItems": True,
@@ -334,7 +408,7 @@ def issue_binding_schema(*, seed_count: int) -> dict[str, Any]:
 def _fragments(
     *,
     binding_id: str,
-    kind: Literal["episode_source", "actor_action", "context"],
+    kind: Literal["episode_source", "factual_action", "context"],
     quotes: Any,
     case_text: str,
     errors: list[str],
@@ -342,7 +416,7 @@ def _fragments(
 ) -> tuple[BindingFragment, ...]:
     if (
         not isinstance(quotes, list)
-        or (kind in {"episode_source", "actor_action"} and not quotes)
+        or (kind in {"episode_source", "factual_action"} and not quotes)
         or not all(isinstance(value, str) and value.strip() for value in quotes)
         or len(quotes) != len(set(quotes))
     ):
@@ -429,41 +503,36 @@ def normalize_issue_binding_output(
     case_text: str,
     factual_scope_text: str | None = None,
 ) -> tuple[dict[str, Any], tuple[dict[str, Any], ...]]:
-    """Apply only deterministic source-copy and episode-scope repairs.
+    """Apply only deterministic source-copy repairs to action-atomic output.
 
-    Semantic fields, actors, targets, seed assignments, and episode identities are
-    never inferred or changed here. Anything outside these bounded rules remains a
-    contract failure in ``validate_issue_binding_output``.
+    The host may repair a single source-copy typo or enlarge an episode's quoted
+    envelope with an already-authored action quote.  It never invents an action,
+    changes an action's temporal boundary, or rewrites a binding reference.
     """
     normalized = deepcopy(dict(payload))
     changes: list[dict[str, Any]] = []
     source = factual_scope_text if factual_scope_text is not None else case_text
+    episodes = normalized.get("factual_episodes")
+    if not isinstance(episodes, list):
+        return normalized, tuple(changes)
 
     quote_arrays: list[tuple[str, Any]] = []
-    episodes = normalized.get("factual_episodes")
-    if isinstance(episodes, list):
-        for episode_index, episode in enumerate(episodes):
-            if isinstance(episode, dict):
-                quote_arrays.append(
-                    (f"factual_episodes[{episode_index}].source_quotes", episode.get("source_quotes"))
-                )
-    seed_results = normalized.get("seed_results")
-    if isinstance(seed_results, list):
-        for result_index, result in enumerate(seed_results):
-            bindings = result.get("bindings") if isinstance(result, dict) else None
-            if not isinstance(bindings, list):
-                continue
-            for binding_index, binding in enumerate(bindings):
-                if not isinstance(binding, dict):
-                    continue
-                for field in ("actor_action_quotes", "context_quotes"):
+    for episode_index, episode in enumerate(episodes):
+        if not isinstance(episode, dict):
+            continue
+        quote_arrays.append(
+            (f"factual_episodes[{episode_index}].source_quotes", episode.get("source_quotes"))
+        )
+        actions = episode.get("actions")
+        if isinstance(actions, list):
+            for action_index, action in enumerate(actions):
+                if isinstance(action, dict):
                     quote_arrays.append(
                         (
-                            f"seed_results[{result_index}].bindings[{binding_index}].{field}",
-                            binding.get(field),
+                            f"factual_episodes[{episode_index}].actions[{action_index}].action_quotes",
+                            action.get("action_quotes"),
                         )
                     )
-
     for location, quotes in quote_arrays:
         if not isinstance(quotes, list):
             continue
@@ -482,145 +551,85 @@ def normalize_issue_binding_output(
                     "normalized_quote": replacement,
                 }
             )
-
-    if isinstance(episodes, list) and isinstance(seed_results, list):
-        binding_quotes_by_episode: dict[int, list[str]] = {}
-        for result in seed_results:
-            bindings = result.get("bindings") if isinstance(result, dict) else None
-            if not isinstance(bindings, list):
-                continue
-            for binding in bindings:
-                if not isinstance(binding, dict):
-                    continue
-                episode_index = binding.get("episode_index")
-                if not isinstance(episode_index, int) or isinstance(episode_index, bool):
-                    continue
-                values = binding_quotes_by_episode.setdefault(episode_index, [])
-                for field in ("actor_action_quotes", "context_quotes"):
-                    quotes = binding.get(field)
-                    if not isinstance(quotes, list):
-                        continue
-                    for quote in quotes:
-                        if (
-                            isinstance(quote, str)
-                            and case_text.count(quote) == 1
-                            and quote in source
-                            and quote not in values
-                        ):
-                            values.append(quote)
-
-        for episode_index, episode in enumerate(episodes):
-            if not isinstance(episode, dict):
-                continue
-            source_quotes = episode.get("source_quotes")
-            if not isinstance(source_quotes, list):
-                continue
-            invalid = [
-                quote
-                for quote in source_quotes
-                if not isinstance(quote, str)
-                or case_text.count(quote) != 1
-                or quote not in source
-            ]
-            replacements = binding_quotes_by_episode.get(episode_index, [])
-            if not invalid or not replacements:
-                continue
-            episode["source_quotes"] = list(
-                dict.fromkeys(
-                    [
-                        quote
-                        for quote in source_quotes
-                        if isinstance(quote, str)
-                        and case_text.count(quote) == 1
-                        and quote in source
-                    ]
-                    + replacements
-                )
-            )
+    for episode_index, episode in enumerate(episodes):
+        if not isinstance(episode, dict):
+            continue
+        source_quotes = episode.get("source_quotes")
+        actions = episode.get("actions")
+        if not isinstance(source_quotes, list) or not isinstance(actions, list):
+            continue
+        action_quotes = [
+            quote
+            for action in actions
+            if isinstance(action, dict)
+            for quote in (action.get("action_quotes") or [])
+            if isinstance(quote, str) and case_text.count(quote) == 1 and quote in source
+        ]
+        valid_quotes = [
+            quote
+            for quote in source_quotes
+            if isinstance(quote, str) and case_text.count(quote) == 1 and quote in source
+        ]
+        if len(valid_quotes) != len(source_quotes) and action_quotes:
+            episode["source_quotes"] = list(dict.fromkeys((*valid_quotes, *action_quotes)))
             changes.append(
                 {
                     "location": f"factual_episodes[{episode_index}].source_quotes",
-                    "reason": "invalid_episode_source_replaced_by_binding_quotes",
-                    "removed_quotes": invalid,
-                    "replacement_quotes": replacements,
+                    "reason": "invalid_episode_source_replaced_by_action_quotes",
                 }
             )
-
-    if isinstance(episodes, list) and isinstance(seed_results, list):
-        for result_index, result in enumerate(seed_results):
-            bindings = result.get("bindings") if isinstance(result, dict) else None
-            if not isinstance(bindings, list):
+            source_quotes = episode["source_quotes"]
+        for quote in action_quotes:
+            if any(quote in str(existing) for existing in source_quotes):
                 continue
-            for binding_index, binding in enumerate(bindings):
-                if not isinstance(binding, dict):
-                    continue
-                episode_index = binding.get("episode_index")
-                if (
-                    not isinstance(episode_index, int)
-                    or isinstance(episode_index, bool)
-                    or not 0 <= episode_index < len(episodes)
-                    or not isinstance(episodes[episode_index], dict)
-                ):
-                    continue
-                source_quotes = episodes[episode_index].get("source_quotes")
-                if not isinstance(source_quotes, list):
-                    continue
-                context_quotes = binding.get("context_quotes")
-                if isinstance(context_quotes, list):
-                    for quote_index, quote in tuple(enumerate(context_quotes)):
-                        if not isinstance(quote, str) or case_text.count(quote) == 1:
-                            continue
-                        split = _unique_elided_quote_split(
-                            quote,
-                            tuple(
-                                value for value in source_quotes if isinstance(value, str)
-                            ),
-                        )
-                        if split is None or any(case_text.count(value) != 1 for value in split):
-                            continue
-                        context_quotes[quote_index : quote_index + 1] = list(split)
-                        changes.append(
-                            {
-                                "location": (
-                                    f"seed_results[{result_index}].bindings[{binding_index}]"
-                                    f".context_quotes[{quote_index}]"
-                                ),
-                                "reason": "unique_single_elision_split",
-                                "original_quote": quote,
-                                "normalized_quotes": list(split),
-                            }
-                        )
-                binding_quotes: list[str] = []
-                for field in ("actor_action_quotes", "context_quotes"):
-                    quotes = binding.get(field)
-                    if isinstance(quotes, list):
-                        binding_quotes.extend(
-                            quote for quote in quotes if isinstance(quote, str)
-                        )
-                for quote in binding_quotes:
-                    if case_text.count(quote) != 1 or any(
-                        quote in episode_quote
-                        for episode_quote in source_quotes
-                        if isinstance(episode_quote, str)
-                    ):
-                        continue
-                    source_quotes.append(quote)
-                    changes.append(
-                        {
-                            "location": (
-                                f"seed_results[{result_index}].bindings[{binding_index}]"
-                                ".episode_index"
-                            ),
-                            "reason": "binding_quote_added_to_declared_episode_scope",
-                            "episode_index": episode_index,
-                            "added_quote": quote,
-                        }
-                    )
-
+            source_quotes.append(quote)
+            changes.append(
+                {
+                    "location": f"factual_episodes[{episode_index}].source_quotes",
+                    "reason": "action_quote_added_to_declared_episode_scope",
+                    "added_quote": quote,
+                }
+            )
+        # An action may name an incidental case actor the model forgot to declare
+        # as an episode participant (a rescue crew, a bystander).  The label is
+        # already in the case text and the action is already authored, so this
+        # only registers a name the model itself used.  It cannot widen the
+        # responsibility actors: those are gated separately by candidate scope.
+        participants = episode.get("participants")
+        if not isinstance(participants, list):
+            continue
+        for action_index, action in enumerate(actions):
+            if not isinstance(action, dict):
+                continue
+            source_actor_id = action.get("source_actor_id")
+            if not isinstance(source_actor_id, str) or source_actor_id not in case_text:
+                continue
+            if source_actor_id not in participants:
+                participants.append(source_actor_id)
+                changes.append(
+                    {
+                        "location": f"factual_episodes[{episode_index}].participants",
+                        "reason": "action_source_actor_added_to_episode_participants",
+                        "added_participant": source_actor_id,
+                    }
+                )
+            action_participants = action.get("participant_ids")
+            if isinstance(action_participants, list) and source_actor_id not in action_participants:
+                action_participants.append(source_actor_id)
+                changes.append(
+                    {
+                        "location": (
+                            f"factual_episodes[{episode_index}]"
+                            f".actions[{action_index}].participant_ids"
+                        ),
+                        "reason": "action_source_actor_added_to_action_participants",
+                        "added_participant": source_actor_id,
+                    }
+                )
     return normalized, tuple(changes)
 
 
-def validate_issue_binding_output(
+def _validate_action_atomic_issue_binding_output(
     payload: Mapping[str, Any],
     *,
     seeds: Iterable[str],
@@ -628,6 +637,13 @@ def validate_issue_binding_output(
     factual_scope_text: str | None = None,
     candidate_actor_ids: Iterable[str] | None = None,
 ) -> IssueBindingResult:
+    """Validate the v2 action-atomic Call 1.5 contract.
+
+    A factual episode is broad narrative context; an action is the only source
+    unit a later legal realization may focalize.  This deliberately rejects the
+    former binding-only wire format: there is no sound host-side migration from a
+    mixed sentence into its temporal factual actions.
+    """
     seed_values = tuple(seeds)
     actor_scope = frozenset(candidate_actor_ids or ())
     errors: list[str] = []
@@ -641,27 +657,36 @@ def validate_issue_binding_output(
         )
     if len(raw_episodes) > MAX_BINDINGS_PER_CASE:
         errors.append(f"factual_episodes exceeds {MAX_BINDINGS_PER_CASE}")
+
+    episode_fields = {"episode_index", "source_quotes", "participants", "actions"}
+    action_fields = {
+        "action_index",
+        "source_actor_id",
+        "participant_ids",
+        "action_quotes",
+    }
     episodes: list[FactualEpisode] = []
     episode_by_index: dict[int, FactualEpisode] = {}
-    for index, raw_episode in enumerate(raw_episodes):
-        where = f"factual_episodes[{index}]"
+    action_by_episode_index: dict[int, dict[int, FactualAction]] = {}
+    for episode_index, raw_episode in enumerate(raw_episodes):
+        where = f"factual_episodes[{episode_index}]"
         if (
             not isinstance(raw_episode, Mapping)
-            or set(raw_episode) != {"episode_index", "source_quotes", "participants"}
-            or raw_episode.get("episode_index") != index
+            or set(raw_episode) != episode_fields
+            or raw_episode.get("episode_index") != episode_index
         ):
-            errors.append(f"{where} must have canonical episode_index={index}")
+            errors.append(f"{where} must have canonical episode_index={episode_index}")
             continue
-        episode_id = f"factual_episode:{index + 1:03d}"
+        episode_id = f"factual_episode:{episode_index + 1:03d}"
         fragments = _fragments(
             binding_id=episode_id,
             kind="episode_source",
-            quotes=raw_episode["source_quotes"],
+            quotes=raw_episode.get("source_quotes"),
             case_text=case_text,
             errors=errors,
             where=f"{where}.source_quotes",
         )
-        participants = raw_episode["participants"]
+        participants = raw_episode.get("participants")
         if (
             not isinstance(participants, list)
             or not participants
@@ -670,13 +695,118 @@ def validate_issue_binding_output(
         ):
             errors.append(f"{where}.participants must be unique case participant labels")
             participants = []
+        participant_values = tuple(participants)
         if factual_scope_text is not None and any(
             fragment.source_quote not in factual_scope_text for fragment in fragments
         ):
             errors.append(f"{where} source quote is outside the factual scope")
-        episode = FactualEpisode(episode_id, fragments, tuple(participants))
+        episode_spans = tuple(
+            (value.source_start, value.source_end) for value in fragments
+        )
+        raw_actions = raw_episode.get("actions")
+        if not isinstance(raw_actions, list) or not raw_actions:
+            errors.append(f"{where}.actions must be a nonempty array")
+            raw_actions = []
+        if len(raw_actions) > MAX_BINDINGS_PER_CASE:
+            errors.append(f"{where}.actions exceeds {MAX_BINDINGS_PER_CASE}")
+        actions: list[FactualAction] = []
+        action_by_index: dict[int, FactualAction] = {}
+        for action_index, raw_action in enumerate(raw_actions):
+            action_where = f"{where}.actions[{action_index}]"
+            if (
+                not isinstance(raw_action, Mapping)
+                or set(raw_action) != action_fields
+                or raw_action.get("action_index") != action_index
+            ):
+                errors.append(
+                    f"{action_where} must have canonical action_index={action_index}"
+                )
+                continue
+            source_actor_id = raw_action.get("source_actor_id")
+            action_participants = raw_action.get("participant_ids")
+            if (
+                not isinstance(source_actor_id, str)
+                or source_actor_id not in participant_values
+            ):
+                errors.append(f"{action_where}.source_actor_id must belong to the episode")
+                continue
+            if (
+                not isinstance(action_participants, list)
+                or not action_participants
+                or not all(value in participant_values for value in action_participants)
+                or len(action_participants) != len(set(action_participants))
+                or source_actor_id not in action_participants
+            ):
+                errors.append(
+                    f"{action_where}.participant_ids must be unique episode participants "
+                    "and include source_actor_id"
+                )
+                continue
+            action_id = f"factual_action:{episode_index + 1:03d}:{action_index + 1:03d}"
+            action_fragments = _fragments(
+                binding_id=action_id,
+                kind="factual_action",
+                quotes=raw_action.get("action_quotes"),
+                case_text=case_text,
+                errors=errors,
+                where=f"{action_where}.action_quotes",
+            )
+            if tuple(value.source_start for value in action_fragments) != tuple(
+                sorted(value.source_start for value in action_fragments)
+            ):
+                errors.append(f"{action_where}.action_quotes must preserve source order")
+            for fragment in action_fragments:
+                if factual_scope_text is not None and fragment.source_quote not in factual_scope_text:
+                    errors.append(f"{action_where} quote is outside the factual scope")
+                if not any(
+                    start <= fragment.source_start and fragment.source_end <= end
+                    for start, end in episode_spans
+                ):
+                    errors.append(f"{action_where} quote lies outside the referenced episode")
+            action = FactualAction(
+                action_id,
+                episode_id,
+                source_actor_id,
+                tuple(action_participants),
+                action_fragments,
+                action_index,
+            )
+            actions.append(action)
+            action_by_index[action_index] = action
+        # Action indexes are temporal source order, not arbitrary labels.  Reusing a
+        # broad sentence for two actions (or embedding one action's quote inside
+        # another's) would put the old mixed-evidence defect back into the wire
+        # contract, so reject it before a planner can materialize a realization.
+        prior_start: int | None = None
+        prior_end: int | None = None
+        for action in actions:
+            spans = tuple(
+                sorted(
+                    (fragment.source_start, fragment.source_end)
+                    for fragment in action.source_fragments
+                )
+            )
+            if not spans:
+                continue
+            if any(
+                next_start < current_end
+                for (_, current_end), (next_start, _) in zip(spans, spans[1:])
+            ):
+                errors.append(
+                    f"{where}.actions[{action.sequence_index}].action_quotes overlap"
+                )
+            start, end = spans[0][0], spans[-1][1]
+            if prior_start is not None and start <= prior_start:
+                errors.append(f"{where}.actions must be in source order")
+            if prior_end is not None and start < prior_end:
+                errors.append(f"{where}.actions must not overlap")
+            prior_start, prior_end = start, end
+        episode = FactualEpisode(
+            episode_id, fragments, participant_values, tuple(actions)
+        )
         episodes.append(episode)
-        episode_by_index[index] = episode
+        episode_by_index[episode_index] = episode
+        action_by_episode_index[episode_index] = action_by_index
 
     if len(raw_seed_results) != len(seed_values):
         errors.append("seed_results must account for every explicit seed exactly once")
@@ -687,14 +817,14 @@ def validate_issue_binding_output(
     ]
     if actual_seed_indexes != expected_seed_indexes:
         errors.append("seed_results must be ordered by every canonical seed_index")
-    expected_binding = {
+    binding_fields = {
         "episode_index",
         "actor_id",
-        "actor_action_quotes",
-        "context_quotes",
+        "focal_action_index",
+        "supporting_action_indexes",
         "factual_targets",
     }
-    seen: set[tuple[int, int, str, tuple[str, ...], tuple[str, ...]]] = set()
+    seen: set[tuple[int, int, str, int, tuple[int, ...]]] = set()
     seed_results: list[SeedBindingResult] = []
     binding_number = 0
     for result_index, raw_result in enumerate(raw_seed_results):
@@ -705,7 +835,7 @@ def validate_issue_binding_output(
         ):
             errors.append(f"{result_where} must contain exactly seed_index and bindings")
             continue
-        seed_index = raw_result["seed_index"]
+        seed_index = raw_result.get("seed_index")
         if (
             not isinstance(seed_index, int)
             or isinstance(seed_index, bool)
@@ -713,59 +843,63 @@ def validate_issue_binding_output(
         ):
             errors.append(f"{result_where}.seed_index is outside the frozen seed list")
             continue
-        raw_bindings = raw_result["bindings"]
+        raw_bindings = raw_result.get("bindings")
         if not isinstance(raw_bindings, list):
             errors.append(f"{result_where}.bindings must be an array")
             continue
         bindings: list[IssueBinding] = []
-        for local_index, raw in enumerate(raw_bindings):
+        for local_index, raw_binding in enumerate(raw_bindings):
             where = f"{result_where}.bindings[{local_index}]"
-            if not isinstance(raw, Mapping) or set(raw) != expected_binding:
-                errors.append(f"{where} must contain exactly {sorted(expected_binding)}")
+            if not isinstance(raw_binding, Mapping) or set(raw_binding) != binding_fields:
+                errors.append(f"{where} must contain exactly {sorted(binding_fields)}")
                 continue
-            episode_index = raw["episode_index"]
+            episode_index = raw_binding.get("episode_index")
             episode = episode_by_index.get(episode_index)
+            actions = action_by_episode_index.get(episode_index, {})
             if episode is None:
                 errors.append(f"{where}.episode_index does not resolve uniquely")
                 continue
-            actor_id = raw["actor_id"]
+            actor_id = raw_binding.get("actor_id")
             if not isinstance(actor_id, str) or actor_id not in episode.participants:
                 errors.append(f"{where}.actor_id must belong to the referenced episode")
                 continue
             if actor_scope and actor_id not in actor_scope:
                 errors.append(f"{where}.actor_id is outside the requested responsibility actors")
                 continue
-            binding_number += 1
-            binding_id = f"binding:{binding_number:03d}"
-            actions = _fragments(
-                binding_id=binding_id,
-                kind="actor_action",
-                quotes=raw["actor_action_quotes"],
-                case_text=case_text,
-                errors=errors,
-                where=f"{where}.actor_action_quotes",
-            )
-            contexts = _fragments(
-                binding_id=binding_id,
-                kind="context",
-                quotes=raw["context_quotes"],
-                case_text=case_text,
-                errors=errors,
-                where=f"{where}.context_quotes",
-            )
-            episode_spans = tuple(
-                (value.source_start, value.source_end)
-                for value in episode.source_fragments
-            )
-            for fragment in (*actions, *contexts):
-                if factual_scope_text is not None and fragment.source_quote not in factual_scope_text:
-                    errors.append(f"{where} quote is outside the factual scope")
-                if not any(
-                    start <= fragment.source_start and fragment.source_end <= end
-                    for start, end in episode_spans
-                ):
-                    errors.append(f"{where} quote lies outside the referenced episode")
-            targets = raw["factual_targets"]
+            focal_index = raw_binding.get("focal_action_index")
+            focal_action = actions.get(focal_index)
+            if focal_action is None:
+                errors.append(f"{where}.focal_action_index does not resolve uniquely")
+                continue
+            supports = raw_binding.get("supporting_action_indexes")
+            if (
+                not isinstance(supports, list)
+                or not all(isinstance(value, int) and not isinstance(value, bool) for value in supports)
+                or len(supports) != len(set(supports))
+                or supports != sorted(supports)
+                or focal_index in supports
+                or any(value not in actions for value in supports)
+            ):
+                errors.append(
+                    f"{where}.supporting_action_indexes must be unique same-episode "
+                    "actions distinct from focal_action_index"
+                )
+                continue
+            # The responsibility actor need not perform the focal action.  A
+            # participant, an accessory, or an instigator is bound to the
+            # principal's execution action while its own contribution sits in the
+            # supporting actions.  Requiring focal participation would make every
+            # such binding unrepresentable, so the actor only has to appear
+            # somewhere in the evidence this realization actually carries.
+            carried_participants = set(focal_action.participant_ids)
+            for value in supports:
+                carried_participants.update(actions[value].participant_ids)
+            if actor_id not in carried_participants:
+                errors.append(
+                    f"{where}.actor_id must participate in its focal or supporting factual actions"
+                )
+                continue
+            targets = raw_binding.get("factual_targets")
             if (
                 not isinstance(targets, list)
                 or not all(isinstance(value, str) for value in targets)
@@ -773,27 +907,22 @@ def validate_issue_binding_output(
                 or any(value not in episode.participants for value in targets)
             ):
                 errors.append(f"{where}.factual_targets must be episode participants")
-                targets = []
-            identity = (
-                seed_index,
-                episode_index,
-                actor_id,
-                tuple(value.source_quote for value in actions),
-                tuple(value.source_quote for value in contexts),
-            )
+                continue
+            identity = (seed_index, episode_index, actor_id, focal_index, tuple(supports))
             if identity in seen:
                 errors.append(f"{where} duplicates an earlier binding")
                 continue
             seen.add(identity)
+            binding_number += 1
             bindings.append(
                 IssueBinding(
-                    binding_id,
+                    f"binding:{binding_number:03d}",
                     episode.factual_episode_id,
                     seed_index,
                     seed_values[seed_index],
                     actor_id,
-                    actions,
-                    contexts,
+                    focal_action.factual_action_id,
+                    tuple(actions[value].factual_action_id for value in supports),
                     tuple(targets),
                 )
             )
@@ -805,6 +934,152 @@ def validate_issue_binding_output(
     return IssueBindingResult(tuple(episodes), tuple(seed_results))
 
 
+def validate_issue_binding_output(
+    payload: Mapping[str, Any],
+    *,
+    seeds: Iterable[str],
+    case_text: str,
+    factual_scope_text: str | None = None,
+    candidate_actor_ids: Iterable[str] | None = None,
+) -> IssueBindingResult:
+    return _validate_action_atomic_issue_binding_output(
+        payload,
+        seeds=seeds,
+        case_text=case_text,
+        factual_scope_text=factual_scope_text,
+        candidate_actor_ids=candidate_actor_ids,
+    )
+
+
+def _parse_action_atomic_issue_binding_result(
+    payload: Mapping[str, Any],
+    *,
+    seeds: Iterable[str],
+    case_text: str,
+    candidate_actor_ids: Iterable[str] | None = None,
+) -> IssueBindingResult:
+    if set(payload) != {"factual_episodes", "seed_results"}:
+        raise IssueBindingContractError(["persisted result has unexpected fields"])
+    raw_episodes_value = payload.get("factual_episodes")
+    raw_results_value = payload.get("seed_results")
+    if not isinstance(raw_episodes_value, list) or not isinstance(raw_results_value, list):
+        raise IssueBindingContractError(["persisted result must contain episode/result arrays"])
+    raw_episodes: list[dict[str, Any]] = []
+    action_index_by_id: dict[str, tuple[int, int]] = {}
+    episode_index_by_id: dict[str, int] = {}
+    for episode_index, episode in enumerate(raw_episodes_value):
+        if not isinstance(episode, Mapping):
+            raise IssueBindingContractError([f"factual_episodes[{episode_index}] is malformed"])
+        episode_id = f"factual_episode:{episode_index + 1:03d}"
+        if episode.get("factual_episode_id") != episode_id:
+            raise IssueBindingContractError(["persisted episode has noncanonical identity"])
+        raw_actions = episode.get("factual_actions")
+        if not isinstance(raw_actions, list):
+            raise IssueBindingContractError(
+                [
+                    "persisted result predates action-atomic Call 1.5; "
+                    "re-run Call 1.5 instead of migrating mixed bindings"
+                ]
+            )
+        actions: list[dict[str, Any]] = []
+        for action_index, action in enumerate(raw_actions):
+            if not isinstance(action, Mapping):
+                raise IssueBindingContractError(["persisted factual action is malformed"])
+            action_id = f"factual_action:{episode_index + 1:03d}:{action_index + 1:03d}"
+            if (
+                action.get("factual_action_id") != action_id
+                or action.get("factual_episode_id") != episode_id
+                or action.get("sequence_index") != action_index
+            ):
+                raise IssueBindingContractError(["persisted factual action has broken lineage"])
+            action_index_by_id[action_id] = (episode_index, action_index)
+            actions.append(
+                {
+                    "action_index": action_index,
+                    "source_actor_id": action.get("source_actor_id"),
+                    "participant_ids": action.get("participant_ids"),
+                    "action_quotes": [
+                        item.get("source_quote")
+                        for item in action.get("source_fragments", [])
+                        if isinstance(item, Mapping)
+                    ],
+                }
+            )
+        episode_index_by_id[episode_id] = episode_index
+        raw_episodes.append(
+            {
+                "episode_index": episode_index,
+                "source_quotes": [
+                    item.get("source_quote")
+                    for item in episode.get("source_fragments", [])
+                    if isinstance(item, Mapping)
+                ],
+                "participants": episode.get("participants"),
+                "actions": actions,
+            }
+        )
+    seed_values = tuple(seeds)
+    raw_results: list[dict[str, Any]] = []
+    binding_number = 0
+    for seed_index, result in enumerate(raw_results_value):
+        if not isinstance(result, Mapping):
+            raise IssueBindingContractError([f"seed_results[{seed_index}] is malformed"])
+        if (
+            seed_index >= len(seed_values)
+            or result.get("seed_index") != seed_index
+            or result.get("offense_ref") != seed_values[seed_index]
+        ):
+            raise IssueBindingContractError([f"seed_results[{seed_index}] has broken lineage"])
+        bindings: list[dict[str, Any]] = []
+        raw_bindings = result.get("bindings")
+        if not isinstance(raw_bindings, list):
+            raise IssueBindingContractError([f"seed_results[{seed_index}].bindings is malformed"])
+        for binding in raw_bindings:
+            if not isinstance(binding, Mapping):
+                raise IssueBindingContractError(["persisted binding is malformed"])
+            binding_number += 1
+            if binding.get("binding_id") != f"binding:{binding_number:03d}":
+                raise IssueBindingContractError(["persisted binding has noncanonical identity"])
+            episode_id = binding.get("factual_episode_id")
+            episode_index = episode_index_by_id.get(str(episode_id))
+            focal_id = binding.get("focal_action_id")
+            focal = action_index_by_id.get(str(focal_id))
+            supports = binding.get("supporting_action_ids")
+            if (
+                episode_index is None
+                or focal is None
+                or focal[0] != episode_index
+                or not isinstance(supports, list)
+            ):
+                raise IssueBindingContractError(["binding has dangling factual action identity"])
+            support_indexes: list[int] = []
+            for action_id in supports:
+                action = action_index_by_id.get(str(action_id))
+                if action is None or action[0] != episode_index:
+                    raise IssueBindingContractError(
+                        ["binding support has dangling factual action identity"]
+                    )
+                support_indexes.append(action[1])
+            bindings.append(
+                {
+                    "episode_index": episode_index,
+                    "actor_id": binding.get("actor_id"),
+                    "focal_action_index": focal[1],
+                    "supporting_action_indexes": support_indexes,
+                    "factual_targets": binding.get("factual_targets"),
+                }
+            )
+        raw_results.append({"seed_index": seed_index, "bindings": bindings})
+    if len(raw_results) != len(seed_values):
+        raise IssueBindingContractError(["persisted seed results do not match frozen seeds"])
+    return _validate_action_atomic_issue_binding_output(
+        {"factual_episodes": raw_episodes, "seed_results": raw_results},
+        seeds=seed_values,
+        case_text=case_text,
+        candidate_actor_ids=candidate_actor_ids,
+    )
+
+
 def parse_issue_binding_result(
     payload: Mapping[str, Any],
     *,
@@ -813,60 +1088,9 @@ def parse_issue_binding_result(
     candidate_actor_ids: Iterable[str] | None = None,
 ) -> IssueBindingResult:
     """Revalidate a host-enriched persisted Call 1.5 artifact."""
-    if set(payload) != {"factual_episodes", "seed_results"}:
-        raise IssueBindingContractError(["persisted result has unexpected fields"])
-    seed_values = tuple(seeds)
-    raw_episodes = []
-    for index, value in enumerate(payload["factual_episodes"]):
-        raw_episodes.append(
-            {
-                "episode_index": index,
-                "source_quotes": [
-                    item.get("source_quote") for item in value.get("source_fragments", [])
-                ],
-                "participants": value.get("participants"),
-            }
-        )
-    raw_results = []
-    binding_number = 0
-    for index, value in enumerate(payload["seed_results"]):
-        if value.get("seed_index") != index or value.get("offense_ref") != seed_values[index]:
-            raise IssueBindingContractError([f"seed_results[{index}] has broken lineage"])
-        bindings = []
-        for binding in value.get("bindings", []):
-            binding_number += 1
-            if binding.get("binding_id") != f"binding:{binding_number:03d}":
-                raise IssueBindingContractError(["persisted binding has noncanonical identity"])
-            episode_id = binding.get("factual_episode_id")
-            try:
-                episode_index = next(
-                    episode_index
-                    for episode_index, episode in enumerate(payload["factual_episodes"])
-                    if episode.get("factual_episode_id") == episode_id
-                )
-            except StopIteration as exc:
-                raise IssueBindingContractError(
-                    ["binding has dangling episode identity"]
-                ) from exc
-            bindings.append(
-                {
-                    "episode_index": episode_index,
-                    "actor_id": binding.get("actor_id"),
-                    "actor_action_quotes": [
-                        item.get("source_quote")
-                        for item in binding.get("actor_action_fragments", [])
-                    ],
-                    "context_quotes": [
-                        item.get("source_quote")
-                        for item in binding.get("context_fragments", [])
-                    ],
-                    "factual_targets": binding.get("factual_targets"),
-                }
-            )
-        raw_results.append({"seed_index": index, "bindings": bindings})
-    return validate_issue_binding_output(
-        {"factual_episodes": raw_episodes, "seed_results": raw_results},
-        seeds=seed_values,
+    return _parse_action_atomic_issue_binding_result(
+        payload,
+        seeds=seeds,
         case_text=case_text,
         candidate_actor_ids=candidate_actor_ids,
     )
@@ -876,6 +1100,7 @@ __all__ = [
     "MAX_BINDINGS_PER_CASE",
     "BindingFragment",
     "BindingSeedCue",
+    "FactualAction",
     "FactualEpisode",
     "IssueBinding",
     "IssueBindingContractError",

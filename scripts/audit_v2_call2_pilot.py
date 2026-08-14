@@ -141,6 +141,47 @@ def _parse_participation_assessment(
     )
 
 
+def _assessment_carriers(
+    plan: dict[str, Any],
+) -> dict[AssessmentTarget, str] | None:
+    """Read the planner-owned physical carrier for every logical assessment.
+
+    Frozen plans predate the action/realization split and intentionally have no
+    carrier map.  A new plan must be total: silently reverting one missing target
+    to its factual episode would recreate the receipt/later-use merge that this
+    audit is meant to catch.
+    """
+    raw_values = plan.get("assessment_carriers")
+    if raw_values is None:
+        return None
+    if not isinstance(raw_values, list):
+        raise ValueError("assessment_carriers must be a list")
+    output: dict[AssessmentTarget, str] = {}
+    for raw in raw_values:
+        if not isinstance(raw, dict) or not isinstance(raw.get("instance_key"), dict):
+            raise ValueError("assessment carrier is malformed")
+        target = AssessmentTarget(
+            _parse_instance(raw["instance_key"]), str(raw.get("predicate_ref", ""))
+        )
+        carrier_id = raw.get("carrier_id")
+        if not target.predicate_ref or not isinstance(carrier_id, str) or not carrier_id:
+            raise ValueError("assessment carrier has an empty target or carrier")
+        if target in output:
+            raise ValueError("assessment carrier has a duplicate target")
+        output[target] = carrier_id
+
+    expected = {
+        AssessmentTarget(_parse_instance(value["instance_key"]), str(value["predicate_ref"]))
+        for value in plan.get("assessment_targets", [])
+    }
+    if set(output) != expected:
+        raise ValueError(
+            "assessment carrier coverage differs from planner targets: "
+            f"missing={len(expected - set(output))} extra={len(set(output) - expected)}"
+        )
+    return output
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--artifact", type=Path, required=True)
@@ -226,6 +267,11 @@ def main() -> None:
             )
             for value in actual
         )
+        try:
+            carrier_by_target = _assessment_carriers(plan)
+        except (KeyError, TypeError, ValueError) as exc:
+            errors.append(f"{case_id}: invalid assessment carrier map: {exc}")
+            carrier_by_target = None
         episode_by_occurrence = {
             str(value["instance_key"]["occurrence_id"]): str(
                 value["factual_episode_id"]
@@ -237,6 +283,7 @@ def main() -> None:
                 registry,
                 actual_semantic_targets,
                 episode_by_occurrence=episode_by_occurrence,
+                carrier_by_target=carrier_by_target,
             )
         )
         if row.get("neural_predicate_request_target_count") != expected_neural_count:

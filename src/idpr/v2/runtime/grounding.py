@@ -34,6 +34,7 @@ class PredicateDefinition:
     legal_standard: str | None = None
     semantic_exclusions: tuple[str, ...] = ()
     evidence_scope: str = "exact_actor_action"
+    temporal_anchor: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
         value: dict[str, Any] = {
@@ -47,6 +48,8 @@ class PredicateDefinition:
         if self.semantic_exclusions:
             value["semantic_exclusions"] = list(self.semantic_exclusions)
         value["evidence_scope"] = self.evidence_scope
+        if self.temporal_anchor is not None:
+            value["temporal_anchor"] = self.temporal_anchor
         return value
 
 
@@ -107,6 +110,7 @@ def predicate_definitions(
         evidence_scope = str(
             entry.payload.get("evidence_scope", "exact_actor_action")
         )
+        temporal_anchor = entry.payload.get("temporal_anchor")
         values.append(
             PredicateDefinition(
                 predicate_ref=ref,
@@ -116,6 +120,9 @@ def predicate_definitions(
                 legal_standard=standard if isinstance(standard, str) else None,
                 semantic_exclusions=exclusions,
                 evidence_scope=evidence_scope,
+                temporal_anchor=(
+                    temporal_anchor if isinstance(temporal_anchor, str) else None
+                ),
             )
         )
     return tuple(values)
@@ -134,16 +141,39 @@ def assessment_targets(
     return tuple(AssessmentTarget(instance, ref) for instance in instance_values for ref in refs)
 
 
-def _episode_of(instance: OffenseInstanceKey, episode_by_occurrence: Mapping[str, str]) -> str:
-    """A GroundFact is about the factual episode, not the binding that happened to raise it.
+def _ground_fact_carrier_id(
+    target: AssessmentTarget,
+    *,
+    episode_by_occurrence: Mapping[str, str],
+    carrier_by_target: Mapping[AssessmentTarget, str] | None,
+) -> str:
+    """Return the authored evidence carrier used to canonicalize one GroundFact.
 
-    Two offense instances built from different bindings (e.g. a base and a derived offense) can
-    still be the same factual episode; `episode_by_occurrence` carries that identity in from the
-    planner, which is the only place it is honestly known.  Absent an entry, `occurrence_id`
-    itself stands in as the episode, which reproduces the pre-canonicalization behaviour for
-    callers that have not yet threaded episode identity through.
+    ``carrier_by_target`` is the realization/action-aware path.  It is deliberately
+    keyed by the *logical* target rather than just occurrence identity: two predicates
+    on one legal realization can legitimately have different factual carriers.  Once a
+    caller opts into this path, silently falling back to the factual episode for a
+    missing target would recreate the cross-action contamination this boundary exists
+    to prevent, so every GroundFact target must be assigned a non-empty carrier.
+
+    Without the map, retain the frozen episode-level behavior for historical planner
+    and Call 2 artifacts.
     """
-    return episode_by_occurrence.get(instance.occurrence_id, instance.occurrence_id)
+    if carrier_by_target is not None:
+        carrier_id = carrier_by_target.get(target)
+        if not isinstance(carrier_id, str) or not carrier_id:
+            raise GroundingContractError(
+                [
+                    (
+                        "carrier_by_target must assign every GroundFact target a non-empty "
+                        f"carrier id: {target.as_dict()}"
+                    )
+                ]
+            )
+        return carrier_id
+    return episode_by_occurrence.get(
+        target.instance_key.occurrence_id, target.instance_key.occurrence_id
+    )
 
 
 def grounding_request_targets(
@@ -151,13 +181,20 @@ def grounding_request_targets(
     targets: Iterable[AssessmentTarget],
     *,
     episode_by_occurrence: Mapping[str, str] | None = None,
+    carrier_by_target: Mapping[AssessmentTarget, str] | None = None,
 ) -> tuple[AssessmentTarget, ...]:
-    """Deduplicate GroundFact questions at factual-episode identity.
+    """Deduplicate GroundFact questions at their authored factual carrier.
 
-    A GroundFact cannot change because the same episode is later consumed by another offense
-    instance, whether that instance shares the raising binding or was derived from it.
-    LegalElements remain offense-instance local.  The first ground-fact target is retained only as
-    an internal projection anchor; its offense id is not exposed in the neural payload.
+    With ``carrier_by_target``, a carrier is an action or legal-realization scope
+    selected upstream for this exact target.  Thus a GroundFact is shared only when
+    its case, actor, predicate, and carrier all match.  This permits direct and
+    derived consumers of one realization to share one answer while keeping two
+    distinct actions inside a broad factual episode separate.
+
+    If no carrier map is supplied, canonicalize at factual-episode identity exactly
+    as earlier artifacts did.  LegalElements remain offense-instance local.  The
+    first GroundFact target is retained only as an internal projection anchor; its
+    offense id is not exposed in the neural payload.
     """
     episodes = episode_by_occurrence or {}
     output: list[AssessmentTarget] = []
@@ -173,7 +210,11 @@ def grounding_request_targets(
             key = (
                 instance.case_id,
                 instance.actor_id,
-                _episode_of(instance, episodes),
+                _ground_fact_carrier_id(
+                    target,
+                    episode_by_occurrence=episodes,
+                    carrier_by_target=carrier_by_target,
+                ),
                 target.predicate_ref,
             )
             if key in seen_ground:
@@ -193,12 +234,20 @@ def expand_ground_fact_assessments(
     *,
     expected_targets: Iterable[AssessmentTarget],
     episode_by_occurrence: Mapping[str, str] | None = None,
+    carrier_by_target: Mapping[AssessmentTarget, str] | None = None,
 ) -> tuple[PredicateAssessment, ...]:
-    """Project each episode-level GroundFact answer to all consuming offense instances."""
+    """Project each carrier-level GroundFact answer to all consuming offense instances.
+
+    The optional carrier map must be the same assignment used to make the physical
+    requests.  Otherwise the legacy factual-episode projection is preserved.
+    """
     episodes = episode_by_occurrence or {}
     expected = tuple(expected_targets)
     request_targets = grounding_request_targets(
-        registry, expected, episode_by_occurrence=episodes
+        registry,
+        expected,
+        episode_by_occurrence=episodes,
+        carrier_by_target=carrier_by_target,
     )
     values = tuple(assessments)
     if tuple(value.target for value in values) != request_targets:
@@ -215,7 +264,11 @@ def expand_ground_fact_assessments(
             (
                 instance.case_id,
                 instance.actor_id,
-                _episode_of(instance, episodes),
+                _ground_fact_carrier_id(
+                    value.target,
+                    episode_by_occurrence=episodes,
+                    carrier_by_target=carrier_by_target,
+                ),
                 value.target.predicate_ref,
             )
         ] = value.truth
@@ -226,7 +279,11 @@ def expand_ground_fact_assessments(
             key = (
                 instance.case_id,
                 instance.actor_id,
-                _episode_of(instance, episodes),
+                _ground_fact_carrier_id(
+                    target,
+                    episode_by_occurrence=episodes,
+                    carrier_by_target=carrier_by_target,
+                ),
                 target.predicate_ref,
             )
             output.append(PredicateAssessment(target, shared[key]))
@@ -249,23 +306,40 @@ def shard_assessment_targets(
 
 
 def shard_assessment_targets_by_occurrence(
-    targets: Iterable[AssessmentTarget], *, max_targets: int
+    targets: Iterable[AssessmentTarget],
+    *,
+    max_targets: int,
+    carrier_by_target: Mapping[AssessmentTarget, str] | None = None,
 ) -> tuple[tuple[AssessmentTarget, ...], ...]:
-    """Preserve target order while making every physical request evidence-homogeneous."""
+    """Preserve target order while making every physical request carrier-homogeneous.
+
+    Legacy callers shard by logical occurrence.  The action-realization planner
+    supplies a target carrier map, allowing a focal-action GroundFact and a
+    realization-level LegalElement for one logical occurrence to travel in
+    separate requests without changing their symbolic identity.
+    """
     if max_targets <= 0:
         raise GroundingContractError(["max_targets must be positive"])
     shards: list[tuple[AssessmentTarget, ...]] = []
     current: list[AssessmentTarget] = []
-    current_occurrence_id: str | None = None
+    current_carrier_id: str | None = None
     for target in targets:
-        occurrence_id = target.instance_key.occurrence_id
+        carrier_id = (
+            carrier_by_target.get(target)
+            if carrier_by_target is not None
+            else target.instance_key.occurrence_id
+        )
+        if not isinstance(carrier_id, str) or not carrier_id:
+            raise GroundingContractError(
+                [f"target is missing a physical evidence carrier: {target.as_dict()}"]
+            )
         if current and (
-            occurrence_id != current_occurrence_id or len(current) == max_targets
+            carrier_id != current_carrier_id or len(current) == max_targets
         ):
             shards.append(tuple(current))
             current = []
         if not current:
-            current_occurrence_id = occurrence_id
+            current_carrier_id = carrier_id
         current.append(target)
     if current:
         shards.append(tuple(current))
@@ -278,6 +352,7 @@ def call2_request_payload(
     question_assumptions: Iterable[QuestionAssumption] = (),
     predicates: Iterable[PredicateDefinition],
     targets: Iterable[AssessmentTarget],
+    carrier_id: str | None = None,
     realization_context: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Build one shard whose only factual evidence is one gold occurrence span."""
@@ -288,8 +363,14 @@ def call2_request_payload(
     if not target_values:
         raise GroundingContractError(["an empty target set is a host no-op"])
     errors: list[str] = []
+    expected_carrier_id = carrier_id or evidence_occurrence.occurrence_id
+    if evidence_occurrence.occurrence_id != expected_carrier_id:
+        errors.append(
+            "request evidence occurrence differs from explicit carrier id: "
+            f"{evidence_occurrence.occurrence_id!r} != {expected_carrier_id!r}"
+        )
     for target in target_values:
-        if target.instance_key.occurrence_id != evidence_occurrence.occurrence_id:
+        if carrier_id is None and target.instance_key.occurrence_id != evidence_occurrence.occurrence_id:
             errors.append(
                 "target occurrence differs from the request evidence occurrence: "
                 f"{target.instance_key.occurrence_id!r} != "

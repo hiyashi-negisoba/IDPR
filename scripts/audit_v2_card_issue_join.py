@@ -1,4 +1,11 @@
-"""Audit a host-safe card/issue join over the canonical KCL-26 v2 instances."""
+"""Audit a host-safe card/issue join over action-scoped legal realizations.
+
+This audit deliberately follows the same identity boundary as the production planner:
+``binding_id`` is Call 1.5 provenance only, while an ``occurrence_id`` is a host-authored
+legal realization.  Card retrieval must therefore receive only the focal/supporting action
+spans recorded for that realization; it must never reconstruct an occurrence from every
+fragment in its factual episode.
+"""
 
 from __future__ import annotations
 
@@ -22,22 +29,132 @@ def _jsonl(path: Path) -> list[dict[str, Any]]:
     return [json.loads(line) for line in path.read_text().splitlines() if line.strip()]
 
 
-def _binding_quotes(rows: Iterable[Mapping[str, Any]]) -> dict[tuple[str, str], tuple[str, ...]]:
+def _action_quotes(rows: Iterable[Mapping[str, Any]]) -> dict[tuple[str, str], tuple[str, ...]]:
+    """Index exact Call 1.5 action quotes, not legacy binding fragments."""
     output: dict[tuple[str, str], tuple[str, ...]] = {}
     for row in rows:
         case_id = str(row["sub_question_id"])
-        for seed in row.get("seed_results", ()):
-            for binding in seed.get("bindings", ()):
-                quotes = [
-                    str(fragment["source_quote"])
-                    for key in ("actor_action_fragments", "context_fragments")
-                    for fragment in binding.get(key, ())
-                    if fragment.get("source_quote")
-                ]
-                output[(case_id, str(binding["binding_id"]))] = tuple(
-                    dict.fromkeys(quotes)
+        for episode in row.get("factual_episodes", ()):
+            for action in episode.get("factual_actions", ()):
+                action_id = str(action.get("factual_action_id", ""))
+                if not action_id:
+                    raise ValueError(f"{case_id}: factual action lacks identity")
+                key = (case_id, action_id)
+                if key in output:
+                    raise ValueError(f"{case_id}: duplicate factual action identity {action_id}")
+                fragments = action.get("source_fragments") or ()
+                ordered = sorted(
+                    (
+                        (
+                            int(fragment["source_start"]),
+                            int(fragment["source_end"]),
+                            str(fragment["source_quote"]).strip(),
+                        )
+                        for fragment in fragments
+                        if str(fragment.get("source_quote", "")).strip()
+                    ),
+                    key=lambda value: (value[0], value[1], value[2]),
                 )
+                if not ordered:
+                    raise ValueError(f"{case_id}/{action_id}: action has no source quote")
+                output[key] = tuple(dict.fromkeys(value[2] for value in ordered))
     return output
+
+
+def _occurrence_quotes(row: Mapping[str, Any]) -> dict[str, tuple[str, ...]]:
+    """Physical evidence fallback for host-authored participation occurrences only."""
+    output: dict[str, tuple[str, ...]] = {}
+    for occurrence in row.get("occurrences", ()):
+        occurrence_id = str(occurrence.get("occurrence_id", ""))
+        source_text = str(occurrence.get("source_text", "")).strip()
+        if not occurrence_id or not source_text:
+            continue
+        if occurrence_id in output:
+            raise ValueError(f"duplicate occurrence identity {occurrence_id}")
+        output[occurrence_id] = (source_text,)
+    return output
+
+
+def _provenance_by_instance(
+    plan_rows: Iterable[Mapping[str, Any]],
+) -> dict[tuple[str, str, str, str], Mapping[str, Any]]:
+    """Index action/realization provenance and reject the old identity collapse."""
+    output: dict[tuple[str, str, str, str], Mapping[str, Any]] = {}
+    for row in plan_rows:
+        case_id = str(row["sub_question_id"])
+        for value in row.get("instance_provenance", ()):
+            raw = value.get("instance_key") or {}
+            key = (
+                str(raw.get("case_id", case_id)),
+                str(raw.get("actor_id", "")),
+                str(raw.get("offense_ref", "")),
+                str(raw.get("occurrence_id", "")),
+            )
+            if not all(key):
+                raise ValueError(f"{case_id}: malformed instance provenance")
+            if key[0] != case_id:
+                raise ValueError(f"{case_id}: cross-case instance provenance")
+            realization_id = str(value.get("realization_id", ""))
+            if realization_id != key[3]:
+                raise ValueError(
+                    f"{case_id}/{key[3]}: occurrence must equal legal realization identity"
+                )
+            if key in output:
+                raise ValueError(f"{case_id}/{key[3]}: duplicate instance provenance")
+            output[key] = value
+    return output
+
+
+def _quotes_for_instance(
+    *,
+    instance: OffenseInstanceKey,
+    provenance: Mapping[str, Any],
+    action_quotes: Mapping[tuple[str, str], tuple[str, ...]],
+    occurrence_quotes: Mapping[str, tuple[str, ...]],
+) -> tuple[str, ...]:
+    """Return only the source actions selected for one legal realization.
+
+    A participation occurrence is host-authored after Call 1.5-P and consequently has no
+    Call 1.5 action id.  Its own physical occurrence is still exact evidence and is the
+    sole permitted fallback.  There is intentionally no factual-episode fallback here.
+    """
+    action_ids = tuple(
+        dict.fromkeys(
+            value
+            for value in (
+                provenance.get("focal_action_id"),
+                *(provenance.get("supporting_action_ids") or ()),
+            )
+            if isinstance(value, str) and value
+        )
+    )
+    if action_ids:
+        quotes = tuple(
+            dict.fromkeys(
+                quote
+                for action_id in action_ids
+                for quote in action_quotes.get((instance.case_id, action_id), ())
+            )
+        )
+        missing = [
+            action_id
+            for action_id in action_ids
+            if (instance.case_id, action_id) not in action_quotes
+        ]
+        if missing:
+            raise ValueError(
+                f"{instance.case_id}/{instance.occurrence_id}: missing action evidence "
+                f"{missing}"
+            )
+        if quotes:
+            return quotes
+    quote = occurrence_quotes.get(instance.occurrence_id)
+    if quote:
+        return quote
+    raise ValueError(
+        f"{instance.case_id}/{instance.occurrence_id}: realization has no exact action "
+        "or host-authored occurrence evidence"
+    )
 
 
 def _instance(value: Mapping[str, Any]) -> OffenseInstanceKey:
@@ -67,8 +184,12 @@ def build_audit(
     dense_cache = Path(
         f"data/eval/cache/cards_embeddinggemma-300m_{card_fingerprint}.json"
     )
-    quotes_by_binding = _binding_quotes(_jsonl(bindings_path))
+    quotes_by_action = _action_quotes(_jsonl(bindings_path))
     plan_rows = _jsonl(plan_path)
+    provenance_by_instance = _provenance_by_instance(plan_rows)
+    occurrence_quotes_by_case = {
+        str(row["sub_question_id"]): _occurrence_quotes(row) for row in plan_rows
+    }
 
     selected_function_counts: Counter[str] = Counter()
     selected_runtime_counts: Counter[str] = Counter()
@@ -82,27 +203,26 @@ def build_audit(
     instance_rows: list[dict[str, Any]] = []
     detail_lexical = LexicalIndex.build(tuple(card.proposition for card in corpus.cards))
 
-    derived_sources: dict[tuple[str, str], tuple[str, ...]] = {}
-    for row in plan_rows:
-        case_id = str(row["sub_question_id"])
-        for candidate in row.get("derived_binding_candidates", ()):
-            derived_sources[(case_id, str(candidate["binding_id"]))] = tuple(
-                str(value) for value in candidate.get("source_binding_ids", ())
-            )
-
     for row in plan_rows:
         for raw_instance in row.get("top_level_instances", ()):
             instance = _instance(raw_instance)
-            source_ids = derived_sources.get(
-                (instance.case_id, instance.occurrence_id),
-                (instance.occurrence_id,),
+            identity = (
+                instance.case_id,
+                instance.actor_id,
+                instance.offense_ref,
+                instance.occurrence_id,
             )
-            quotes = tuple(
-                dict.fromkeys(
-                    quote
-                    for source_id in source_ids
-                    for quote in quotes_by_binding.get((instance.case_id, source_id), ())
+            provenance = provenance_by_instance.get(identity)
+            if provenance is None:
+                raise ValueError(
+                    f"{instance.case_id}/{instance.occurrence_id}: top-level realization "
+                    "lacks instance provenance"
                 )
+            quotes = _quotes_for_instance(
+                instance=instance,
+                provenance=provenance,
+                action_quotes=quotes_by_action,
+                occurrence_quotes=occurrence_quotes_by_case.get(instance.case_id, {}),
             )
             issue_plan = plan_instance_issue_candidates(
                 registry,
@@ -152,8 +272,17 @@ def build_audit(
                         "article_keys": list(issue_plan.projection.article_keys),
                         "statutory_refs": list(issue_plan.projection.statutory_refs),
                     },
-                    "source_binding_ids": list(source_ids),
-                    "episode_quote_count": len(quotes),
+                    # Call 1.5 binding ids remain audit provenance.  The query evidence is
+                    # exclusively determined by the realization's action ids above.
+                    "source_binding_ids": list(provenance.get("source_binding_ids") or ()),
+                    "source_realization_ids": list(
+                        provenance.get("source_realization_ids") or ()
+                    ),
+                    "focal_action_id": provenance.get("focal_action_id"),
+                    "supporting_action_ids": list(
+                        provenance.get("supporting_action_ids") or ()
+                    ),
+                    "action_quote_count": len(quotes),
                     "issue_candidates": candidates,
                 }
             )

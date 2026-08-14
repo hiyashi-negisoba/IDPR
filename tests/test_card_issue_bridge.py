@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import pytest
+
 from idpr.rulebase.cards import card_corpus
 from idpr.rulebase.issue_catalog_v2 import compile_issue_catalog_v2
 from idpr.v2.registry import load_definitions
@@ -12,38 +14,91 @@ from idpr.v2.runtime.card_issue_bridge import (
     project_offense_articles,
 )
 from idpr.v2.runtime.identity import OffenseInstanceKey
+from scripts.audit_v2_card_issue_join import (
+    _action_quotes,
+    _provenance_by_instance,
+    _quotes_for_instance,
+)
+from scripts.build_v2_card_rule_statements import targets_for_case
 
 DEFINITIONS = Path("data/v2/definitions")
 
 
-def test_derived_occurrence_quotes_follow_only_authored_source_bindings() -> None:
+def test_derived_realization_quotes_follow_only_authored_source_actions() -> None:
     binding_row = {
+        "factual_episodes": [
+            {
+                "factual_episode_id": "factual_episode:001",
+                "factual_actions": [
+                    {
+                        "factual_action_id": "factual_action:001:001",
+                        "source_fragments": [
+                            {
+                                "source_quote": "甲이 돈을 받았다.",
+                                "source_start": 0,
+                                "source_end": 10,
+                            }
+                        ],
+                    },
+                    {
+                        "factual_action_id": "factual_action:001:002",
+                        "source_fragments": [
+                            {
+                                "source_quote": "乙이 속아서 교부했다.",
+                                "source_start": 11,
+                                "source_end": 22,
+                            }
+                        ],
+                    },
+                    {
+                        "factual_action_id": "factual_action:001:003",
+                        "source_fragments": [
+                            {
+                                "source_quote": "무관한 행위",
+                                "source_start": 23,
+                                "source_end": 29,
+                            }
+                        ],
+                    },
+                ],
+            }
+        ],
         "seed_results": [
             {
                 "bindings": [
                     {
                         "binding_id": "binding:001",
-                        "actor_action_fragments": [{"source_quote": "甲이 돈을 받았다."}],
-                        "context_fragments": [{"source_quote": "乙이 속아서 교부했다."}],
+                        "focal_action_id": "factual_action:001:001",
+                        "supporting_action_ids": ["factual_action:001:002"],
                     },
                     {
                         "binding_id": "binding:999",
-                        "actor_action_fragments": [{"source_quote": "무관한 행위"}],
-                        "context_fragments": [],
+                        "focal_action_id": "factual_action:001:003",
+                        "supporting_action_ids": [],
                     },
                 ]
             }
         ]
     }
     plan_row = {
-        "derived_binding_candidates": [
+        "instance_provenance": [
             {
-                "binding_id": "derived_binding:001",
+                "instance_key": {
+                    "case_id": "case",
+                    "actor_id": "甲",
+                    "offense_ref": "derived_offense.fraud",
+                    "occurrence_id": "realization:derived:001",
+                },
                 "source_binding_ids": ["binding:001"],
+                "focal_action_id": None,
+                "supporting_action_ids": [
+                    "factual_action:001:001",
+                    "factual_action:001:002",
+                ],
             }
         ]
     }
-    assert _episode_quotes(binding_row, "derived_binding:001", plan_row) == (
+    assert _episode_quotes(binding_row, "realization:derived:001", plan_row) == (
         "甲이 돈을 받았다.",
         "乙이 속아서 교부했다.",
     )
@@ -62,6 +117,92 @@ def test_participation_occurrence_quotes_use_planner_authored_span() -> None:
     assert _episode_quotes({}, "participation_binding:001", plan_row) == (
         "甲이 乙에게 범행을 부탁하였다.",
     )
+
+
+def test_card_audit_keeps_receipt_and_later_use_as_separate_query_evidence() -> None:
+    action_quotes = _action_quotes(
+        [
+            {
+                "sub_question_id": "case",
+                "factual_episodes": [
+                    {
+                        "factual_actions": [
+                            {
+                                "factual_action_id": "factual_action:001:001",
+                                "source_fragments": [
+                                    {
+                                        "source_quote": "甲이 돈을 받았다.",
+                                        "source_start": 0,
+                                        "source_end": 10,
+                                    }
+                                ],
+                            },
+                            {
+                                "factual_action_id": "factual_action:001:002",
+                                "source_fragments": [
+                                    {
+                                        "source_quote": "甲이 나중에 그 돈을 썼다.",
+                                        "source_start": 11,
+                                        "source_end": 25,
+                                    }
+                                ],
+                            },
+                        ]
+                    }
+                ],
+            }
+        ]
+    )
+    instance = OffenseInstanceKey("case", "甲", "offense.embezzlement", "realization:001")
+    quote = _quotes_for_instance(
+        instance=instance,
+        provenance={
+            "focal_action_id": "factual_action:001:001",
+            "supporting_action_ids": [],
+        },
+        action_quotes=action_quotes,
+        occurrence_quotes={"realization:001": ("두 행동을 합친 episode",)},
+    )
+    assert quote == ("甲이 돈을 받았다.",)
+
+
+def test_card_audit_rejects_binding_as_occurrence_identity() -> None:
+    with pytest.raises(ValueError, match="occurrence must equal legal realization identity"):
+        _provenance_by_instance(
+            [
+                {
+                    "sub_question_id": "case",
+                    "instance_provenance": [
+                        {
+                            "instance_key": {
+                                "case_id": "case",
+                                "actor_id": "甲",
+                                "offense_ref": "offense.theft",
+                                "occurrence_id": "binding:001",
+                            },
+                            "realization_id": "realization:001",
+                        }
+                    ],
+                }
+            ]
+        )
+
+
+def test_card_retrieval_refuses_a_realization_without_action_provenance() -> None:
+    instance = {
+        "case_id": "case",
+        "actor_id": "甲",
+        "offense_ref": "offense.theft",
+        "occurrence_id": "realization:001",
+    }
+    with pytest.raises(ValueError, match="lacks planner action provenance"):
+        targets_for_case(
+            None,
+            {"liability_results": [{"instance_key": instance}]},
+            {"case_truths": []},
+            {"factual_episodes": []},
+            {"instance_provenance": []},
+        )
 
 
 def test_criminal_act_article_key_preserves_subarticle_shape() -> None:

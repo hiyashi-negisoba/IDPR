@@ -7,10 +7,13 @@
 #SBATCH --gres=gpu:1
 #SBATCH --mem=48G
 
-# ANSWERPLAN_SPEC 5.5 card retrieval for the P condition.  Reads the frozen N artifacts
-# and writes a rule-statement artifact; no answer plan and no answer is produced here.
+# ANSWERPLAN_SPEC 5.5 card retrieval for the P condition.  Reads one completed
+# action-realization E2E run and writes a rule-statement artifact; no answer plan and no
+# answer is produced here.  The four input artifacts are deliberately required: this
+# launcher must never silently fall back to the frozen binding/episode run.
 #
-#   IDPR_HF_HOME=/data5/jaehoonjeong/.cache/huggingface \
+#   IDPR_E2E_RESULTS=... IDPR_CALL2_ARTIFACT=... IDPR_ISSUE_BINDINGS=... \
+#   IDPR_PLAN_ARTIFACT=... IDPR_HF_HOME=/data5/jaehoonjeong/.cache/huggingface \
 #   sbatch scripts/slurm/run_v2_card_rule_statements.sh
 
 set -euo pipefail
@@ -18,8 +21,12 @@ set -euo pipefail
 source "${IDPR_PROJECT_ROOT:-${SLURM_SUBMIT_DIR:-$PWD}}/scripts/slurm/_env.sh"
 
 CLIENT_PYTHON="${IDPR_PYTHON:-/data5/jaehoonjeong/miniconda3/bin/python}"
-RUN_ROOT="$PROJECT_ROOT/experiments/v2_call15_directscope_26_causal"
-OUT="${IDPR_CARD_RS_OUT:-$RUN_ROOT/card_rule_statements_v1/rule_statements.jsonl}"
+RUN_ROOT="${IDPR_RUN_ROOT:-$PROJECT_ROOT/experiments/v2_action_realization_26_e2e}"
+E2E_RESULTS="${IDPR_E2E_RESULTS:?IDPR_E2E_RESULTS is required (new action-realization Scallop results)}"
+CALL2_ARTIFACT="${IDPR_CALL2_ARTIFACT:?IDPR_CALL2_ARTIFACT is required (new action-realization Call 2 output)}"
+ISSUE_BINDINGS="${IDPR_ISSUE_BINDINGS:?IDPR_ISSUE_BINDINGS is required (new action-atomic Call 1.5 output)}"
+PLAN_ARTIFACT="${IDPR_PLAN_ARTIFACT:?IDPR_PLAN_ARTIFACT is required (new action-realization planner output)}"
+OUT="${IDPR_CARD_RS_OUT:-$RUN_ROOT/card_rule_statements/rule_statements.jsonl}"
 
 export TOKENIZERS_PARALLELISM=false
 export PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True
@@ -27,15 +34,19 @@ export PYTHONPATH="$PROJECT_ROOT/src"
 
 cd "$PROJECT_ROOT"
 mkdir -p logs "$(dirname "$OUT")"
+test -s "$E2E_RESULTS"
+test -s "$CALL2_ARTIFACT"
+test -s "$ISSUE_BINDINGS"
+test -s "$PLAN_ARTIFACT"
 echo "=== v2 card rule statements start: $(date) ==="
-echo "job=${SLURM_JOB_ID:-none} host=$(hostname -s) out=$OUT"
+echo "job=${SLURM_JOB_ID:-none} host=$(hostname -s) run_root=$RUN_ROOT out=$OUT"
 nvidia-smi --query-gpu=name,memory.total --format=csv,noheader || true
 
 "$CLIENT_PYTHON" scripts/build_v2_card_rule_statements.py \
-    --e2e-results "$RUN_ROOT/final_responsibility_v13_gf_rebase/results.jsonl" \
-    --call2-artifact "$RUN_ROOT/call2_v10_ground_fact_rebase/grounding_output_rebased.jsonl" \
-    --issue-bindings "$RUN_ROOT/issue_bindings.jsonl" \
-    --plan-artifact "$RUN_ROOT/participation_plan_v7_necessary_gate/evaluation_instance_plan.jsonl" \
+    --e2e-results "$E2E_RESULTS" \
+    --call2-artifact "$CALL2_ARTIFACT" \
+    --issue-bindings "$ISSUE_BINDINGS" \
+    --plan-artifact "$PLAN_ARTIFACT" \
     --out "$OUT"
 
 echo "=== v2 card rule statements end: $(date) ==="

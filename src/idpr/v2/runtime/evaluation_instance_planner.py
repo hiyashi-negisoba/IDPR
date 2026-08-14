@@ -15,7 +15,7 @@ from idpr.v2 import expressions
 from idpr.v2.closure import ClosureResult, compile_closure
 from idpr.v2.compile import CompiledOffense, compile_offense
 from idpr.v2.gold_factual_identity import GoldFactualParticipant, GoldOccurrence
-from idpr.v2.issue_binding import FactualEpisode, IssueBinding
+from idpr.v2.issue_binding import FactualAction, FactualEpisode, IssueBinding
 from idpr.v2.registry import DefinitionRegistry
 from idpr.v2.runtime import completion as completion_mod
 from idpr.v2.runtime.article263_grounding import Article263OccurrencePair
@@ -55,6 +55,48 @@ class EvaluationInstancePlannerError(ValueError):
 
 
 @dataclass(frozen=True)
+class LegalRealization:
+    """Host-materialized legal evaluation unit over atomic factual actions."""
+
+    realization_id: str
+    factual_episode_id: str
+    actor_id: str
+    offense_ref: str
+    focal_action_id: str | None
+    supporting_action_ids: tuple[str, ...]
+    source_binding_ids: tuple[str, ...]
+    source_realization_ids: tuple[str, ...] = ()
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "realization_id": self.realization_id,
+            "factual_episode_id": self.factual_episode_id,
+            "actor_id": self.actor_id,
+            "offense_ref": self.offense_ref,
+            "focal_action_id": self.focal_action_id,
+            "supporting_action_ids": list(self.supporting_action_ids),
+            "source_binding_ids": list(self.source_binding_ids),
+            "source_realization_ids": list(self.source_realization_ids),
+        }
+
+
+@dataclass(frozen=True)
+class AssessmentCarrier:
+    """One physical Call 2 evidence carrier assigned by predicate scope."""
+
+    target: AssessmentTarget
+    carrier_id: str
+    carrier_kind: str
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            **self.target.as_dict(),
+            "carrier_id": self.carrier_id,
+            "carrier_kind": self.carrier_kind,
+        }
+
+
+@dataclass(frozen=True)
 class DerivedBindingCandidate:
     binding_id: str
     factual_episode_id: str
@@ -64,6 +106,8 @@ class DerivedBindingCandidate:
     authored_source_paths: tuple[tuple[str, ...], ...]
     required_binding_refs: tuple[str, ...]
     supporting_actor_ids: tuple[str, ...]
+    source_realization_ids: tuple[str, ...] = ()
+    realization_id: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -72,6 +116,8 @@ class DerivedBindingCandidate:
             "actor_id": self.actor_id,
             "offense_ref": self.offense_ref,
             "source_binding_ids": list(self.source_binding_ids),
+            "source_realization_ids": list(self.source_realization_ids),
+            "realization_id": self.realization_id,
             "authored_source_paths": [list(value) for value in self.authored_source_paths],
             "candidate_generated_because": "required_same_episode_bindings",
             "required_binding_refs": list(self.required_binding_refs),
@@ -97,6 +143,12 @@ class InstanceProvenance:
     instance: OffenseInstanceKey
     factual_episode_id: str
     source_binding_ids: tuple[str, ...] = ()
+    realization_id: str = ""
+    focal_action_id: str | None = None
+    supporting_action_ids: tuple[str, ...] = ()
+    source_realization_ids: tuple[str, ...] = ()
+    carrier_ids: tuple[tuple[str, str], ...] = ()
+    actor_in_focal_action: bool = False
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -108,6 +160,12 @@ class InstanceProvenance:
             },
             "factual_episode_id": self.factual_episode_id,
             "source_binding_ids": list(self.source_binding_ids),
+            "realization_id": self.realization_id or self.instance.occurrence_id,
+            "focal_action_id": self.focal_action_id,
+            "supporting_action_ids": list(self.supporting_action_ids),
+            "source_realization_ids": list(self.source_realization_ids),
+            "carrier_ids": dict(self.carrier_ids),
+            "actor_in_focal_action": self.actor_in_focal_action,
         }
 
 
@@ -155,6 +213,8 @@ class OccurrenceAwareEvaluationInstancePlan:
     utilized_participant_outcome_targets: tuple[UtilizedParticipantOutcomeTarget, ...]
     utilized_participant_predicate_targets: tuple[UtilizedParticipantPredicateTarget, ...]
     candidate_doctrine_refs: tuple[str, ...]
+    legal_realizations: tuple[LegalRealization, ...] = ()
+    assessment_carriers: tuple[AssessmentCarrier, ...] = ()
     derived_binding_candidates: tuple[DerivedBindingCandidate, ...] = ()
     unbound_seed_refs: tuple[str, ...] = ()
     article263_pair_candidates: tuple[Article263OccurrencePair, ...] = ()
@@ -217,6 +277,10 @@ class OccurrenceAwareEvaluationInstancePlan:
                 for value in self.utilized_participant_outcome_targets
             ],
             "candidate_doctrine_refs": list(self.candidate_doctrine_refs),
+            "legal_realizations": [value.as_dict() for value in self.legal_realizations],
+            "legal_realization_count": len(self.legal_realizations),
+            "assessment_carriers": [value.as_dict() for value in self.assessment_carriers],
+            "assessment_carrier_count": len(self.assessment_carriers),
             "derived_binding_candidates": [
                 value.as_dict() for value in self.derived_binding_candidates
             ],
@@ -451,7 +515,57 @@ def plan_occurrence_aware_evaluation_instances(
     )
 
 
-def plan_binding_scoped_evaluation_instances(
+def _actor_bound_ground_fact(registry: DefinitionRegistry, predicate_ref: str) -> bool:
+    entry = registry.get(predicate_ref)
+    if entry is None or entry.kind != "ground_fact":
+        return False
+    return any(
+        isinstance(argument, dict)
+        and argument.get("name")
+        in {"actor", "witness", "offender", "disposer", "possessor", "official"}
+        for argument in entry.payload.get("arguments", ())
+    )
+
+
+def _actor_participates_in_focal(
+    action_by_id: dict[str, FactualAction], realization: LegalRealization
+) -> bool:
+    """Whether the liable actor is a participant of its focal action.
+
+    False for accessories and instigators, whose focal action is the principal's
+    execution.  A focal-only carrier is unreadable for those actors, so this
+    gates every narrowing decision downstream.
+    """
+    if realization.focal_action_id is None:
+        return False
+    return realization.actor_id in action_by_id[realization.focal_action_id].participant_ids
+
+
+def _ordered_action_evidence(
+    action_by_id: dict[str, FactualAction], action_ids: Iterable[str]
+) -> tuple[str, int, int]:
+    fragments = [
+        fragment
+        for action_id in action_ids
+        for fragment in action_by_id[action_id].source_fragments
+    ]
+    ordered = sorted(
+        {(
+            fragment.source_start,
+            fragment.source_end,
+            fragment.source_quote,
+        ) for fragment in fragments}
+    )
+    if not ordered:
+        raise EvaluationInstancePlannerError("legal realization has no factual action evidence")
+    return (
+        "\n".join(quote for _, _, quote in ordered),
+        min(start for start, _, _ in ordered),
+        max(end for _, end, _ in ordered),
+    )
+
+
+def _plan_action_atomic_binding_instances(
     registry: DefinitionRegistry,
     *,
     case_id: str,
@@ -462,85 +576,124 @@ def plan_binding_scoped_evaluation_instances(
     case_text: str | None = None,
     liability_source_spans: Iterable[tuple[int, int]] | None = None,
 ) -> OccurrenceAwareEvaluationInstancePlan:
-    """Materialize one top-level evaluation context per Call 1.5 binding.
+    """Materialize action-scoped legal realizations from Call 1.5 candidates.
 
-    Actor-action and contextual fragments inside one binding are joined into one
-    evidence carrier while remaining typed in the Call 1.5 artifact. Closure remains scoped to the binding. Conditional closure
-    offenses are recorded as candidates but are not implicitly promoted to
-    top-level instances; a separate host rule must create a derived binding.
+    The only route from a binding to an occurrence is this host materialization.
+    A binding id remains provenance; it is never an occurrence id.
     """
-    all_binding_values = tuple(bindings)
-    if tuple(value.binding_id for value in all_binding_values) != tuple(
-        f"binding:{index:03d}" for index in range(1, len(all_binding_values) + 1)
+    all_bindings = tuple(bindings)
+    if tuple(value.binding_id for value in all_bindings) != tuple(
+        f"binding:{index:03d}" for index in range(1, len(all_bindings) + 1)
     ):
         raise EvaluationInstancePlannerError(f"{case_id}: noncanonical binding ids")
+    episodes = tuple(factual_episodes)
+    episode_by_id = {value.factual_episode_id: value for value in episodes}
+    if len(episode_by_id) != len(episodes):
+        raise EvaluationInstancePlannerError(f"{case_id}: duplicate factual episode ids")
+    action_by_id = {
+        action.factual_action_id: action
+        for episode in episodes
+        for action in episode.factual_actions
+    }
+    if len(action_by_id) != sum(len(value.factual_actions) for value in episodes):
+        raise EvaluationInstancePlannerError(f"{case_id}: duplicate factual action ids")
+    for binding in all_bindings:
+        episode = episode_by_id.get(binding.factual_episode_id)
+        focal = action_by_id.get(binding.focal_action_id)
+        supports = [action_by_id.get(action_id) for action_id in binding.supporting_action_ids]
+        if (
+            episode is None
+            or focal is None
+            or focal.factual_episode_id != binding.factual_episode_id
+            or any(action is None or action.factual_episode_id != binding.factual_episode_id for action in supports)
+        ):
+            raise EvaluationInstancePlannerError(
+                f"{case_id}/{binding.binding_id}: dangling factual action identity"
+            )
+        # Accessories and instigators are bound to the principal's execution
+        # action, so the liable actor only has to appear in the evidence this
+        # realization carries -- focal action plus the supports Call 1.5 chose.
+        carried_participants = set(focal.participant_ids)
+        for action in supports:
+            carried_participants.update(action.participant_ids)
+        if binding.actor_id not in carried_participants:
+            raise EvaluationInstancePlannerError(
+                f"{case_id}/{binding.binding_id}: liable actor is outside its carried actions"
+            )
     source_spans = tuple(liability_source_spans or ())
     if any(start < 0 or end <= start for start, end in source_spans):
         raise EvaluationInstancePlannerError(f"{case_id}: invalid liability source span")
     if source_spans:
-        binding_values = tuple(
+        active_bindings = tuple(
             binding
-            for binding in all_binding_values
+            for binding in all_bindings
             if any(
-                fragment.source_start < target_end
-                and target_start < fragment.source_end
-                for fragment in binding.actor_action_fragments
+                fragment.source_start < target_end and target_start < fragment.source_end
+                for fragment in action_by_id[binding.focal_action_id].source_fragments
                 for target_start, target_end in source_spans
             )
         )
     else:
-        binding_values = all_binding_values
-    active_binding_ids = {value.binding_id for value in binding_values}
+        active_bindings = all_bindings
+    active_binding_ids = {binding.binding_id for binding in active_bindings}
     context_only_binding_ids = tuple(
-        value.binding_id
-        for value in all_binding_values
-        if value.binding_id not in active_binding_ids
+        binding.binding_id
+        for binding in all_bindings
+        if binding.binding_id not in active_binding_ids
     )
-
-    episode_values = tuple(factual_episodes)
-    episode_by_id = {value.factual_episode_id: value for value in episode_values}
-    if len(episode_by_id) != len(episode_values):
-        raise EvaluationInstancePlannerError(f"{case_id}: duplicate factual episode ids")
-    if episode_values and any(
-        binding.factual_episode_id not in episode_by_id for binding in binding_values
-    ):
-        raise EvaluationInstancePlannerError(f"{case_id}: dangling binding episode identity")
     allowed_candidates = (
         frozenset(allowed_candidate_offense_refs)
         if allowed_candidate_offense_refs is not None
         else None
     )
-    evidence: list[GoldOccurrence] = []
+
+    grouped: dict[tuple[str, str, str, str, tuple[str, ...]], list[IssueBinding]] = {}
+    for binding in active_bindings:
+        key = (
+            binding.factual_episode_id,
+            binding.actor_id,
+            binding.offense_ref,
+            binding.focal_action_id,
+            binding.supporting_action_ids,
+        )
+        grouped.setdefault(key, []).append(binding)
+    legal_realizations: list[LegalRealization] = []
     top_level: list[OffenseInstanceKey] = []
+    realization_by_id: dict[str, LegalRealization] = {}
+    binding_to_realization: dict[str, str] = {}
     closure_candidates: list[str] = []
     doctrine_refs: list[str] = []
-    for binding in binding_values:
-        combined = binding.evidence_text
-        if not combined:
-            raise EvaluationInstancePlannerError(
-                f"{case_id}/{binding.binding_id}: empty binding evidence"
-            )
-        evidence.append(
-            GoldOccurrence(binding.binding_id, binding.actor_id, combined, 0, len(combined))
+    for group_index, (key, group) in enumerate(grouped.items(), 1):
+        episode_id, actor_id, offense_ref, focal_action_id, supporting_action_ids = key
+        realization_id = f"realization:{group_index:03d}"
+        realization = LegalRealization(
+            realization_id,
+            episode_id,
+            actor_id,
+            offense_ref,
+            focal_action_id,
+            supporting_action_ids,
+            tuple(binding.binding_id for binding in group),
         )
-        top_level.append(
-            OffenseInstanceKey(
-                case_id, binding.actor_id, binding.offense_ref, binding.binding_id
-            )
-        )
-        binding_closure = compile_closure(registry, (binding.offense_ref,))
-        closure_candidates.extend(sorted(binding_closure.candidate_offense_refs))
-        doctrine_refs.extend(item.definition_ref for item in binding_closure.doctrine_probes)
+        legal_realizations.append(realization)
+        realization_by_id[realization_id] = realization
+        for binding in group:
+            binding_to_realization[binding.binding_id] = realization_id
+        top_level.append(OffenseInstanceKey(case_id, actor_id, offense_ref, realization_id))
+        closure = compile_closure(registry, (offense_ref,))
+        closure_candidates.extend(sorted(closure.candidate_offense_refs))
+        doctrine_refs.extend(item.definition_ref for item in closure.doctrine_probes)
 
-    derived_bindings: list[DerivedBindingCandidate] = []
-    grouped: dict[tuple[str, str], list[IssueBinding]] = {}
-    for binding in binding_values:
-        grouped.setdefault((binding.factual_episode_id, binding.actor_id), []).append(binding)
-    for (episode_id, actor_id), episode_bindings in grouped.items():
-        if episode_id not in episode_by_id:
-            continue
-        episode = episode_by_id[episode_id]
-        direct_refs = tuple(dict.fromkeys(value.offense_ref for value in episode_bindings))
+    # Derived candidates still use the authored closure rule, but their structural
+    # dependency now follows legal realizations rather than source binding ids.
+    derived_candidates: list[DerivedBindingCandidate] = []
+    direct_by_episode_actor: dict[tuple[str, str], list[LegalRealization]] = {}
+    for realization in legal_realizations:
+        direct_by_episode_actor.setdefault(
+            (realization.factual_episode_id, realization.actor_id), []
+        ).append(realization)
+    for (episode_id, actor_id), direct_realizations in direct_by_episode_actor.items():
+        direct_refs = tuple(dict.fromkeys(value.offense_ref for value in direct_realizations))
         local_closure = compile_closure(registry, direct_refs)
         local_candidates = {
             ref
@@ -552,16 +705,13 @@ def plan_binding_scoped_evaluation_instances(
         probe_paths: dict[str, list[tuple[str, ...]]] = {}
         for item in local_closure.offense_probes:
             probe_paths.setdefault(item.definition_ref, []).append(item.source_path)
-        episode_text = "\n".join(
-            value.source_quote for value in episode.source_fragments
-        )
         supporting_ids: dict[str, tuple[str, ...]] = {
-            value.offense_ref: tuple(
-                item.binding_id
-                for item in episode_bindings
-                if item.offense_ref == value.offense_ref
+            ref: tuple(
+                value.realization_id
+                for value in direct_realizations
+                if value.offense_ref == ref
             )
-            for value in episode_bindings
+            for ref in direct_refs
         }
         pending = set(local_candidates)
         while pending:
@@ -577,17 +727,10 @@ def plan_binding_scoped_evaluation_instances(
                     )
                 binding_sets = metadata.get("binding_sets", [])
                 peer_binding_sets = metadata.get("distinct_actor_binding_sets", [])
-                if not isinstance(binding_sets, list) or not isinstance(
-                    peer_binding_sets, list
-                ):
+                if not isinstance(binding_sets, list) or not isinstance(peer_binding_sets, list):
                     raise EvaluationInstancePlannerError(
                         f"{case_id}/{offense_ref}: malformed materialization metadata"
                     )
-                for refs in (*binding_sets, *peer_binding_sets):
-                    if any(registry.kind_of(ref) not in _OFFENSE_KINDS for ref in refs):
-                        raise EvaluationInstancePlannerError(
-                            f"{case_id}/{offense_ref}: materialization binding ref is not an offense"
-                        )
                 matched = next(
                     (
                         tuple(refs)
@@ -599,49 +742,63 @@ def plan_binding_scoped_evaluation_instances(
                     None,
                 )
                 peer_matched: tuple[str, ...] | None = None
-                peer_bindings: tuple[IssueBinding, ...] = ()
+                peer_realizations: tuple[LegalRealization, ...] = ()
                 if matched is None:
                     for refs in peer_binding_sets:
                         if (
                             not isinstance(refs, list)
                             or not refs
-                            or not all(
-                                isinstance(ref, str) and ref in supporting_ids
-                                for ref in refs
-                            )
+                            or not all(isinstance(ref, str) and ref in supporting_ids for ref in refs)
                         ):
                             continue
                         candidates = tuple(
                             value
-                            for value in binding_values
-                            if value.factual_episode_id == episode_id
-                            and value.actor_id != actor_id
-                            and value.offense_ref in refs
+                            for (candidate_episode, candidate_actor), values in direct_by_episode_actor.items()
+                            if candidate_episode == episode_id and candidate_actor != actor_id
+                            for value in values
+                            if value.offense_ref in refs
                         )
                         if {value.offense_ref for value in candidates} >= set(refs):
                             peer_matched = tuple(refs)
-                            peer_bindings = candidates
+                            peer_realizations = candidates
                             break
                 if matched is None and peer_matched is None:
                     continue
                 required_refs = matched if matched is not None else peer_matched
                 assert required_refs is not None
+                source_realization_ids = tuple(
+                    dict.fromkeys(
+                        (
+                            *(
+                                realization_id
+                                for ref in required_refs
+                                for realization_id in supporting_ids[ref]
+                            ),
+                            *(value.realization_id for value in peer_realizations),
+                        )
+                    )
+                )
+                source_realizations = [
+                    realization_by_id[realization_id]
+                    for realization_id in source_realization_ids
+                ]
                 source_binding_ids = tuple(
                     dict.fromkeys(
                         binding_id
-                        for ref in required_refs
-                        for binding_id in supporting_ids[ref]
+                        for realization in source_realizations
+                        for binding_id in realization.source_binding_ids
                     )
-                ) + tuple(value.binding_id for value in peer_bindings)
-                binding_id = f"derived_binding:{len(derived_bindings) + 1:03d}"
+                )
+                candidate_id = f"derived_binding:{len(derived_candidates) + 1:03d}"
+                realization_id = f"realization:derived:{len(derived_candidates) + 1:03d}"
                 provenance = tuple(probe_paths.get(offense_ref, ()))
                 if not provenance:
                     raise EvaluationInstancePlannerError(
                         f"{case_id}/{offense_ref}: derived candidate lacks authored probe path"
                     )
-                derived_bindings.append(
+                derived_candidates.append(
                     DerivedBindingCandidate(
-                        binding_id,
+                        candidate_id,
                         episode_id,
                         actor_id,
                         offense_ref,
@@ -650,18 +807,40 @@ def plan_binding_scoped_evaluation_instances(
                         required_refs,
                         tuple(
                             dict.fromkeys(
-                                (actor_id, *(value.actor_id for value in peer_bindings))
+                                (actor_id, *(value.actor_id for value in peer_realizations))
                             )
                         ),
+                        source_realization_ids,
+                        realization_id,
                     )
                 )
-                supporting_ids[offense_ref] = (binding_id,)
-                evidence.append(
-                    GoldOccurrence(binding_id, actor_id, episode_text, 0, len(episode_text))
+                action_ids = tuple(
+                    dict.fromkeys(
+                        action_id
+                        for realization in source_realizations
+                        for action_id in (
+                            (realization.focal_action_id, *realization.supporting_action_ids)
+                            if realization.focal_action_id is not None
+                            else realization.supporting_action_ids
+                        )
+                    )
                 )
+                derived = LegalRealization(
+                    realization_id,
+                    episode_id,
+                    actor_id,
+                    offense_ref,
+                    None,
+                    action_ids,
+                    source_binding_ids,
+                    source_realization_ids,
+                )
+                legal_realizations.append(derived)
+                realization_by_id[realization_id] = derived
                 top_level.append(
-                    OffenseInstanceKey(case_id, actor_id, offense_ref, binding_id)
+                    OffenseInstanceKey(case_id, actor_id, offense_ref, realization_id)
                 )
+                supporting_ids[offense_ref] = (realization_id,)
                 closure_candidates.append(offense_ref)
                 pending.remove(offense_ref)
                 materialized = True
@@ -670,44 +849,16 @@ def plan_binding_scoped_evaluation_instances(
 
     top_level_values = tuple(top_level)
     if len(top_level_values) != len(set(top_level_values)):
-        raise EvaluationInstancePlannerError(f"{case_id}: duplicate binding instance")
-    episode_by_binding_id = {
-        value.binding_id: value.factual_episode_id for value in binding_values
-    }
-    sources_by_binding_id = {
-        value.binding_id: value.source_binding_ids for value in derived_bindings
-    }
-    episode_by_binding_id.update(
-        {value.binding_id: value.factual_episode_id for value in derived_bindings}
-    )
-    episode_sequence = (
-        tuple(value.factual_episode_id for value in episode_values)
-        if episode_values
-        else tuple(dict.fromkeys(value.factual_episode_id for value in binding_values))
-    )
-    provenance_values = tuple(
-        InstanceProvenance(
-            instance,
-            episode_by_binding_id[instance.occurrence_id],
-            sources_by_binding_id.get(instance.occurrence_id, ()),
-        )
-        for instance in top_level_values
-        if instance.occurrence_id in episode_by_binding_id
-    )
-    if len(provenance_values) != len(top_level_values):
-        raise EvaluationInstancePlannerError(
-            f"{case_id}: top-level instance without factual episode provenance"
-        )
+        raise EvaluationInstancePlannerError(f"{case_id}: duplicate realization instance")
     selected_offenses = tuple(dict.fromkeys(value.offense_ref for value in top_level_values))
     compiled_by_ref: dict[str, CompiledOffense] = {}
     policies: dict[str, Any] = {}
     for ref in selected_offenses:
         compiled = compile_offense(registry, ref)
         if not isinstance(compiled, CompiledOffense):
-            raise EvaluationInstancePlannerError(f"{case_id}: binding offense does not compile")
+            raise EvaluationInstancePlannerError(f"{case_id}: realization offense does not compile")
         compiled_by_ref[ref] = compiled
         policies[ref] = completion_mod.completion_policy_for(registry, ref)
-
     predicate_scopes = _component_scopes(top_level_values, compiled_by_ref, policies)
     assessment = tuple(dict.fromkeys((*top_level_values, *predicate_scopes)))
     target_values = tuple(
@@ -715,61 +866,246 @@ def plan_binding_scoped_evaluation_instances(
         for instance in assessment
         for ref in _instance_predicate_refs(registry, instance)
     )
+    assessment_targets = tuple(AssessmentTarget(instance, ref) for instance, ref in target_values)
     selected_predicates = tuple(dict.fromkeys(ref for _, ref in target_values))
+
+    carrier_occurrences: dict[str, GoldOccurrence] = {}
+    carrier_assignments: list[AssessmentCarrier] = []
+    carrier_ids_by_realization: dict[str, dict[str, str]] = {}
+    def ensure_carrier(
+        realization: LegalRealization, carrier_kind: str, anchored_at_focal: bool = False
+    ) -> str:
+        cache_key = f"{carrier_kind}@focal" if anchored_at_focal else carrier_kind
+        ids = carrier_ids_by_realization.setdefault(realization.realization_id, {})
+        if cache_key in ids:
+            return ids[cache_key]
+        if carrier_kind == "focal_action" and realization.focal_action_id is not None:
+            action_ids = (realization.focal_action_id,)
+        elif carrier_kind == "actor_episode":
+            # `same_actor_episode` is the widest authored scope: every action of this
+            # episode the responsibility actor takes part in, not only the ones the
+            # binding selected.  Peer actors' actions stay out -- the whole point of the
+            # scope is to widen the actor's own factual record, not the episode's.
+            action_ids = tuple(
+                action.factual_action_id
+                for action in sorted(
+                    (
+                        value
+                        for value in action_by_id.values()
+                        if value.factual_episode_id == realization.factual_episode_id
+                        and realization.actor_id in value.participant_ids
+                    ),
+                    key=lambda value: value.sequence_index,
+                )
+            )
+            if not action_ids:
+                action_ids = tuple(
+                    dict.fromkeys(
+                        (
+                            (realization.focal_action_id, *realization.supporting_action_ids)
+                            if realization.focal_action_id is not None
+                            else realization.supporting_action_ids
+                        )
+                    )
+                )
+                carrier_kind = "realization"
+        else:
+            action_ids = tuple(
+                dict.fromkeys(
+                    (
+                        (realization.focal_action_id, *realization.supporting_action_ids)
+                        if realization.focal_action_id is not None
+                        else realization.supporting_action_ids
+                    )
+                )
+            )
+            carrier_kind = "realization"
+        if anchored_at_focal and realization.focal_action_id is not None:
+            # `temporal_anchor: focal_action` fixes the moment being judged, not the width
+            # of the record.  Dropping only what happens after the focal action keeps a
+            # later consumption or flight out of a receipt-time question while still
+            # admitting the scope its definition authored.  Collapsing the carrier to the
+            # focal action instead is what left 자기이득 목적 at 100% UNKNOWN.
+            limit = action_by_id[realization.focal_action_id].sequence_index
+            action_ids = tuple(
+                value for value in action_ids if action_by_id[value].sequence_index <= limit
+            )
+            carrier_kind = f"{carrier_kind}_at_focal"
+        source_text, source_start, source_end = _ordered_action_evidence(action_by_id, action_ids)
+        # A legal realization is offense-scoped, but an evidence carrier is factual.
+        # Separate offense candidates can therefore reuse one action carrier without
+        # being projected from a whole factual episode.  Keep the focal action in the
+        # realization carrier signature too: the same support set around a different
+        # focal action is a different temporal/legal question.
+        signature = tuple(
+            value
+            for value in (
+                realization.focal_action_id,
+                *realization.supporting_action_ids,
+            )
+            if value is not None
+        )
+        carrier_id = ":".join(
+            (
+                "carrier",
+                carrier_kind,
+                realization.actor_id,
+                *signature,
+            )
+        )
+        occurrence = GoldOccurrence(
+            carrier_id,
+            realization.actor_id,
+            source_text,
+            source_start,
+            source_end,
+        )
+        previous = carrier_occurrences.get(carrier_id)
+        if previous is not None and previous != occurrence:
+            raise EvaluationInstancePlannerError(
+                f"{case_id}: factual carrier identity has inconsistent evidence"
+            )
+        carrier_occurrences[carrier_id] = occurrence
+        ids[cache_key] = carrier_id
+        return carrier_id
+    for target in assessment_targets:
+        realization = realization_by_id.get(target.instance_key.occurrence_id)
+        if realization is None:
+            raise EvaluationInstancePlannerError(
+                f"{case_id}: target lacks legal realization provenance"
+            )
+        entry = registry.get(target.predicate_ref)
+        if entry is None:
+            raise EvaluationInstancePlannerError(f"{case_id}: unknown predicate carrier")
+        # Width is the definition's business.  An explicitly authored `evidence_scope`
+        # beats the generic actor-bound narrowing: that rule exists to stop another
+        # actor's conduct being read as this one's, and `actor_episode` already carries
+        # only actions this actor takes part in, so the attribution risk it guards
+        # against is absent.  Without an authored scope the generic rule still decides.
+        scope = str(entry.payload.get("evidence_scope") or "")
+        if scope == "same_actor_episode":
+            carrier_kind = "actor_episode"
+        elif scope == "exact_actor_action":
+            carrier_kind = "focal_action"
+        elif not scope and entry.kind == "ground_fact" and _actor_bound_ground_fact(
+            registry, target.predicate_ref
+        ):
+            carrier_kind = "focal_action"
+        else:
+            carrier_kind = "realization"
+        # A focal-only carrier is readable only when the responsibility actor is
+        # a participant of the focal action.  For an accessory or instigator the
+        # focal action is the principal's execution, so narrowing to it would ask
+        # Call 2 about an actor the carrier never mentions.  Those targets fall
+        # back to the realization carrier, which is still limited to the actions
+        # Call 1.5 selected rather than the whole episode.
+        if carrier_kind == "focal_action" and not _actor_participates_in_focal(
+            action_by_id, realization
+        ):
+            carrier_kind = "realization"
+        anchored_at_focal = entry.payload.get("temporal_anchor") == "focal_action"
+        carrier_id = ensure_carrier(realization, carrier_kind, anchored_at_focal)
+        carrier_assignments.append(
+            AssessmentCarrier(
+                target,
+                carrier_id,
+                f"{carrier_kind}_at_focal" if anchored_at_focal else carrier_kind,
+            )
+        )
+    carrier_by_target = {value.target: value.carrier_id for value in carrier_assignments}
     neural_count = len(
         grounding_request_targets(
-            registry,
-            tuple(AssessmentTarget(instance, ref) for instance, ref in target_values),
-            episode_by_occurrence=episode_by_binding_id,
+            registry, assessment_targets, carrier_by_target=carrier_by_target
         )
     )
+
+    # Relation and participation paths retain their realization-level evidence
+    # lookup.  Add that alias alongside the physical predicate carriers.
+    realization_occurrences: list[GoldOccurrence] = []
+    for realization in legal_realizations:
+        source_text, source_start, source_end = _ordered_action_evidence(
+            action_by_id,
+            (
+                (realization.focal_action_id, *realization.supporting_action_ids)
+                if realization.focal_action_id is not None
+                else realization.supporting_action_ids
+            ),
+        )
+        realization_occurrences.append(
+            GoldOccurrence(
+                realization.realization_id,
+                realization.actor_id,
+                source_text,
+                source_start,
+                source_end,
+            )
+        )
     relation_targets = relation_assessment_targets(registry, assessment)
+    binding_by_id = {binding.binding_id: binding for binding in active_bindings}
     article263_pairs: list[Article263OccurrencePair] = []
-    injury_bindings = tuple(
-        value for value in binding_values if value.offense_ref == "offense.injury"
+    injury_realizations = tuple(
+        value for value in legal_realizations if value.offense_ref == "offense.injury"
     )
-    for left, right in combinations(injury_bindings, 2):
-        if (
-            left.factual_episode_id != right.factual_episode_id
-            or left.actor_id == right.actor_id
-            or not (set(left.factual_targets) & set(right.factual_targets))
-        ):
+    for left, right in combinations(injury_realizations, 2):
+        if left.factual_episode_id != right.factual_episode_id or left.actor_id == right.actor_id:
             continue
-        episode = episode_by_id.get(left.factual_episode_id)
-        if episode is None or not episode.source_fragments:
+        left_targets = {
+            target
+            for binding_id in left.source_binding_ids
+            for target in binding_by_id[binding_id].factual_targets
+        }
+        right_targets = {
+            target
+            for binding_id in right.source_binding_ids
+            for target in binding_by_id[binding_id].factual_targets
+        }
+        if not (left_targets & right_targets):
             continue
-        start = min(value.source_start for value in episode.source_fragments)
-        end = max(value.source_end for value in episode.source_fragments)
+        episode = episode_by_id[left.factual_episode_id]
+        if not episode.source_fragments:
+            continue
+        start = min(fragment.source_start for fragment in episode.source_fragments)
+        end = max(fragment.source_end for fragment in episode.source_fragments)
         relation_text = (
             case_text[start:end]
             if case_text is not None
-            else "\n".join(value.source_quote for value in episode.source_fragments)
+            else "\n".join(fragment.source_quote for fragment in episode.source_fragments)
         )
         article263_pairs.append(
             Article263OccurrencePair(
-                pair_id=f"article263-pair:{len(article263_pairs) + 1:04d}",
-                left=OffenseInstanceKey(
-                    case_id, left.actor_id, left.offense_ref, left.binding_id
-                ),
-                right=OffenseInstanceKey(
-                    case_id, right.actor_id, right.offense_ref, right.binding_id
-                ),
-                relation_source_text=relation_text,
-                relation_source_start=start,
-                relation_source_end=end,
+                f"article263-pair:{len(article263_pairs) + 1:04d}",
+                OffenseInstanceKey(case_id, left.actor_id, left.offense_ref, left.realization_id),
+                OffenseInstanceKey(case_id, right.actor_id, right.offense_ref, right.realization_id),
+                relation_text,
+                start,
+                end,
             )
         )
-    # Call 1.5 factual_targets carry no legal role.  Until a later typed relation
-    # stage interprets them, they cannot create indirect-principal or participant
-    # outcome targets.  In particular, offline gold participants are not a
-    # production fallback.
-    utilization_targets: tuple[FactualUtilizationTarget, ...] = ()
-    participant_outcomes: tuple[UtilizedParticipantOutcomeTarget, ...] = ()
-    participant_predicates: tuple[UtilizedParticipantPredicateTarget, ...] = ()
+    provenance_values = tuple(
+        InstanceProvenance(
+            instance,
+            realization_by_id[instance.occurrence_id].factual_episode_id,
+            realization_by_id[instance.occurrence_id].source_binding_ids,
+            realization_by_id[instance.occurrence_id].realization_id,
+            realization_by_id[instance.occurrence_id].focal_action_id,
+            realization_by_id[instance.occurrence_id].supporting_action_ids,
+            realization_by_id[instance.occurrence_id].source_realization_ids,
+            tuple(
+                sorted(
+                    carrier_ids_by_realization.get(instance.occurrence_id, {}).items()
+                )
+            ),
+            _actor_participates_in_focal(
+                action_by_id, realization_by_id[instance.occurrence_id]
+            ),
+        )
+        for instance in assessment
+    )
+    episode_sequence = tuple(value.factual_episode_id for value in episodes)
     return OccurrenceAwareEvaluationInstancePlan(
         case_id=case_id,
         top10_seeds=selected_offenses,
-        occurrences=tuple(evidence),
+        occurrences=tuple((*realization_occurrences, *carrier_occurrences.values())),
         candidate_offense_refs=tuple(dict.fromkeys(closure_candidates)),
         top_level_instances=top_level_values,
         predicate_scope_instances=predicate_scopes,
@@ -779,11 +1115,13 @@ def plan_binding_scoped_evaluation_instances(
         neural_predicate_request_target_count=neural_count,
         relation_assessment_targets=relation_targets,
         participation_local_targets=(),
-        factual_utilization_targets=utilization_targets,
-        utilized_participant_outcome_targets=participant_outcomes,
-        utilized_participant_predicate_targets=participant_predicates,
+        factual_utilization_targets=(),
+        utilized_participant_outcome_targets=(),
+        utilized_participant_predicate_targets=(),
         candidate_doctrine_refs=tuple(dict.fromkeys(doctrine_refs)),
-        derived_binding_candidates=tuple(derived_bindings),
+        legal_realizations=tuple(legal_realizations),
+        assessment_carriers=tuple(carrier_assignments),
+        derived_binding_candidates=tuple(derived_candidates),
         unbound_seed_refs=tuple(dict.fromkeys(unbound_seed_refs)),
         article263_pair_candidates=tuple(article263_pairs),
         context_only_binding_ids=context_only_binding_ids,
@@ -792,8 +1130,32 @@ def plan_binding_scoped_evaluation_instances(
     )
 
 
+def plan_binding_scoped_evaluation_instances(
+    registry: DefinitionRegistry,
+    *,
+    case_id: str,
+    bindings: Iterable[IssueBinding],
+    factual_episodes: Iterable[FactualEpisode] = (),
+    allowed_candidate_offense_refs: Iterable[str] | None = None,
+    unbound_seed_refs: Iterable[str] = (),
+    case_text: str | None = None,
+    liability_source_spans: Iterable[tuple[int, int]] | None = None,
+) -> OccurrenceAwareEvaluationInstancePlan:
+    return _plan_action_atomic_binding_instances(
+        registry,
+        case_id=case_id,
+        bindings=bindings,
+        factual_episodes=factual_episodes,
+        allowed_candidate_offense_refs=allowed_candidate_offense_refs,
+        unbound_seed_refs=unbound_seed_refs,
+        case_text=case_text,
+        liability_source_spans=liability_source_spans,
+    )
+
 __all__ = [
     "DerivedBindingCandidate",
+    "LegalRealization",
+    "AssessmentCarrier",
     "InstanceProvenance",
     "EvaluationInstancePlannerError",
     "OccurrenceAwareEvaluationInstancePlan",

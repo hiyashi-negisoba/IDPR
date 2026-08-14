@@ -8,9 +8,13 @@ from collections.abc import Sequence
 
 def explicit_conspiracy_interactions(
     *,
-    episode_source_quotes: Sequence[str],
-    episode_participant_ids: Sequence[str],
     responsibility_actor_ids: Sequence[str],
+    action_source_quotes: Sequence[str] | None = None,
+    action_participant_ids: Sequence[str] | None = None,
+    # Kept for archival augmentation and direct legacy tests.  New Call 1.5-P
+    # passes only the action-scoped arguments above.
+    episode_source_quotes: Sequence[str] | None = None,
+    episode_participant_ids: Sequence[str] | None = None,
 ) -> list[dict[str, object]]:
     """Recover only the literal Korean ``X ... Y와 공모하여 ...`` construction.
 
@@ -18,10 +22,25 @@ def explicit_conspiracy_interactions(
     intentionally narrow and returns the exact clause; every other interaction remains
     the model contract's responsibility.
     """
-    participants = set(episode_participant_ids)
+    if action_source_quotes is not None or action_participant_ids is not None:
+        if action_source_quotes is None or action_participant_ids is None:
+            raise ValueError(
+                "action source quotes and action participants must be supplied together"
+            )
+        if episode_source_quotes is not None or episode_participant_ids is not None:
+            raise ValueError("cannot mix action and episode interaction scopes")
+        source_quotes = action_source_quotes
+        participant_ids = action_participant_ids
+    else:
+        if episode_source_quotes is None or episode_participant_ids is None:
+            raise ValueError("episode source quotes and episode participants are required")
+        source_quotes = episode_source_quotes
+        participant_ids = episode_participant_ids
+
+    participants = set(participant_ids)
     responsibility = set(responsibility_actor_ids)
     output: list[dict[str, object]] = []
-    for text in episode_source_quotes:
+    for text in source_quotes:
         for marker in re.finditer(r"([甲乙丙丁戊己庚辛壬癸])(?:과|와)\s*공모하여", text):
             counterpart = marker.group(1)
             if counterpart not in participants:

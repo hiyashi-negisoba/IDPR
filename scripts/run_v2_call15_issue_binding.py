@@ -54,6 +54,61 @@ def _index(path: Path, label: str) -> dict[str, dict[str, Any]]:
     return output
 
 
+def _verified_recovery_hints(
+    artifact: Path, manifest: Path
+) -> dict[str, tuple[dict[str, Any], ...]]:
+    """Carry verified direct-recovery recall forward without migrating its v1 bindings.
+
+    The old artifact may contain one mixed actor-action/context quote.  It is useful
+    evidence that a seed should be found, but it is not a legal-realization input and
+    must not be mechanically promoted into the action-atomic contract.
+    """
+    rows = _index(artifact, "verified direct-recovery artifact")
+    metadata = json.loads(manifest.read_text(encoding="utf-8"))
+    if not isinstance(metadata, dict):
+        raise ValueError("verified direct-recovery manifest must be an object")
+    accepted = {
+        (str(value["sub_question_id"]), str(value["offense_ref"]))
+        for value in metadata.get("merged_direct_bindings", ())
+        if isinstance(value, dict)
+    }
+    for value in metadata.get("authored_base_offense_closures", ()):
+        if isinstance(value, dict):
+            accepted.add((str(value["sub_question_id"]), str(value["base_offense_ref"])))
+    output: dict[str, list[dict[str, Any]]] = {}
+    for case_id, offense_ref in sorted(accepted):
+        row = rows.get(case_id)
+        if row is None:
+            raise ValueError(f"verified recovery hint lacks case {case_id}")
+        result = next(
+            (
+                value
+                for value in row.get("seed_results", ())
+                if value.get("offense_ref") == offense_ref
+            ),
+            None,
+        )
+        if not isinstance(result, dict) or not result.get("bindings"):
+            raise ValueError(f"verified recovery hint lacks accepted {case_id}/{offense_ref}")
+        for binding in result["bindings"]:
+            quotes = [
+                str(fragment.get("source_quote"))
+                for field in ("actor_action_fragments", "context_fragments")
+                for fragment in binding.get(field, ())
+                if isinstance(fragment, dict) and fragment.get("source_quote")
+            ]
+            output.setdefault(case_id, []).append(
+                {
+                    "seed_index": int(result["seed_index"]),
+                    "offense_ref": offense_ref,
+                    "actor_id": str(binding["actor_id"]),
+                    "verified_source_quotes": list(dict.fromkeys(quotes)),
+                    "instruction": "recall hint only; split into atomic actions before binding",
+                }
+            )
+    return {case_id: tuple(values) for case_id, values in output.items()}
+
+
 def _case_ids(path: Path) -> tuple[str, ...]:
     values = tuple(line.strip() for line in path.read_text().splitlines() if line.strip())
     if not values or len(values) != len(set(values)):
@@ -77,6 +132,16 @@ def main() -> None:
     parser.add_argument("--binding-cues", type=Path, default=DEFAULT_BINDING_CUES)
     parser.add_argument("--inventory", type=Path, default=DEFAULT_INVENTORY)
     parser.add_argument("--case-list", type=Path, default=DEFAULT_CASE_LIST)
+    parser.add_argument(
+        "--verified-recovery-artifact",
+        type=Path,
+        help="v1 verified direct-recovery artifact used only as action-splitting recall hints",
+    )
+    parser.add_argument(
+        "--verified-recovery-manifest",
+        type=Path,
+        help="manifest selecting the verified recovery candidates",
+    )
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--case-id", action="append", default=[])
     parser.add_argument("--max-tokens", type=int, default=2048)
@@ -87,6 +152,10 @@ def main() -> None:
     args = parser.parse_args()
     if not args.prompt_approved:
         parser.error("--prompt-approved is required before a Call 1.5 model run")
+    if bool(args.verified_recovery_artifact) != bool(args.verified_recovery_manifest):
+        parser.error(
+            "--verified-recovery-artifact and --verified-recovery-manifest must be supplied together"
+        )
 
     case_ids = tuple(args.case_id) if args.case_id else _case_ids(args.case_list)
     inventory = _index(args.inventory, "inventory")
@@ -96,6 +165,13 @@ def main() -> None:
         raise ValueError(f"missing selected cases: {missing}")
     registry = load_definitions(args.definitions)
     cue_catalog = load_binding_seed_cue_catalog(args.binding_cues)
+    recovery_hints = (
+        _verified_recovery_hints(
+            args.verified_recovery_artifact, args.verified_recovery_manifest
+        )
+        if args.verified_recovery_artifact is not None
+        else {}
+    )
     client = VLLMClient(args.base_url, args.model, args.api_key)
     system_prompt, user_prompt = (load_prompt(value) for value in PROMPTS)
     args.out.parent.mkdir(parents=True, exist_ok=True)
@@ -117,12 +193,14 @@ def main() -> None:
             case_text=case_text,
             factual_scope_text=factual_scope_text,
             seed_cues=cues,
+            verified_candidate_hints=recovery_hints.get(case_id, ()),
         )
         assert_no_leaked_fields(payload)
         row: dict[str, Any] = {
             "sub_question_id": case_id,
             "seeds": seeds,
             "seed_cues": [value.as_dict() for value in cues],
+            "verified_recovery_hint_count": len(recovery_hints.get(case_id, ())),
         }
         raw: dict[str, Any] | None = None
         attempt_errors: list[str] = []
@@ -216,8 +294,8 @@ def main() -> None:
         "step": "v2_call15_issue_binding",
         "status": "SUCCEEDED" if not failures else "FAILED",
         "contract": (
-            "full-case factual episode binding with distinct actor-action/context fragments; "
-            "no legal dependency or DAG"
+            "factual episodes split into time-local actions; bindings reference focal/support "
+            "actions and are materialized into legal realizations downstream"
         ),
         "model": args.model,
         "sampling": {"temperature": args.temperature, "max_tokens": args.max_tokens},
@@ -242,6 +320,18 @@ def main() -> None:
         "binding_cues_sha256": _sha256(args.binding_cues),
         "inventory_sha256": _sha256(args.inventory),
         "case_list_sha256": _sha256(args.case_list),
+        "verified_recovery_artifact": (
+            None if args.verified_recovery_artifact is None else str(args.verified_recovery_artifact)
+        ),
+        "verified_recovery_artifact_sha256": (
+            None
+            if args.verified_recovery_artifact is None
+            else _sha256(args.verified_recovery_artifact)
+        ),
+        "verified_recovery_manifest": (
+            None if args.verified_recovery_manifest is None else str(args.verified_recovery_manifest)
+        ),
+        "verified_recovery_hint_count": sum(len(value) for value in recovery_hints.values()),
         "prompts": {value: _sha256(prompt_path(value)) for value in PROMPTS},
     }
     args.out.with_suffix(".manifest.json").write_text(

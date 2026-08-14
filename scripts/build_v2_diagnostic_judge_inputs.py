@@ -37,6 +37,8 @@ def main() -> None:
     case_ids = [str(row["sub_question_id"]) for row in answers]
     if len(case_ids) != len(set(case_ids)) or any(case_id not in inventory for case_id in case_ids):
         raise ValueError("Call 3 diagnostic case universe is invalid")
+    if any(not isinstance(row.get("answer"), str) or not row["answer"].strip() for row in answers):
+        raise ValueError("Call 3 diagnostic artifact must contain nonempty current `answer` fields")
 
     sealed = [
         {
@@ -49,7 +51,7 @@ def main() -> None:
     method = [
         {
             "sub_question_id": str(row["sub_question_id"]),
-            "generated_response": str(row["answer_markdown"]),
+            "generated_response": str(row["answer"]),
         }
         for row in answers
     ]

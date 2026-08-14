@@ -2,19 +2,39 @@
   "$id": "https://schemas.idpr.local/v2/LegalElementDef",
   "description": "v2.1.0 section 5.2 — a proposition that requires evaluation against a legal standard (Call 3 vocabulary). Distinct from GroundFactDef: this needs a legal_standard and authority_refs, and is typically grounded by one or more GroundFactDef instances rather than read off the case text directly.",
   "type": "object",
-  "required": ["id", "arguments", "canonical_meaning", "legal_standard", "authority_refs"],
+  "required": [
+    "id",
+    "arguments",
+    "canonical_meaning",
+    "legal_standard",
+    "authority_refs"
+  ],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+    "id": {
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+    },
     "arguments": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": ["name", "type"],
+        "required": [
+          "name",
+          "type"
+        ],
         "additionalProperties": false,
         "properties": {
-          "name": { "type": "string", "pattern": "^[a-z][a-z0-9_]*$" },
-          "type": { "enum": ["entity", "string", "boolean"] }
+          "name": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9_]*$"
+          },
+          "type": {
+            "enum": [
+              "entity",
+              "string",
+              "boolean"
+            ]
+          }
         }
       }
     },
@@ -25,7 +45,9 @@
     },
     "grounded_by": {
       "type": "array",
-      "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+      "items": {
+        "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+      },
       "description": "GroundFactDef ids whose Assessment feeds this element's evaluation. Optional — some elements are assessed directly from case text without a declared factual substrate. 2026-08-08 review: an earlier draft also allowed 'or other LegalElementDef' here, but no fixture ever exercised evaluative-on-evaluative grounding — retracted from the baseline rather than left as an untested standing allowance. If a real case later needs a LegalElementDef grounded by another LegalElementDef, that is a deliberate future addition (reopen this field), not something this baseline should silently permit."
     },
     "legal_standard": {
@@ -36,16 +58,32 @@
     "semantic_exclusions": {
       "type": "array",
       "uniqueItems": true,
-      "items": { "type": "string", "minLength": 1 },
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
       "description": "Authored boundary statements identifying adjacent concepts that must not be mistaken for this predicate. They refine meaning only and never provide case truth."
     },
     "evidence_scope": {
-      "enum": ["exact_actor_action", "same_actor_episode", "offense_realization", "typed_relation"],
-      "description": "Largest provenance-typed factual carrier admissible for an UNKNOWN fallback. Omission means exact_actor_action; it never authorizes full-case evidence."
+      "enum": [
+        "exact_actor_action",
+        "same_actor_episode",
+        "offense_realization",
+        "typed_relation"
+      ],
+      "description": "Largest provenance-typed factual carrier for this predicate. Omission means `offense_realization`: the actions Call 1.5 selected for this legal realization (focal action plus its supports), which is what the planner has always supplied and what the measured runs were built on. A predicate that must be judged on one action alone has to say `exact_actor_action` explicitly. `same_actor_episode` widens to every action of the episode the responsibility actor takes part in and never admits a peer actor's conduct. An explicit scope outranks the generic actor-bound GroundFact narrowing. It never authorizes full-case evidence, and participation targets are outside this contract: they carry a typed relation carrier of their own."
+    },
+    "temporal_anchor": {
+      "enum": [
+        "focal_action"
+      ],
+      "description": "When present, the element is evaluated only at the realization's focal factual action rather than from later supporting actions or the broader episode."
     },
     "authority_refs": {
       "type": "array",
-      "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref" }
+      "items": {
+        "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref"
+      }
     },
     "semantic_sort": {
       "type": "string",

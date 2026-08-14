@@ -65,9 +65,21 @@ def rows(path: Path) -> list[dict[str, Any]]:
     return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
 
 
-#: The query is the occurrence's exact factual quote (SPEC 5.5-2), which is the same span
-#: the plan shows the writer.  Reusing the plan's own extractor keeps the two from drifting.
+#: The query is the realization's exact focal/supporting action quote (SPEC 5.5-2), which
+#: is the same span the plan shows the writer.  Reusing the plan's own extractor keeps the
+#: card path from silently reverting to a binding or whole-episode evidence scope.
 episode_quotes = _episode_quotes
+
+
+def _has_instance_provenance(
+    plan_row: dict[str, Any], instance: dict[str, Any]
+) -> bool:
+    """A new realization must carry its host provenance into the card path."""
+    expected = instance_ref(instance)
+    return any(
+        instance_ref(value.get("instance_key") or {}) == expected
+        for value in plan_row.get("instance_provenance") or ()
+    )
 
 
 def targets_for_case(
@@ -90,11 +102,19 @@ def targets_for_case(
         instance = entry.get("instance_key") or {}
         ref = instance_ref(instance)
         offense_ref = str(instance.get("offense_ref", ""))
+        if plan_row is not None and not _has_instance_provenance(plan_row, instance):
+            raise ValueError(
+                f"{ref}: liability realization lacks planner action provenance"
+            )
         quotes = episode_quotes(
             binding_row,
             str(instance.get("occurrence_id", "")),
             plan_row,
         )
+        if plan_row is not None and not quotes:
+            raise ValueError(
+                f"{ref}: card retrieval cannot use an empty action/occurrence evidence span"
+            )
         for row in truths:
             if instance_ref(row.get("instance_key") or {}) != ref:
                 continue
@@ -149,7 +169,7 @@ def main() -> None:
         "--plan-artifact",
         type=Path,
         required=True,
-        help="planner provenance used to resolve derived occurrence source_binding_ids",
+        help="planner action/realization provenance used to resolve factual query spans",
     )
     parser.add_argument("--bridge", type=Path, default=ROOT / "data/v2/card_target_issue_bridge.yaml")
     parser.add_argument("--definitions", type=Path, default=ROOT / "data/v2/definitions")

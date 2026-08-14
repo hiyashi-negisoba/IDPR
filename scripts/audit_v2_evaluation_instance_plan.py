@@ -37,23 +37,50 @@ def _error(errors: list[str], detail: str) -> None:
 def _verify_manifest(
     manifest: Mapping[str, Any], *, definitions: Path, inventory: Path, case_list: Path, errors: list[str]
 ) -> None:
+    # The planner used to serialize a Call 1.5 binding directly as the legal
+    # occurrence.  Action/realization plans deliberately do not: a binding is
+    # provenance and the host assigns the occurrence id after it has selected a
+    # focal action (and optional supporting actions).  Keep the historical
+    # contract readable for old artifacts, but validate a newly produced plan
+    # against the contract it actually declares rather than falsely rejecting it.
+    action_realization_contract = manifest.get("occurrence_rule") == (
+        "OffenseInstanceKey.occurrence_id is legal realization identity, never binding_id"
+    )
+    if action_realization_contract:
+        identity_expectations = {
+            "binding_rule": (
+                "validated binding candidates reference atomic factual actions; host groups them "
+                "into legal realizations and applies only registry-authored derived candidates"
+            ),
+            "factual_identity_rule": (
+                "binding_id is provenance only; occurrence_id is a host-authored legal realization "
+                "over focal/supporting factual actions"
+            ),
+            "occurrence_rule": (
+                "OffenseInstanceKey.occurrence_id is legal realization identity, never binding_id"
+            ),
+        }
+    else:
+        identity_expectations = {
+            "binding_rule": (
+                "one validated direct binding plus registry-authored evidence-gated derived "
+                "candidates requiring at least two same-episode same-actor bindings"
+            ),
+            "factual_identity_rule": (
+                "Call 1.5 binding_id and source fragments only; offline gold occurrence and "
+                "participant annotations are not production inputs"
+            ),
+            "occurrence_rule": (
+                "binding_id is case-time candidate identity; source fragments remain auditable"
+            ),
+        }
     expected = {
         "step": "v2_evaluation_instance_planner",
         "status": "SUCCEEDED",
-        "binding_rule": (
-            "one validated direct binding plus registry-authored evidence-gated derived "
-            "candidates requiring at least two same-episode same-actor bindings"
-        ),
-        "factual_identity_rule": (
-            "Call 1.5 binding_id and source fragments only; offline gold occurrence and "
-            "participant annotations are not production inputs"
-        ),
-        "occurrence_rule": (
-            "binding_id is case-time candidate identity; source fragments remain auditable"
-        ),
         "registry_sha256": _registry_sha256(definitions),
         "inventory_sha256": _sha256(inventory),
         "case_list_sha256": _sha256(case_list),
+        **identity_expectations,
     }
     for field, value in expected.items():
         if manifest.get(field) != value:
