@@ -1273,3 +1273,25 @@ production truth와 N/P는 계속 동결한다.
 
 정의 hash가 바뀌었으므로 기존 plan/Call2 artifact는 역사적 정본으로만 유지한다. 최종 Call 2 전
 새 lineage plan이 필요하며 기존 artifact를 제자리 수정하지 않는다. N/P는 계속 동결한다.
+
+---
+
+## 2026-08-14 -- realization/source-binding downstream impact gate
+
+정본은 `docs/analysis/v2_call2_realization_link_downstream_impact_ko.md`다. Call 1.5 prompt를 열기
+전에 guard-aware 452 target 전체를 감사하고 실제 cross-realization `taking_conduct` consumer만
+수동 확정했다.
+
+- 구조적 consumer: **2문항 5 target**. 그중 정본 TRUE 3, UNKNOWN 2.
+- UNKNOWN 2를 known carrier로 채운 upper-bound counterfactual: symbolic 중간 변화 1문항,
+  **final responsibility 변화 0**, required-final conclusion 확정 전환 0.
+- baseline AnswerPlan 22/26 -> counterfactual 24/26. `r11_p1_q1`, `r14_p2_q1`의
+  GroundFact conflict failure는 제거되지만 남은 다른 UNKNOWN 때문에 법적 결론은 확정되지 않는다.
+- participation-owned link candidate는 0. participant-local taking은 계속 participation stage 소관이다.
+- `r14_p2_q1` derived UNKNOWN은 기존 exact `source_binding_ids` projection으로 해결 가능한 종류이며
+  새 Call 1.5 link가 필요 없다. 실제 새 cross-episode upstream link 후보는 `r11_p1_q1` 1 target이다.
+
+결론: **Call 1.5 output contract/활성 prompt 변경은 impact gate에서 기각**한다. 26/26 AnswerPlan에
+필요하면 exact-source deterministic projection과 `r11_p1_q1`의 좁은 typed link만 별도 승인하며,
+same actor + same predicate 자동 복사는 금지한다. 다음은 C 초literal 후보와 D authored dispute
+route다. production Call 2와 N/P는 변경하지 않았다.

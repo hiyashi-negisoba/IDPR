@@ -42,6 +42,26 @@ def _bindings(issue: dict[str, Any]) -> dict[str, dict[str, Any]]:
     }
 
 
+def review_records_from_call2(path: Path) -> list[dict[str, Any]]:
+    """Project every scheduled predicate assessment into the audit input contract."""
+    records: list[dict[str, Any]] = []
+    serial = 0
+    for row in _jsonl(path).values():
+        for assessment in row.get("assessments", ()):
+            serial += 1
+            records.append(
+                {
+                    "review_id": f"ALL-{serial:03d}",
+                    "operational_bucket": "ALL_SCHEDULED",
+                    "instance_key": assessment["instance_key"],
+                    "predicate_ref": assessment["predicate_ref"],
+                    "predicate_meaning": "",
+                    "truths": {"production": assessment["truth"]},
+                }
+            )
+    return records
+
+
 def placement_bucket(
     *,
     predicate_kind: str,
@@ -91,17 +111,26 @@ def build_audit(
     definitions: Path,
     plan_path: Path,
     bindings_path: Path,
-    review_path: Path,
+    review_path: Path | None = None,
+    call2_path: Path | None = None,
     selected_buckets: set[str] | None = None,
 ) -> dict[str, Any]:
     registry = load_definitions(definitions)
     plans = _jsonl(plan_path)
     issues = _jsonl(bindings_path)
-    review = json.loads(review_path.read_text(encoding="utf-8"))
-    selected_buckets = selected_buckets or {
-        "A_OR_CASE_CONTEXT_REVIEW",
-        "C_OR_D_PERSISTENT_REVIEW",
-    }
+    if (review_path is None) == (call2_path is None):
+        raise ValueError("provide exactly one of review_path or call2_path")
+    review_records = (
+        json.loads(review_path.read_text(encoding="utf-8"))["records"]
+        if review_path is not None
+        else review_records_from_call2(call2_path)
+    )
+    if selected_buckets is None:
+        selected_buckets = (
+            {"ALL_SCHEDULED"}
+            if call2_path is not None
+            else {"A_OR_CASE_CONTEXT_REVIEW", "C_OR_D_PERSISTENT_REVIEW"}
+        )
 
     predicate_cache: dict[str, frozenset[str]] = {}
 
@@ -115,7 +144,7 @@ def build_audit(
         return predicate_cache[offense_ref]
 
     records: list[dict[str, Any]] = []
-    for residual in review["records"]:
+    for residual in review_records:
         if residual["operational_bucket"] not in selected_buckets:
             continue
         instance = residual["instance_key"]
@@ -321,7 +350,13 @@ def main() -> None:
     parser.add_argument("--definitions", type=Path, default=ROOT / "data/v2/definitions")
     parser.add_argument("--plan", type=Path, required=True)
     parser.add_argument("--issue-bindings", type=Path, required=True)
-    parser.add_argument("--review", type=Path, required=True)
+    source = parser.add_mutually_exclusive_group(required=True)
+    source.add_argument("--review", type=Path)
+    source.add_argument(
+        "--call2-artifact",
+        type=Path,
+        help="audit every predicate target actually scheduled in this Call 2 artifact",
+    )
     parser.add_argument("--out-json", type=Path, required=True)
     parser.add_argument("--out-md", type=Path, required=True)
     parser.add_argument("--operational-bucket", action="append", default=[])
@@ -331,6 +366,7 @@ def main() -> None:
         plan_path=args.plan,
         bindings_path=args.issue_bindings,
         review_path=args.review,
+        call2_path=args.call2_artifact,
         selected_buckets=set(args.operational_bucket) if args.operational_bucket else None,
     )
     args.out_json.parent.mkdir(parents=True, exist_ok=True)

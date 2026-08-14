@@ -7,7 +7,11 @@ from idpr.v2.runtime.grounding import AssessmentTarget
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from scripts.analyze_v2_call2_mixed_evidence import transition_counts
 from scripts.analyze_v2_call2_residual_unknown import bucket
-from scripts.analyze_v2_call2_target_placement import placement_bucket
+from scripts.analyze_v2_call2_target_placement import (
+    placement_bucket,
+    review_records_from_call2,
+)
+from scripts.analyze_v2_realization_link_impact import assessment_truths
 from scripts.diagnose_v2_call2_evidence_scope import factual_episode_evidence
 from scripts.diagnose_v2_call2_mixed_evidence import (
     actor_bound_ground_fact,
@@ -128,6 +132,54 @@ def test_target_placement_buckets_keep_role_review_separate_from_provenance():
         same_actor_other_episode=0,
         same_episode_peer_actors=0,
     ) == "DERIVED_SOURCE_PARTICIPATION_REVIEW"
+
+
+def test_target_placement_can_audit_every_scheduled_call2_target(tmp_path):
+    path = tmp_path / "call2.jsonl"
+    path.write_text(
+        '{"sub_question_id":"case","assessments":['
+        '{"instance_key":{"case_id":"case","actor_id":"A",'
+        '"offense_ref":"offense.theft","occurrence_id":"binding:1"},'
+        '"predicate_ref":"ground_fact.taking_conduct","truth":"UNKNOWN"}]}'
+        "\n",
+        encoding="utf-8",
+    )
+    assert review_records_from_call2(path) == [
+        {
+            "review_id": "ALL-001",
+            "operational_bucket": "ALL_SCHEDULED",
+            "instance_key": {
+                "case_id": "case",
+                "actor_id": "A",
+                "offense_ref": "offense.theft",
+                "occurrence_id": "binding:1",
+            },
+            "predicate_ref": "ground_fact.taking_conduct",
+            "predicate_meaning": "",
+            "truths": {"production": "UNKNOWN"},
+        }
+    ]
+
+
+def test_realization_link_impact_reads_exact_assessment_keys(tmp_path):
+    path = tmp_path / "call2.jsonl"
+    path.write_text(
+        '{"sub_question_id":"case","assessments":['
+        '{"instance_key":{"case_id":"case","actor_id":"A",'
+        '"offense_ref":"offense.robbery","occurrence_id":"binding:2"},'
+        '"predicate_ref":"ground_fact.taking_conduct","truth":"TRUE"}]}'
+        "\n",
+        encoding="utf-8",
+    )
+    assert assessment_truths(path) == {
+        (
+            "case",
+            "A",
+            "offense.robbery",
+            "binding:2",
+            "ground_fact.taking_conduct",
+        ): "TRUE"
+    }
 
 
 def test_mixed_carrier_keeps_actor_ground_fact_local_and_expands_legal_element():
