@@ -81,6 +81,15 @@ def main() -> None:
     parser.add_argument("--case-list", type=Path, default=DEFAULT_CASE_LIST)
     parser.add_argument("--out", type=Path, required=True)
     parser.add_argument("--case-id", action="append", default=[])
+    parser.add_argument(
+        "--interaction-scope",
+        choices=("episode", "action"),
+        default="episode",
+        help=(
+            "관계를 결박할 단위. 기본은 episode. action은 두 행위의 병렬로만 서술되는 "
+            "공동행동을 구조적으로 잘라내므로 진단용으로만 쓴다."
+        ),
+    )
     parser.add_argument("--max-tokens", type=int, default=1024)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--repair-temperature", type=float, default=0.0)
@@ -153,7 +162,15 @@ def main() -> None:
                 "action_results": [],
             }
             episode_interactions: list[dict[str, Any]] = []
-            for action in episode.factual_actions:
+            # 관계는 episode가 소유한다.  행위 원자화는 죄의 실현 단위를 자르기 위한 것이고,
+            # 공동행동처럼 두 행위의 병렬로만 서술되는 관계는 어느 한 행위 안에서도 읽히지
+            # 않는다.  action 스코프는 진단용으로만 남긴다.
+            scope_units: tuple[Any, ...] = (
+                tuple(episode.factual_actions)
+                if args.interaction_scope == "action"
+                else (None,)
+            )
+            for action in scope_units:
                 request_count += 1
                 payload = factual_interaction_request_payload(
                     case_id=case_id,
@@ -165,10 +182,14 @@ def main() -> None:
                 assert_no_leaked_fields(payload)
                 raw: dict[str, Any] | None = None
                 attempt_errors: list[str] = []
-                action_row: dict[str, Any] = {
-                    "factual_action_id": action.factual_action_id,
-                    "action_participant_ids": list(action.participant_ids),
-                }
+                action_row: dict[str, Any] = (
+                    {
+                        "factual_action_id": action.factual_action_id,
+                        "action_participant_ids": list(action.participant_ids),
+                    }
+                    if action is not None
+                    else {"factual_action_id": None}
+                )
                 try:
                     for attempt in range(1, args.contract_retries + 2):
                         try:
@@ -200,11 +221,30 @@ def main() -> None:
                                 seed=args.seed + attempt - 1,
                             )
                             deterministic = explicit_conspiracy_interactions(
-                                action_source_quotes=payload["action_source_quotes"],
-                                action_participant_ids=payload["action_participant_ids"],
                                 responsibility_actor_ids=payload[
                                     "responsibility_actor_ids"
                                 ],
+                                **(
+                                    {
+                                        "action_source_quotes": payload[
+                                            "action_source_quotes"
+                                        ],
+                                        # 결정론적 회수도 관계이므로 endpoint universe는
+                                        # episode를 쓴다.
+                                        "action_participant_ids": payload[
+                                            "episode_participant_ids"
+                                        ],
+                                    }
+                                    if action is not None
+                                    else {
+                                        "episode_source_quotes": payload[
+                                            "episode_source_quotes"
+                                        ],
+                                        "episode_participant_ids": payload[
+                                            "episode_participant_ids"
+                                        ],
+                                    }
+                                ),
                             )
                             existing_routes = {
                                 (
@@ -311,9 +351,10 @@ def main() -> None:
         "step": "v2_call15_factual_interaction",
         "status": "SUCCEEDED" if failed_episode_count == 0 else "FAILED",
         "contract": (
-            "one atomic factual action per request; offense-free exact-quote factual "
-            "interaction with host-attached factual_action_id"
+            "offense-free exact-quote factual interaction; relation endpoints range "
+            "over the episode participant universe"
         ),
+        "interaction_scope": args.interaction_scope,
         "model": args.model,
         "sampling": {
             "temperature": args.temperature,

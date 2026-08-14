@@ -75,12 +75,14 @@ def _canonical_action(
     episode: FactualEpisode,
     action: FactualAction | None,
 ) -> FactualAction | None:
-    """Resolve one action owned by ``episode`` without reopening episode scope."""
+    """Resolve the action anchor, if this extraction is scoped to one action.
+
+    사실 관계(interaction)는 episode가 소유한다.  행위 원자화는 죄의 실현 단위를 자르기
+    위한 것이고, 관계 중에는 두 행위의 병렬 그 자체로만 서술되는 것이 있다 -- 한 사람이
+    문을 열고 망을 보는 사이 다른 사람이 들어간다는 공동행동은 어느 한 행위 안에도 없다.
+    그래서 anchor 없는 episode 스코프 추출을 계약 위반으로 보지 않는다.
+    """
     if action is None:
-        if episode.factual_actions:
-            raise FactualInteractionContractError(
-                ["action-atomic factual episode requires a factual action anchor"]
-            )
         return None
     if action.factual_episode_id != episode.factual_episode_id:
         raise FactualInteractionContractError(
@@ -144,7 +146,13 @@ def factual_interaction_request_payload(
         "responsibility_actor_ids": list(dict.fromkeys(responsibility_actor_ids)),
         "factual_episode_id": episode.factual_episode_id,
         "factual_action_id": canonical_action.factual_action_id,
+        # 행위는 사람 사이의 관계를 담는 그릇이 아니다.  action.participant_ids는 그 행위를
+        # 누가 했고 누구에게 결과가 미쳤는지를 적은 것이어서, 사주받은 사람처럼 관계의 상대방만
+        # 되는 참여자가 빠진다.  관계의 endpoint universe는 episode가 소유하고, action은
+        # 어느 문장을 읽을지만 정한다.
+        "action_source_actor_id": canonical_action.source_actor_id,
         "action_participant_ids": list(canonical_action.participant_ids),
+        "episode_participant_ids": list(participants),
         "action_source_quotes": list(source_quotes),
     }
 
@@ -214,11 +222,10 @@ def validate_factual_interaction_output(
         errors.append(
             f"interactions exceeds {MAX_INTERACTIONS_PER_EPISODE} per {scope_label}"
         )
-    participants = frozenset(
-        canonical_action.participant_ids
-        if canonical_action is not None
-        else episode.participants
-    )
+    # 관계의 endpoint는 episode participant universe에서 고른다.  action 단위로 좁히면
+    # 교사·승낙처럼 상대방이 그 행위의 참여자로 기록되지 않는 관계가 구조적으로 표현
+    # 불가능해진다.  action이 좁히는 것은 evidence quote의 범위뿐이다.
+    participants = frozenset(episode.participants)
     source_fragments = (
         canonical_action.source_fragments
         if canonical_action is not None
@@ -257,6 +264,20 @@ def validate_factual_interaction_output(
             targets = []
         if isinstance(source, str) and source in targets:
             errors.append(f"{where} contains a factual self-link")
+        if (
+            canonical_action is not None
+            and isinstance(source, str)
+            and source in participants
+            and targets
+            and canonical_action.source_actor_id != source
+            and canonical_action.source_actor_id not in targets
+        ):
+            # endpoint universe를 episode로 넓힌 대신, 관계는 이 행위를 한 사람을 반드시
+            # 한쪽 끝으로 가져야 한다.  그래야 quote만 이 행위 안에 있고 관계는 다른
+            # 행위의 것인 결박이 생기지 않는다.
+            errors.append(
+                f"{where} does not involve the actor of this factual action"
+            )
         if (
             not isinstance(quotes, list)
             or not quotes
@@ -367,19 +388,15 @@ def parse_factual_interactions(
             )
         action_id = value.get("factual_action_id")
         actions = action_by_episode_id[episode_id]
-        if actions:
-            if not isinstance(action_id, str) or action_id not in actions:
-                raise FactualInteractionContractError(
-                    [
-                        "persisted action-atomic factual interaction is missing "
-                        "a valid factual action anchor"
-                    ]
-                )
-        elif action_id is not None:
+        # anchor는 선택이다.  달려 있으면 그 episode가 실제로 가진 행위여야 하고, 없으면
+        # episode 스코프에서 결박된 관계로 읽는다.
+        if action_id is not None and (
+            not isinstance(action_id, str) or action_id not in actions
+        ):
             raise FactualInteractionContractError(
                 ["persisted factual interaction has a dangling factual action anchor"]
             )
-        grouped.setdefault((episode_id, action_id if actions else None), []).append(value)
+        grouped.setdefault((episode_id, action_id), []).append(value)
     output: list[FactualInteraction] = []
     for (episode_id, action_id), episode_values in grouped.items():
         raw = {"interactions": []}

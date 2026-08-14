@@ -32,7 +32,9 @@ from idpr.v2.runtime.factual_participation import (
     materialize_factual_participation_candidates,
 )
 from idpr.v2.runtime.policy_probe_targets import (
+    DERIVATIVE_RELATION_KINDS,
     participation_candidate_probe_targets,
+    participation_mode_requirement_targets,
     unreachable_mode_findings,
 )
 
@@ -350,6 +352,33 @@ def main() -> None:
                 )
                 if member.offense_ref not in row["candidate_offense_refs"]:
                     row["candidate_offense_refs"].append(member.offense_ref)
+        # 교사·방조 후보 가담자는 자기 고의를 스스로 답해야 하므로 assessment universe
+        # 안에 있어야 한다. 그렇지 않으면 planner가 연 target이 존재하지 않는 instance를
+        # 가리키고, Call 2도 symbolic도 그 target을 받을 자리가 없다.  다만 관계가 참으로
+        # 확정되기 전에는 책임 결론이 아니므로 top_level에는 넣지 않는다 -- 승격은 관계가
+        # 실제로 참이 된 뒤 symbolic 단계가 한다.
+        for target in participation_targets:
+            if target.kind not in DERIVATIVE_RELATION_KINDS:
+                continue
+            accessory = target.members[0]
+            key = (
+                accessory.case_id,
+                accessory.actor_id,
+                accessory.offense_ref,
+                accessory.occurrence_id,
+            )
+            if key in existing_instances:
+                continue
+            existing_instances.add(key)
+            serialized = {
+                "case_id": accessory.case_id,
+                "actor_id": accessory.actor_id,
+                "offense_ref": accessory.offense_ref,
+                "occurrence_id": accessory.occurrence_id,
+            }
+            row["assessment_instances"].append(serialized)
+            if accessory.offense_ref not in row["candidate_offense_refs"]:
+                row["candidate_offense_refs"].append(accessory.offense_ref)
         row["assessment_instance_count"] = len(row["assessment_instances"])
         row["top_level_instance_count"] = len(row["top_level_instances"])
         row["instances"] = list(row["assessment_instances"])
@@ -366,33 +395,44 @@ def main() -> None:
             )
             for value in row["assessment_targets"]
         }
+        requirement_targets = participation_mode_requirement_targets(
+            registry, participation_targets
+        )
         added = 0
-        for instance, predicate_ref in probe_targets:
-            key = (
-                instance.case_id,
-                instance.actor_id,
-                instance.offense_ref,
-                instance.occurrence_id,
-                predicate_ref,
-            )
-            if key in existing:
-                continue
-            existing.add(key)
-            row["assessment_targets"].append(
-                {
-                    "instance_key": {
-                        "case_id": instance.case_id,
-                        "actor_id": instance.actor_id,
-                        "offense_ref": instance.offense_ref,
-                        "occurrence_id": instance.occurrence_id,
-                    },
-                    "predicate_ref": predicate_ref,
-                    "opened_by": "participation_candidate_probe",
-                }
-            )
-            if predicate_ref not in row["selected_predicate_refs"]:
-                row["selected_predicate_refs"].append(predicate_ref)
-            added += 1
+        requirement_added = 0
+        for opened_by, values in (
+            ("participation_candidate_probe", probe_targets),
+            ("participation_mode_requirement", requirement_targets),
+        ):
+            for instance, predicate_ref in values:
+                key = (
+                    instance.case_id,
+                    instance.actor_id,
+                    instance.offense_ref,
+                    instance.occurrence_id,
+                    predicate_ref,
+                )
+                if key in existing:
+                    continue
+                existing.add(key)
+                row["assessment_targets"].append(
+                    {
+                        "instance_key": {
+                            "case_id": instance.case_id,
+                            "actor_id": instance.actor_id,
+                            "offense_ref": instance.offense_ref,
+                            "occurrence_id": instance.occurrence_id,
+                        },
+                        "predicate_ref": predicate_ref,
+                        "opened_by": opened_by,
+                    }
+                )
+                if predicate_ref not in row["selected_predicate_refs"]:
+                    row["selected_predicate_refs"].append(predicate_ref)
+                if opened_by == "participation_candidate_probe":
+                    added += 1
+                else:
+                    requirement_added += 1
         for target in post_participation_derived:
             for instance in target.members:
                 for predicate_ref in _instance_predicate_refs(registry, instance):
@@ -495,6 +535,7 @@ def main() -> None:
             carrier_by_target.add(key)
         row["assessment_carrier_count"] = len(row.get("assessment_carriers", ()))
         row["participation_probe_target_count"] = added
+        row["participation_mode_requirement_target_count"] = requirement_added
         row["final_assessment_target_count"] = len(row["assessment_targets"])
         unreachable = unreachable_mode_findings(registry, participation_targets)
         row["participation_probe_unreachable_modes"] = [

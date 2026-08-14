@@ -29,6 +29,10 @@ from __future__ import annotations
 
 from collections.abc import Iterable
 
+from idpr.v2.participation import (
+    derivative_mode_required_predicate_refs,
+    participation_policy_for,
+)
 from idpr.v2.policy_probes import (
     PARTICIPATION_CANDIDATE,
     ProbeRequirement,
@@ -73,6 +77,32 @@ def participation_candidate_probe_targets(
     return tuple(dict.fromkeys(output))
 
 
+def participation_mode_requirement_targets(
+    registry: DefinitionRegistry,
+    targets: Iterable[ParticipationLocalTarget],
+) -> tuple[tuple[OffenseInstanceKey, str], ...]:
+    """`(가담자 instance, predicate ref)` -- derivative mode가 요구하는 가담자 자신의 요소.
+
+    저작은 교사·방조를 `requires: legal_element.instigator_intent | aiding_intent`로 정의한다.
+    그런데 그 predicate를 planner가 target으로 열지 않으면 Call 2가 묻지 않고, Kleene에서
+    영원히 UNKNOWN으로 남아 교사범·방조범은 어떤 사건에서도 성립할 수 없다. co_principal이
+    `establishes_predicate_refs`로 사실을 공급받는 것과 대칭을 이루는 자리다.
+    """
+    policy = participation_policy_for(registry)
+    if policy is None:
+        return ()
+    required = derivative_mode_required_predicate_refs(policy)
+    output: list[tuple[OffenseInstanceKey, str]] = []
+    for target in targets:
+        if target.kind not in DERIVATIVE_RELATION_KINDS:
+            continue
+        # 요구되는 고의는 가담자 자신의 것이다. members[0]가 가담자다.
+        accessory = target.members[0]
+        for ref in sorted(required.get(MODE_BY_RELATION_KIND[target.kind], ())):
+            output.append((accessory, ref))
+    return tuple(dict.fromkeys(output))
+
+
 def unreachable_mode_findings(
     registry: DefinitionRegistry,
     targets: Iterable[ParticipationLocalTarget],
@@ -111,5 +141,6 @@ __all__ = [
     "DERIVATIVE_RELATION_KINDS",
     "MODE_BY_RELATION_KIND",
     "participation_candidate_probe_targets",
+    "participation_mode_requirement_targets",
     "unreachable_mode_findings",
 ]

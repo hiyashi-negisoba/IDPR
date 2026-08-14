@@ -21,7 +21,7 @@
       "type": "array",
       "uniqueItems": true,
       "items": { "$ref": "#/$defs/mode_subsumption" },
-      "description": "Authored precedence when the same participant-principal-offense-realization satisfies more than one derivative mode. Raw assessments remain auditable; only the subsumed mode is omitted from compiled liability links."
+      "description": "Authored precedence when the same participant satisfies more than one participation mode for one offense realization. A dominant attribution mode subsumes a derivative one on the participant it shares; the co-principal group itself is never subsumed. Raw assessments remain auditable; only the subsumed mode is omitted from compiled liability links."
     }
   },
   "$defs": {
@@ -30,7 +30,7 @@
       "required": ["dominant_mode", "subsumed_modes"],
       "additionalProperties": false,
       "properties": {
-        "dominant_mode": { "enum": ["instigator", "aider"] },
+        "dominant_mode": { "enum": ["co_principal", "instigator", "aider"] },
         "subsumed_modes": {
           "type": "array",
           "minItems": 1,

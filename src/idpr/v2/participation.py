@@ -76,8 +76,44 @@ def derivative_mode_subsumptions(
     return {mode: frozenset(subsumed) for mode, subsumed in result.items()}
 
 
+def _expression_refs(expression: object) -> set[str]:
+    if not isinstance(expression, dict):
+        return set()
+    if expression.get("op") == "ref":
+        ref = expression.get("ref")
+        return {str(ref)} if ref else set()
+    output: set[str] = set()
+    for value in expression.values():
+        if isinstance(value, dict):
+            output |= _expression_refs(value)
+        elif isinstance(value, list):
+            for item in value:
+                output |= _expression_refs(item)
+    return output
+
+
+def derivative_mode_required_predicate_refs(
+    policy: DefinitionEntry,
+) -> dict[str, frozenset[str]]:
+    """가담자 자신에게서 확인해야 하는 요소 -- 교사의 고의, 방조의 고의.
+
+    co_principal은 `establishes_predicate_refs`로 관계가 사실을 *공급*하지만, derivative mode는
+    `requires`로 사실을 *요구*한다. 요구된 predicate를 아무도 묻지 않으면 그 mode는 어떤 진리값
+    배정으로도 성립할 수 없다. 그래서 이 목록은 planner가 target을 여는 근거가 된다.
+    """
+    output: dict[str, frozenset[str]] = {}
+    for mode, payload in (policy.payload.get("modes") or {}).items():
+        if not isinstance(payload, dict) or payload.get("basis") != "derivative":
+            continue
+        refs = _expression_refs(payload.get("requires"))
+        if refs:
+            output[str(mode)] = frozenset(refs)
+    return output
+
+
 __all__ = [
     "co_principal_established_predicate_refs",
+    "derivative_mode_required_predicate_refs",
     "constitutive_status_refs",
     "derivative_mode_subsumptions",
     "effective_attributable_slots",

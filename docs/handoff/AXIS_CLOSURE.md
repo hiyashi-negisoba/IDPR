@@ -81,31 +81,65 @@ live blocker 184건 중 구조 결함 0, 성능 174건.
 
 종료 테스트: [`tests/test_definitional_resolution.py`](../../tests/test_definitional_resolution.py)
 
+### participation (2026-08-15)
+
+| 결함 | 유형 |
+|---|---|
+| 교사·방조가 요구하는 가담자 고의가 target으로 열리지 않음 (26문항 전체 0건) | 1 |
+| 관계의 endpoint universe를 action 참여자로 좁혀 사주·승낙이 표현 불가능 | 3 |
+| 두 행위의 병렬로만 서술되는 공동행동이 어느 action 스코프에도 담기지 않음 | 3 |
+| 공동정범과 종범이 동시에 참일 때 양보 관계가 없어 사건 전체가 예외로 중단 | 2 |
+| 가담자 후보 instance가 assessment universe 밖이라 자기 target을 받을 자리가 없음 | 1 |
+
+**60 → 32 회귀 판정: 회수 후퇴다, 중복 제거가 아니다.** 원인은 상위 단계에 있었다.
+interaction 추출이 action 단위로 내려가면서 factual_interaction이 37 → 26으로 줄었고,
+잃은 것은 정확히 교사·승낙 쌍이었다. 26문항 215개 action 중 32개가 자기 인용문 안에 이름이
+나오는 참여자를 `participant_ids`에서 빠뜨리고 있었고(15개 사건), 관계의 상대방은 그 행위의
+참여자로 기록되지 않는 것이 원칙에 가깝다. 행위 원자화는 죄의 실현 단위를 자르기 위한
+것이고 `factual_action_id`는 participation planner 어디에서도 읽히지 않는다 — action 스코프는
+회수만 깎고 얻는 것이 없었다. 관계 추출을 episode 스코프로 되돌리고(`--interaction-scope`,
+기본 `episode`), endpoint universe는 episode가, evidence 범위는 anchor가 있을 때만 action이
+소유하도록 나눴다. action 스코프를 쓸 때는 관계가 그 행위의 행위자를 한쪽 끝으로 가져야 한다.
+
+가장 큰 것은 첫 줄이다. `co_principal`은 `establishes_predicate_refs`로 관계가 사실을
+*공급*받지만 derivative mode는 `requires`로 사실을 *요구*하는데, 그 predicate를 아무도 묻지
+않았다. Kleene에서 묻지 않은 사실은 UNKNOWN이므로 **교사범·방조범은 어떤 사건에서도 성립할
+수 없었다.** 26문항 plan에서 `instigator_intent`·`aiding_intent` target은 각각 0개였고,
+`joint_commission_by_two_or_more`만 12개 열려 있었다. planner가 이제 derivative 후보마다
+mode의 `requires`를 target으로 연다 (`opened_by: participation_mode_requirement`, 17개).
+
+가담자 후보는 assessment universe에 들어오되 top_level에는 들어가지 않는다 (125 vs 108).
+자기 고의를 스스로 답해야 하지만, 관계가 참으로 확정되기 전에는 책임 결론이 아니기 때문이다.
+Scallop runner의 endpoint 승격은 이제 없는 instance를 만들어 내는 것이 아니라 이미 있는
+instance를 top_level로 올리는 일이 된다.
+
+공동정범과 종범의 우선관계는 저작에 추가했다(`co_principal` ⊃ `instigator`, `aider`).
+**법률 검수 필요** — 정범성이 종범을 흡수한다는 통설을 코드가 아니라 저작으로 옮긴 것이므로
+승인 대상이다. 런타임은 저작된 양보만 적용하고, 선언이 없으면 종전대로 계약 위반으로 올린다.
+
+종료 테스트: [`tests/test_participation_axis_contract.py`](../../tests/test_participation_axis_contract.py)
+— 저작된 derivative mode의 `requires` 전수, 동시 성립 가능한 mode 쌍의 우선관계 전수,
+사주·승낙 최소 사례의 endpoint·carrier 정합.
+
+미측정: 위 수정은 Call 1.5-P 재실행(episode 스코프)과 Call 2 재실행(677 target)을 거쳐야
+숫자로 나타난다. symbolic 단계는 기존 Call 2 산출물에 대해 변화 없음을 확인했다(비의미적
+정렬 차이 1건 외 26/26 동일).
+
 ## 남은 축 순서
 
-### 1. Participation / attribution
-
-- 공범 target reachability, direct/derived participation
-- 교사·방조 우선관계, principal realization dependency
-- relation carrier 정합 — evidence carrier 축에서 예외로 남긴 participation 14건이 여기 속한다
-- **미해결 회귀**: participation target이 frozen-B 60 → 32로 줄었다. action 단위에서 중복이
-  제거된 것인지 회수가 후퇴한 것인지 아직 판정하지 않았다
-- Scallop이 Call 2가 확정한 공범 관계의 endpoint를 instance universe에 없다는 이유로 거부하던
-  결함은 runner에서 막아 두었으나, 계약상 소유자는 이 축이다
-
-### 2. Doctrine / stage-effect
+### 1. Doctrine / stage-effect
 
 - 착오, 간접정범, 제33조, excess, doctrine activation/effect
 - 감사 질문: trigger는 존재하는데 effect가 symbolic liability까지 실제 도달 가능한가
 
-### 3. Concurrence / final resolution
+### 2. Concurrence / final resolution
 
 - absorption, specialty, imaginative concurrence, 이번에 추가한 `definitional_resolution`
 - occurrence / same-realization 정합, established liability 사이 최종 중복·배제
 - `definitional_resolution` 3규칙은 단위 테스트로 발화를 고정했으나 26문항에서는 아직
   발동하지 않았다(두 죄가 모두 established여야 한다). doctrine 축이 열리면 발동 여지가 생긴다
 
-### 4. AnswerPlan / Call 3 E2E handoff
+### 3. AnswerPlan / Call 3 E2E handoff
 
 축이 아니라 전달 감사다. LiabilityResult → AnswerPlan → Call 3에서 symbolic conclusion 누락,
 authority·dispute 전달, 내부 status/ID 유출, final conclusion completeness를 본다.

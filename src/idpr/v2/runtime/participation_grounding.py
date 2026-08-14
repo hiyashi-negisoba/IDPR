@@ -435,6 +435,33 @@ def compile_participation_bindings(
                     value.case_id, value.actor_id, value.offense_ref, value.occurrence_id
                 )):
                     co_sources.append((target, source))
+        # 정범 경로와 종범 경로가 한 사람에게 동시에 참일 수 있다. 저작이 그 우선관계를
+        # 선언해 두면 여기서 양보시키고, 선언이 없을 때만 계약 위반으로 올린다. 우선관계
+        # 없음을 예외로 처리하면 사건 하나가 통째로 중단되므로 unresolved보다 나쁘다.
+        co_principal_dominates = authored_subsumptions.get("co_principal", frozenset())
+        for value in group_values:
+            if (
+                value.truth != "TRUE"
+                or value.target.kind not in {"instigation", "aiding"}
+                or value.target in subsumed_targets
+                or value.target.actor not in co_group_by_member
+            ):
+                continue
+            mode = "instigator" if value.target.kind == "instigation" else "aider"
+            if mode not in co_principal_dominates:
+                continue
+            subsumed_targets.add(value.target)
+            mode_resolutions.append({
+                "case_id": key[0],
+                "offense_ref": key[1],
+                "participant_id": value.target.actor.actor_id,
+                "principal_instance": _instance(value.target.principal),
+                "dominant_mode": "co_principal",
+                "subsumed_mode": mode,
+                "raw_dominant_truth": "TRUE",
+                "raw_subsumed_truth": "TRUE",
+                "resolution_basis": "authored_participation_policy",
+            })
         true_derivative = tuple(
             value
             for value in group_values
