@@ -47,6 +47,7 @@ HOMICIDE = "offense.homicide"
 POLICY = "completion_policy.homicide"
 DEFECT = "ground_fact.means_or_object_defect"
 COMMENCEMENT = "legal_element.commencement_of_execution"
+DEATH = "ground_fact.death_of_victim"
 
 #: planner가 참가 mode의 `requires`에서 여는 target. 어떤 죄의 슬롯에도, 어떤 completion
 #: policy에도 나오지 않는다 -- scheduler가 모델링하지 않는 종류의 target의 실례다.
@@ -114,6 +115,7 @@ def test_every_planned_target_is_asked_or_moot_for_a_stated_reason(registry):
 
     1. 모델링된 표현식이 어떤 답에도 같은 값을 낸다(무의미).
     2. 앞선 conjunct를 물었는데 UNKNOWN으로 왔다 -- 그 앞이 풀리면 물어진다.
+    3. 막을 state가 아직 성립하지 않았다(blocker) -- state가 성립하면 물어진다.
 
     두 번째는 2026-08-16 측정으로 들어온 것이다. Call 2가 답을 주지 않는 최악의 경우를
     가정하는 이 시뮬레이션에서는 사다리가 첫 UNKNOWN에서 멈추므로, 뒤에 선 target이 "이유
@@ -145,26 +147,28 @@ def test_every_planned_target_is_asked_or_moot_for_a_stated_reason(registry):
 
     # 사다리 뒤에 선 것은 upstream이 풀리면 물어진다. 그것이 "이유 있는 보류"와 "이유 없이
     # 사라짐"을 가르는 유일한 증거다.
-    settled = {
-        "legal_element.commencement_of_execution": TRUE,
-        "ground_fact.death_of_victim": FALSE,
-        "ground_fact.means_or_object_defect": TRUE,
-    }
+    # 앞이 풀린 세계를 단계별로 상정한다. 미수 state가 성립한 세계에서 blocker가 열리고,
+    # 그 blocker가 TRUE인 세계에서 불능미수의 위험성이 열린다.
+    worlds = (
+        {COMMENCEMENT: TRUE, DEATH: FALSE},
+        {COMMENCEMENT: TRUE, DEATH: FALSE, DEFECT: TRUE},
+    )
     reachable: set[str] = set()
-    asked_when_settled = set(settled)
-    for _ in range(20):
-        batch = next_round_targets(
-            registry,
-            (key,),
-            {key: settled},
-            already_asked={key: asked_when_settled},
-            candidate_refs={key: planned},
-        )
-        if not batch:
-            break
-        refs = {ref for _instance, ref in batch}
-        reachable |= refs
-        asked_when_settled |= refs
+    for settled in worlds:
+        asked_when_settled = set(settled)
+        for _ in range(20):
+            batch = next_round_targets(
+                registry,
+                (key,),
+                {key: settled},
+                already_asked={key: asked_when_settled},
+                candidate_refs={key: planned},
+            )
+            if not batch:
+                break
+            refs = {ref for _instance, ref in batch}
+            reachable |= refs
+            asked_when_settled |= refs
     assert laddered <= reachable, (
         f"planned targets vanished without a reason: {sorted(laddered - reachable)}"
     )
@@ -202,11 +206,20 @@ def _registry_with_blocker_only_predicate(registry) -> tuple[DefinitionRegistry,
 
 
 def test_a_blocker_is_a_question_this_case_has_to_be_asked(registry):
-    """`blocked_when`은 TRUE일 때만 막는다. 묻지 않으면 영원히 UNKNOWN이고 fail-open이다."""
+    """`blocked_when`은 TRUE일 때만 막는다. 묻지 않으면 영원히 UNKNOWN이고 fail-open이다.
+
+    다만 막을 state가 성립한 뒤에 묻는다. guard가 아직 UNKNOWN인 동안 물으면 깰 대상이
+    정해지지 않은 채로 답해야 한다 -- 2026-08-16 측정에서 `means_or_object_defect`가 그렇게
+    열려 UNKNOWN 18건을 냈고, TRUE로 답해진 4건은 전부 기수 사건이라 미수 state의 guard가
+    FALSE여서 막을 것이 애초에 없었다.
+    """
     patched, blocker = _registry_with_blocker_only_predicate(registry)
-    settled = {COMMENCEMENT: TRUE, DEFECT: FALSE}
-    assert blocker in live_predicate_refs(patched, instance(), settled)
-    assert blocker in frontier_predicate_refs(patched, instance(), settled)
+    guard_open = {COMMENCEMENT: TRUE, DEFECT: FALSE}
+    assert blocker in live_predicate_refs(patched, instance(), guard_open)
+    assert blocker not in frontier_predicate_refs(patched, instance(), guard_open)
+
+    guard_true = {**guard_open, DEATH: FALSE}
+    assert blocker in frontier_predicate_refs(patched, instance(), guard_true)
 
 
 def test_a_blocker_of_a_dead_state_is_not_asked(registry):

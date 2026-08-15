@@ -321,8 +321,11 @@ def frontier_predicate_refs(
                 ready |= _frontier_of_raw(
                     state["requires"], truths, settled_refs=settled_refs
                 )
-            # A blocker is not laddered behind `requires`: it defeats the state on its own
-            # and is asked as soon as the state is live at all.
+            # A blocker is not laddered behind `requires`: it defeats the state on its own.
+            # 다만 그 state가 아직 성립할지조차 모르는 동안에는 묻지 않는다. blocker는 성립한
+            # state를 깨는 물음이고, 깰 대상이 정해지기 전에 물으면 답할 근거가 없다.
+            if evaluate(guard, truths) != TRUE:
+                continue
             if state.get("blocked_when") is not None:
                 ready |= _frontier_of_raw(
                     state["blocked_when"], truths, settled_refs=settled_refs
