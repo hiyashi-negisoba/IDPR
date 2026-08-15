@@ -205,9 +205,37 @@ A1 나머지 + A3 + A4 + B/C
 
 ---
 
-## 8. 아직 배선되지 않은 마지막 seam
+## 8. 현재 상태 (2026-08-15 마감)
 
-A2의 도출·target 개방·정책 적용 함수는 모두 있고 테스트도 있다. production 체인에서
-`apply_mistake_policy`를 호출하는 자리(`scripts/run_v2_scallop_e2e.py`의 truth 변환 구간)는
-아직 연결하지 않았다. §6이 정해지면 A1의 outcome 주입과 함께 한 번에 넣는 편이 같은 코드를
-두 번 건드리지 않는다.
+### 닫힌 것
+
+| 조각 | 상태 |
+|---|---|
+| Call 1.5 세 사실 필드 (main·recovery·persisted parser) | 완료 |
+| A2 structural divergence → target 개방 → 정책 적용 | 완료, **production 호출부 연결됨** |
+| `offense_instance` probe producer 부재 | 완료 |
+| ROUTE 일반화 + dependency planner + carried scope | 완료 |
+| threshold pre-gate (qualifying/non_qualifying/unauthored 3분기) | 완료 |
+| linked-offender predicate targets + participant 수준 fold | 완료 |
+| `article151_penalty_threshold` 63개 저작 | 완료 |
+| dependency ROUTE 실행 스크립트 | 완료 (`scripts/run_v2_dependency_route.py`) |
+| 라우터 프롬프트 basis-neutral화 | 완료 |
+| B2·B3·B4 | 완료 |
+
+### 남은 것 하나 — symbolic 체인에서 resolver를 부르는 자리
+
+`resolve_article_151_liability()`는 아직 production 체인이 부르지 않는다. 입력은 전부
+준비되었다 — dependency route artifact가 outcome을 내고, `Article151QualifyingLink`가 그것을
+받는 타입이며, threshold는 저작되었다.
+
+남은 판단은 **제263조와 같은 Scallop parity가 필요한가**다. 제263조는
+`run_article_263_liability_parity_program()`으로 symbolic 쪽에도 같은 경로를 두었다.
+제151조도 그래야 하는지, 아니면 element override만으로 충분한지는 symbolic 계약을 보고
+정해야 하고, 이 세션에서 확인하지 못했다.
+
+### authoring-review로 남긴 것 (승인된 상태로 유지)
+
+1. `intent_toward_intended_object`를 generic `legal_element.intent`로 읽는 것
+   — UNKNOWN 작업 마지막 단계에서 병목으로 드러나면 재검수.
+2. linked-offender fold가 completion을 평가하지 않는 것
+   — 미수도 "벌금 이상의 형에 해당하는 죄"라는 전제. 코드 주석에도 기록.
