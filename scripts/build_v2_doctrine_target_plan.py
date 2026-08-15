@@ -151,6 +151,55 @@ def main() -> None:
             existing_targets=existing,
         )
         row["assessment_targets"].extend(value.as_dict() for value in targets)
+        # 새로 연 target에는 물리적 carrier가 함께 있어야 한다. 없으면 Call 2가 target 목록과
+        # carrier 목록의 불일치로 사건 전체를 거부한다 -- 실제로 첫 관통에서 여기서 멈췄다.
+        # 법리는 그 instance가 실현된 행위에 대해 묻는 것이므로 realization이 그 carrier다.
+        carrier_by_occurrence = {
+            str(item["instance_key"]["occurrence_id"]): (
+                (item.get("carrier_ids") or {}).get("realization")
+                or str(item["instance_key"]["occurrence_id"])
+            )
+            for item in row.get("instance_provenance", ())
+        }
+        covered = {
+            (
+                value["instance_key"]["actor_id"],
+                value["instance_key"]["offense_ref"],
+                value["instance_key"]["occurrence_id"],
+                value["predicate_ref"],
+            )
+            for value in row.get("assessment_carriers", ())
+        }
+        for value in targets:
+            key = (
+                value.instance.actor_id,
+                value.instance.offense_ref,
+                value.instance.occurrence_id,
+                value.predicate_ref,
+            )
+            if key in covered:
+                continue
+            carrier_id = carrier_by_occurrence.get(value.instance.occurrence_id)
+            if not carrier_id:
+                raise ValueError(
+                    f"{case_id}: doctrine leaf target lacks realization provenance "
+                    f"({value.instance.occurrence_id})"
+                )
+            covered.add(key)
+            row.setdefault("assessment_carriers", []).append(
+                {
+                    "instance_key": {
+                        "case_id": value.instance.case_id,
+                        "actor_id": value.instance.actor_id,
+                        "offense_ref": value.instance.offense_ref,
+                        "occurrence_id": value.instance.occurrence_id,
+                    },
+                    "predicate_ref": value.predicate_ref,
+                    "carrier_id": carrier_id,
+                    "carrier_kind": "doctrine_realization",
+                }
+            )
+        row["assessment_carrier_count"] = len(row.get("assessment_carriers", ()))
         row["final_assessment_target_count"] = len(row["assessment_targets"])
         row["doctrine_target_count"] = len(targets)
         row["raised_doctrines"] = [value.as_dict() for value in raised]
