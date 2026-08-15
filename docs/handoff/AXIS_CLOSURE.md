@@ -2,8 +2,11 @@
 
 기준: 2026-08-15 · 브랜치 `deadline_v2_0808` · 데드라인 2026-08-19 21:00
 
-이 문서가 현재 상태의 정본이다. `NEXT_SESSION.md`는 append-only 역사 로그이며 그 안의
+이 문서가 구조 감사의 정본이다. `NEXT_SESSION.md`는 append-only 역사 로그이며 그 안의
 "다음 작업" 지시는 이 문서가 대체한다.
+
+다음 세션의 시작점은 [`START_HERE.md`](START_HERE.md)이고, 다음 작업 지시서는
+[`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md)다. 이 문서는 "지금까지 무엇이 닫혔는가"를 담는다.
 
 ## 왜 이 방식인가
 
@@ -363,6 +366,9 @@ symbolic을 막았다.
 
 ## 다음 작업
 
+> 이 절과 위의 「현재 실행 상태(11:47)」는 아래 「production E2E 관통 (2026-08-15 06:00)」
+> 절이 대체한다. 세 항목 모두 그 절에서 실행·확인되었다.
+
 1. **Call 2부터 다시 돌린다.** symbolic 재개가 아니다 -- 위 감사에서 확인된 대로 기존 Call 2는
    doctrine·participation target을 하나도 묻지 않았고, 그 산출물로는 두 축이 관통했는지
    알 수 없다. `IDPR_AXIS_SKIP="call15p call15d"`로 plan부터 다시 만든다(plan 단계는 CPU만
@@ -387,3 +393,80 @@ symbolic을 막았다.
 
 동일 입력·동일 프롬프트에서도 Call 2 결과가 약 9% 흔들린다. 따라서 20~30건 규모의 총계
 변화는 노이즈와 구분되지 않는다. 판단은 deterministic한 symbolic 단계 출력으로 한다.
+
+---
+
+## production E2E 관통 (2026-08-15 06:00)
+
+실행 루트 `experiments/v2_final_e2e_26/`. 위의 「현재 실행 상태(11:47)」와 「다음 작업」은
+이 절이 대체한다. 코드베이스 감사 10건 + 재검수 3+1건을 모두 닫은 뒤의 첫 전체 관통이다.
+
+| 단계 | 결과 |
+|---|---|
+| plan 재생성 | 758 target 재현 (결정론 확인) |
+| call2 | 26/26, planned 758 중 asked 691 |
+| absorption · symbolic | 26/26 |
+| answer_plan | 26/26 |
+| call3 | 26/26 |
+
+**P0-A는 실측으로 닫혔다.** 직전 산출물에서 0이던 external opener가 전부 질문되었다.
+
+| opener | planned | asked |
+|---|---:|---:|
+| `doctrine_raising_cue` | 39 | 39 |
+| `participation_mode_requirement` | 27 | 27 |
+| `participation_candidate_probe` | 4 | 4 |
+
+downstream 계보 추적 결과 **경로 손실 0**이다. participation TRUE relation 17건은
+정상 소멸 / 정상 반영으로 전부 설명되고, active doctrine 5건(정당방위 4 · 법률의 착오 1)은
+raised → leaf truth → active → 최종 책임 → AnswerPlan → Call 3까지 끊긴 지점이 없다.
+공동정범 3건의 답안 서술 누락은 구조 경로 손실이 아니라 generation/evaluation exposure
+문제로 분리했다.
+
+측정값: offense instance 122 중 성립 21(17%), elements 단계 정지 69, completion 단계 정지 32,
+AnswerPlan unresolved anchor 93/122(76%), Call 2 UNKNOWN 418/691(약 60%).
+
+### completion semantics — 검수 완료, 구조 유지
+
+`attempted.when = commencement AND NOT(completion)`을 결함으로 의심했으나 **법률 검수에서
+현행 저작이 맞다고 확정**되었다.
+
+- 형법 제25조 제1항이 비기수성을 **미수범의 구성요건 요소**로 규정한다. 중지미수(제26조)·
+  불능미수(제27조)는 별개 조문이므로 그쪽을 `defeated_by_state`로 모델링한 것은 옳고,
+  같은 장치를 미수 일반에 쓰면 안 된다.
+- 이를 바꾸면 법정 요소가 미확정인 상태에서 시스템이 "미수 성립"을 적극 출력하게 되어
+  비단조적 잠정 상태가 된다.
+- 따라서 `commencement=TRUE + completion UNKNOWN` 16건은 결함이 아니라 **정당한 3-valued
+  unresolved state**다. 그 UNKNOWN의 원인이 사실관계의 진짜 모호성인지 Call 2 판독 실패인지는
+  sealed-59를 열지 않는 한 미측정으로 남는다.
+
+completion 축은 이로써 다시 닫는다.
+
+### 0-TRUE predicate 사례비의존 감사
+
+sealed 사례의 사실판단 없이 definition이 답변 가능한 형태인지만 정적으로 검사했다.
+두 건이 나왔고 둘 다 성격이 다르다.
+
+1. **`legal_element.offender_status_of_object` — 파이프라인 공백 (구조 결함).**
+   `legal_standard`가 스스로 "caller가 명시한 linked OffenseInstanceKey의 qualifying
+   liability result로만 판단"한다고 선언한다. 즉 neural predicate가 아니다. 호스트 경로
+   `resolve_article_151_liability()`는 [`statutory.py:42`](../../src/idpr/v2/runtime/statutory.py#L42)에
+   구현되어 있으나 **레포 전체에 호출부가 없다**. 그 결과 Call 2에 6번 질문되어 6/6 UNKNOWN이고,
+   범인은닉도피죄 object 슬롯은 어떤 사건에서도 확정될 수 없다. 제263조 경로는 연결되어 있고
+   제151조만 빠졌다. → `RULEBASE_AUDIT.md` P0-R1.
+2. **`ground_fact.means_or_object_defect` — 법률/저작 검수 대상 (구조 결함 아님).**
+   45 asked / TRUE 1 · UNKNOWN 44 · **FALSE 0**. `legal_standard`가 없고 semantic exclusion
+   둘이 각각 흔한 FALSE 경로와 흔한 TRUE 경로를 막는다. `GroundFactDef`는 `legal_standard`가
+   필수가 아니므로 schema 위반은 아니다. 파급은 작지 않다 — 이것이 FALSE로 확정되면 불능미수
+   분기가 죽고 `dangerousness`(24/25 UNKNOWN)가 정당하게 잘린다. 지금은 70건을 물어 1건을
+   얻는다. **승인 없이 정의·프롬프트를 수정하지 않았다.**
+
+나머지 0-TRUE predicate(`bribe_promise` 0/10 등)는 **미측정**으로 남긴다. 같은 형식의 형제
+predicate가 TRUE를 받으므로(`bribe_acceptance` 3, `bribe_request` 1) 저작 형식만으로 설명되지
+않고, 사실 부재냐 판독 실패냐는 sealed-59를 열지 않는 한 갈리지 않는다.
+
+### 판정
+
+pipeline stage 간 연결이라는 축은 닫혔다. 남은 위험은 **저작했다고 믿는 규칙이 실제 runtime에
+존재하는가**로 이동했고, 그 축의 전수감사가 [`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md)다.
+structural freeze는 그 문서의 Phase A를 닫은 뒤에 선언한다.
