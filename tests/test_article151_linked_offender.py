@@ -103,3 +103,18 @@ def test_the_raw_target_instance_fact_cannot_impersonate_the_linked_result() -> 
     truths = CaseTruths(predicate={(INSTANCE, STATUS_REF): "TRUE"})
 
     assert _status_truth(_resolve(None, truths)) == "UNKNOWN"
+
+
+def test_the_status_leaf_is_not_an_ordinary_call2_question() -> None:
+    """대상자 신분은 링크가 정한다. 그런데도 물어보고 있었고, 6/6 UNKNOWN이 나왔다.
+
+    모델에게 준 것은 이 instance에 관한 사실이 아니라 다른 사람의 법적 결과였다. 답할 수
+    없는 질문이므로 UNKNOWN이 정확한 응답이고, 결함은 물었다는 데 있다.
+    """
+    from idpr.v2.runtime.evaluation_instance_planner import _instance_predicate_refs
+
+    refs = _instance_predicate_refs(REGISTRY, INSTANCE)
+
+    assert STATUS_REF not in refs
+    # 나머지 구성요건은 그대로 남아야 한다 -- 이 죄 전체를 빼는 것이 아니다.
+    assert "legal_element.act_directed_at_another_offender" in refs

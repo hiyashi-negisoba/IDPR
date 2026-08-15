@@ -430,9 +430,17 @@ def _instance_predicate_refs(
         )
     refs: list[str] = []
     seen: set[str] = set()
+    # An element the offense declares as resolved by a linked offender's own outcome is not a
+    # question for a model.  Asking it anyway is how 제151조's status leaf became 6/6 UNKNOWN:
+    # Call 2 was handed a cross-actor legal result dressed up as a fact about this instance.
+    entry = registry.get(instance.offense_ref)
+    dependency = (entry.payload.get("linked_offender_dependency") or {}) if entry else {}
+    host_resolved = {dependency["resolved_element"]} if dependency.get("resolved_element") else set()
 
     def add(values: Iterable[str]) -> None:
         for ref in values:
+            if ref in host_resolved:
+                continue
             if registry.kind_of(ref) in {"ground_fact", "legal_element"} and ref not in seen:
                 seen.add(ref)
                 refs.append(ref)
@@ -444,6 +452,9 @@ def _instance_predicate_refs(
         for state in policy.payload["states"].values():
             add(sorted(expressions.leaf_refs(state.get("when"))))
             add(sorted(expressions.leaf_refs(state.get("requires"))))
+            # blocker leaf도 정식 입력이다. 묻지 않으면 UNKNOWN으로 남아 아무것도 막지
+            # 않으므로, 수집 누락이 "이 사건에는 예외가 없다"로 읽힌다.
+            add(sorted(expressions.leaf_refs(state.get("blocked_when"))))
     return tuple(refs)
 
 
