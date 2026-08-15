@@ -111,13 +111,20 @@ def test_required_authorities_deduplicate_authored_issue_and_finding_citations()
         governing_provision="형법 제257조 제1항; 형법 제347조 제1항",
     )
 
+    # 근거는 쟁점 안에 머문다. 전역 목록이면 상해죄의 조문이 사기죄 논증으로 넘어가고,
+    # 실제로 `result_causation` 같은 죄를 가리지 않는 요소의 조문이 그렇게 번지고 있었다.
     assert serialize_required_authorities(_plan((first, second))) == (
-        "· 형법 제347조 제1항\n· 형법 제257조 제1항"
+        "[甲 — 사기죄]\n"
+        "· 형법 제347조 제1항\n"
+        "[乙 — 상해죄]\n"
+        "· 형법 제257조 제1항\n"
+        "· 형법 제347조 제1항"
     )
 
 
 def test_required_authorities_is_empty_when_plan_has_no_authored_citations() -> None:
-    assert serialize_required_authorities(_plan((_issue("i1", "甲", "사기죄", UNRESOLVED),))) == "없음"
+    """빈 목록은 "없음"이 아니라 빈 문자열이다. 호출자가 섹션 자체를 생략한다."""
+    assert serialize_required_authorities(_plan((_issue("i1", "甲", "사기죄", UNRESOLVED),))) == ""
 
 
 def test_missing_required_authorities_is_an_exact_non_repairing_audit() -> None:

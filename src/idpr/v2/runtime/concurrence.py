@@ -502,6 +502,58 @@ def _instance_fields(value: OffenseInstanceKey) -> tuple[str, str, str, str]:
     return (value.case_id, value.actor_id, value.offense_ref, value.occurrence_id)
 
 
+REAL_CONCURRENCE = "real_concurrence"
+"""실체적 경합 -- 수개의 행위로 수개의 죄. 형법 제37조 전단."""
+
+
+def classify_concurrence_relations(
+    retained_instances: Iterable[OffenseInstanceKey],
+    *,
+    realization_by_instance: Mapping[OffenseInstanceKey, str],
+    imaginative_pairs: Iterable[tuple[OffenseInstanceKey, OffenseInstanceKey]] = (),
+) -> tuple[tuple[OffenseInstanceKey, OffenseInstanceKey, str], ...]:
+    """한 행위자에게 남은 죄들 사이의 죄수관계를 타입으로 산출한다.
+
+    실체적 경합을 "흡수도 상상적 경합도 아닌 나머지"로 찍지 않는다. 그렇게 하면 규칙베이스가
+    모든 죄수관계를 빠짐없이 열거했다는 보장 위에 서게 되고, 부존재를 적극적 사실로 쓰는 일이
+    된다. 대신 두 갈래 모두 **실현 행위의 동일성**이라는 같은 근거에서 적극적으로 읽는다 --
+    행위가 하나면 상상적 경합(제40조), 행위가 여럿이면 실체적 경합(제37조 전단)이다.
+
+    법조경합(흡수·특별관계)은 이 단계 이전에 이미 제거되어 있다. 여기 남은 것은 모두 실제로
+    병존하는 죄다.
+
+    한계를 분명히 해 둔다. 행위의 단일성은 본래 규범적 판단이고, 여기서 쓰는 초점행위 동일성은
+    그 구조적 근사다. 저작된 `imaginative_concurrence` 규칙이 있으면 그것이 우선한다.
+    실현 식별자를 모르는 instance는 짝을 만들지 않는다 -- 모르면 말하지 않는다.
+    """
+    retained = tuple(dict.fromkeys(retained_instances))
+    authored = {
+        frozenset(pair) for pair in imaginative_pairs
+    }
+    output: list[tuple[OffenseInstanceKey, OffenseInstanceKey, str]] = []
+    for index, left in enumerate(sorted(retained, key=_instance_fields)):
+        for right in sorted(retained, key=_instance_fields)[index + 1 :]:
+            if left.actor_id != right.actor_id or left.case_id != right.case_id:
+                continue
+            if frozenset((left, right)) in authored:
+                output.append((left, right, IMAGINATIVE_CONCURRENCE))
+                continue
+            left_key = realization_by_instance.get(left)
+            right_key = realization_by_instance.get(right)
+            if not left_key or not right_key:
+                continue
+            output.append(
+                (
+                    left,
+                    right,
+                    IMAGINATIVE_CONCURRENCE
+                    if left_key == right_key
+                    else REAL_CONCURRENCE,
+                )
+            )
+    return tuple(output)
+
+
 __all__ = [
     "ABSORPTION",
     "ACTOR_ANY",
@@ -521,6 +573,8 @@ __all__ = [
     "load_concurrence_rules",
     "plan_concurrence_candidates",
     "plan_specialty_candidates",
+    "REAL_CONCURRENCE",
+    "classify_concurrence_relations",
     "propagate_absorption_to_accessories",
     "resolve_concurrence",
     "same_realization_keys",

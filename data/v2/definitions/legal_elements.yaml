@@ -842,9 +842,11 @@
 
 - id: legal_element.result_causation
   arguments: [{name: act, type: entity}, {name: result, type: entity}]
-  canonical_meaning: "(death-agnostic 신규) 행위-결과 상당인과관계"
-  legal_standard: "현재 offense instance의 구성요건적 결과와 행위 사이에 상당인과관계가 있는지 여부"
-  authority_refs: [{authority_basis: statute_text, citation: "형법 제250조; 제267조; 제268조"}]
+  canonical_meaning: "행위와 구성요건적 결과 사이의 상당인과관계"
+  legal_standard: "행위와 그 죄의 구성요건적 결과 사이에 상당인과관계가 인정되는지 여부"
+  # 죄를 가리지 않는 요소이므로 특정 죄의 조문을 달지 않는다. 조문은 그 죄의 governing
+  # provision이 대고, 여기 달면 이 요소를 쓰는 모든 죄가 살인·과실치사 조문을 인용하게 된다.
+  authority_refs: [{authority_basis: commentary_synthesis, citation: "상당인과관계설 (결과범 일반의 인과관계 판단기준)"}]
 
 - id: legal_element.lineal_ascendant_of_self_or_spouse_status
   arguments: [{name: victim, type: entity}]
@@ -927,7 +929,7 @@
 
 - id: legal_element.coercion_induced_sexual_act_causation
   arguments: [{name: coercion, type: entity}, {name: sexual_act, type: entity}]
-  canonical_meaning: "폭행·협박→성적행위 인과(death-agnostic 패턴)"
+  canonical_meaning: "폭행·협박과 성적 행위 사이의 인과관계"
   legal_standard: "폭행·협박과 간음 또는 추행 사이에 인과관계가 있는지 여부"
   authority_refs: [{authority_basis: statute_text, citation: "형법 제297조; 제298조"}]
 

@@ -41,6 +41,7 @@ from idpr.v2.runtime.concurrence import (
     ConcurrenceCandidate,
     ConcurrenceResolution,
     ConcurrenceRule,
+    classify_concurrence_relations,
     plan_concurrence_candidates,
     plan_specialty_candidates,
     propagate_absorption_to_accessories,
@@ -214,6 +215,11 @@ class FinalResponsibilityView:
     attribution_withheld_instances: frozenset[OffenseInstanceKey]
     status_redirections: tuple[AggravatingStatusRedirection, ...]
     unresolved: tuple[UnresolvedFinding, ...]
+    concurrence_relations: tuple[
+        tuple[OffenseInstanceKey, OffenseInstanceKey, str], ...
+    ] = ()
+    """남은 죄들 사이의 죄수관계. 상상적 경합과 실체적 경합 모두 실현 행위의 동일성에서
+    적극적으로 읽은 것이고, 흡수의 여집합이 아니다."""
 
     def as_dict(self) -> dict[str, Any]:
         def instance(value: OffenseInstanceKey) -> dict[str, str]:
@@ -247,6 +253,14 @@ class FinalResponsibilityView:
             "imaginative_concurrence_pairs": [
                 {"first_instance": instance(left), "second_instance": instance(right)}
                 for left, right in self.concurrence.imaginative_pairs
+            ],
+            "concurrence_relations": [
+                {
+                    "first_instance": instance(left),
+                    "second_instance": instance(right),
+                    "relation": relation,
+                }
+                for left, right, relation in self.concurrence_relations
             ],
             "unresolved_concurrence_candidates": [
                 candidate(value) for value in self.concurrence.unresolved_candidates
@@ -455,6 +469,11 @@ def resolve_final_responsibility(
         )
     return FinalResponsibilityView(
         case_id=case_id,
+        concurrence_relations=classify_concurrence_relations(
+            resolution.retained_instances,
+            realization_by_instance=focal_action_by_instance,
+            imaginative_pairs=resolution.imaginative_pairs,
+        ),
         established_instances=established,
         concurrence=resolution,
         specialty_candidates=specialty,

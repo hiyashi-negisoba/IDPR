@@ -11,6 +11,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -31,6 +32,23 @@ PROMPTS = ("v2_call3_irac", "v2_call3_irac_user")
 
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+_SECTION = re.compile(
+    r"\n?<(?P<tag>[A-Z_]+)>\s*\n(?P<body>.*?)\n?</(?P=tag)>\n?", re.DOTALL
+)
+
+
+def _drop_empty_sections(content: str) -> str:
+    """내용이 없는 `<TAG>` 절을 통째로 뺀다.
+
+    빈 절을 "없음" 같은 문자열로 채우면 두 가지가 섞인다 -- 정말로 없다는 판단과, 우리가
+    알지 못한다는 사실이다. 둘을 구별할 수 없는 곳에서는 말하지 않는 편이 정확하다.
+    """
+    return _SECTION.sub(
+        lambda match: "" if not match.group("body").strip() else match.group(0),
+        content,
+    )
 
 
 def main() -> None:
@@ -89,6 +107,10 @@ def main() -> None:
                 .replace("{{REQUIRED_AUTHORITIES}}", required_authorities)
                 .replace("{{REQUIRED_FINAL_CONCLUSIONS}}", required_final_conclusions)
             )
+            # 빈 절은 통째로 뺀다. "다루지 않은 영역으로 특정된 것은 없다"처럼 비어 있음을
+            # 내용으로 바꿔 적으면 분석의 완결성을 host가 선언하는 것이 되고, 우리는 그것을
+            # 알 수 없다 -- Call 1이 죄명을 놓친 문항에서도 그 문장이 나갔다.
+            user_content = _drop_empty_sections(user_content)
             started = time.monotonic()
             try:
                 answer = client.complete_text(

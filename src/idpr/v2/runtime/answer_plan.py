@@ -21,13 +21,16 @@ enter the artifact.
 
 from __future__ import annotations
 
+import collections
 import json
 import re
 from collections.abc import Mapping, Sequence
 from dataclasses import dataclass
 from typing import Any
 
+from idpr.v2 import expressions
 from idpr.v2.registry import DefinitionRegistry
+from idpr.v2.runtime.completion import completion_policy_for
 
 #: Internal vocabulary that must never survive serialization into the Call 3 payload.
 #: A leak here does not merely look untidy -- it teaches the writer to quote machine state
@@ -48,6 +51,13 @@ _INTERNAL_MARKERS = (
     "source_run=",
     "Scallop",
     "Call 2",
+    # 점 없는 형태로도 샌다. `legal_element.result_causation`의 판단기준이
+    # "현재 offense instance의 …"였고 위의 `offense.`에 걸리지 않았다. 본 수정은 저작 쪽에서
+    # 했고 이 목록은 회귀 방지용이다.
+    "offense instance",
+    "offense_instance",
+    "predicate",
+    "death-agnostic",
 )
 
 _ALLOWED_CONTESTED_ORIGINS = ("authored_doctrine", "reviewed_card")
@@ -86,6 +96,8 @@ class Finding:
     label: str
     truth: str
     legal_standard: str | None = None
+    #: 직렬화되지 않는다. live frontier 계산이 어느 요건인지 알아야 해서 남긴다.
+    predicate_ref: str = ""
     governing_provision: str | None = None
     rule_statements: tuple[RuleStatement, ...] = ()
     supporting_quotes: tuple[str, ...] = ()
@@ -158,6 +170,9 @@ class FinalResponsibility:
     imaginative_pairs: tuple[Mapping[str, Any], ...]
     excess_attributions: tuple[Mapping[str, Any], ...]
     status_redirections: tuple[Mapping[str, Any], ...]
+    #: 죄수관계. 상상적 경합과 실체적 경합 모두 symbolic 단계가 실현 행위의 동일성에서
+    #: 적극적으로 판정한 것이고, host가 흡수의 여집합으로 찍은 것이 아니다.
+    concurrence_relations: tuple[Mapping[str, Any], ...] = ()
 
 
 @dataclass(frozen=True, slots=True)
@@ -362,6 +377,7 @@ def _findings_for_instance(
         finding = Finding(
             label=predicate_label(registry, predicate_ref),
             truth=str(row.get("truth", "")),
+            predicate_ref=predicate_ref,
             legal_standard=predicate_standard(registry, predicate_ref),
             governing_provision=predicate_provision(registry, predicate_ref),
             rule_statements=(
@@ -377,6 +393,99 @@ def _findings_for_instance(
         else:
             blocking.append(finding)
     return tuple(satisfied), tuple(failed), tuple(blocking)
+
+
+def _completion_state_refs(
+    registry: DefinitionRegistry, offense_ref: str
+) -> dict[str, frozenset[str]]:
+    """`{완성 상태: 그 상태를 정하는 predicate ref}`. 정책이 없으면 빈 사전."""
+    policy = completion_policy_for(registry, offense_ref)
+    if policy is None:
+        return {}
+    output: dict[str, frozenset[str]] = {}
+    for name, state in (policy.payload.get("states") or {}).items():
+        refs = set(expressions.leaf_refs(state.get("when")))
+        refs |= set(expressions.leaf_refs(state.get("requires")))
+        # `blocked_when`은 뺀다. 확정되었을 때만 배제하는 장치이므로 UNKNOWN인 동안에는
+        # 아무것도 막지 않고, 막지 않는 것을 "결론을 막는 요건"으로 내보낼 수 없다.
+        refs -= set(expressions.leaf_refs(state.get("blocked_when")))
+        output[str(name)] = frozenset(refs)
+    return output
+
+
+def _completion_blockers(
+    registry: DefinitionRegistry, offense_ref: str
+) -> frozenset[str]:
+    policy = completion_policy_for(registry, offense_ref)
+    if policy is None:
+        return frozenset()
+    return frozenset().union(
+        *(
+            expressions.leaf_refs(state.get("blocked_when"))
+            for state in (policy.payload.get("states") or {}).values()
+        ),
+        frozenset(),
+    )
+
+
+def live_unresolved_frontier(
+    registry: DefinitionRegistry,
+    result: Mapping[str, Any],
+    offense_ref: str,
+    blocking: Sequence[Finding],
+    known: Sequence[Finding] = (),
+) -> tuple[Finding, ...]:
+    """지금 결론을 실제로 막고 있는 미확정 요건만 남긴다.
+
+    모든 UNKNOWN을 평평하게 넘기면 Call 3는 그것들을 전부 실제 쟁점으로 받아들인다. 살인
+    하나에 예비·불능미수·중지미수 요건까지 "확정되지 않은 요건"으로 붙어 나갔고, 사안에서
+    아무도 제기하지 않은 논점을 답안이 늘어놓게 된다.
+
+    두 갈래로 좁힌다.
+
+    * 결정 단계가 완성단계면, 아직 배제되지 않은 상태들의 요건만 본다. 그 중 **근거가 하나라도
+      확정된** 상태가 있으면 그 상태들의 요건이 frontier다. 하나도 없으면 -- 어느 상태도
+      사실로 제기되지 않았다는 뜻이므로 -- 남은 상태들이 **공유하는** 요건만 남긴다. 그것이
+      상태들을 가르는 최소 지점이고, 보통 실행의 착수다.
+    * 그 밖의 단계면 완성단계 전용 요건을 뺀다. 구성요건이 결정 단계인데 미수 유형 요건을
+      쟁점으로 내보내는 것은 단계를 섞는 것이다.
+
+    좁힌 결과가 비면 좁히지 않은 것을 그대로 돌려준다. 막고 있는 것이 무엇인지 말하지 못하는
+    것보다는 넓게 말하는 편이 낫다.
+    """
+    values = tuple(blocking)
+    state_refs = _completion_state_refs(registry, offense_ref)
+    if not state_refs:
+        return values
+    completion_only = frozenset().union(*state_refs.values())
+    blockers = _completion_blockers(registry, offense_ref)
+    values = tuple(v for v in values if v.predicate_ref not in blockers) or values
+    if result.get("decisive_stage") != "completion":
+        return tuple(v for v in values if v.predicate_ref not in completion_only) or values
+
+    provenance = (result.get("completion") or {}).get("provenance") or []
+    open_states = [
+        str(row.get("state"))
+        for row in provenance
+        if row.get("truth") != "FALSE" and str(row.get("state")) in state_refs
+    ]
+    if not open_states:
+        return values
+    # 사실로 제기된 상태 = 그 상태의 요건 중 **확정된 답이 하나라도 있는** 상태.
+    # 아예 답이 없는 요건(미질문·미기록)을 근거로 세면 안 된다 -- 부재는 증거가 아니다.
+    known_refs = {value.predicate_ref for value in known if value.predicate_ref}
+    grounded = [name for name in open_states if state_refs[name] & known_refs]
+    if grounded:
+        scope = frozenset().union(*(state_refs[name] for name in grounded))
+    else:
+        # 어느 상태도 사실로 제기되지 않았다. 그러면 여러 상태가 **함께** 걸려 있는 요건이
+        # 그 갈림의 최소 지점이다 -- 살인이라면 사망 결과와 실행의 착수이고, 중지의 자의성이나
+        # 예비의 목적처럼 한 갈래에만 있는 요건은 아직 제기된 논점이 아니다.
+        shared = collections.Counter(
+            ref for name in open_states for ref in state_refs[name]
+        )
+        scope = frozenset(ref for ref, count in shared.items() if count > 1)
+    return tuple(v for v in values if v.predicate_ref in scope) or values
 
 
 def _gate_failed(result: Mapping[str, Any]) -> bool:
@@ -668,6 +777,11 @@ def build_answer_plan(
         satisfied, failed, blocking = _findings_for_instance(
             registry, truths, ref, {}, rule_statements
         )
+        # 결론을 실제로 막고 있는 것만 남긴다. 전체 UNKNOWN closure를 넘기면 사안에서
+        # 제기되지도 않은 예비·불능미수까지 쟁점으로 서술된다.
+        blocking = live_unresolved_frontier(
+            registry, result, offense_ref, blocking, (*satisfied, *failed)
+        )
         state = _final_state(result, ref, retained, absorbed, withheld, bool(blocking))
         completion = result.get("completion") or {}
         route = _participation_route(registry, result)
@@ -713,6 +827,11 @@ def build_answer_plan(
                 for i in final.get("retained_instances") or []
             ),
             absorbed=tuple(_absorption_records(registry, absorbed_records, offense_labels)),
+            concurrence_relations=tuple(
+                _relation_records(
+                    registry, final.get("concurrence_relations") or [], offense_labels
+                )
+            ),
             imaginative_pairs=tuple(
                 _pair_records(registry, final.get("imaginative_concurrence_pairs") or [], offense_labels)
             ),
@@ -793,6 +912,40 @@ def _excess_records(
                     registry, str(record.get("excess_offense_ref", "")), offense_labels
                 ),
                 "effect": str(record.get("effect", "")),
+            }
+        )
+    return out
+
+
+_RELATION_PROSE = {
+    "imaginative_concurrence": "상상적 경합",
+    "real_concurrence": "실체적 경합",
+}
+
+
+def _relation_records(
+    registry: DefinitionRegistry,
+    records: Sequence[Mapping[str, Any]],
+    offense_labels: Mapping[str, str] | None,
+) -> list[Mapping[str, Any]]:
+    """죄수관계를 법률가가 쓰는 이름으로 바꾼다. 모르는 관계 이름은 내보내지 않는다."""
+    out: list[Mapping[str, Any]] = []
+    for record in records:
+        relation = _RELATION_PROSE.get(str(record.get("relation", "")))
+        if relation is None:
+            continue
+        first = record.get("first_instance") or {}
+        second = record.get("second_instance") or {}
+        out.append(
+            {
+                "actor": str(first.get("actor_id", "")),
+                "first_offense": offense_label(
+                    registry, str(first.get("offense_ref", "")), offense_labels
+                ),
+                "second_offense": offense_label(
+                    registry, str(second.get("offense_ref", "")), offense_labels
+                ),
+                "relation": relation,
             }
         )
     return out
@@ -1076,7 +1229,18 @@ def _serialize_final(final: FinalResponsibility) -> list[str]:
         )
         if record.get("condition_statement"):
             lines.append(f"        흡수 근거: {record['condition_statement']}")
+    for record in final.concurrence_relations:
+        lines.append(
+            f"    {record['actor']}의 {record['first_offense']}와 {record['second_offense']}는 "
+            f"{record['relation']} 관계다."
+        )
+    known = {
+        (record["first_offense"], record["second_offense"])
+        for record in final.concurrence_relations
+    }
     for pair in final.imaginative_pairs:
+        if (pair["first_offense"], pair["second_offense"]) in known:
+            continue
         lines.append(
             f"    {pair['first_offense']}와 {pair['second_offense']}는 상상적 경합 관계다."
         )
@@ -1096,14 +1260,21 @@ def _serialize_final(final: FinalResponsibility) -> list[str]:
 
 
 def serialize_open_points(plan: AnswerPlan) -> str:
-    """What the analysis did not cover, stated as areas rather than as answers."""
+    """분석이 다루지 못한 것으로 **host가 실제로 아는** 공백. 없으면 빈 문자열이다.
+
+    예전에는 비었을 때 "다루지 않은 영역으로 특정된 것은 없다"고 적었다. 그것은 분석의
+    완결성을 적극적으로 선언하는 문장인데, host는 그것을 알 수 없다 -- 26문항 전부가 이
+    문장을 달고 나갔고, 그 중에는 Call 1이 죄명 자체를 잡지 못해 주거침입죄가 통째로 빠진
+    문항도 있었다. 미포착은 부존재가 아니다.
+
+    반대로 빠진 죄명을 host가 추정해 채우지도 않는다. Call 1이 못 잡은 쟁점은 여기서도 알
+    방법이 없다. 아는 공백만 적고, 아무것도 없으면 섹션 자체를 비워 caller가 생략하게 한다.
+    """
     lines: list[str] = []
     for gap in plan.representation_gaps:
         lines.append(f"· {gap}")
     for instance in plan.unmapped_instances:
         lines.append(f"· {instance}")
-    if not lines:
-        return "위 분석이 다루지 않은 영역으로 특정된 것은 없다."
     return "\n".join(lines)
 
 
@@ -1129,28 +1300,83 @@ def serialize_required_final_conclusions(plan: AnswerPlan) -> str:
     return payload
 
 
-def serialize_required_authorities(plan: AnswerPlan) -> str:
-    """Closed list of authored statute citations the writer must not drop.
+_ARTICLE = re.compile(r"^제\s*\d")
 
-    This adds no authority and makes no new judgment.  It only deduplicates governing
-    provisions already attached to the plan's anchored issues and findings.
+
+def _split_citations(value: str | None) -> list[str]:
+    """`"형법 제250조; 제267조"` -> `["형법 제250조", "형법 제267조"]`.
+
+    세미콜론으로 뭉친 저작을 canonical citation 단위로 나누고, 뒤쪽 조각이 잃어버린 법령명을
+    앞 조각에서 물려준다. 이것을 하지 않으면 답안에 벌거벗은 조문번호가 그대로 나간다 --
+    26문항에서 30건이 그랬다.
     """
-    citations: list[str] = []
+    if not value:
+        return []
+    output: list[str] = []
+    statute = "형법"
+    for piece in value.split(";"):
+        text = piece.strip()
+        if not text:
+            continue
+        if _ARTICLE.match(text):
+            text = f"{statute} {text}"
+        else:
+            head = text.split(maxsplit=1)
+            if head and not _ARTICLE.match(head[0]):
+                statute = head[0]
+        output.append(text)
+    return output
+
+
+def _drop_less_specific(citations: Sequence[str]) -> tuple[str, ...]:
+    """같은 조문의 조·항이 함께 실리면 더 구체적인 쪽만 남긴다.
+
+    `형법 제319조`와 `형법 제319조 제1항`을 둘 다 인용하라고 시키면 같은 조문을 두 번 대게
+    된다. 26문항에서 28쌍이 그랬다.
+    """
+    values = tuple(dict.fromkeys(citations))
+    return tuple(
+        value
+        for value in values
+        if not any(other != value and other.startswith(f"{value} ") for other in values)
+    )
+
+
+def issue_authorities(issue: AnchoredIssue) -> tuple[tuple[str, ...], tuple[str, ...]]:
+    """`(그 죄의 조문, 그 쟁점에서 쓰인 법리의 근거)`.
+
+    둘을 나누는 이유는 하나다. `result_causation` 같은 죄를 가리지 않는 요소의 조문이 그
+    요소를 쓰는 모든 죄로 번져, 살인죄 논증에서 과실치사 조문을 인용하게 만들고 있었다.
+    죄의 조문은 그 죄가 대고, 요소·법리의 근거는 그 요소를 논하는 자리에서만 쓴다.
+    """
+    statutory = _drop_less_specific(_split_citations(issue.governing_provision))
+    doctrinal: list[str] = []
+    for finding in (*issue.satisfied, *issue.failed, *issue.blocking):
+        doctrinal.extend(_split_citations(finding.governing_provision))
+    return statutory, tuple(
+        value for value in _drop_less_specific(doctrinal) if value not in statutory
+    )
+
+
+def serialize_required_authorities(plan: AnswerPlan) -> str:
+    """쟁점별로 묶인 근거. 전역 닫힌 목록이 아니다.
+
+    이 목록은 새 권위를 더하거나 판단하지 않는다. 이미 쟁점에 붙어 있는 근거를 그 쟁점
+    안에서만 쓰도록 범위를 정할 뿐이고, 반드시 인용해야 하는 것은 그 죄의 조문이다.
+    """
+    lines: list[str] = []
     for issue in plan.anchored_issues:
-        if issue.governing_provision:
-            citations.extend(
-                value.strip()
-                for value in issue.governing_provision.split(";")
-                if value.strip()
-            )
-        for finding in (*issue.satisfied, *issue.failed, *issue.blocking):
-            if finding.governing_provision:
-                citations.extend(
-                    value.strip()
-                    for value in finding.governing_provision.split(";")
-                    if value.strip()
-                )
-    payload = "\n".join(f"· {value}" for value in dict.fromkeys(citations)) or "없음"
+        statutory, doctrinal = issue_authorities(issue)
+        if not statutory and not doctrinal:
+            continue
+        lines.append(f"[{issue.actor} — {issue.offense_label}]")
+        for value in statutory:
+            lines.append(f"· {value}")
+        for value in doctrinal:
+            lines.append(f"  (관련 법리) {value}")
+    payload = "\n".join(lines)
+    if not payload:
+        return ""
     assert_no_internal_markers(payload)
     assert_no_rubric_fields(payload)
     return payload
@@ -1167,12 +1393,14 @@ def missing_required_authorities(
     """
     if not required_authorities.strip() or required_authorities.strip() == "없음":
         return ()
+    # 강제되는 것은 그 죄의 조문(`· `)뿐이다. 쟁점 머리글과 관련 법리 줄은 그 논증에서 쓰라고
+    # 준 맥락이지 빠뜨리면 안 되는 목록이 아니다.
     required = tuple(
         line.removeprefix("·").strip()
         for line in required_authorities.splitlines()
-        if line.strip() and line.strip() != "없음"
+        if line.startswith("·") and line.removeprefix("·").strip() not in ("", "없음")
     )
-    return tuple(value for value in required if value not in answer_text)
+    return tuple(dict.fromkeys(value for value in required if value not in answer_text))
 
 
 #: Words that mark a closing-summary heading.  The prompt asks for "최종 죄책과 죄수관계"
