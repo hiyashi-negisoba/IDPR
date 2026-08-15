@@ -35,6 +35,7 @@ from idpr.v2.runtime.article263_grounding import (
     plan_article263_occurrence_pairs,
     validate_article263_output,
 )
+from idpr.v2.runtime.carrier_contract import validate_plan_carriers
 from idpr.v2.runtime.grounding import (
     AssessmentTarget,
     call2_request_payload,
@@ -67,6 +68,7 @@ from idpr.v2.runtime.participation_grounding import (
     participation_schema,
     validate_participation_output,
 )
+from idpr.v2.runtime.plan_lineage import definitions_drift, require_fresh_inputs
 from idpr.v2.runtime.policy_probe_targets import participation_candidate_probe_targets
 from idpr.v2.runtime.relation_grounding import (
     RelationAssessmentTarget,
@@ -170,6 +172,18 @@ def _recorded_request_counts(
         if value["shard_kind"] == "predicate"
     )
     return physical, neural_targets
+
+
+def _count_by_opener(
+    targets: Sequence[AssessmentTarget],
+    opened_by_target: Mapping[tuple[Any, str], str],
+) -> dict[str, int]:
+    """`{누가 열었는가: 몇 건}` -- planned/asked 회계를 producer 단위로 읽게 한다."""
+    counts: dict[str, int] = {}
+    for value in targets:
+        key = opened_by_target.get((value.instance_key, value.predicate_ref), "unspecified")
+        counts[key] = counts.get(key, 0) + 1
+    return dict(sorted(counts.items()))
 
 
 def _article263_pair_candidates(
@@ -430,6 +444,12 @@ def main() -> None:
     if not args.prompt_approved:
         parser.error("--prompt-approved is required before a Call 2 model run")
 
+    # Call 2는 이 체인에서 가장 비싼 단계다. 옛 상류 artifact 위에 새 하류 가정이 얹힌
+    # 조합으로 여기까지 오면, 잘못된 것은 26번의 모델 호출을 다 쓰고 나서야 드러난다.
+    require_fresh_inputs(args.plan_artifact)
+    for problem in definitions_drift(args.plan_artifact, args.definitions):
+        print(f"WARNING: {problem}", file=sys.stderr)
+
     call1 = _index(_read_jsonl(args.call1_artifact), "Call 1")
     plans = _index(_read_jsonl(args.plan_artifact), "planner")
     inventory = _index(_read_jsonl(args.inventory), "inventory")
@@ -522,9 +542,16 @@ def main() -> None:
                 registry, planned_participation_targets
             )
         )
+        # 누가 이 target을 열었는지. 계획된 target이 끝내 물어지지 않았을 때 그것이 어느
+        # producer의 것인지 알 수 없으면, "doctrine leaf가 통째로 빠졌다" 같은 사고가
+        # 산출물 안에서 조용히 지나간다.
+        opened_by_target: dict[tuple[Any, str], str] = {}
         for raw_target, target in zip(
             plan_row["assessment_targets"], planned_targets, strict=True
         ):
+            opened_by_target[(target.instance_key, target.predicate_ref)] = str(
+                raw_target.get("opened_by") or "unspecified"
+            )
             if target.instance_key in instance_set:
                 continue
             probe_key = (target.instance_key, target.predicate_ref)
@@ -546,6 +573,12 @@ def main() -> None:
             raise ValueError("--smoke-target-limit must be positive")
         episode_by_occurrence = _episode_by_occurrence(plan_row)
         carrier_by_target = _assessment_carriers(plan_row, planned_targets)
+        if carrier_by_target is not None:
+            # 중앙 계약을 마지막 소비 경계에서 한 번 더 강제한다. 위의 검사는 이 runner가
+            # 쓰는 사전이 총체적인지만 본다 -- carrier가 전부 있고 id도 비어 있지 않은데
+            # **종류**가 저작과 다른 plan은 그것을 그대로 통과한다. 계약을 한 모듈이 소유하기로
+            # 했으면 producer만이 아니라 소비자도 그 모듈에 물어야 계약이다.
+            validate_plan_carriers(registry, plan_row)
         request_assessments = []
         shard_records = []
         occurrence_by_id = {value.occurrence_id: value for value in occurrences}
@@ -1096,6 +1129,17 @@ def main() -> None:
                 "planned_targets": len(planned_targets),
                 "asked_targets": len(targets),
                 "skipped_targets": len(planned_targets) - len(targets),
+                # 건수만으로는 어떤 종류의 target이 통째로 사라졌는지 보이지 않는다.
+                # participation·doctrine target이 0으로 떨어지는 사고가 정확히 그 형태였다.
+                "asked_by_opened_by": _count_by_opener(targets, opened_by_target),
+                "skipped_by_opened_by": _count_by_opener(
+                    tuple(
+                        value
+                        for value in planned_targets
+                        if value not in set(targets)
+                    ),
+                    opened_by_target,
+                ),
             },
             "assessments": [value.as_dict() for value in assessments],
             "case_truths": projected_truths,

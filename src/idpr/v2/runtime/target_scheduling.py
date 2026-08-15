@@ -26,6 +26,11 @@ structure -- nothing here knows that `means_or_object_defect` gates `dangerousne
 that ground facts tend to come before legal elements.  A policy whose blocker is a
 `legal_element` schedules identically.
 
+Both rules narrow the planner's own target set and never widen it, and narrowing needs a
+reason this module can state.  Predicates it has no expression for -- doctrine leaves,
+participation mode requirements -- are not moot, they are unmodelled, and they pass
+through untouched; see `unmodelled_refs`.
+
 The caller loops: ask the frontier, add the answers, recompute, stop when the frontier is
 empty.  Because every round either learns a truth or terminates, the loop reaches a
 fixpoint; `next_round_targets` takes the set already asked so that an instance Call 2
@@ -90,6 +95,11 @@ def _candidate_refs(registry: DefinitionRegistry, compiled: CompiledOffense, pol
         for state in policy.payload["states"].values():
             add(sorted(expressions.leaf_refs(state.get("when"))))
             add(sorted(expressions.leaf_refs(state.get("requires"))))
+            # A blocker is a predicate like any other: it only defeats a state once it is
+            # TRUE, which is a thing this case has to be asked about.  Leaving it out of
+            # the search space made every `blocked_when` permanently UNKNOWN, and an
+            # UNKNOWN blocker blocks nothing -- fail-open, silently.
+            add(sorted(expressions.leaf_refs(state.get("blocked_when"))))
     return tuple(refs)
 
 
@@ -107,9 +117,35 @@ def _live_expressions(
         for state in policy.payload["states"].values():
             guard = expressions.canonicalize(state.get("when"))
             values.append(guard)
-            if state.get("requires") is not None and evaluate(guard, truths) != FALSE:
+            if evaluate(guard, truths) == FALSE:
+                continue
+            if state.get("requires") is not None:
                 values.append(expressions.canonicalize(state["requires"]))
+            if state.get("blocked_when") is not None:
+                values.append(expressions.canonicalize(state["blocked_when"]))
     return tuple(values)
+
+
+def unmodelled_refs(
+    allowed: set[str] | None, modelled: Sequence[str]
+) -> tuple[str, ...]:
+    """Planner targets this module owns no expression for, in stable order.
+
+    Scheduling may only *remove* a planned target, and only for a reason it can state: an
+    expression of this offence that says the same thing whatever the answer.  A predicate
+    that appears in no such expression is not moot -- it is outside what this module
+    models.  The doctrine leaves and the `participation_mode_requirement` targets are
+    exactly that: the planner opened them from a DoctrineDef or a participation mode, and
+    neither is reachable from an offence's slots or its completion policy.
+
+    Dropping them was the participation defect all over again.  `instigator_intent` was
+    given a target and a carrier, and the scheduler then intersected it away, so nobody
+    was ever asked and Kleene left every accessory permanently UNKNOWN.  They pass through
+    here instead, and the caller's `already_asked` keeps them from being asked twice.
+    """
+    if allowed is None:
+        return ()
+    return tuple(sorted(allowed - set(modelled)))
 
 
 def _compiled_and_policy(
@@ -138,12 +174,13 @@ def live_predicate_refs(
     compiled, policy = _compiled_and_policy(registry, instance.offense_ref)
     live = _live_expressions(compiled, policy, truths)
     allowed = None if candidate_refs is None else set(candidate_refs)
+    modelled = _candidate_refs(registry, compiled, policy)
     return tuple(
         ref
-        for ref in _candidate_refs(registry, compiled, policy)
+        for ref in modelled
         if (allowed is None or ref in allowed)
         and any(is_decisive(expr, ref, truths) for expr in live)
-    )
+    ) + unmodelled_refs(allowed, modelled)
 
 
 def _frontier_of_raw(
@@ -205,19 +242,28 @@ def frontier_predicate_refs(
                 state.get("when"), truths, settled_refs=settled_refs
             )
             guard = expressions.canonicalize(state.get("when"))
-            if state.get("requires") is not None and evaluate(guard, truths) != FALSE:
+            if evaluate(guard, truths) == FALSE:
+                continue
+            if state.get("requires") is not None:
                 ready |= _frontier_of_raw(
                     state["requires"], truths, settled_refs=settled_refs
                 )
+            # A blocker is not laddered behind `requires`: it defeats the state on its own
+            # and is asked as soon as the state is live at all.
+            if state.get("blocked_when") is not None:
+                ready |= _frontier_of_raw(
+                    state["blocked_when"], truths, settled_refs=settled_refs
+                )
 
     allowed = None if candidate_refs is None else set(candidate_refs)
+    modelled = _candidate_refs(registry, compiled, policy)
     return tuple(
         ref
-        for ref in _candidate_refs(registry, compiled, policy)
+        for ref in modelled
         if ref in ready
         and (allowed is None or ref in allowed)
         and any(is_decisive(expr, ref, truths) for expr in live)
-    )
+    ) + unmodelled_refs(allowed, modelled)
 
 
 def next_round_targets(
@@ -261,4 +307,5 @@ __all__ = [
     "is_decisive",
     "live_predicate_refs",
     "next_round_targets",
+    "unmodelled_refs",
 ]
