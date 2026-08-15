@@ -282,6 +282,19 @@ mistake_policy.korean_law_concrete_fact
 
 뿐 아니라 `mistaken_justifying_circumstance`의 안정적인 raising도 막고 있다.
 
+### 2026-08-15에 드러난 두 번째 결함 — 이쪽이 실제 structural blocker였다
+
+감사는 A2를 representation gap 하나로 보았으나, 그 gap을 닫아도 정책은 발화하지 못했을 것이다.
+
+**`applies_to: offense_instance` probe에는 target producer가 아예 없었다.**
+`policy_probe_targets`는 참가 후보(`participation_candidate`)만 처리한다. 그래서 착오 정책의
+neural leaf가 한 번도 계획된 적이 없고, `apply_mistake_policy`는 테스트만 있고 production
+호출부가 없었다. 저작·런타임·Scallop 경로가 모두 갖춰진 채로 정책이 어떤 사건에서도 발화할 수
+없는 상태 — **제33조 단서에서 이미 한 번 나온 고장과 같은 모양이다.**
+
+즉 P0-R2는 "표현 공백" 하나가 아니라 **표현 공백 + producer 부재** 두 겹이었다.
+`5529287`에서 둘 다 닫았다.
+
 ### 필요한 수정
 
 기존 field를 재해석하지 않고 **새 factual representation을 추가**한다.
@@ -408,7 +421,12 @@ DerivedOffense.derivation
 
 ---
 
-## H2. Article 263 single-source
+## H2. Article 263 single-source — **4-authority drift로 승격 (2026-08-15)**
+
+> 감사 당시 2중으로 보았으나 실제로는 **네 곳**이 같은 semantics를 소유하고 있었다:
+> offense YAML, dedicated Call 2 wire 튜플, `statutory.py`의 resolver, Scallop backend.
+> resolver와 backend가 저작을 읽도록 단일화하고 wire 순서는 테스트가 못박는 것으로 닫았다
+> (`015f267`).
 
 YAML은:
 
@@ -436,7 +454,20 @@ dedicated route가 definition의 `statutory_deeming.requires`에서 executable r
 
 ---
 
-## H3. Completion `blocked_when` target collection
+## H3. `blocked_when` target collection — **latent이 아니라 active blocker였다 (2026-08-15)**
+
+> 감사는 completion 쪽만 보고 "현재는 실제 bug가 발생하지 않는다"고 판단했다. 그 판단은
+> completion에 대해서는 맞지만 **doctrine에 대해서는 틀렸다.**
+>
+> defeat doctrine 5개가 blocker에만 등장하는 predicate를 저작하고 있다 —
+> `self_induced_disorder`(자초한 심신장애), `self_induced_coercion`(자초한 강요상태),
+> `duty_bound_to_endure_danger`(위난감수의무), `statutory_bar_on_consent`(승낙의 법률상 제한,
+> 2개 doctrine 공유). 이 leaf들은 다른 어디에도 없으므로, closure가 수집하지 않으면 target이
+> 생기지 않고 → 묻지 않고 → UNKNOWN → **그 예외들이 어떤 사건에서도 발동하지 않는다.**
+> 원인에 있어서 자유로운 행위가 심신장애를 깨뜨리는 경로가 통째로 죽어 있었다는 뜻이다.
+>
+> closure와 planner 양쪽에 넣어 닫았다(`015f267`, `3608840`). 변경 전후 대조로 정확히 그
+> 5건만 늘고 completion frontier와 `candidate_offense_refs`는 동일함을 확인했다.
 
 runtime과 checker는 `blocked_when`을 처리하지만 일부 generic planner/closure predicate collector는 직접 수집하지 않는다.
 
@@ -759,6 +790,23 @@ authored executable rule
 ```
 
 **네 번째 상태인 “schema에는 있는데 아무도 안 읽음”은 허용하지 않는다.**
+
+---
+
+# 11-bis. 2026-08-15 감사 갱신 요약
+
+이번 시공 중 감사 시점에 보이지 않던 세 건이 드러났고, 셋 다 freeze 전 필수로 승격한다.
+
+| | 감사 당시 판정 | 갱신된 판정 | 상태 |
+|---|---|---|---|
+| `offense_instance` probe producer 부재 | (미발견) | **P0-R2의 실제 structural blocker** — 표현 공백을 닫아도 정책은 발화 못 했다 | 닫힘 `5529287` |
+| doctrine `blocked_when` 미수집 | H3, latent | **active blocker** — defeat doctrine 5개가 영원히 발동 불가였다 | 닫힘 `015f267`·`3608840` |
+| Article 263 authority | H2, 2중 | **4중 drift** (YAML·wire·resolver·backend) | 닫힘 `015f267` |
+
+공통 교훈은 §11의 freeze 기준에 그대로 들어간다. 세 건 모두 "저작도 런타임도 있는데 그것을
+**호출하거나 계획하는 자리**가 없다"는 같은 형태였고, 정적으로 정의만 읽어서는 보이지 않는다.
+따라서 freeze 기준의 `reachable production caller` 항목은 **테스트로 강제되어야** 한다 --
+제151조 resolver가 Phase 5.1부터 호출부도 테스트도 없이 남아 있었던 것이 그 증거다.
 
 ---
 
