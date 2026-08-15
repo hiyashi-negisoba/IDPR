@@ -136,8 +136,8 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.special_aggravated_ancestral_injury
-  # 검수 필요. 제258조의2 제2항은 제258조 제1항·제2항만 인용하고 존속중상해(제258조 제3항)를
-  # 인용하지 않는다. 이 죄명이 현행법상 독립 규정을 갖는지부터 확인이 필요하다.
+  # 제258조의2 제2항은 항을 따로 집지 않고 "제258조의 죄"라고 규정한다. 존속중상해가 제258조
+  # 제3항이므로 위험한 물건 등을 이용한 존속중상해도 그 문언에 들어간다. (2026-08-15 검수)
   identity:
     name: 특수존속중상해죄
     statutory_refs: ["형법 제258조의2 제2항"]
@@ -211,11 +211,12 @@
         - {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.special_robbery_rape
-  # 검수 필요. 형법 안에서는 제339조이나 성폭력범죄의 처벌 등에 관한 특례법 제3조 제2항이
-  # 특수강도강간을 따로 가중한다. 특별법을 저작 범위에 넣을지가 선결 문제다.
+  # 형법 제339조는 일반 강도강간의 근거조문이다. 특수강도(제334조)를 범한 사람이 강간 등을
+  # 범한 경우는 성폭력처벌법 제3조 제2항이 직접 규정하므로 그쪽이 근거조문이다.
+  # (2026-08-15 검수)
   identity:
     name: 특수강도강간죄
-    statutory_refs: ["형법 제339조"]
+    statutory_refs: ["성폭력범죄의 처벌 등에 관한 특례법 제3조 제2항"]
   derivation:
     kind: compose
     components:
