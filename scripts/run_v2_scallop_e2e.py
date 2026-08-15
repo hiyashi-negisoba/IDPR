@@ -41,6 +41,7 @@ from idpr.v2.runtime.participation_grounding import (
     add_co_principal_established_truths,
     compile_participation_bindings,
 )
+from idpr.v2.runtime.plan_lineage import plan_lineage
 from idpr.v2.runtime.relation_grounding import (
     RelationAssessment,
     RelationAssessmentTarget,
@@ -211,19 +212,29 @@ def require_participation_plan_lineage(
     사라진 결과가 **아무 오류 없이** 나왔다. 조용히 다른 답을 내는 실행 인자는 사람의 주의로
     막을 것이 아니라 계약으로 막아야 한다.
 
-    확인은 두 겹이다. 옆에 있는 manifest의 `step`이 1차이고, manifest가 없으면 참가 빌더만
+    확인은 두 겹이다. 옆에 있는 manifest의 **계보**가 1차이고, manifest가 없으면 참가 빌더만
     쓰는 행 필드로 2차 확인한다. 진단용으로 다른 plan을 넣어야 하면 명시적 플래그로만 열린다.
+
+    보는 것은 마지막 단계의 이름이 아니라 거쳐 온 단계의 집합이다. plan은 증강되는 파일이고,
+    참가 병합 위에 doctrine target이 얹히면 마지막 이름은 당연히 달라진다. 이름 하나만 보던
+    구현은 실제로 참가 병합을 거친 plan을 2026-08-15 체인에서 거부했다.
     """
     manifest_path = plan_path.with_suffix(".manifest.json")
     if manifest_path.exists():
         manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
         step = str(manifest.get("step", ""))
-        if step == PARTICIPATION_PLAN_STEP:
-            return {"plan_lineage": "MANIFEST_MATCHED", "plan_step": step}
+        lineage = plan_lineage(plan_path)
+        if PARTICIPATION_PLAN_STEP in lineage:
+            return {
+                "plan_lineage": "MANIFEST_MATCHED",
+                "plan_step": step,
+                "plan_lineage_chain": list(lineage),
+            }
         if not allow_non_participation_plan:
             raise ValueError(
-                f"{plan_path}: canonical E2E requires a {PARTICIPATION_PLAN_STEP} artifact, "
-                f"got step {step!r}; pass --allow-non-participation-plan for a diagnostic run"
+                f"{plan_path}: canonical E2E requires a plan whose lineage passed through "
+                f"{PARTICIPATION_PLAN_STEP}, got {list(lineage)!r}; pass "
+                "--allow-non-participation-plan for a diagnostic run"
             )
         return {"plan_lineage": "OVERRIDDEN", "plan_step": step}
     first = next(

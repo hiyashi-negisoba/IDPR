@@ -36,6 +36,7 @@ from idpr.v2.runtime.carrier_contract import (
     resolve_carrier,
     validate_plan_carriers,
 )
+from idpr.v2.runtime.plan_lineage import LINEAGE_KEY, lineage_for_manifest
 from idpr.v2.runtime.policy_probe_targets import (
     DERIVATIVE_RELATION_KINDS,
     participation_candidate_probe_targets,
@@ -561,6 +562,9 @@ def main() -> None:
     )
     manifest = {
         "step": "v2_factual_participation_plan",
+        LINEAGE_KEY: list(
+            lineage_for_manifest(args.plan_artifact, "v2_factual_participation_plan")
+        ),
         "status": "SUCCEEDED",
         "case_count": len(output),
         "factual_interaction_count": sum(

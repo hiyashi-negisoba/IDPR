@@ -200,6 +200,71 @@ v2 죄명 쪽 결손이고, `gap.assault_offense_family`·`gap.stolen_property_o
 — 저작 규칙 전수의 endpoint 실재·후보 개방, 파생실현 실현 식별자의 해소와 모호할 때의 침묵,
 가담자 흡수 전파의 대체 조건, 두 부모 충돌 시 자식 잔류.
 
+### AnswerPlan / Call 3 handoff (2026-08-15)
+
+축이 아니라 전달 감사였다. 결함은 전부 "모르는 것을 아는 것처럼 넘긴다" 한 방향이었다.
+
+| 결함 | 조치 |
+|---|---|
+| `open_points`가 비었을 때 "없다"를 적어 완결성을 적극 선언 | 빈 값이면 항목 자체를 생략 (26 → 0) |
+| Call 3가 조문을 스스로 짜맞추도록 방치 | 쟁점 단위 정규화 authority를 typed로 공급 (202 → 115행, 맨숫자 30 → 0, 중복 28 → 0) |
+| unresolved 전량을 넘겨 답안이 미확정 나열로 채워짐 | live frontier만 (799 → 687행, 살인죄 10 → 2) |
+| 내부 작업 메모가 `canonical_meaning`을 타고 답안까지 노출 | detector가 아니라 **정의 본문**에서 제거 |
+| governing provision 없는 쟁점 | 114 → 0 |
+
+파생죄 25개 중 17개에 `identity`(죄명·조문)를 저작했다. 특수강도강간은 형법이 아니라
+**성폭력처벌법 제3조 제2항**이다. 특수존속중상해는 제258조의2 제2항이 "제258조의 죄"를
+통째로 인용하므로 유지한다.
+
+Call 3 프롬프트는 두 곳을 조인 상태로 설치했다 — 새 죄명·공범형태·법률효과·최종 죄수관계를
+스스로 제기하지 않는다(놓친 죄는 upstream recall error로 남긴다), 검토 범위는 `analysis`가
+제시한 죄로 한정한다. 실경합은 후보로만 서술한다.
+
+종료 테스트: [`tests/test_answer_plan_handoff_contract.py`](../../tests/test_answer_plan_handoff_contract.py)
+
+## 반복된 결함 클래스: producer마다 흩어진 불변식
+
+축과 무관하게 **같은 모양의 결함이 세 번 반복**됐다. 축별 감사로는 잡히지 않는 종류이므로
+따로 기록한다.
+
+> 하나의 불변식을 각 producer가 자기 코드로 따로 구현하면, 한 곳을 고쳐도 다른 producer로
+> 전달되지 않는다. 결함은 producer 수만큼 나뉘어 하나씩 터진다.
+
+**(1) target → carrier.** ordinary element는 planner가, participation target은 참가 빌더가
+carrier를 붙였고, doctrine leaf는 **아무도 붙이지 않았다**. `evidence_scope` 계약을 고쳐도
+다른 producer에 전달되지 않았고, doctrine 단계를 체인에 넣자 Call 2가 `missing=3`으로 처음
+알려 줬다. 여기서 realization carrier를 일괄로 붙이는 대증 수정을 한 번 했고, 이는 검수에서
+**같은 결함을 세 번째 푸는 중**이라고 지적받아 되돌렸다.
+
+정본 수정: [`src/idpr/v2/runtime/carrier_contract.py`](../../src/idpr/v2/runtime/carrier_contract.py)가
+계약을 단독 소유하고, 세 producer 전부 이것을 쓰며, 각 빌더는 `validate_plan_carriers`로
+끝난다. 중앙화하자 두 결함이 더 드러났다 — 참가 예외가 predicate 성질이 아니라 instance
+성질이라는 것, provenance identity가 `occurrence_id` 하나가 아니라
+`(actor, offense_ref, occurrence_id)`라는 것(절도와 특수절도가 `realization:001`을 공유한다).
+
+종료 테스트: [`tests/test_carrier_contract.py`](../../tests/test_carrier_contract.py)
+
+**(2) plan lineage.** 같은 클래스가 네 번째로 나왔다. symbolic 가드가 plan manifest의 `step`
+**이름 하나**를 하드코딩해 참가 병합 여부를 확인했는데, plan은 증강되는 파일이라 그 위에
+doctrine target이 얹히면 마지막 이름이 당연히 달라진다. 그래서 **실제로 참가 병합을 거친**
+plan이 거부되며 2026-08-15 체인이 symbolic에서 끊겼다.
+
+이름을 하나 더 허용하는 수정은 다음 증강 단계에서 또 끊긴다. 확인해야 하는 것은 마지막
+단계의 이름이 아니라 **거쳐 온 단계의 집합**이다.
+[`src/idpr/v2/runtime/plan_lineage.py`](../../src/idpr/v2/runtime/plan_lineage.py)가 계보를
+소유하고, 증강 단계는 입력 plan의 계보를 이어받아 기록하며, 소비자는 계보로 확인한다.
+계보를 이어받지 않는 새 증강 단계는 그 자리에서 걸린다.
+
+같은 자리에서 재현성 결함도 하나 나왔다. doctrine 빌더가 `expressions.leaf_refs`(frozenset)를
+그대로 반복해 leaf 순서가 해시 시드마다 달라졌다. plan manifest는 sha256을 provenance로
+남기므로 순서 비결정성은 그 기록을 무의미하게 만든다. 정렬로 고정했다.
+
+종료 테스트: [`tests/test_plan_lineage_contract.py`](../../tests/test_plan_lineage_contract.py)
+
+**다음 세션에 대한 함의**: plan을 증강하는 단계나 target을 여는 모듈을 새로 만들면, 그
+모듈 안에 불변식을 다시 구현하지 말고 위 두 계약 모듈을 쓴다. 새 불변식이 필요하면 그것도
+producer가 아니라 별도 계약 모듈이 소유해야 한다.
+
 ## 재실행 시점 (2026-08-15 확정)
 
 축마다 GPU를 돌리지 않는다. 남은 축에서 구조 결함이 나오면 1.5 계열·plan·Call 2 artifact가
@@ -215,30 +280,52 @@ doctrine 전부가 잠들어 있고, `run_v2_absorption_condition_pairs.py`가 �
 지금 GPU로 확인해야 할 긴급 회귀는 없다. reachability와 mode resolution은 계약 테스트로
 고정되어 있고, 기존 Call 2 산출물에 대한 symbolic 회귀는 26/26 동일하다.
 
-## 남은 축 순서
+## 현재 실행 상태 (2026-08-15 11:47 기준)
 
-### 1. AnswerPlan / Call 3 E2E handoff
+네 축을 닫은 뒤의 첫 전체 관통. 실행 루트: `experiments/v2_axis_closure_26_e2e/`
+체인 정의: [`scripts/slurm/run_v2_axis_closure_e2e.sh`](../../scripts/slurm/run_v2_axis_closure_e2e.sh)
+(9단계, `IDPR_AXIS_SKIP`으로 이어 돌린다). 기존 vLLM allocation 안에서 CPU job step으로만 돈다.
 
-축이 아니라 전달 감사다. LiabilityResult → AnswerPlan → Call 3에서 symbolic conclusion 누락,
-authority·dispute 전달, 내부 status/ID 유출, final conclusion completeness를 본다.
-
-## 현재 실행 상태
-
-정본 artifact 루트: `experiments/v2_action_realization_26_e2e/`
-
-| 단계 | 산출물 |
+| 단계 | 상태 |
 |---|---|
-| Call 1.5 binding | `call15_action_bindings_26.jsonl` (26/26, binding 95, action 215) |
-| Call 1.5 interaction | `call15_factual_interaction.jsonl` |
-| plan | `plan_ckpt_participation/` (instance 108, final target 660) |
-| Call 2 | `call2_ckpt/` |
-| symbolic | `scallop_ckpt/` |
+| call15p (episode 스코프) | 완료 — interaction 46, 후보 23 |
+| call15d | 완료 — cue 13 |
+| plan_participation | 완료 — participation local target 52 |
+| plan_doctrine | 완료 — doctrine target 39, final target 758 |
+| **call2** | **26/26 완료** |
+| absorption | 완료 |
+| **symbolic** | **미실행 — lineage 가드에서 끊겼고, 위 (2)로 수정 후 재개 대기** |
+| answer_plan · call3 | 미실행 |
 
-현재 수치: establishment 확정 18 / elements satisfied 18 · failed 8 · unresolved 60 /
-completion completed 80 · attempted 3 · unresolved 27.
+체인 도중 발견되어 고친 경로 단절은 셋이다. doctrine leaf의 carrier 누락, 공동정범 그룹
+중복(甲·乙 특수절도가 두 interaction에서 각각 확정되어 같은 행위자 집합의 그룹이 둘 생김 —
+행위자 집합이 같은 그룹을 병합), plan lineage 가드. 앞의 둘은 Call 2를 통과시켰고 세 번째가
+symbolic을 막았다.
 
-기존 frozen-before는 `experiments/v2_call15_directscope_26_causal/`이며, occurrence id 체계가
-바뀌어 exact target join이 불가능하다. 비교는 (사건·actor·죄명·predicate) 근사 키로만 가능하다.
+이 실행의 판단 기준은 하나다 — **경로 단절만 본다.** 개별 UNKNOWN이나 모델 오판은 이 실행의
+판단 대상이 아니다.
+
+직전 정본 루트는 `experiments/v2_action_realization_26_e2e/`이며(Call 1.5 binding 95·action
+215는 이 실행에서도 그대로 입력으로 쓴다), frozen-before
+`experiments/v2_call15_directscope_26_causal/`는 occurrence id 체계가 바뀌어 exact join이
+불가능하다. 비교는 (사건·actor·죄명·predicate) 근사 키로만 가능하다.
+
+## 다음 작업
+
+1. **symbolic → answer_plan → call3 재개.** `IDPR_AXIS_SKIP="call15p call15d
+   plan_participation plan_doctrine call2 absorption"`. plan_doctrine은 계보가 붙고 순서가
+   고정된 것으로 이미 교체되어 있다(내용은 이전과 집합 동일, Call 2 산출물 그대로 유효).
+2. **경로 관통 확인.** leaf 진리값 → `active_doctrine` → doctrine effect → derivative
+   participation/link → 최종 책임 → AnswerPlan → Call 3. 끊긴 지점만 구조 수정 대상이다.
+3. **UNKNOWN 문제** — 관통 이후로 미룬 항목. 발화하지 않은 규칙과 활성화되지 않은 지점을
+   실제 답안에서 찾는다.
+
+## 검수가 남은 항목
+
+- `statutory_bar_on_consent` 긍정형 전환 (doctrine 축)
+- 가담자 흡수 전파 = "가담자의 죄명은 정범의 죄명을 따른다"의 최종 해소 단계 이동 (concurrence 축)
+- 초점행위 근사가 행위 단일성 판단으로 충분한가
+- 상상적 경합 저작 0개 — KCL 루브릭이 죄수관계를 직접 배점하므로 공백이 곧 실점이다
 
 ## 측정할 때 유의점
 

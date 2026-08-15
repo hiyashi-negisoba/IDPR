@@ -33,6 +33,7 @@ from idpr.v2.runtime.doctrine_raising import raise_doctrines
 from idpr.v2.runtime.carrier_contract import resolve_carrier, validate_plan_carriers
 from idpr.v2.runtime.doctrine_targets import materialize_doctrine_leaf_targets
 from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.plan_lineage import LINEAGE_KEY, lineage_for_manifest
 
 DEFAULT_CUES = ROOT / "data/v2/doctrine_raising_cues.yaml"
 DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
@@ -63,15 +64,18 @@ def main() -> None:
     registry = load_definitions(args.definitions)
     # blocker leaf도 함께 연다. 예외가 실제로 있었는지는 물어봐야 알고, 묻지 않으면
     # UNKNOWN으로 남아 아무것도 막지 않는다 -- 그것이 blocked_when의 의도된 기본값이다.
+    # `leaf_refs`는 frozenset이라 반복 순서가 해시 시드에 따라 달라진다. 정렬하지 않으면
+    # 같은 입력에서 target 순서가 실행마다 바뀌고, manifest의 sha256 provenance가 아무것도
+    # 보증하지 못하게 된다.
     leaves_by_doctrine = {
         ref: tuple(
-            dict.fromkeys(
-                (
+            sorted(
+                {
                     *expressions.leaf_refs(registry.get(ref).payload["requires"]),
                     *expressions.leaf_refs(
                         registry.get(ref).payload.get("blocked_when")
                     ),
-                )
+                }
             )
         )
         for cue in cues
@@ -245,6 +249,11 @@ def main() -> None:
     )
     manifest = {
         "step": "v2_doctrine_target_plan",
+        # 이 단계는 plan을 새로 만드는 것이 아니라 증강한다. 입력 plan이 거쳐 온 단계를
+        # 이어받지 않으면 하류 가드가 참가 병합 여부를 알 방법이 없다.
+        LINEAGE_KEY: list(
+            lineage_for_manifest(args.plan_artifact, "v2_doctrine_target_plan")
+        ),
         "status": "SUCCEEDED",
         "rule": (
             "open leaves only for doctrines raised by an authored factual cue whose subject "
