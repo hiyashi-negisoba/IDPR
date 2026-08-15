@@ -22,6 +22,17 @@
         - {op: ref, ref: legal_element.dangerous_object_carriage}
     result: {op: ref, ref: legal_element.serious_injury_result}
 
+- id: qualifier.special_assault_method
+  description: "형법 제261조의 단체·다중 위력 또는 위험한 물건 가중"
+  # 가중사유 predicate는 제258조의2와 공유하되 qualifier는 조문별로 나눈다.
+  # 하나의 qualifier가 두 조문의 가중을 겸하면 그 qualifier의 법적 identity가 흐려진다.
+  additions:
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.group_or_multiple_force}
+        - {op: ref, ref: legal_element.dangerous_object_carriage}
+
 - id: qualifier.nighttime_dwelling_theft
   description: "형법 제330조의 야간주거침입절도 가중"
   additions:

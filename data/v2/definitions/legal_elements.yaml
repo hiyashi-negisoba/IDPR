@@ -406,6 +406,23 @@
   legal_standard: "재물에 대한 사실상 지배와 점유의사가 인정되는지 여부"
   authority_refs: [{authority_basis: statute_text, citation: "형법 제329조"}]
 
+- id: legal_element.assault_conduct
+  arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
+  canonical_meaning: "사람의 신체에 대한 유형력 행사"
+  semantic_sort: conduct
+  legal_standard: >-
+    사람의 신체에 대하여 유형력을 행사하였는지 여부. 상해의 결과 또는 생리적 기능 훼손이
+    발생하였는지는 여기서 묻지 않는다.
+  # GroundFactDef가 아니라 LegalElementDef다. 조문은 "폭행"이라고만 하고 "유형력 행사"는
+  # 판례가 구체화한 의미인데, GroundFactDef는 authority_refs를 실을 수 없고 주석서
+  # source_refs를 요구하며 제260조 주석은 corpus에 없다. `robbery_level_violence`가 이미
+  # 같은 자리(폭행 conduct + semantic_sort: conduct)에 있다.
+  #
+  # 판례 문언의 "위법한"은 싣지 않는다. 위법성을 이 predicate가 지면 층이 섞인다.
+  authority_refs:
+    - {authority_basis: statute_text, citation: "형법 제260조 제1항"}
+    - {authority_basis: judicial_precedent, citation: "폭행죄의 폭행은 사람의 신체에 대한 유형력의 행사를 뜻하고 직접적인 신체 접촉을 요하지 않는다"}
+
 - id: legal_element.robbery_level_violence
   arguments: [{name: actor, type: entity}, {name: victim, type: entity}]
   canonical_meaning: "반항억압 정도의 폭행·협박"

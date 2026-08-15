@@ -421,6 +421,18 @@
     result: legal_element.injury_result
   qualifiers: [qualifier.serious_injury_result]
 
+- id: offense.assault
+  identity: {name: "폭행죄", statutory_refs: ["형법 제260조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제260조 제1항"}]
+  # 제260조 제3항의 반의사불벌은 저작하지 않는다. v2에는 소추조건 층이 없고, 이 정의가
+  # 계산하는 것은 실체적 범죄성립뿐이다 -- 처벌·소추 가능성까지 뜻하지 않는다.
+  elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct: {op: ref, ref: legal_element.assault_conduct}
+    mental: {op: ref, ref: legal_element.intent}
+
 - id: offense.ancestral_injury
   identity: {name: "존속상해죄", statutory_refs: ["형법 제257조 제2항"]}
   article151_penalty_threshold:

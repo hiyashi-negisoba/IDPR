@@ -1,4 +1,7 @@
-# A4 장물죄 family 저작 워크시트 — 검수 요청
+# A4 장물죄 family 저작 워크시트 — **v1 (2026-08-15 재검수 반영)**
+
+> **v0는 미승인되었다.** 아래는 지적된 네 곳을 고친 재검수본이다. 바뀐 카드에는 「v0에서
+> 무엇이 틀렸나」를 함께 적었다 — 무엇을 고쳤는지 보이지 않으면 재검수가 처음부터 다시 된다.
 
 기준: 2026-08-15 · 지시서 [`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md) §4 P0-R4
 직접 영향: `r10_p2_q1` (장물보관죄 성립 → 이후 영득 → 횡령은 불가벌적 사후행위)
@@ -31,76 +34,140 @@ offense.stolen_property_acquisition   (장물취득죄)
 offense.stolen_property_custody       (장물보관죄)
 ```
 
-제362조 제1항은 취득·양여·운반·보관을 한 조문에 담고 있고, 제2항(알선)과 제363조(상습),
+제362조 제1항은 취득·**양도**·운반·보관을 한 조문에 담고 있고, 제2항(알선)과 제363조(상습),
 제364조(업무상과실), 제365조(친족상도례)는 이번에 열지 않는다. `r10_p2_q1`이 요구하는 것은
 **보관**이고, 취득은 그 짝으로서 흡수 관계를 표현하는 데 필요하다.
 
-> **검수 ①** 양여·운반을 지금 저작하지 않고 취득·보관 둘만 여는 데 동의하는가?
+**v0 정정:** v0은 현행 문언을 `양여`로 잘못 적었다. 현행 제362조 제1항은 "취득, **양도**,
+운반 또는 보관"이다.
+
+> **검수 ① — v1에서 유지 (v0 승인됨).** 양도·운반은 미저작 scope로 남긴다.
 > (제362조 제1항의 네 행위태양 중 둘만 여는 것이므로, 나머지 둘은 후보가 아예 생기지 않는다.)
 
 ---
 
-## 2. 새 predicate — 세 개
+## 2. 새 predicate — 네 개 (v0은 셋이라고 했다)
 
 | 필요한 것 | 처리 |
 |---|---|
 | 장물성 | **신규** `legal_element.stolen_property_status` |
-| 취득행위 | **신규** `ground_fact.stolen_property_acquisition_conduct` |
-| 보관행위 | **신규** `ground_fact.stolen_property_custody_conduct` |
-| 고의 | 재사용 `legal_element.intent` |
+| 취득행위 | **신규** `legal_element.stolen_property_acquisition_conduct` |
+| 보관행위 | **신규** `legal_element.stolen_property_custody_conduct` |
+| **장물 인식** | **신규** `legal_element.knowledge_of_stolen_property_status` ← v0 누락 |
+| 기본 고의 | 재사용 `legal_element.intent` |
 
-### 2-1. 장물성 — 이 워크시트에서 가장 중요한 카드
+### 2-1. 장물성 — v0에서 exclusion이 판례와 충돌했다
 
 ```yaml
 - id: legal_element.stolen_property_status
   arguments: [{name: property, type: entity}]
-  canonical_meaning: "재산범죄로 영득된 재물"
+  canonical_meaning: "재산죄인 범죄행위에 의하여 영득된 재물"
   legal_standard: >-
-    그 재물이 재산범죄로 영득된 재물 자체인지 여부. 본범이 처벌되는지, 본범의 공소시효가
-    지났는지는 묻지 않는다.
+    그 재물이 재산죄인 범죄행위에 의하여 영득된 재물 자체인지 여부.
   semantic_exclusions:
-    - "재산범죄로 얻은 재물을 처분하여 얻은 대가나 그것으로 바꾼 물건은 장물이 아니다."
-    - "재산범죄가 아닌 범죄로 얻은 물건은 장물이 아니다."
-  authority_refs: [{authority_basis: statute_text, citation: "형법 제362조 제1항"}]
+    - "재산상 이익은 재물이 아니므로 장물이 될 수 없다."
+    - >-
+      원장물과 경제적 동일성이 인정되지 않는 처분대가나 대체물은 장물이 아니다. 다만
+      금전이나 자기앞수표처럼 동일한 금전적 가치가 유지되는 경우에는 물리적 동일성이
+      없어도 장물성이 유지될 수 있다.
+  authority_refs:
+    - {authority_basis: statute_text, citation: "형법 제362조 제1항"}
+    - {authority_basis: judicial_precedent, citation: "대법원 2004도5904"}
+    - {authority_basis: judicial_precedent, citation: "대법원 98도2579"}
 ```
 
-두 exclusion을 넣은 이유는 이 predicate가 **TRUE로 과잉 판정되기 쉬운 모양**이기 때문이다.
-"범죄와 관련된 물건"으로 넓게 읽히면 뇌물·도박자금까지 장물이 되고, 대체물까지 포함되면
-`r10_p2_q1`의 흡수 관계가 엉뚱한 물건에 붙는다.
+**v0에서 무엇이 틀렸나 — 두 가지.**
 
-동시에 exclusion이 흔한 TRUE 경로를 막지 않는지도 봐야 한다 — `means_or_object_defect`가
-exclusion 둘로 TRUE·FALSE 경로를 각각 막아 45건 중 TRUE 1건이 된 전례가 있다.
+1. exclusion을 "처분대가나 바꾼 물건은 장물이 아니다"로 **단정**했다. 원칙은 맞지만 금전·
+   자기앞수표의 대체성 때문에, 예치 후 같은 가치의 현금을 인출한 경우처럼 물리적 동일성이
+   사라져도 장물성이 유지되는 예외가 있다(98도2579). 단정하면 그 사안을 구조적으로 놓친다.
+2. `authority_refs`가 `statute_text` 하나였다. 장물의 의미·처분대가·금전 대체성은 조문 문언이
+   아니라 판례법리다.
 
-> **검수 ②** 이 `legal_standard`와 두 exclusion으로 장물성을 안정적으로 판정할 수 있는가?
-> 특히 "본범이 처벌되는지는 묻지 않는다"를 legal_standard에 넣은 것이 맞는가, 아니면
-> exclusion으로 내려야 하는가?
+**그리고 한 문장을 뺐다.** v0의 "본범이 처벌되는지, 공소시효가 지났는지는 묻지 않는다"는
+법리로는 그럴듯하나 이번 검수에서 근거를 확보하지 못했다. 근거 없는 문장을 `statute_text`
+아래 active legal standard로 두지 않는다 — 판례·주석 근거가 확보되면 그때 다시 넣는다.
 
-### 2-2. 두 행위태양
+> **검수 ②-v1** 위 canonical meaning·legal_standard·exclusion 2건·authority 3건으로 확정하는가?
+
+### 2-2. 두 행위태양 — 경계 문장을 다시 씀
 
 ```yaml
 - id: ground_fact.stolen_property_acquisition_conduct
   arguments: [{name: actor, type: entity}, {name: property, type: entity}]
-  canonical_meaning: "장물의 사실상 처분권 취득"
+  canonical_meaning: "점유를 이전받아 사실상 처분권을 획득"
   semantic_sort: conduct
-  legal_standard: >-
-    그 재물에 대한 사실상의 처분권을 이전받았는지 여부. 대가를 지급하였는지는 묻지 않는다.
-  authority_refs: [{authority_basis: statute_text, citation: "형법 제362조 제1항"}]
 
 - id: ground_fact.stolen_property_custody_conduct
   arguments: [{name: actor, type: entity}, {name: property, type: entity}]
-  canonical_meaning: "위탁에 의한 장물의 보관"
+  canonical_meaning: "타인을 위하여 장물을 맡아 사실상 점유·관리"
   semantic_sort: conduct
-  legal_standard: >-
-    본범 또는 그를 위하여 그 재물을 맡아 두었는지 여부. 처분권을 이전받은 경우는 취득이지
-    보관이 아니다.
-  authority_refs: [{authority_basis: statute_text, citation: "형법 제362조 제1항"}]
 ```
 
-마지막 문장이 취득과 보관을 가른다. 이 구분이 `r10_p2_q1`의 핵심이다 — 보관으로 시작해서
-나중에 영득했기 때문에 사후행위 문제가 생기는 것이고, 처음부터 취득이었다면 그 논점 자체가
-없다.
+경계는 이렇게 긋는다.
 
-> **검수 ③** 두 행위태양의 경계를 이 문장으로 긋는 것이 맞는가?
+> 취득: 자기에게 **독립적인 사실상 처분권**이 이전된 경우
+> 보관: 타인을 위하여 맡아 **점유·관리**하고 있는 경우
+
+v0의 "본범 또는 그를 위하여 맡아 두었는지"는 위탁자를 본범으로 좁혔는데, 본범이 아닌 사람의
+위탁도 보관이 될 수 있으므로 "타인을 위하여"가 맞다.
+
+### ⚠ 여기서 A3와 같은 문제가 다시 나온다 — GroundFactDef는 근거를 실을 수 없다
+
+A3의 `assault_conduct`에서 확인된 것이 그대로 적용된다. **`GroundFactDef` 스키마에는
+`legal_standard`도 `authority_refs`도 없고, 주석서 `source_refs`가 필수다.** 그런데
+commentary corpus에 제362조 코멘트가 없다(art362·art365 카드가 없다는 §0의 사실과 같은 뿌리).
+
+취득의 정의("점유를 이전받아 사실상 처분권 획득")도 조문 문언이 아니라 판례다. 그러니 A3와
+같이 **`legal_element`로 저작**해야 근거를 실을 수 있다. `legal_element.robbery_level_violence`가
+이미 그 선례다(폭행 conduct인데 legal_element).
+
+> **검수 ③-v1** 두 행위태양을 `ground_fact.*`가 아니라 `legal_element.*`로 저작하는 데
+> 동의하는가? (동의하면 id는 `legal_element.stolen_property_acquisition_conduct` /
+> `..._custody_conduct`가 되고, 각각 판례 authority를 붙인다.)
+
+---
+
+## 2-3. v0이 놓친 것 — 장물이라는 인식
+
+지적대로 이것이 v0의 가장 큰 누락이다. 확인 결과는 이렇다.
+
+`legal_element.intent`의 저작된 계약은 다음과 같다.
+
+```yaml
+canonical_meaning: "객관적 구성요건요소 인식+실현 용인(고의)"
+legal_standard: "행위자가 구성요건적 사실을 인식하고 그 실현을 의욕하거나 용인하였는지 여부"
+```
+
+**문언상으로는 장물성 인식을 포함한다.** 장물성은 객관적 구성요건요소이고, "용인"은 미필적
+고의까지 담는 표현이다. 그러므로 형식적으로는 generic intent로 충분하다고 말할 수 있다.
+
+**그럼에도 전용 predicate 신설을 권고한다.** 이유는 A3 ⑤와 같은 종류지만 여기서 더 나쁘다.
+
+* A3의 결과적 가중범에서는 generic intent가 잘못 읽히면 성립이 **좁아진다**(FALSE로).
+* 여기서는 반대로 **넓어질 수 있다**. "물건을 취득할 의사"는 거의 항상 TRUE이고, 장물성 인식을
+  따로 묻지 않으면 그 TRUE가 장물죄 고의를 통과시킨다.
+* 그리고 "장물일지도 모른다는 미필적 인식으로 충분하다"는 **장물죄 고유의 기준**이라
+  generic intent의 문언에서 읽히지 않는다. 이 기준을 명시하지 않으면 모델이 확정적 인식을
+  요구하는 쪽으로 읽어 반대 방향 오류도 난다.
+
+```yaml
+- id: legal_element.knowledge_of_stolen_property_status
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "장물이라는 인식"
+  legal_standard: >-
+    행위 당시 그 재물이 장물임을 인식하였는지 여부. 장물임을 확정적으로 알 필요는 없고
+    장물일지도 모른다는 미필적 인식으로 충분하다.
+  authority_refs:
+    - {authority_basis: statute_text, citation: "형법 제362조 제1항"}
+    - {authority_basis: judicial_precedent, citation: "대법원 2004도5904"}
+```
+
+그러면 신규 predicate는 **3개가 아니라 4개**이고, 두 offense의 `mental`은
+`all(intent, knowledge_of_stolen_property_status)`가 된다.
+
+> **검수 ⑥ (신설)** 전용 인식 predicate를 신설하는 데 동의하는가?
+> 동의하지 않으면 generic intent만 쓰되, 그 선택을 authoring-review item으로 기록한다.
 
 ---
 
@@ -114,8 +181,12 @@ exclusion 둘로 TRUE·FALSE 경로를 각각 막아 45건 중 TRUE 1건이 된 
     authority_refs: [{authority_basis: statute_text, citation: "형법 제362조 제1항"}]
   elements:
     object: {op: ref, ref: legal_element.stolen_property_status}
-    conduct: {op: ref, ref: ground_fact.stolen_property_acquisition_conduct}
-    mental: {op: ref, ref: legal_element.intent}
+    conduct: {op: ref, ref: legal_element.stolen_property_acquisition_conduct}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.knowledge_of_stolen_property_status}
 
 - id: offense.stolen_property_custody
   identity: {name: "장물보관죄", statutory_refs: ["형법 제362조 제1항"]}
@@ -124,25 +195,42 @@ exclusion 둘로 TRUE·FALSE 경로를 각각 막아 45건 중 TRUE 1건이 된 
     authority_refs: [{authority_basis: statute_text, citation: "형법 제362조 제1항"}]
   elements:
     object: {op: ref, ref: legal_element.stolen_property_status}
-    conduct: {op: ref, ref: ground_fact.stolen_property_custody_conduct}
-    mental: {op: ref, ref: legal_element.intent}
+    conduct: {op: ref, ref: legal_element.stolen_property_custody_conduct}
+    mental:
+      op: all
+      args:
+        - {op: ref, ref: legal_element.intent}
+        - {op: ref, ref: legal_element.knowledge_of_stolen_property_status}
 ```
 
 법정형은 7년 이하 징역 또는 1천500만원 이하 벌금 → `fine_or_greater`.
 
-**본범자는 장물죄의 주체가 될 수 없다**(자기 재산범죄의 사후처분). 이것을 `subject` 슬롯의
-predicate로 저작하지 **않는** 것을 권고한다. 그 명제는 "이 사람이 본범인가"라는 cross-offense
-판단이고, 지금 그것을 물으면 제151조에서 방금 제거한 것과 같은 종류의 잘못된 질문이 된다 —
-Call 2에게 다른 사람의 법적 지위를 묻는 것이다.
+### ④ 본범자 배제 — v0의 처리는 거절되었다
 
-`r13_p2_q1`이 이미 그 경우인데, gap 파일이 기록한 대로 **후보가 아예 생기지 않는 것으로**
-정답이 충족된다. 본범인 사람에게는 장물 binding이 만들어지지 않기 때문이다.
+**v0에서 무엇이 틀렸나.** "본범이면 애초에 binding이 안 만들어진다"로 해결하려 했다. 그 절반은
+맞다 — Call 2에게 "이 사람이 본범인가"를 묻지 않는다는 것. 그러나 그 결론은 **법적 exclusion을
+candidate generation에 숨기는 것**이 된다. `r13_p2_q1`에서 후보가 안 생겨 정답이 나오는 것은
+좋은 관찰이지만, 그 우연을 이 규범의 semantic owner로 인정할 수는 없다.
 
-> **검수 ④** 본범자 배제를 구성요건으로 저작하지 않고 binding 단계의 사실 문제로 두는 데
-> 동의하는가? 필요하다고 보시면 A1에서 만든 **cross-actor dependency 경로**로 저작할 수 있다
-> (같은 사람인지가 아니라 그 사람의 선행 재산범죄 성립 여부를 묻는 구조).
+게다가 조건이 v0이 생각한 것보다 좁고 구체적이다. 자기 범죄의 정범에는 **공동정범과 합동범이
+포함**되고, 단순히 같은 범죄집단 소속이었다는 것만으로는 부족하다. 즉 필요한 것은
 
----
+```text
+actor가 어떤 재산범죄를 범했는가                                    ← 이것이 아니다
+이 장물을 발생시킨 바로 그 선행 재산범죄의 정범·공동정범·합동범인가   ← 이것이다
+```
+
+A1의 participant-level dependency를 재사용할 수 있지만 **그대로 복사할 수는 없다.**
+A1은 `participant → 선행범죄 성립`이면 충분했는데, 여기서는
+`property ↔ 그 property를 발생시킨 선행범죄 ↔ 그 범죄에서의 actor 가담형태`라는
+object-specific provenance가 더 필요하다.
+
+> **검수 ④-v1** 이번 A4에서 그 dependency를 열지, 아니면
+> `gap.stolen_property_self_principal_exclusion`으로 typed gap을 남길지 정해 주십시오.
+>
+> **권고는 typed gap.** 이 dependency는 A1보다 한 단계 무겁고(객체 provenance가 추가된다),
+> `r10_p2_q1`을 닫는 데는 필요하지 않다. 다만 gap으로 남기는 이상 `r13_p2_q1`이 지금 맞는
+> 답을 내는 것은 **우연이지 규칙이 아니라고** 그 항목에 명시한다.
 
 ## 4. 불가벌적 사후행위 — 이 저작의 실제 목적
 
@@ -153,7 +241,7 @@ Call 2에게 다른 사람의 법적 지위를 묻는 것이다.
     # first가 흡수되는 쪽(child)이다.
     first_offense_ref: offense.embezzlement
     second_offense_ref: offense.stolen_property_custody
-    occurrence_constraint: same_episode
+    occurrence_constraint: ordered_cross_episode   # v0은 same_episode였다
     actor_constraint: same
     condition_ref: condition.embezzled_object_is_the_same_property_held_in_custody
     condition_statement: >-
@@ -169,25 +257,53 @@ Call 2에게 다른 사람의 법적 지위를 묻는 것이다.
 `condition_statement`가 **관계만** 지는 것은 인장위조 흡수 규칙에서 확정된 원칙 그대로다.
 보관의 적법성이나 영득의사 발생시점은 흡수되는 쪽 instance의 elements가 이미 판단했다.
 
-### ⚠ occurrence_constraint
+### ⚠ occurrence_constraint — v0의 (가)는 거절되었다
 
-`same_episode`로 두었다. 그런데 `r10_p2_q1`의 사실관계는 **보관과 이후 영득이 시간적으로
-떨어져** 있다. Call 1.5가 그 둘을 다른 factual episode로 나누면 이 규칙은 발화하지 않는다.
+법리 자체는 오히려 v0보다 강해졌다. 절도범에게서 장물보관을 의뢰받아 보관하다가 임의처분한
+사안에서, 장물보관죄 성립 시 이미 소유물추구권 침해가 발생했으므로 이후 횡령은 불가벌적
+사후행위라는 판례가 있다(대법원 76도3067, 2004년 재확인). `basis`에 그 근거를 넣는다.
 
-인장위조 규칙은 두 행위가 사실상 한 장면이라 문제가 없었지만, 여기서는 "나중에"가 사안의
-핵심이다. 대안은 `occurrence_constraint`에 episode를 넘는 값을 새로 두는 것인데, 그러면
-흡수 규칙이 사건 전체로 넓어져 무관한 두 죄가 만날 위험이 생긴다.
+그래서 더더욱 `same_episode`를 쓸 수 없다. **이 법리가 적용되는 전형 자체가 시간적으로
+후행하는 사안**이기 때문이다.
 
-> **검수 ⑤** 여기가 이 워크시트에서 가장 위험한 자리다. 세 선택지 중 무엇으로 갈까.
+```text
+장물을 보관함  →  시간이 흐름  →  나중에 임의처분·영득
+```
+
+`same_episode`는 법적 요건이 아니라 현재 representation의 우연한 경계다. 그것을 규칙의
+occurrence constraint로 두면 **알고 있는 false negative를 규칙에 저작**하게 된다.
+
+필요한 제약은 의미적으로 이것이다.
+
+```text
+same actor
+same property            ← condition이 이미 진다
+장물보관이 먼저 성립       ← 순서가 있다
+그 보관상태 중의 후행 영득
+```
+
+즉 unrestricted `cross_episode`가 아니라 **ordered cross-episode**다.
+
+### 구현 상태 — 지금 런타임에 그 값이 없다
+
+`runtime/concurrence.py`가 받는 값은 `same_episode`와 `same_realization` **둘뿐**이고, 그 밖의
+값은 예외를 던진다. 그래서 이 결재를 그대로 설치하려면 런타임 확장이 먼저다.
+
+다행히 필요한 입력은 이미 plan에 있다 — `factual_episode_order`가 Call 1.5가 정한 서사 순서를
+싣고 있고, 초과 판정이 이미 그 순서를 쓴다. 그러니 다음이 가능하다.
+
+```text
+ordered_cross_episode:
+  actor_constraint: same
+  second(장물보관)의 episode가 first(횡령)의 episode보다 앞서거나 같다
+  순서는 factual_episode_order로만 판단한다 (문자열 정렬이나 id 규칙에 기대지 않는다)
+```
+
+> **검수 ⑤-v1** 위 `ordered_cross_episode`를 런타임에 추가하고 규칙을 `approved`로 설치하는가?
+> 아니면 규칙을 `status: draft`로 저작만 하고 런타임 확장은 별도로 가는가?
 >
-> **(가)** `same_episode` 유지 — 규칙은 정확하되 사안에 따라 발화하지 않을 수 있다
-> **(나)** episode를 넘는 제약값 신설 — 발화하지만 오작동 여지가 생긴다
-> **(다)** 이번에는 규칙을 `status: draft`로 저작만 하고 발화시키지 않는다
->
-> **권고는 (가)** — 실제로 발화하지 않으면 그것이 측정으로 드러나고, 그때 episode 경계를
-> 다시 보는 편이 낫다. 지금 제약을 넓히면 왜 넓혔는지 근거 없이 남는다.
-
----
+> **권고는 런타임 추가 후 approved.** draft로 두면 A4를 저작하고도 `r10_p2_q1`은 그대로
+> 닫히지 않는다 — 이 저작의 목적이 바로 그 사안이다. 확장 범위도 좁다(비교 함수 하나).
 
 ## 5. 설치 시 함께 바뀌는 것
 
@@ -203,12 +319,15 @@ Call 2에게 다른 사람의 법적 지위를 묻는 것이다.
 
 ---
 
-## 6. 검수 항목 요약
+## 6. 검수 항목 요약 (v1)
 
-| | 내용 | 권고 |
-|---|---|---|
-| ① | 취득·보관 둘만 저작(양여·운반 제외) | 둘만 |
-| ② | 장물성 legal_standard와 exclusion 2건 | 초안대로 |
-| ③ | 취득/보관 경계 문장 | 초안대로 |
-| ④ | 본범자 배제를 구성요건으로 저작하지 않음 | 저작 안 함 |
-| ⑤ | 흡수 규칙의 occurrence_constraint | (가) `same_episode` |
+| | 내용 | v0 판정 | v1 권고 |
+|---|---|---|---|
+| ① | 취득·보관만 저작 (`양여`→`양도` 정정) | 승인 | 유지 |
+| ②-v1 | 장물성 — 대체물 exclusion 완화 + 판례 authority 3건 + 근거 없는 문장 삭제 | 수정 요구 | 개정안대로 |
+| ③-v1 | 두 행위태양을 `legal_element`로 저작 (GroundFactDef는 근거를 실을 수 없다) | 수정 요구 | 개정안대로 |
+| ⑥ | 장물 인식 predicate 신설 | **v0 누락** | 신설 |
+| ④-v1 | 본범자 배제 | 현재안 거절 | typed gap |
+| ⑤-v1 | 흡수 규칙 occurrence 제약 | (가) 거절 | `ordered_cross_episode` 신설 후 approved |
+
+설치는 위 여섯 항목이 확정된 뒤에 한 번에 한다.

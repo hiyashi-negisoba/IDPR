@@ -659,6 +659,85 @@
     causation: {op: ref, ref: legal_element.aggravated_result_attribution}
     mental: {op: ref, ref: legal_element.intent}
 
+- id: derived_offense.special_assault
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제261조"}]
+  identity:
+    name: 특수폭행죄
+    statutory_refs: ["형법 제261조"]
+  derivation:
+    kind: qualify
+    base: offense.assault
+    qualifier: qualifier.special_assault_method
+  flattened_elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct: {op: ref, ref: legal_element.assault_conduct}
+    circumstance:
+      op: any
+      args:
+        - {op: ref, ref: legal_element.group_or_multiple_force}
+        - {op: ref, ref: legal_element.dangerous_object_carriage}
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.assault_causing_injury
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제262조"}]
+  identity:
+    name: 폭행치상죄
+    statutory_refs: ["형법 제262조"]
+  # 제262조는 제260조와 제261조 양쪽의 사상 결과를 받는다. 여기 저작된 것은 제260조 기본
+  # 폭행에서 이어지는 갈래뿐이고, 특수폭행에서 이어지는 갈래는
+  # `gap.special_assault_aggravated_result`로 남겼다. 두 카드가 제262조 전부를 덮는다고
+  # 말하지 않는다.
+  candidate_materialization:
+    episode_constraint: same
+    binding_sets:
+      - [offense.assault, offense.injury]
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.assault, local_key: assault_part}
+      - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
+      - {kind: exported_component, ref: exported_component.injury_result, local_key: aggravated_result, slot: result}
+    relations:
+      - {relation: relation.causal_nexus, left: assault_part, right: aggravated_result, left_view: event, right_view: event}
+  flattened_elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct: {op: ref, ref: legal_element.assault_conduct}
+    result: {op: ref, ref: legal_element.injury_result}
+    causation: {op: ref, ref: legal_element.aggravated_result_attribution}
+    # 이 고의는 중한 결과가 아니라 기본범죄인 폭행에 대한 것이다. 중한 결과는
+    # `aggravated_result_attribution`이 예견가능성과 함께 진다.
+    mental: {op: ref, ref: legal_element.intent}
+
+- id: derived_offense.assault_causing_death
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제262조"}]
+  identity:
+    name: 폭행치사죄
+    statutory_refs: ["형법 제262조"]
+  candidate_materialization:
+    episode_constraint: same
+    binding_sets:
+      - [offense.assault, offense.homicide]
+  derivation:
+    kind: compose
+    components:
+      - {kind: offense, ref: offense.assault, local_key: assault_part}
+      - {kind: primitive, ref: primitive.aggravated_result_attribution, local_key: result_attribution, slot: causation}
+      - {kind: exported_component, ref: exported_component.death_of_victim, local_key: aggravated_result, slot: result}
+    relations:
+      - {relation: relation.causal_nexus, left: assault_part, right: aggravated_result, left_view: event, right_view: event}
+  flattened_elements:
+    object: {op: ref, ref: legal_element.natural_person_victim_status}
+    conduct: {op: ref, ref: legal_element.assault_conduct}
+    result: {op: ref, ref: ground_fact.death_of_victim}
+    causation: {op: ref, ref: legal_element.aggravated_result_attribution}
+    mental: {op: ref, ref: legal_element.intent}
+
 - id: derived_offense.injury_causing_death
   article151_penalty_threshold:
     class: fine_or_greater

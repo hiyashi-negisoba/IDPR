@@ -38,9 +38,17 @@ def test_every_unauthored_offense_family_is_still_unauthored(registry, gaps) -> 
             )
 
 
-def test_the_assault_and_stolen_property_families_are_both_recorded(gaps) -> None:
+def test_the_assault_family_gap_is_closed_without_dropping_what_it_covered(gaps) -> None:
+    """공백은 조용히 사라져서도 안 된다.
+
+    폭행죄 family는 저작되었지만 그 gap이 덮고 있던 것 중 둘이 남았다. 항목만 지우면
+    다음 사람은 `r11_p1_q1`이 완전히 닫힌 줄 알게 된다.
+    """
     recorded = {gap["id"] for gap in gaps}
-    assert "gap.assault_offense_family" in recorded
+
+    assert "gap.assault_offense_family" not in recorded
+    assert "gap.co_principal_qualitative_excess" in recorded
+    assert "gap.special_assault_aggravated_result" in recorded
     assert "gap.stolen_property_offense_family" in recorded
 
 

@@ -1,4 +1,28 @@
-# A3 폭행죄 family 저작 워크시트 — 검수 요청
+# A3 폭행죄 family — 결재 완료 · 설치됨
+
+> **2026-08-15 결재: 승인 후 설치 완료.** 아래는 검수 원문이며, 결재 시 지시된 세 가지를
+> 반영했다. 설치 중 한 가지가 더 드러나 함께 고쳤다.
+>
+> | | 결재 | 반영 |
+> |---|---|---|
+> | ① | 승인 + 판례 authority 보강 + 문장 명시 | 반영. **다만 kind가 바뀌었다** — 아래 참조 |
+> | ② | 승인 | `offense.assault` 설치. 반의사불벌 미저작 |
+> | ③ | 승인 | `qualifier.special_assault_method` + `derived_offense.special_assault` |
+> | ④ | 승인 + coverage 조건 | 분할 설치. **제262조 특수폭행 갈래는 미커버** → `gap.special_assault_aggravated_result` |
+> | ⑤ | 조건부 승인 | generic intent 유지, 결과적 가중범 전체의 authoring-review item |
+> | ⑥ | 승인 + 새 typed gap 필수 | `gap.co_principal_qualitative_excess` 신설 |
+>
+> **설치 중 드러난 것 — `assault_conduct`는 `ground_fact`가 될 수 없었다.**
+> 요구하신 판례 authority를 실으려면 `legal_element`여야 한다. `GroundFactDef` 스키마에는
+> `legal_standard`도 `authority_refs`도 없고 주석서 `source_refs`가 필수인데, commentary
+> corpus에 제260조 코멘트가 없다. `legal_element.robbery_level_violence`가 이미 같은
+> 자리(폭행 conduct + `semantic_sort: conduct`)에 있어 그 선례를 따랐다. 최종 id는
+> **`legal_element.assault_conduct`**다. 문안과 "위법한"을 넣지 않는다는 결정은 그대로다.
+>
+> 같은 제약이 A4의 두 행위태양에도 걸린다 — A4 v1 §2-2에 반영했다.
+
+---
+
 
 기준: 2026-08-15 · 지시서 [`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md) §4 P0-R3
 직접 영향: `r11_p1_q1` (乙의 준강도치상 불성립 → 폭행치상, 丙·甲은 질적 초과로 책임 없음)

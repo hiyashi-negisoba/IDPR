@@ -66,10 +66,14 @@ def test_absent_derivation_is_unresolved_rather_than_qualitative_excess(registry
         (pair["instigated_offense_ref"], pair["realized_offense_ref"])
         for pair in policy.payload["incompatible_offense_pairs"]
     }
-    # 폭행치상 is not authored in v2, so r11_p1_q1 must fall through to unresolved rather than
-    # being read as qualitative excess by the absence of a derivation chain.
     assert ("offense.theft", "offense.injury") in authored_pairs
-    assert all("assault" not in realized for _, realized in authored_pairs)
+    # 2026-08-15: 폭행치상이 저작되어 甲 갈래의 pair가 들어왔다. 지키는 것은 그대로다 --
+    # pair는 **명시적으로 저작된 조합**에서만 나오고, derivation이 없다는 사실 자체가 질적
+    # 초과의 근거가 되지는 않는다.
+    assert ("offense.theft", "derived_offense.assault_causing_injury") in authored_pairs
+    assert all(
+        instigated == "offense.theft" for instigated, _realized in authored_pairs
+    ), authored_pairs
 
 
 def test_result_aggravated_excess_branches_on_the_participants_own_foreseeability(registry) -> None:

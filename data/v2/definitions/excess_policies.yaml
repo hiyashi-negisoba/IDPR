@@ -25,11 +25,18 @@
   unresolved_marker: UNRESOLVED_EXCESS_RELATION
   # 질적 초과로 저작된 exact pair만 넣는다. 여기 없는 조합은 질적 초과가 아니라 미해결이다.
   #
-  # `r11_p1_q1`의 폭행치상은 여기에 넣지 못했다. 폭행죄와 폭행치상죄가 v2에 저작되어
-  # 있지 않아 pair의 한 축이 없다. 그 사안은 지금 UNRESOLVED_EXCESS_RELATION으로 남는다.
+  # 2026-08-15: 폭행죄 family가 저작되어 `r11_p1_q1`의 pair 축이 생겼다. 아래 두 번째 pair가
+  # 甲(절도 교사 -> 폭행치상 실현) 갈래를 처리한다. 丙(공동정범)의 질적 초과는 이 정책의
+  # 질적 초과 분기가 교사 관계를 전제하므로 여기서 처리되지 않는다 --
+  # `gap.co_principal_qualitative_excess` 참조.
   incompatible_offense_pairs:
     - instigated_offense_ref: offense.theft
       realized_offense_ref: offense.injury
+      authority_refs:
+        - authority_basis: commentary_reported_precedent
+          citation: 케이스노트 형법총칙 교사의 착오 질적 초과
+    - instigated_offense_ref: offense.theft
+      realized_offense_ref: derived_offense.assault_causing_injury
       authority_refs:
         - authority_basis: commentary_reported_precedent
           citation: 케이스노트 형법총칙 교사의 착오 질적 초과

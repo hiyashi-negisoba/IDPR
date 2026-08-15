@@ -15,22 +15,40 @@ gaps:
   # 원문이 지향 대상을 명시하지 않으면 여전히 UNRESOLVED_MISTAKE_BINDING으로 남는다 --
   # 그것은 공백이 아니라 3치 논리의 정상적인 미확정 상태다.
 
-  - id: gap.assault_offense_family
+  # gap.assault_offense_family는 2026-08-15에 닫혔다. 폭행죄·특수폭행죄·폭행치사상죄가
+  # 저작되었고 질적 초과 pair의 축도 생겼다. 다만 그 gap이 덮고 있던 것 중 둘이 남았고,
+  # 조용히 사라지지 않도록 각각 typed gap으로 승격한다.
+
+  - id: gap.co_principal_qualitative_excess
+    kind: unauthored_policy_branch
+    marker: UNRESOLVED_EXCESS_RELATION
+    blocks:
+      - excess_policy.korean_law_standard
+    summary: >-
+      공동정범의 질적 초과를 판정할 수 없다. 현재 초과 정책의 질적 초과 분기는 교사 관계를
+      전제로 `provenance.instigated_offense_ref`를 받는데, 공동정범에는 교사 대상 offense가
+      없다.
+    consequence: >-
+      `r11_p1_q1`은 부분적으로만 닫힌다. 甲(절도 교사 -> 폭행치상 실현)은 저작된 pair가
+      처리하지만, 丙(乙과의 공동범행에서 乙의 폭행치상이 질적 초과)은 미해결로 남는다.
+    future_design: >-
+      정책에 공동정범 분기를 저작한다. 교사 대상 대신 "공동가공의 의사가 미친 범위"를
+      provenance로 받아야 하므로 새 입력이 필요하고, 그 입력을 무엇이 소유할지가 먼저다.
+
+  - id: gap.special_assault_aggravated_result
     kind: unauthored_offense_family
     marker: UNRESOLVED_EXCESS_RELATION
-    missing_articles: ["형법 제260조", "형법 제261조", "형법 제262조"]
-    # 저작되면 테스트가 실패하도록 exact ref를 적어 둔다.
+    missing_articles: ["형법 제262조"]
     absent_offense_refs:
-      - offense.assault
-      - offense.special_assault
-      - derived_offense.assault_causing_injury_or_death
+      - derived_offense.special_assault_causing_injury
+      - derived_offense.special_assault_causing_death
     summary: >-
-      폭행죄·특수폭행죄·폭행치사상죄가 v2에 없다. 각칙 워크시트가 art259에서 art263으로
-      건너뛰면서 세 조문이 통째로 빠졌다.
+      형법 제262조는 제260조와 제261조 **양쪽**의 사상 결과를 받는데, 저작된 폭행치사상
+      두 건은 제260조 기본 폭행에서 이어지는 갈래뿐이다.
     consequence: >-
-      `r11_p1_q1`의 질적 초과(교사한 절도를 넘어 폭행치상이 실현된 사안)를 판정할 수 없다.
-      pair의 한 축이 없으므로 저작된 incompatible pair에 넣지 못하고, 검수 ③-a에 따라
-      derivation 부재만으로 질적 초과라고 판정하지도 않는다. 따라서 미해결로 남는다.
+      특수폭행에서 사상 결과로 이어지는 사안은 후보가 생기지 않는다. KCL-26에서 그런
+      사안은 확인되지 않았으므로 지금 저작하지 않되, 두 카드가 제262조 전부를 덮는다고
+      말하지 않기 위해 여기에 남긴다.
 
   - id: gap.stolen_property_offense_family
     kind: unauthored_offense_family
