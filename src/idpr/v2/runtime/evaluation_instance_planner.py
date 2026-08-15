@@ -17,6 +17,7 @@ from idpr.v2.compile import CompiledOffense, compile_offense
 from idpr.v2.gold_factual_identity import GoldFactualParticipant, GoldOccurrence
 from idpr.v2.issue_binding import FactualAction, FactualEpisode, IssueBinding
 from idpr.v2.registry import DefinitionRegistry
+from idpr.v2.runtime.carrier_contract import carrier_kind_for
 from idpr.v2.runtime import completion as completion_mod
 from idpr.v2.runtime.article263_grounding import Article263OccurrencePair
 from idpr.v2.runtime.grounding import AssessmentTarget, grounding_request_targets
@@ -974,36 +975,11 @@ def _plan_action_atomic_binding_instances(
             raise EvaluationInstancePlannerError(
                 f"{case_id}: target lacks legal realization provenance"
             )
-        entry = registry.get(target.predicate_ref)
-        if entry is None:
-            raise EvaluationInstancePlannerError(f"{case_id}: unknown predicate carrier")
-        # Width is the definition's business.  An explicitly authored `evidence_scope`
-        # beats the generic actor-bound narrowing: that rule exists to stop another
-        # actor's conduct being read as this one's, and `actor_episode` already carries
-        # only actions this actor takes part in, so the attribution risk it guards
-        # against is absent.  Without an authored scope the generic rule still decides.
-        scope = str(entry.payload.get("evidence_scope") or "")
-        if scope == "same_actor_episode":
-            carrier_kind = "actor_episode"
-        elif scope == "exact_actor_action":
-            carrier_kind = "focal_action"
-        elif not scope and entry.kind == "ground_fact" and _actor_bound_ground_fact(
-            registry, target.predicate_ref
-        ):
-            carrier_kind = "focal_action"
-        else:
-            carrier_kind = "realization"
-        # A focal-only carrier is readable only when the responsibility actor is
-        # a participant of the focal action.  For an accessory or instigator the
-        # focal action is the principal's execution, so narrowing to it would ask
-        # Call 2 about an actor the carrier never mentions.  Those targets fall
-        # back to the realization carrier, which is still limited to the actions
-        # Call 1.5 selected rather than the whole episode.
-        if carrier_kind == "focal_action" and not _actor_participates_in_focal(
-            action_by_id, realization
-        ):
-            carrier_kind = "realization"
-        anchored_at_focal = entry.payload.get("temporal_anchor") == "focal_action"
+        carrier_kind, anchored_at_focal = carrier_kind_for(
+            registry,
+            target.predicate_ref,
+            actor_in_focal=_actor_participates_in_focal(action_by_id, realization),
+        )
         carrier_id = ensure_carrier(realization, carrier_kind, anchored_at_focal)
         carrier_assignments.append(
             AssessmentCarrier(

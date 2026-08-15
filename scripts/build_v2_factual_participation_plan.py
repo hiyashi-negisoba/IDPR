@@ -31,6 +31,11 @@ from idpr.v2.runtime.factual_participation import (
     derived_co_principal_targets,
     materialize_factual_participation_candidates,
 )
+from idpr.v2.runtime.carrier_contract import (
+    PARTICIPATION_CARRIER,
+    resolve_carrier,
+    validate_plan_carriers,
+)
 from idpr.v2.runtime.policy_probe_targets import (
     DERIVATIVE_RELATION_KINDS,
     participation_candidate_probe_targets,
@@ -78,6 +83,12 @@ def _case_ids(path: Path) -> tuple[str, ...]:
     if not values or len(values) != len(set(values)):
         raise ValueError(f"{path}: case ids must be nonempty and unique")
     return values
+
+
+def _is_relation_predicate(registry: Any, predicate_ref: str) -> bool:
+    """참가 관계 자체를 묻는 target인가. 행위자에게 국한된 사실이 아니라 사람 사이의 관계다."""
+    entry = registry.get(predicate_ref)
+    return entry is not None and entry.kind == "relation"
 
 
 def _requires_focal_action_carrier(registry: Any, predicate_ref: str) -> bool:
@@ -464,6 +475,16 @@ def main() -> None:
         # one an explicit physical carrier so Call 2 never falls back to its whole
         # factual episode.  Existing realization targets retain the planner's
         # action/realization assignment verbatim.
+        # identity는 occurrence_id 하나가 아니다. 절도와 특수절도가 같은 realization을
+        # 공유하고 그 둘의 carrier 사정이 다를 수 있다.
+        provenance_by_instance = {
+            (
+                str(item["instance_key"]["actor_id"]),
+                str(item["instance_key"]["offense_ref"]),
+                str(item["instance_key"]["occurrence_id"]),
+            ): item
+            for item in row.get("instance_provenance", ())
+        }
         carrier_by_target = {
             (
                 value["instance_key"]["case_id"],
@@ -485,41 +506,23 @@ def main() -> None:
             )
             if key in carrier_by_target:
                 continue
-            provenance = provenance_by_occurrence.get(instance["occurrence_id"])
+            provenance = provenance_by_instance.get(
+                (
+                    str(instance["actor_id"]),
+                    str(instance["offense_ref"]),
+                    str(instance["occurrence_id"]),
+                )
+            )
             if provenance is None:
                 raise ValueError(
                     f"{case_id}: participation target lacks realization provenance"
                 )
-            carrier_ids = provenance.get("carrier_ids") or {}
-            if not isinstance(carrier_ids, Mapping):
-                raise ValueError(
-                    f"{case_id}: participation target has malformed carrier provenance"
-                )
-            focal_required = _requires_focal_action_carrier(
-                registry, str(target["predicate_ref"])
+            carrier_id, carrier_kind = resolve_carrier(
+                registry,
+                str(target["predicate_ref"]),
+                provenance=provenance,
+                occurrence_id=str(instance["occurrence_id"]),
             )
-            # An accessory's focal action belongs to the principal, so narrowing
-            # to it would ask about an actor the carrier never mentions.  The
-            # planner already decided this per realization; honour that decision
-            # instead of re-deriving it here.
-            if (
-                focal_required
-                and provenance.get("focal_action_id") is not None
-                and provenance.get("actor_in_focal_action")
-            ):
-                carrier_id = carrier_ids.get("focal_action")
-                carrier_kind = "focal_action"
-                if not isinstance(carrier_id, str) or not carrier_id:
-                    raise ValueError(
-                        f"{case_id}: focal participation predicate lacks focal-action carrier"
-                    )
-            else:
-                # A participation-created realization is itself one explicit
-                # interaction action, so its occurrence is the physical carrier.
-                carrier_id = carrier_ids.get(
-                    "realization", instance["occurrence_id"]
-                )
-                carrier_kind = "participation_action_or_realization"
             if carrier_id not in occurrence_ids:
                 raise ValueError(
                     f"{case_id}: participation target has no physical carrier {carrier_id}"
@@ -533,6 +536,7 @@ def main() -> None:
                 }
             )
             carrier_by_target.add(key)
+        validate_plan_carriers(registry, row)
         row["assessment_carrier_count"] = len(row.get("assessment_carriers", ()))
         row["participation_probe_target_count"] = added
         row["participation_mode_requirement_target_count"] = requirement_added

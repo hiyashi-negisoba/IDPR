@@ -30,6 +30,7 @@ from idpr.v2 import expressions
 from idpr.v2.doctrine_cues import DoctrineCueAssessment, load_doctrine_cues
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.doctrine_raising import raise_doctrines
+from idpr.v2.runtime.carrier_contract import resolve_carrier, validate_plan_carriers
 from idpr.v2.runtime.doctrine_targets import materialize_doctrine_leaf_targets
 from idpr.v2.runtime.identity import OffenseInstanceKey
 
@@ -154,11 +155,14 @@ def main() -> None:
         # 새로 연 target에는 물리적 carrier가 함께 있어야 한다. 없으면 Call 2가 target 목록과
         # carrier 목록의 불일치로 사건 전체를 거부한다 -- 실제로 첫 관통에서 여기서 멈췄다.
         # 법리는 그 instance가 실현된 행위에 대해 묻는 것이므로 realization이 그 carrier다.
-        carrier_by_occurrence = {
-            str(item["instance_key"]["occurrence_id"]): (
-                (item.get("carrier_ids") or {}).get("realization")
-                or str(item["instance_key"]["occurrence_id"])
-            )
+        # identity는 occurrence_id 하나가 아니다. 절도와 특수절도가 같은 realization을
+        # 공유하고 그 둘의 carrier 사정이 다를 수 있다.
+        provenance_by_instance = {
+            (
+                str(item["instance_key"]["actor_id"]),
+                str(item["instance_key"]["offense_ref"]),
+                str(item["instance_key"]["occurrence_id"]),
+            ): item
             for item in row.get("instance_provenance", ())
         }
         covered = {
@@ -179,12 +183,20 @@ def main() -> None:
             )
             if key in covered:
                 continue
-            carrier_id = carrier_by_occurrence.get(value.instance.occurrence_id)
-            if not carrier_id:
+            provenance = provenance_by_instance.get(
+                (value.instance.actor_id, value.instance.offense_ref, value.instance.occurrence_id)
+            )
+            if provenance is None:
                 raise ValueError(
                     f"{case_id}: doctrine leaf target lacks realization provenance "
                     f"({value.instance.occurrence_id})"
                 )
+            carrier_id, carrier_label = resolve_carrier(
+                registry,
+                value.predicate_ref,
+                provenance=provenance,
+                occurrence_id=value.instance.occurrence_id,
+            )
             covered.add(key)
             row.setdefault("assessment_carriers", []).append(
                 {
@@ -196,9 +208,10 @@ def main() -> None:
                     },
                     "predicate_ref": value.predicate_ref,
                     "carrier_id": carrier_id,
-                    "carrier_kind": "doctrine_realization",
+                    "carrier_kind": carrier_label,
                 }
             )
+        validate_plan_carriers(registry, row)
         row["assessment_carrier_count"] = len(row.get("assessment_carriers", ()))
         row["final_assessment_target_count"] = len(row["assessment_targets"])
         row["doctrine_target_count"] = len(targets)
