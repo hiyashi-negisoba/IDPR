@@ -110,6 +110,24 @@ class CoPrincipalConstitutiveStatusObligation:
 
 
 @dataclass(frozen=True)
+class Article151PredecessorStatus:
+    """제151조의 대상자 신분 계산 결과. **ordinary liability가 아니다.**
+
+    같은 participant 수준 모양이라도 `UtilizedParticipantOutcome`과 목적이 다르므로 타입을
+    나눈다. 제34조의 outcome은 이용된 사람이 그 죄를 실현했는지를 묻지만, 이것은 제151조가
+    독자적으로 정의하는 범인 개념 -- 범죄 혐의로 수사대상이 된 자를 포함하는 -- 에 그 사람이
+    해당하는지를 묻는다. 두 값을 한 타입으로 두면 "이 사람은 절도범으로 확정되었다"와
+    "이 사람은 제151조의 범인에 해당한다"가 구별되지 않는다.
+
+    그래서 여기에는 완결된 죄책 판단이 담기지 않으며, 담겨서도 안 된다.
+    """
+
+    participant: FactualParticipantKey
+    offense_ref: str
+    status: Literal["qualifying", "non_qualifying", "unresolved"]
+
+
+@dataclass(frozen=True)
 class Article151OffenderStatusObligation:
     """The linked offender's own outcome, as Article 151's status leaf reads it.
 

@@ -25,8 +25,8 @@ from idpr.v2.runtime.stages import (
     Article151OffenderStatusObligation,
     LiabilityEvaluation,
     ObligationOutcome,
+    Article151PredecessorStatus,
     StatutoryDeemingObligation,
-    UtilizedParticipantOutcome,
 )
 from idpr.v2.runtime.truths import CaseTruths
 from idpr.v2.compile import CompiledOffense
@@ -34,22 +34,24 @@ from idpr.v2.compile import CompiledOffense
 
 @dataclass(frozen=True)
 class Article151QualifyingLink:
-    """A qualifying outcome for the harboured offender, at participant level.
+    """The harboured offender's Article 151 status, at participant level.
 
-    Article 151's object is another person's crime, and that person is not the actor whose
-    liability the question asks about.  So the input here is the same shape Article 34 uses for a
-    utilised participant -- a `UtilizedParticipantOutcome` -- and never a `LiabilityEvaluation`,
-    which would require inventing an answer-facing instance for someone the case never asks about.
+    Not a `LiabilityEvaluation`: that would require inventing an answer-facing instance for
+    someone the case never asks about.  Not a `UtilizedParticipantOutcome` either, even though the
+    shape matches -- Article 34 asks whether the utilised person realized that offense, while
+    Article 151 asks whether the person falls under its own 범인 concept, which reaches someone
+    under investigation on suspicion of a crime.  Conflating the two would let "established as a
+    thief" and "is an offender for Article 151" share one value.
 
     The threshold is not decided here.  `qualifies_for_article_151()` reads the authored
     classification off the offense definition, and an unauthored offense stays UNKNOWN.
     """
 
-    outcome: UtilizedParticipantOutcome
+    status: Article151PredecessorStatus
     qualification_provenance: str
 
 
-LINKED_OFFENDER_LIABLE_STATUS = "liable_exact_offense"
+ARTICLE_151_QUALIFYING_STATUS = "qualifying"
 
 ARTICLE_151_THRESHOLD_FIELD = "article151_penalty_threshold"
 ARTICLE_151_QUALIFYING_CLASS = "fine_or_greater"
@@ -92,12 +94,12 @@ def resolve_article_151_liability(
     qualification_provenance = None
     truth = UNKNOWN
     if qualifying_link is not None:
-        outcome = qualifying_link.outcome
-        linked_participant = outcome.participant
-        qualifying_offense_ref = outcome.offense_ref
+        status = qualifying_link.status
+        linked_participant = status.participant
+        qualifying_offense_ref = status.offense_ref
         qualification_provenance = qualifying_link.qualification_provenance
-        if outcome.status == LINKED_OFFENDER_LIABLE_STATUS and qualifies_for_article_151(
-            registry, outcome.offense_ref
+        if status.status == ARTICLE_151_QUALIFYING_STATUS and qualifies_for_article_151(
+            registry, status.offense_ref
         ):
             truth = TRUE
 
@@ -189,7 +191,7 @@ def resolve_article_263_deemed_liability(
 __all__ = [
     "ARTICLE_151_QUALIFYING_CLASS",
     "ARTICLE_151_THRESHOLD_FIELD",
-    "LINKED_OFFENDER_LIABLE_STATUS",
+    "ARTICLE_151_QUALIFYING_STATUS",
     "Article151QualifyingLink",
     "Article263AuthorityError",
     "article_263_deeming_expression",

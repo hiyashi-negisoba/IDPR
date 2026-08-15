@@ -14,7 +14,7 @@ from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.completion import CompletionResult
 from idpr.v2.runtime.effects import ActiveDoctrineRefs
 from idpr.v2.runtime.identity import FactualParticipantKey, OffenseInstanceKey
-from idpr.v2.runtime.stages import UtilizedParticipantOutcome
+from idpr.v2.runtime.stages import Article151PredecessorStatus
 from idpr.v2.runtime.statutory import (
     Article151QualifyingLink,
     qualifies_for_article_151,
@@ -37,10 +37,8 @@ def _compiled() -> CompiledOffense:
 
 def _link(offense_ref: str, status: str) -> Article151QualifyingLink:
     return Article151QualifyingLink(
-        UtilizedParticipantOutcome(
-            FactualParticipantKey(CASE, "乙"), offense_ref, status
-        ),
-        "linked offender outcome",
+        Article151PredecessorStatus(FactualParticipantKey(CASE, "乙"), offense_ref, status),
+        "article 151 predecessor status",
     )
 
 
@@ -67,7 +65,7 @@ def _status_truth(evaluation) -> str:
 
 def test_the_linked_offender_stays_a_participant_and_never_becomes_an_instance() -> None:
     """질문은 丙의 죄책만 묻는다. 乙에게 답변용 instance를 만들어 타입을 맞추면 안 된다."""
-    evaluation = _resolve(_link("offense.theft", "liable_exact_offense"))
+    evaluation = _resolve(_link("offense.theft", "qualifying"))
     obligation = next(
         value.obligation
         for value in evaluation.elements.provenance
@@ -85,14 +83,14 @@ def test_an_absent_link_is_unknown_rather_than_false() -> None:
 
 
 def test_a_linked_offender_who_is_not_liable_does_not_establish_the_status() -> None:
-    assert _status_truth(_resolve(_link("offense.theft", "elements_failure"))) == "UNKNOWN"
+    assert _status_truth(_resolve(_link("offense.theft", "non_qualifying"))) == "UNKNOWN"
     assert _status_truth(_resolve(_link("offense.theft", "unresolved"))) == "UNKNOWN"
 
 
 def test_an_authored_qualifying_predecessor_establishes_the_status() -> None:
     """2026-08-15 검수로 63개 offense 전부 `fine_or_greater`가 저작되었다."""
     assert qualifies_for_article_151(REGISTRY, "offense.theft") is True
-    assert _status_truth(_resolve(_link("offense.theft", "liable_exact_offense"))) == "TRUE"
+    assert _status_truth(_resolve(_link("offense.theft", "qualifying"))) == "TRUE"
 
 
 def test_an_unauthored_penalty_threshold_is_unknown_not_an_implied_pass() -> None:

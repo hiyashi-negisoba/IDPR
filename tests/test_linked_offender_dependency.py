@@ -179,34 +179,60 @@ def test_predicate_targets_open_only_for_qualifying_candidates() -> None:
     assert "ground_fact.taking_conduct" in {value.predicate_ref for value in targets}
 
 
-def test_the_fold_stays_at_participant_level_and_never_makes_an_instance() -> None:
-    from idpr.v2.runtime.linked_offender import fold_linked_offender_outcome
+def _status(**truths: str):
+    from idpr.v2.runtime.linked_offender import article151_predecessor_status
 
-    truths = {
-        "legal_element.possession": "TRUE",
-        "ground_fact.taking_conduct": "TRUE",
-        "legal_element.unlawful_appropriation_intent": "TRUE",
-    }
-    outcome = fold_linked_offender_outcome(
+    return article151_predecessor_status(
         REGISTRY,
         participant=FactualParticipantKey(CASE, "乙"),
         offense_ref="offense.theft",
         predicate_truths=truths,
     )
 
-    assert outcome.participant == FactualParticipantKey(CASE, "乙")
-    assert outcome.status == "liable_exact_offense"
-    assert not hasattr(outcome, "instance")
+
+def test_the_status_is_typed_as_a_status_not_as_liability() -> None:
+    """제151조의 범인 개념은 확정된 죄책이 아니라 그 조문 고유의 신분이다.
+
+    같은 participant 수준 모양이어도 제34조의 outcome과 한 타입을 쓰면 "절도범으로
+    확정되었다"와 "제151조의 범인에 해당한다"가 구별되지 않는다.
+    """
+    status = _status(**{
+        "legal_element.possession": "TRUE",
+        "ground_fact.taking_conduct": "TRUE",
+        "legal_element.unlawful_appropriation_intent": "TRUE",
+    })
+
+    assert type(status).__name__ == "Article151PredecessorStatus"
+    assert status.status == "qualifying"
+    assert not hasattr(status, "instance")
 
 
 def test_an_unresolved_predecessor_does_not_establish_the_status() -> None:
-    from idpr.v2.runtime.linked_offender import fold_linked_offender_outcome
+    assert _status(**{"legal_element.possession": "TRUE"}).status == "unresolved"
 
-    outcome = fold_linked_offender_outcome(
-        REGISTRY,
-        participant=FactualParticipantKey(CASE, "乙"),
-        offense_ref="offense.theft",
-        predicate_truths={"legal_element.possession": "TRUE"},
-    )
 
-    assert outcome.status == "unresolved"
+def test_a_non_qualifying_status_leaves_the_element_unknown_not_false() -> None:
+    """이 좁은 조회는 "자격 있는 선행범죄가 없다"를 증명하지 못한다."""
+    from idpr.v2.runtime.linked_offender import article151_status_truths
+
+    dependency = _dependencies("offense.harboring_or_escape", "乙")[0]
+    truths = article151_status_truths(REGISTRY, ((dependency, _status()),))
+
+    key = (dependency.dependent_instance, "legal_element.offender_status_of_object")
+    assert truths[key] == "UNKNOWN"
+
+
+def test_a_qualifying_status_supplies_the_element_as_a_truth() -> None:
+    """제263조 같은 parity path를 만들지 않는다 -- 최종 죄책은 기존 offense program의 것이다."""
+    from idpr.v2.runtime.linked_offender import article151_status_truths
+
+    dependency = _dependencies("offense.harboring_or_escape", "乙")[0]
+    status = _status(**{
+        "legal_element.possession": "TRUE",
+        "ground_fact.taking_conduct": "TRUE",
+        "legal_element.unlawful_appropriation_intent": "TRUE",
+    })
+    truths = article151_status_truths(REGISTRY, ((dependency, status),))
+
+    key = (dependency.dependent_instance, "legal_element.offender_status_of_object")
+    assert truths[key] == "TRUE"

@@ -37,6 +37,7 @@ from idpr.v2.runtime.identity import (
 from idpr.v2.runtime.indirect_principal_grounding import IndirectPrincipalDependency
 from idpr.v2.runtime.intended_object import IntendedObjectDivergence, mistake_findings
 from idpr.v2.runtime.mistake import apply_mistake_policy
+from idpr.v2.runtime.truths import CaseTruths
 from idpr.v2.runtime.participation_grounding import (
     ParticipationLocalAssessment,
     ParticipationLocalTarget,
@@ -483,6 +484,19 @@ def main() -> None:
                 truths,
                 mistake_findings(divergences, truths, policy=mistake_policy),
                 policy=mistake_policy,
+            )
+        # 제151조는 별도 Scallop parity path를 갖지 않는다. 여기서 나오는 것은
+        # `offender_status_of_object` 하나이고 최종 죄책은 기존 offense program이 그대로
+        # 소유하므로, 신분 계산 결과를 predicate truth로 공급하는 것으로 충분하다.
+        status_truths = {
+            (_instance(value["dependent_instance_key"]), str(value["resolved_element"])): str(
+                value["truth"]
+            )
+            for value in row.get("article151_status_truths", [])
+        }
+        if status_truths:
+            truths = CaseTruths(
+                predicate={**truths.predicate, **status_truths}, relation=truths.relation
             )
         instances = tuple(_instance(value) for value in row["assessment_instances"])
         top_level_instances = tuple(_instance(value) for value in row["top_level_instances"])

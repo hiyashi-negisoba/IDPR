@@ -36,7 +36,7 @@ from idpr.v2.routing import LINKED_OFFENDER_ROUTING, RouteRequest
 from idpr.v2.runtime.identity import FactualParticipantKey, OffenseInstanceKey
 
 if TYPE_CHECKING:  # pragma: no cover - typing only
-    from idpr.v2.runtime.stages import UtilizedParticipantOutcome
+    from idpr.v2.runtime.stages import Article151PredecessorStatus
 
 
 @dataclass(frozen=True, slots=True)
@@ -253,28 +253,31 @@ def linked_offender_predicate_targets(
     return tuple(output)
 
 
-def fold_linked_offender_outcome(
+def article151_predecessor_status(
     registry: DefinitionRegistry,
     *,
     participant: FactualParticipantKey,
     offense_ref: str,
     predicate_truths: Mapping[str, str],
-) -> "UtilizedParticipantOutcome":
-    """구성요건 truth를 participant 수준 outcome 하나로 접는다.
+) -> "Article151PredecessorStatus":
+    """제151조의 대상자 신분을 계산한다. **ordinary liability 평가가 아니다.**
 
-    제34조의 fold를 재사용하지 않는다. 그쪽은 `has_authored_indirect_principal_capability`를
-    요구하고 **completion을 가진 죄를 명시적으로 거부**하는데, 선행범죄는 절도·상해처럼 거의
-    전부 completion policy를 가진다. 계약이 다른 것을 억지로 통과시키면 그 계약이 막으려던
-    것을 우회하게 된다.
+    제34조의 fold를 재사용하지 않는 이유는 두 가지다. 계약상으로는 그쪽이
+    `has_authored_indirect_principal_capability`를 요구하고 completion을 가진 죄를 명시적으로
+    거부하는데, 선행범죄는 절도·상해처럼 거의 전부 completion policy를 가진다. 그리고 더
+    근본적으로, 묻는 것이 다르다 -- 제34조는 이용된 사람이 그 죄를 실현했는지를 묻고, 여기서는
+    그 사람이 제151조의 범인에 해당하는지를 묻는다.
 
-    completion을 여기서 평가하지 않는 것은 의도적이다. 제151조가 묻는 것은 "벌금 이상의 형에
-    해당하는 죄를 범한 사람인가"이고, 미수도 처벌규정이 있으면 죄다 -- 기수 여부는 이 신분
-    판단의 요소가 아니라고 보았다. **이 점은 authoring-review item으로 남긴다.**
+    completion을 평가하지 않는 근거도 거기서 나온다. 제151조의 범인 개념은 확정판결을 받은
+    자에 한정되지 않고 **범죄 혐의로 수사대상이 된 자를 포함**한다. 즉 이 조문은 대상자의
+    죄책을 완결적으로 확정할 것을 요구하지 않으므로, 기수·미수의 구별은 이 신분 판단의
+    요소가 아니다. 그래서 여기서 나오는 값은 죄책 결론이 아니라 신분 충족 여부이고,
+    반환 타입도 그 사실을 이름으로 말한다.
     """
     from idpr.v2 import expressions
     from idpr.v2.compile import CompiledOffense, compile_offense
     from idpr.v2.evaluate import FALSE, UNKNOWN, evaluate, fold_all
-    from idpr.v2.runtime.stages import UtilizedParticipantOutcome
+    from idpr.v2.runtime.stages import Article151PredecessorStatus
 
     compiled = compile_offense(registry, offense_ref)
     if not isinstance(compiled, CompiledOffense):
@@ -283,19 +286,50 @@ def fold_linked_offender_outcome(
         [evaluate(compiled.slots[slot], predicate_truths) for slot in expressions.SLOT_NAMES]
     )
     if elements_truth == FALSE:
-        status = "elements_failure"
+        status = "non_qualifying"
     elif elements_truth == UNKNOWN:
         status = "unresolved"
     else:
-        status = "liable_exact_offense"
-    return UtilizedParticipantOutcome(participant, offense_ref, status)
+        status = "qualifying"
+    return Article151PredecessorStatus(participant, offense_ref, status)
+
+
+def article151_status_truths(
+    registry: DefinitionRegistry,
+    pairs: Iterable[tuple[LinkedOffenderDependency, "Article151PredecessorStatus"]],
+) -> dict[tuple[OffenseInstanceKey, str], str]:
+    """신분 계산 결과를 dependent instance의 predicate truth로 공급한다.
+
+    제151조에는 제263조 같은 Scallop parity path를 만들지 않는다. 제263조가 별도 경로를 가진
+    것은 그 조문이 **책임 자체를 의제**하기 때문이고, 제151조는 그렇지 않다 -- 여기서 나오는
+    것은 `offender_status_of_object` 하나이고 최종 죄책은 기존 offense program이 그대로
+    소유한다. 그러니 truth 하나를 공급하는 것으로 충분하고, 경로를 늘리면 같은 죄에 두 개의
+    책임 계산이 생긴다.
+
+    `qualifying`이 아닌 값은 FALSE로 내리지 않고 UNKNOWN으로 둔다. 이 좁은 조회는 "자격 있는
+    선행범죄가 존재하지 않는다"를 증명하지 못하기 때문이다.
+    """
+    from idpr.v2.runtime.statutory import ARTICLE_151_QUALIFYING_STATUS, qualifies_for_article_151
+
+    output: dict[tuple[OffenseInstanceKey, str], str] = {}
+    for dependency, status in pairs:
+        key = (dependency.dependent_instance, dependency.resolved_element)
+        qualified = status.status == ARTICLE_151_QUALIFYING_STATUS and qualifies_for_article_151(
+            registry, status.offense_ref
+        )
+        if qualified:
+            output[key] = "TRUE"
+        else:
+            output.setdefault(key, "UNKNOWN")
+    return output
 
 
 __all__ = [
     "LinkedOffenderDependency",
+    "article151_status_truths",
     "LinkedOffenderPredicateTarget",
     "PredecessorCandidateGate",
-    "fold_linked_offender_outcome",
+    "article151_predecessor_status",
     "gate_predecessor_candidates",
     "linked_offender_dependencies",
     "linked_offender_predicate_targets",

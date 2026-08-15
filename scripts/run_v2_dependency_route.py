@@ -44,6 +44,10 @@ from idpr.v2.runtime.linked_offender import (  # noqa: E402
     linked_offender_predicate_targets,
 )
 
+# 이 스크립트는 후보를 여는 데까지만 간다. 신분 계산은 Call 2가 그 predicate를 답한 뒤
+# `article151_predecessor_status()`가 하고, 그 결과는 `article151_status_truths()`가
+# dependent instance의 predicate truth로 공급한다 -- 별도 Scallop parity path는 없다.
+
 PROMPTS = ("v2_call1_router", "v2_call1_router_dependency_user")
 
 
