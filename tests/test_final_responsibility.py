@@ -285,11 +285,12 @@ def test_only_approved_concurrence_rules_reach_the_runtime() -> None:
     assert {rule.rule_id for rule in load_concurrence_rules(path)} == approved
 
 
-def test_the_r11_shape_now_opens_a_candidate_across_episodes(registry) -> None:
+def test_the_r11_shape_opens_a_candidate_but_does_not_decide_it(registry) -> None:
     """甲이 절도를 교사하고 乙이 뒤 episode에서 상해까지 실현한 사안.
 
-    검수 전 same-episode join은 여기서 후보를 닫았다. 지금은 링크를 따라 열리고,
-    저작된 incompatible pair(절도->상해)가 질적 초과로 분류한다.
+    검수 전 same-episode join은 여기서 후보를 **닫았다**. 그것이 틀렸다는 판단은 그대로다 --
+    후보는 링크를 따라 열리고 provenance도 보존된다. 다만 그 상해가 교사받은 실행이 더 나아간
+    것인지 정범의 별개 범행인지는 여기 있는 provenance로 갈리지 않으므로 분류하지 않는다.
     """
     accessory = _instance("offense.theft", "participation_binding:001", actor="甲")
     principal = _instance("offense.theft", "binding:001", actor="乙")
@@ -308,47 +309,44 @@ def test_the_r11_shape_now_opens_a_candidate_across_episodes(registry) -> None:
         },
         links=((accessory, principal, "instigator"),),
     )
-    assert len(view.excess_findings) == 1
-    finding = view.excess_findings[0]
-    assert finding.assessment.classification == "qualitative"
-    assert finding.assessment.effect == "no_liability_for_excess"
+    assert view.excess_findings == (), "판정하지 않기로 한 후보가 분류됐다"
+    assert [value.realized_offense_ref for value in view.cross_execution_candidates] == [
+        "offense.injury"
+    ]
+    assert any(value.marker == EXCESS_ACROSS_EXECUTIONS for value in view.unresolved)
 
 
-def test_qualitative_excess_blocks_only_the_excess_attribution(registry) -> None:
-    """甲의 절도 교사 책임은 유지되고, 상해로 가는 귀속 edge만 끊긴다."""
+def test_a_qualitative_excess_in_one_execution_denies_only_that_attribution(registry) -> None:
+    """한 실행 안에서 교사 범위를 질적으로 벗어난 죄. 여기서는 판정이 나온다.
+
+    가담자에게 그 죄의 instance가 없으면 차단할 귀속도 없다 -- `blocked_instance`가 `None`인
+    것은 "생성 후 제거"가 아니라 "애초에 생성되지 않음"이고, 둘은 결론이 같아도 근거가 다르다.
+    """
     instigated = _instance("offense.theft", "participation_binding:001", actor="甲")
     principal = _instance("offense.theft", "binding:001", actor="乙")
     injury = _instance("offense.injury", "binding:003", actor="乙")
-    # 모델이 상해에도 참가를 인정해 가담자 instance가 만들어진 경우.
-    excess_accessory = _instance("offense.injury", "participation_binding:002", actor="甲")
     view = _view(
         registry,
         results={
             instigated: _established(instigated),
             principal: _established(principal),
             injury: _established(injury),
-            excess_accessory: _established(excess_accessory),
         },
         provenance={
             instigated: ("factual_episode:001", ()),
             principal: ("factual_episode:004", ()),
-            injury: ("factual_episode:005", ()),
-            excess_accessory: ("factual_episode:005", ()),
+            injury: ("factual_episode:004", ()),
         },
-        links=(
-            (instigated, principal, "instigator"),
-            (excess_accessory, injury, "instigator"),
-        ),
+        links=((instigated, principal, "instigator"),),
     )
-    attributions = [
-        value for value in view.excess_attributions if value.excess_offense_ref == "offense.injury"
+    assert [value.assessment.classification for value in view.excess_findings] == [
+        "qualitative"
     ]
-    assert len(attributions) == 1
-    assert attributions[0].decision == NOT_ATTRIBUTABLE_BY_EXCESS
-    assert attributions[0].blocked_instance == excess_accessory
-    # 초과한 죄로의 귀속만 빠지고 교사한 죄는 그대로다.
-    assert excess_accessory in view.attribution_withheld_instances
-    assert excess_accessory not in view.concurrence.retained_instances
+    assert [value.decision for value in view.excess_attributions] == [
+        NOT_ATTRIBUTABLE_BY_EXCESS
+    ]
+    assert view.excess_attributions[0].blocked_instance is None
+    # 초과 판정은 교사한 죄의 책임을 건드리지 않는다.
     assert instigated in view.concurrence.retained_instances
 
 
@@ -378,13 +376,12 @@ def test_an_unresolved_excess_neither_convicts_nor_acquits(registry) -> None:
     assert instigated in view.concurrence.retained_instances
 
 
-def test_an_excess_outside_the_linked_execution_is_raised_as_unresolved(registry) -> None:
-    """근거가 약한 join을 조용히 단정하지 않는다.
+def test_an_excess_outside_the_linked_execution_produces_no_effect(registry) -> None:
+    """모른다고 적으면서 효과는 확정하면 그 unresolved는 장식이다.
 
     甲이 절도를 교사하고 乙이 절도를 실행한 뒤 다른 자리에서 또 죄를 저질렀을 때, 그것이
     교사받은 실행이 더 나아간 것인지 별개 범행인지는 여기 있는 provenance로 갈리지 않는다.
-    후보는 살리되 그 사실을 표시한다 -- 접는 쪽이든 여는 쪽이든 host가 정하면 저작되지 않은
-    법리를 코드로 쓰는 것이다.
+    후보와 provenance는 살리되 분류·귀속·symbolic 효과는 하나도 내지 않는다.
     """
     accessory = _instance("offense.theft", "participation_binding:001", actor="甲")
     principal = _instance("offense.theft", "binding:001", actor="乙")
@@ -403,8 +400,16 @@ def test_an_excess_outside_the_linked_execution_is_raised_as_unresolved(registry
         },
         links=((accessory, principal, "instigator"),),
     )
-    assert len(view.excess_findings) == 1
-    assert not view.excess_findings[0].candidate.same_execution
     assert any(
         value.marker == EXCESS_ACROSS_EXECUTIONS for value in view.unresolved
     ), view.unresolved
+    assert len(view.cross_execution_candidates) == 1
+    assert not view.cross_execution_candidates[0].same_execution
+    # 판정도, 귀속도, symbolic parity 행도 나오지 않는다.
+    assert view.excess_findings == ()
+    assert view.excess_attributions == ()
+    assert view.attribution_withheld_instances == frozenset()
+    assert (
+        excess_parity_rows(view, None, foreseeability_ref="legal_element.foreseeability")
+        == ()
+    )

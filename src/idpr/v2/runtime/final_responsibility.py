@@ -221,6 +221,11 @@ class FinalResponsibilityView:
     """남은 죄들 사이의 죄수관계. 상상적 경합과 실체적 경합 모두 실현 행위의 동일성에서
     적극적으로 읽은 것이고, 흡수의 여집합이 아니다."""
 
+    cross_execution_candidates: tuple[AccessoryExcessCandidate, ...] = ()
+    """분류하지 않은 초과 후보. 링크된 실행 밖에서 실현되어 `EXCESS_ACROSS_EXECUTIONS`로만
+    남는다. 후보와 provenance는 버리지 않되 효과는 내지 않는다 -- 모른다고 적으면서 효과를
+    확정하면 그 unresolved는 아무것도 막지 못하는 장식이 된다."""
+
     def as_dict(self) -> dict[str, Any]:
         def instance(value: OffenseInstanceKey) -> dict[str, str]:
             return {
@@ -272,6 +277,9 @@ class FinalResponsibilityView:
                 for value in sorted(self.concurrence.retained_instances, key=repr)
             ],
             "excess_findings": [value.as_dict() for value in self.excess_findings],
+            "cross_execution_excess_candidates": [
+                value.as_dict() for value in self.cross_execution_candidates
+            ],
             "excess_attributions": [value.as_dict() for value in self.excess_attributions],
             "attribution_withheld_instances": [
                 instance(value)
@@ -395,7 +403,7 @@ def resolve_final_responsibility(
         for link in derivative_links
         if link[0] in episode_by_instance and link[1] in episode_by_instance
     )
-    excess_findings = _excess_findings(
+    excess_findings, cross_execution_candidates = _excess_findings(
         registry,
         links=links,
         established=tuple(scoped_episodes),
@@ -440,7 +448,7 @@ def resolve_final_responsibility(
     unresolved = [
         *status_redirection_findings,
         *_multiple_excess_findings(excess_findings),
-        *_cross_execution_excess_findings(excess_findings),
+        *_cross_execution_excess_findings(cross_execution_candidates),
         *_probe_gap_findings(
             registry,
             # derivative link의 mode는 이미 저작된 이름(instigator/aider)이다.
@@ -480,6 +488,7 @@ def resolve_final_responsibility(
         specialty_candidates=specialty,
         authored_candidates=authored,
         excess_findings=excess_findings,
+        cross_execution_candidates=cross_execution_candidates,
         excess_attributions=attributions,
         attribution_withheld_instances=withheld,
         status_redirections=tuple(status_redirections),
@@ -495,14 +504,19 @@ def _excess_findings(
     episode_by_instance: Mapping[OffenseInstanceKey, str],
     episode_order: tuple[str, ...],
     truths: CaseTruths | None,
-) -> tuple[ExcessFinding, ...]:
+) -> tuple[tuple[ExcessFinding, ...], tuple[AccessoryExcessCandidate, ...]]:
     """확정된 참가 링크를 따라가 정범이 그 실행에서 이어서 실현한 다른 죄를 분류한다.
 
     성립하지 않은 죄는 후보에서 빠진다 -- 실현되지 않은 죄를 초과의 상대항으로 삼을 수 없다.
+
+    `(분류된 판정, 판정하지 않은 후보)`를 나눠 돌려준다. 링크된 실행 밖에서 실현된 죄는
+    그것이 교사받은 실행이 더 나아간 것인지 정범의 별개 범행인지 이 단계가 가진 provenance로
+    갈리지 않는다. 모른다고 적으면서 동시에 효과를 확정하면 그 unresolved는 아무것도 막지
+    못하는 장식이 된다 -- 후보와 provenance는 보존하고 분류만 하지 않는다.
     """
     policy = excess_policy_for(registry)
     if policy is None or not links:
-        return ()
+        return (), ()
     candidates = plan_accessory_excess_candidates(
         links,
         established,
@@ -511,7 +525,11 @@ def _excess_findings(
     )
     foreseeability_ref = policy.payload["quantitative"]["result_aggravated"]["foreseeability_ref"]
     output: list[ExcessFinding] = []
+    withheld: list[AccessoryExcessCandidate] = []
     for candidate in candidates:
+        if not candidate.same_execution:
+            withheld.append(candidate)
+            continue
         foreseeability: TruthValue = UNKNOWN
         if truths is not None:
             view = truths.predicate_view(candidate.accessory_instance)
@@ -528,7 +546,7 @@ def _excess_findings(
                 ),
             )
         )
-    return tuple(output)
+    return tuple(output), tuple(withheld)
 
 
 MULTIPLE_EXCESS_CANDIDATES = "MULTIPLE_EXCESS_CANDIDATES"
@@ -585,25 +603,24 @@ EXCESS_ACROSS_EXECUTIONS = "EXCESS_ACROSS_EXECUTIONS"
 
 
 def _cross_execution_excess_findings(
-    findings: tuple[ExcessFinding, ...],
+    candidates: tuple[AccessoryExcessCandidate, ...],
 ) -> tuple[UnresolvedFinding, ...]:
     return tuple(
         UnresolvedFinding(
             marker=EXCESS_ACROSS_EXECUTIONS,
             policy_id="excess_policy",
             scope=(
-                f"{finding.candidate.accessory_instance.actor_id}/"
-                f"{finding.candidate.accessory_instance.occurrence_id}"
+                f"{candidate.accessory_instance.actor_id}/"
+                f"{candidate.accessory_instance.occurrence_id}"
             ),
             detail=(
-                f"{finding.candidate.realized_offense_ref} was realized in "
-                f"{finding.candidate.factual_episode_id}, not in the execution this "
+                f"{candidate.realized_offense_ref} was realized in "
+                f"{candidate.factual_episode_id}, not in the execution this "
                 "participation link points at; whether the instigated execution went "
                 "that far is not decided by the provenance available here"
             ),
         )
-        for finding in findings
-        if not finding.candidate.same_execution
+        for candidate in candidates
     )
 
 
