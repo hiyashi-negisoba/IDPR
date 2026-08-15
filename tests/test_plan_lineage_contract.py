@@ -10,6 +10,7 @@ plan은 한 번 만들고 끝나는 파일이 아니라 증강되는 파일이�
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 import pytest
@@ -167,3 +168,44 @@ def test_definition_drift_is_reported_but_does_not_abort(tmp_path: Path) -> None
     (definitions / "offenses.yaml").write_text("- id: offense.y\n", encoding="utf-8")
     assert definitions_drift(plan, definitions)
     require_fresh_inputs(plan)  # 규칙베이스 변경은 계보를 끊지 않는다
+
+
+BUILDERS = (
+    "scripts/build_v2_factual_participation_plan.py",
+    "scripts/build_v2_doctrine_target_plan.py",
+)
+
+
+def _provenance_block(source: str) -> str:
+    start = source.index("plan_provenance(")
+    depth = 0
+    for offset in range(start, len(source)):
+        if source[offset] == "(":
+            depth += 1
+        elif source[offset] == ")":
+            depth -= 1
+            if depth == 0:
+                return source[start : offset + 1]
+    raise AssertionError("unbalanced plan_provenance call")
+
+
+@pytest.mark.parametrize("builder", BUILDERS)
+def test_every_artifact_a_builder_reads_is_in_the_freshness_chain(builder: str) -> None:
+    """기록하는 목록과 검증하는 목록이 같아야 한다.
+
+    입력 해시를 manifest 어딘가에 적어 두는 것만으로는 아무것도 걸러지지 않는다.
+    `stale_inputs()`가 따라가는 것은 `plan_inputs`뿐이고, 거기 빠진 입력은 나중에 다시
+    생성되어도 조용히 통과한다. 실제로 참가 빌더의 상호작용 artifact가 그 상태였다.
+
+    출력과 정의 디렉터리는 제외한다 -- 전자는 입력이 아니고, 후자는 별도 해시로 다룬다.
+    """
+    root = Path(__file__).resolve().parents[1]
+    source = (root / builder).read_text(encoding="utf-8")
+    inputs = {
+        name.replace("-", "_")
+        for name in re.findall(r'add_argument\("--([a-z0-9-]+)", type=Path', source)
+    } - {"out", "definitions"}
+    assert inputs, builder
+    block = _provenance_block(source)
+    missing = sorted(name for name in inputs if f"args.{name}" not in block)
+    assert not missing, f"{builder}: freshness chain is missing {missing}"

@@ -566,10 +566,17 @@ def main() -> None:
         "plan_artifact_sha256": _sha256(args.plan_artifact),
         "call15_artifact": str(args.call15_artifact),
         "call15_artifact_sha256": _sha256(args.call15_artifact),
-        # 입력의 내용 해시. 옛 상류 artifact 위에 새 하류 가정이 얹히는 조합을 다음 소비
-        # 지점에서 바로 걸리게 한다.
+        # 이 단계가 실제로 읽은 파일 **전부**의 내용 해시. 하나라도 빠지면 그 입력은 아래
+        # 개별 sha 필드에 기록만 되고 freshness 검증에서는 빠진다 -- 기록과 검증이 서로 다른
+        # 목록을 보면, 상호작용 artifact가 나중에 다시 생성되어도 아무도 걸러 내지 못한다.
         **plan_provenance(
-            {"plan": args.plan_artifact, "call15": args.call15_artifact},
+            {
+                "plan": args.plan_artifact,
+                "call15": args.call15_artifact,
+                "interaction": args.interaction_artifact,
+                "inventory": args.inventory,
+                "case_list": args.case_list,
+            },
             definitions_dir=args.definitions,
         ),
         "interaction_artifact": str(args.interaction_artifact),
