@@ -4,7 +4,7 @@ import pytest
 
 from idpr.rulebase.cards import card_corpus
 from idpr.rulebase.issue_catalog_v2 import compile_issue_catalog_v2
-from idpr.v2.registry import load_definitions
+from idpr.v2.registry import DefinitionEntry, DefinitionRegistry, load_definitions
 from idpr.v2.runtime.answer_plan import _episode_quotes
 from idpr.v2.runtime.card_issue_bridge import (
     EXACT_AUTHORED_IDENTITY,
@@ -220,14 +220,35 @@ def test_projection_uses_only_authored_identity_for_derived_offense() -> None:
     registry = load_definitions(DEFINITIONS)
     direct = project_offense_articles(registry, "offense.theft")
     derived = project_offense_articles(registry, "derived_offense.fraud")
-    unmapped = project_offense_articles(registry, "derived_offense.aggravated_injury")
 
     assert direct.status == EXACT_AUTHORED_IDENTITY
     assert direct.article_keys == ("art329",)
     assert derived.status == EXACT_AUTHORED_IDENTITY
     assert derived.article_keys == ("art347",)
+
+    # 저작되지 않은 identity는 추론되지 않는다. 예전에는 `aggravated_injury`가 그 예였으나
+    # 파생죄 25개의 조문을 전수 저작하면서 살아 있는 예가 없어졌다.
+    bare = DefinitionEntry("derived_offense.x", "derived_offense", {}, "test")
+    unmapped = project_offense_articles(
+        DefinitionRegistry({bare.id: bare}, {"derived_offense": (bare,)}), bare.id
+    )
     assert unmapped.status == UNMAPPED_DERIVED_ARTICLE
     assert unmapped.article_keys == ()
+
+
+def test_every_derived_offense_carries_its_own_statutory_identity() -> None:
+    """파생죄가 조문을 갖지 못하면 답안에 인용할 근거가 구조적으로 없다.
+
+    감사 시점 25개 중 17개가 `identity` 자체가 없어 `[현주건조물방화치사]`처럼 죄는 정확히
+    분석되고도 조문이 공급되지 않았다. 모델 성능도 프롬프트 문제도 아닌 저작 결손이었다.
+    """
+    registry = load_definitions(DEFINITIONS)
+    missing = sorted(
+        entry.id
+        for entry in registry.by_kind["derived_offense"]
+        if project_offense_articles(registry, entry.id).statutory_refs == ()
+    )
+    assert not missing, f"조문이 저작되지 않은 파생죄: {missing}"
 
 
 def test_instance_plan_stays_inside_authored_article() -> None:

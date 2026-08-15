@@ -23,8 +23,8 @@ from idpr.v2.runtime.answer_plan import (
     serialize_required_authorities,
 )
 from idpr.v2.runtime.concurrence import (
-    IMAGINATIVE_CONCURRENCE,
-    REAL_CONCURRENCE,
+    IMAGINATIVE_CONCURRENCE_CANDIDATE,
+    REAL_CONCURRENCE_CANDIDATE,
     classify_concurrence_relations,
 )
 from idpr.v2.runtime.identity import OffenseInstanceKey
@@ -143,8 +143,12 @@ def _instance(ref: str, occurrence: str) -> OffenseInstanceKey:
     return OffenseInstanceKey("case", "甲", ref, occurrence)
 
 
-def test_one_act_is_imaginative_and_several_acts_are_real_concurrence() -> None:
-    """둘 다 실현 행위의 동일성에서 적극적으로 읽는다. 흡수의 여집합이 아니다."""
+def test_realization_identity_opens_candidates_not_conclusions() -> None:
+    """초점행위 동일성은 후보를 여는 근거지 죄수관계의 확정이 아니다.
+
+    형법 제40조의 "한 개의 행위"는 사회관념상 하나의 행위로 평가되는지를 묻는 규범적
+    판단이고, 초점행위가 다르다는 구조적 사실이 곧 제37조 전단의 경합범은 아니다.
+    """
     left = _instance("offense.homicide", "r1")
     right = _instance("offense.arson_of_occupied_structure", "r2")
     far = _instance("offense.dwelling_intrusion", "r3")
@@ -157,8 +161,8 @@ def test_one_act_is_imaginative_and_several_acts_are_real_concurrence() -> None:
         },
     )
     by_pair = {frozenset((a, b)): kind for a, b, kind in relations}
-    assert by_pair[frozenset((left, right))] == IMAGINATIVE_CONCURRENCE
-    assert by_pair[frozenset((left, far))] == REAL_CONCURRENCE
+    assert by_pair[frozenset((left, right))] == IMAGINATIVE_CONCURRENCE_CANDIDATE
+    assert by_pair[frozenset((left, far))] == REAL_CONCURRENCE_CANDIDATE
 
 
 def test_an_unknown_realization_produces_no_relation_at_all() -> None:

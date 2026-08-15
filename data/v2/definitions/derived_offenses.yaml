@@ -1,4 +1,7 @@
 - id: derived_offense.aggravated_injury
+  identity:
+    name: 중상해죄
+    statutory_refs: ["형법 제258조 제1항", "형법 제258조 제2항"]
   derivation:
     kind: qualify
     base: offense.injury
@@ -14,6 +17,9 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.aggravated_ancestral_injury
+  identity:
+    name: 존속중상해죄
+    statutory_refs: ["형법 제258조 제3항"]
   derivation:
     kind: qualify
     base: offense.ancestral_injury
@@ -60,6 +66,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.special_injury
+  identity:
+    name: 특수상해죄
+    statutory_refs: ["형법 제258조의2 제1항"]
   derivation:
     kind: qualify
     base: offense.injury
@@ -76,6 +85,10 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.special_ancestral_injury
+  # 제258조의2 제1항이 제257조 제1항과 제2항을 함께 인용하므로 존속상해도 같은 항이다.
+  identity:
+    name: 특수존속상해죄
+    statutory_refs: ["형법 제258조의2 제1항"]
   derivation:
     kind: qualify
     base: offense.ancestral_injury
@@ -100,6 +113,9 @@
         - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
 
 - id: derived_offense.special_aggravated_injury
+  identity:
+    name: 특수중상해죄
+    statutory_refs: ["형법 제258조의2 제2항"]
   derivation:
     kind: qualify
     base: offense.injury
@@ -120,6 +136,11 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.special_aggravated_ancestral_injury
+  # 검수 필요. 제258조의2 제2항은 제258조 제1항·제2항만 인용하고 존속중상해(제258조 제3항)를
+  # 인용하지 않는다. 이 죄명이 현행법상 독립 규정을 갖는지부터 확인이 필요하다.
+  identity:
+    name: 특수존속중상해죄
+    statutory_refs: ["형법 제258조의2 제2항"]
   derivation:
     kind: qualify
     base: offense.ancestral_injury
@@ -148,6 +169,9 @@
         - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
 
 - id: derived_offense.robbery_rape
+  identity:
+    name: 강도강간죄
+    statutory_refs: ["형법 제339조"]
   derivation:
     kind: compose
     components:
@@ -187,6 +211,11 @@
         - {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.special_robbery_rape
+  # 검수 필요. 형법 안에서는 제339조이나 성폭력범죄의 처벌 등에 관한 특례법 제3조 제2항이
+  # 특수강도강간을 따로 가중한다. 특별법을 저작 범위에 넣을지가 선결 문제다.
+  identity:
+    name: 특수강도강간죄
+    statutory_refs: ["형법 제339조"]
   derivation:
     kind: compose
     components:
@@ -232,6 +261,10 @@
         - {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.quasi_robbery_rape
+  # 준강도(제335조)도 제339조의 '강도'에 포함된다는 판례의 취지에 따른다.
+  identity:
+    name: 준강도강간죄
+    statutory_refs: ["형법 제339조"]
   derivation:
     kind: compose
     components:
@@ -277,6 +310,9 @@
         - {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.rape_causing_intentional_injury
+  identity:
+    name: 강간상해죄
+    statutory_refs: ["형법 제301조"]
   derivation:
     kind: compose
     components:
@@ -344,6 +380,9 @@
         - {op: ref, ref: legal_element.injury_intent}
 
 - id: derived_offense.robbery_causing_intentional_homicide
+  identity:
+    name: 강도살인죄
+    statutory_refs: ["형법 제338조"]
   derivation:
     kind: compose
     components:
@@ -374,6 +413,9 @@
         - {op: ref, ref: legal_element.homicide_intent}
 
 - id: derived_offense.nighttime_dwelling_theft
+  identity:
+    name: 야간주거침입절도죄
+    statutory_refs: ["형법 제330조"]
   derivation:
     kind: qualify
     base: offense.theft
@@ -411,6 +453,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.special_robbery
+  identity:
+    name: 특수강도죄
+    statutory_refs: ["형법 제334조"]
   derivation:
     kind: qualify
     base: offense.robbery
@@ -431,6 +476,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.occupational_embezzlement
+  identity:
+    name: 업무상횡령죄
+    statutory_refs: ["형법 제356조"]
   derivation:
     kind: qualify
     base: offense.embezzlement
@@ -443,6 +491,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.occupational_breach_of_trust
+  identity:
+    name: 업무상배임죄
+    statutory_refs: ["형법 제356조"]
   derivation:
     kind: qualify
     base: offense.breach_of_trust
@@ -497,6 +548,9 @@
             - {op: ref, ref: legal_element.purpose_to_conceal_evidence}
 
 - id: derived_offense.arson_causing_injury
+  identity:
+    name: 현주건조물등방화치상죄
+    statutory_refs: ["형법 제164조 제2항"]
   derivation:
     kind: compose
     components:
@@ -516,6 +570,9 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.arson_causing_death
+  identity:
+    name: 현주건조물등방화치사죄
+    statutory_refs: ["형법 제164조 제2항"]
   candidate_materialization:
     episode_constraint: same
     binding_sets:

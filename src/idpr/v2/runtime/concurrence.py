@@ -502,8 +502,18 @@ def _instance_fields(value: OffenseInstanceKey) -> tuple[str, str, str, str]:
     return (value.case_id, value.actor_id, value.offense_ref, value.occurrence_id)
 
 
-REAL_CONCURRENCE = "real_concurrence"
-"""실체적 경합 -- 수개의 행위로 수개의 죄. 형법 제37조 전단."""
+REAL_CONCURRENCE_CANDIDATE = "real_concurrence_candidate"
+"""실체적 경합 **후보**. 확정이 아니다.
+
+형법 제40조의 "한 개의 행위"는 사회관념상 하나의 행위로 평가되는지를 묻는 규범적 판단이고,
+초점행위가 다르다는 구조적 사실이 곧 제37조 전단의 경합범이라는 결론은 아니다. 그래서 이
+값은 저작이나 별도의 typed 판단이 확정해 줄 자리를 열어 둘 뿐이고, 그 자체로 답안의 최종
+죄수관계가 되지 않는다 -- 상상적 경합 규칙에 걸리지 않았다는 사실을 실체적 경합의 적극적
+근거로 쓰지 않는다는 원칙이 여기에도 그대로 적용된다.
+"""
+
+IMAGINATIVE_CONCURRENCE_CANDIDATE = "imaginative_concurrence_candidate"
+"""초점행위가 같아 상상적 경합이 의심되는 짝. 저작이 확정한 것이 아니므로 후보다."""
 
 
 def classify_concurrence_relations(
@@ -522,8 +532,12 @@ def classify_concurrence_relations(
     법조경합(흡수·특별관계)은 이 단계 이전에 이미 제거되어 있다. 여기 남은 것은 모두 실제로
     병존하는 죄다.
 
-    한계를 분명히 해 둔다. 행위의 단일성은 본래 규범적 판단이고, 여기서 쓰는 초점행위 동일성은
-    그 구조적 근사다. 저작된 `imaginative_concurrence` 규칙이 있으면 그것이 우선한다.
+    두 갈래의 지위가 다르다. 저작된 `imaginative_concurrence` 규칙이 확정한 상상적 경합만
+    확정이고, 초점행위가 다르다는 사실에서 읽은 실체적 경합은 **후보**다. 형법 제40조의
+    "한 개의 행위"는 사회관념상 하나의 행위로 평가되는지를 묻는 규범적 판단이므로, 초점행위가
+    다르다는 구조적 사실이 곧 제37조 전단의 경합범이라는 결론이 되지 않는다. 초점행위가 같아
+    상상적 경합이 의심되는 경우도 저작이 확정하지 않았으면 후보로만 남긴다.
+
     실현 식별자를 모르는 instance는 짝을 만들지 않는다 -- 모르면 말하지 않는다.
     """
     retained = tuple(dict.fromkeys(retained_instances))
@@ -546,9 +560,9 @@ def classify_concurrence_relations(
                 (
                     left,
                     right,
-                    IMAGINATIVE_CONCURRENCE
+                    IMAGINATIVE_CONCURRENCE_CANDIDATE
                     if left_key == right_key
-                    else REAL_CONCURRENCE,
+                    else REAL_CONCURRENCE_CANDIDATE,
                 )
             )
     return tuple(output)
@@ -573,7 +587,8 @@ __all__ = [
     "load_concurrence_rules",
     "plan_concurrence_candidates",
     "plan_specialty_candidates",
-    "REAL_CONCURRENCE",
+    "IMAGINATIVE_CONCURRENCE_CANDIDATE",
+    "REAL_CONCURRENCE_CANDIDATE",
     "classify_concurrence_relations",
     "propagate_absorption_to_accessories",
     "resolve_concurrence",

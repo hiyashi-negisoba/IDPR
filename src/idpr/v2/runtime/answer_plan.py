@@ -917,9 +917,14 @@ def _excess_records(
     return out
 
 
+#: 답안에 나갈 수 있는 죄수관계. **확정된 것만** 있다.
+#:
+#: `*_candidate`는 실려 오지만 여기 없다. 초점행위가 다르다는 구조적 사실은 형법 제40조가
+#: 묻는 "사회관념상 한 개의 행위인지"에 대한 답이 아니고, 상상적 경합 규칙에 걸리지 않았다는
+#: 사실을 실체적 경합의 근거로 쓰는 것은 부존재를 적극적 사실로 쓰는 일이다. 후보는 symbolic
+#: 산출물에 provenance로 남고, 확정은 저작이나 별도의 typed 판단이 한다.
 _RELATION_PROSE = {
     "imaginative_concurrence": "상상적 경합",
-    "real_concurrence": "실체적 경합",
 }
 
 
