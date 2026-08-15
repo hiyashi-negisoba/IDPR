@@ -128,3 +128,40 @@ gaps:
       기술적 기반은 생겼다. 그러나 이 cue는 **의도적으로 닫아 둔다**(2026-08-15 검수 ②).
       다시 여는 것은 "두 대상이 같은데 외부 사정 인식만 어긋난 경우"로 cue를 좁히는 별도
       저작 작업이고, false raise 재발을 측정할 여유가 있을 때 한다.
+
+  - id: gap.participant_status_not_bound
+    kind: factual_representation
+    marker: NOT_RAISED_REPRESENTATION_GAP
+    blocks:
+      - legal_element.official_or_arbitrator_status
+      - legal_element.omission_requires_guarantor_status
+      - legal_element.disposition_authority
+      - legal_element.lineal_ascendant_of_self_or_spouse_status
+      - legal_element.property_disposition
+    summary: >-
+      신분·관계·권한, 그리고 상대방의 행위가 사실 층에 결박되지 않는다. Call 1.5는 행위자의
+      행위를 factual action으로 묶고, Call 2 carrier는 그 action에서 조립된다. 그래서 "甲은
+      공무원이다", "乙은 甲의 직계존속이다" 같은 사람에 붙는 사실과, 사기·공갈에서 피해자가
+      하는 처분행위는 어느 carrier에도 들어오지 않는다.
+    measured: >-
+      2026-08-16 기준(experiments/v2_unknown_reduction_26) 이 다섯 predicate는 asked 17건 중
+      TRUE 0 · FALSE 0 · UNKNOWN 17이다. 그 UNKNOWN이 나온 instance는 죽은 instance가 아니라
+      나머지 요건이 답해진 instance다 -- `official_or_arbitrator_status`가 UNKNOWN인 곳의
+      instance 분포가 T3/F1/U3이다.
+    why_not_a_carrier_problem: >-
+      carrier 폭 확대로 풀리지 않는다는 것이 실측으로 확인되었다. `participant_status`(행위자가
+      관여한 행위를 episode 경계를 넘어 수집)와 `related_party_action`(같은 episode에서 행위자가
+      관여했으나 그가 행하지 않은 행위) 두 carrier를 신설해 돌린 결과, carrier 텍스트는 실제로
+      넓어졌으나(164->309자, 226->494자 등 4건) 신분 predicate는 그대로였다: 보증인 4/4,
+      처분권한 3/3, 존속 3/3 UNKNOWN 유지, 공무원만 1건 개선. 넓힌 것은 행위 기록이고, 신분
+      명제는 그 어느 행위에도 결박되어 있지 않기 때문이다. 부작용은 손대지 않은 predicate
+      47건(8.3%) 변동과 FALSE 6건 순손실이었다. carrier 종류가 늘면 shard가 carrier 단위로
+      다시 묶여 요청 구성이 통째로 바뀐다.
+    consequence: >-
+      뇌물죄의 주체, 존속 가중, 부작위 범인도피의 보증인 지위, 사기·공갈의 처분행위가 전부
+      미확정으로 남는다. 해당 죄의 나머지 요건이 답해져도 이 하나 때문에 성립이 확정되지 않는다.
+    future_design: >-
+      결박 단계가 소유해야 한다. Call 1.5가 신분·관계 명제를 factual action(또는 그에 준하는
+      typed 사실)으로 묶고, 상대방 행위를 realization에 연결해 주어야 한다. 그것이 되면 carrier
+      쪽은 폭 저작만으로 따라간다 -- 이번에 만든 두 carrier의 조립 규칙은 그대로 쓸 수 있다.
+      순서를 뒤집어 carrier부터 만들면 담을 사실이 없는 통을 만드는 일이 된다.
