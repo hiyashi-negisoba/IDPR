@@ -73,6 +73,7 @@ def _dependency(value: dict[str, Any]) -> LinkedOffenderDependency:
         str(value["role"]),
         str(value["resolved_element"]),
         str(value["factual_scope_text"]),
+        str(value.get("provenance_text", "")),
     )
 
 

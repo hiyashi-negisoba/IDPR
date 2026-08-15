@@ -53,6 +53,15 @@ class LinkedOffenderDependency:
     role: str
     resolved_element: str
     factual_scope_text: str
+    """이 사람에게 귀속되는 사실만 모은 범위. dependency ROUTE와 그 뒤 Call 2가 쓴다."""
+
+    provenance_text: str = ""
+    """이 dependency가 왜 열렸는지 -- 은닉·도피 binding이 나른 증거.
+
+    scope와 ownership이 다르다. dependency를 **발생시킨** 사실과 dependency의 **내용을
+    평가할** 사실은 같을 필요가 없고, 실제로 같지 않다. 이것을 scope로 쓰면 라우터가 도피
+    행위밖에 못 보고 자기 자신을 선행범죄로 고른다.
+    """
 
     def route_request(self) -> RouteRequest:
         return RouteRequest(
@@ -76,6 +85,7 @@ class LinkedOffenderDependency:
             "role": self.role,
             "resolved_element": self.resolved_element,
             "factual_scope_text": self.factual_scope_text,
+            "provenance_text": self.provenance_text,
         }
 
 
@@ -92,15 +102,36 @@ def _dependency_declaration(
 def _carried_scope(
     action_by_id: Mapping[str, FactualAction], binding: IssueBinding
 ) -> str:
-    """이 binding이 실제로 carry하는 증거만. episode 전체를 주지 않는다.
-
-    routing 범위가 episode로 넓어지면 그 서사에 등장하는 모든 사건이 linked offender의
-    선행범죄 후보로 열린다. 좁게 결박한 사실을 넓은 범위로 되돌리는 셈이다.
-    """
+    """이 binding이 나른 증거. dependency를 연 이유를 설명하는 provenance다."""
     action_ids = (binding.focal_action_id, *binding.supporting_action_ids)
     actions = [action_by_id[value] for value in action_ids if value in action_by_id]
     actions.sort(key=lambda value: value.sequence_index)
     return "\n".join(action.evidence_text for action in actions)
+
+
+def _attributable_scope(
+    factual_actions: Iterable[FactualAction], participant_id: str
+) -> str:
+    """이 사람에게 **귀속되는** 사실만 case 전체에서 모은다. 등장하는 사실이 아니다.
+
+    처음에는 은닉·도피 binding이 나른 증거를 그대로 scope로 썼다. 그 좁힘은 다른 자리에서는
+    옳았지만 여기서는 정답을 구조적으로 가렸다 -- 그 증거에는 "丙이 乙에게 도피자금을 주었다"
+    밖에 없고 乙 자신의 선행범죄는 앞선 episode에 있다. 그래서 라우터가 눈앞의 범인도피죄를
+    다시 골랐다. 제151조의 "죄를 범한 자"는 도피행위와 같은 장면에 있는 사람을 뜻하지 않는다.
+
+    projection 기준은 `source_actor_id`다. 그 필드의 저작된 계약이 "그 행위·이전·결과·상태를
+    일으키거나 겪는 사실 주체"이므로 conduct·부작위·상태·결과 네 역할을 그대로 덮는다.
+    `participant_ids`는 쓰지 않는다 -- 거기 있다는 것은 단순 등장이고, "甲이 乙을 폭행했다"가
+    乙의 선행범죄 증거가 되어 버린다.
+
+    episode는 scope 제한으로 쓰지 않는다. 시간적으로는 case를 가로지르되 의미적으로는 한
+    사람에게 좁혀지는 것이 이 projection의 요점이다.
+    """
+    values = [
+        action for action in factual_actions if action.source_actor_id == participant_id
+    ]
+    values.sort(key=lambda value: (value.factual_episode_id, value.sequence_index))
+    return "\n".join(action.evidence_text for action in values)
 
 
 def linked_offender_dependencies(
@@ -118,7 +149,8 @@ def linked_offender_dependencies(
     만들지 않는다 -- 원문이 대상자를 지목하지 않은 사건에서 host가 사람을 고르지 않는다.
     """
     binding_by_id = {binding.binding_id: binding for binding in bindings}
-    action_by_id = {action.factual_action_id: action for action in factual_actions}
+    action_values = tuple(factual_actions)
+    action_by_id = {action.factual_action_id: action for action in action_values}
     output: list[LinkedOffenderDependency] = []
     for realization_id, actor_id, offense_ref, source_binding_ids in realizations:
         declaration = _dependency_declaration(registry, offense_ref)
@@ -140,6 +172,7 @@ def linked_offender_dependencies(
                 FactualParticipantKey(case_id, participant_id),
                 str(declaration["role"]),
                 str(declaration["resolved_element"]),
+                _attributable_scope(action_values, participant_id),
                 _carried_scope(action_by_id, binding),
             )
         )

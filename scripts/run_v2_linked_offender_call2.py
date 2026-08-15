@@ -64,6 +64,7 @@ def _dependency(value: dict[str, Any]) -> LinkedOffenderDependency:
         str(value["role"]),
         str(value["resolved_element"]),
         str(value["factual_scope_text"]),
+        str(value.get("provenance_text", "")),
     )
 
 
@@ -110,8 +111,8 @@ def main() -> None:
                 registry,
                 participant_evidence={
                     "participant_label": dependency.participant.participant_id,
-                    # 증거는 binding이 carry한 범위뿐이다. episode 전체를 주면 그 서사의 모든
-                    # 사건이 이 사람의 선행범죄 판단에 들어간다.
+                    # 이 사람에게 귀속되는 사실만. dependency를 연 은닉·도피 증거는
+                    # provenance이지 이 판단의 재료가 아니다.
                     "source_text": dependency.factual_scope_text,
                 },
                 offense_ref=offense_ref,

@@ -26,15 +26,24 @@ from idpr.v2.runtime.linked_offender import linked_offender_dependencies
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = load_definitions(ROOT / "data/v2/definitions")
 CASE = "case"
-CASE_TEXT = "丙은 乙에게 도피자금을 건넸다. 乙은 그 돈으로 잠적했다."
+CASE_TEXT = (
+    "乙은 앞서 타인의 재물을 절취하였다. 丙은 乙에게 도피자금을 건넸다. 乙은 그 돈으로 잠적했다."
+)
 
 
-def _action(action_id: str, quote: str, index: int) -> FactualAction:
+def _action(
+    action_id: str,
+    quote: str,
+    index: int,
+    *,
+    source_actor: str = "丙",
+    episode: str = "factual_episode:002",
+) -> FactualAction:
     start = CASE_TEXT.find(quote)
     return FactualAction(
         action_id,
-        "factual_episode:001",
-        "丙",
+        episode,
+        source_actor,
         ("丙", "乙"),
         (BindingFragment(f"{action_id}:f", "factual_action", quote, start, start + len(quote)),),
         index,
@@ -42,20 +51,28 @@ def _action(action_id: str, quote: str, index: int) -> FactualAction:
 
 
 ACTIONS = (
-    _action("factual_action:001:001", "丙은 乙에게 도피자금을 건넸다.", 0),
-    _action("factual_action:001:002", "乙은 그 돈으로 잠적했다.", 1),
+    # 乙 자신의 선행범죄. 은닉·도피 binding이 나른 증거 밖에 있고, 앞선 episode에 있다.
+    _action(
+        "factual_action:001:001",
+        "乙은 앞서 타인의 재물을 절취하였다.",
+        0,
+        source_actor="乙",
+        episode="factual_episode:001",
+    ),
+    _action("factual_action:002:001", "丙은 乙에게 도피자금을 건넸다.", 0),
+    _action("factual_action:002:002", "乙은 그 돈으로 잠적했다.", 1, source_actor="乙"),
 )
 
 
 def _binding(offense_ref: str, linked: str | None) -> IssueBinding:
     return IssueBinding(
         "binding:001",
-        "factual_episode:001",
+        "factual_episode:002",
         0,
         offense_ref,
         "丙",
-        "factual_action:001:001",
-        ("factual_action:001:002",),
+        "factual_action:002:001",
+        ("factual_action:002:002",),
         ("乙",),
         None,
         None,
@@ -83,16 +100,22 @@ def test_an_authored_dependency_with_a_bound_person_produces_a_route_invocation(
     assert request.routing_basis == LINKED_OFFENDER_ROUTING
 
 
-def test_the_dependency_scope_is_what_the_binding_carries_not_the_episode() -> None:
-    """episode로 넓히면 그 서사의 모든 사건이 선행범죄 후보로 열린다.
+def test_the_scope_is_what_is_attributable_to_the_linked_offender() -> None:
+    """등장이 아니라 귀속이다.
 
-    좁게 결박한 사실을 다시 넓은 범위로 되돌리는 셈이라, `factual_targets` 재해석을 거부한
-    것과 같은 종류의 후퇴가 된다.
+    처음에는 은닉·도피 binding이 나른 증거를 scope로 썼다. 그러자 라우터가 볼 수 있는
+    유일한 범죄가 그 도피 행위여서 `offense.harboring_or_escape` 자신을 선행범죄로 골랐다.
+    제151조의 "죄를 범한 자"는 도피행위와 같은 장면에 있는 사람이 아니다.
     """
-    scope = _dependencies("offense.harboring_or_escape", "乙")[0].factual_scope_text
+    dependency = _dependencies("offense.harboring_or_escape", "乙")[0]
 
-    assert "丙은 乙에게 도피자금을 건넸다." in scope
-    assert "乙은 그 돈으로 잠적했다." in scope
+    # 乙 자신의 선행범죄가 들어온다 -- 다른 episode에 있어도.
+    assert "乙은 앞서 타인의 재물을 절취하였다." in dependency.factual_scope_text
+    assert "乙은 그 돈으로 잠적했다." in dependency.factual_scope_text
+    # 丙의 행위는 乙이 단순 대상으로 등장할 뿐이므로 들어오지 않는다.
+    assert "丙은 乙에게 도피자금을 건넸다." not in dependency.factual_scope_text
+    # 그 행위는 사라지지 않고 provenance로 남는다 -- dependency가 열린 이유다.
+    assert "丙은 乙에게 도피자금을 건넸다." in dependency.provenance_text
 
 
 def test_no_authored_declaration_means_no_dependency() -> None:
@@ -279,3 +302,33 @@ def test_the_predicate_request_reuses_the_participant_wire_without_the_article34
     assert len(validate_utilized_participant_output(response, predicate_targets=targets)) == len(
         targets
     )
+
+
+def test_the_scope_no_longer_shows_the_router_its_own_offense() -> None:
+    """자기순환은 offense ref를 막아서가 아니라 scope를 바로잡아 사라진다.
+
+    `offense.harboring_or_escape`를 blacklist하면 안 된다 -- A가 범인을 도피시킨 뒤 B가
+    다시 A를 도피시킨 사안에서는 A의 선행범죄가 실제로 범인도피죄일 수 있고, 제151조는
+    선행범죄의 죄종을 제한하지 않는다.
+    """
+    dependency = _dependencies("offense.harboring_or_escape", "乙")[0]
+    request = dependency.route_request()
+
+    assert "도피자금" not in request.factual_scope_text
+    assert request.routed_actor_ids == ("乙",)
+
+
+def test_an_offender_with_no_attributable_facts_gets_an_empty_scope() -> None:
+    """귀속되는 사실이 하나도 없으면 빈 범위다. 대신 남의 행위를 채워 넣지 않는다."""
+    from idpr.v2.runtime.linked_offender import linked_offender_dependencies
+
+    values = linked_offender_dependencies(
+        REGISTRY,
+        case_id=CASE,
+        realizations=(("realization:001", "丙", "offense.harboring_or_escape", ("binding:001",)),),
+        bindings=(_binding("offense.harboring_or_escape", "丁"),),
+        factual_actions=ACTIONS,
+    )
+
+    assert values[0].factual_scope_text == ""
+    assert values[0].provenance_text != ""
