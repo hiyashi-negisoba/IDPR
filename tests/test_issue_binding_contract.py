@@ -768,3 +768,19 @@ def test_seed_cue_tells_the_model_which_seed_may_bind_a_linked_offender() -> Non
 
     assert cues[0].as_dict()["requires_linked_offender"] == "article151_offender"
     assert "requires_linked_offender" not in cues[1].as_dict()
+
+
+def test_the_binding_prompt_states_a_non_partition_contract() -> None:
+    """"참조할 수 있다"는 모델에게 permission으로 읽힌다 -- 그리고 permission은 쓰이지 않았다.
+
+    `r10_p1_q2`에서 모델은 구타 action을 폭행죄 seed에만 배분하고 상해죄에는 결과만 남겼다.
+    행위자가 자기 realization의 증거에 없으니 계약이 거부했고, 온도를 올려 6회를 돌려도 같은
+    배분을 반복했다. 고칠 자리는 그 사안이나 폭행 cue가 아니라, seed 사이에 증거를 나누어
+    갖는 행동 자체를 금지하는 계약이다. 그 문구가 프롬프트에서 사라지면 같은 회귀가 조용히
+    돌아온다.
+    """
+    prompt = (ROOT / "prompts/v2_call15_issue_binding.md").read_text(encoding="utf-8")
+
+    assert "seed result는 서로 독립이며 배타적이지 않다" in prompt
+    assert "나누어 배분하지" in prompt
+    assert "소모하지도" in prompt

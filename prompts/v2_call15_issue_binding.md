@@ -47,9 +47,15 @@ action은 법적 행위자가 아니라 원문상의 시간 단위다. 한 문�
 공범형태 또는 죄책을 판단하지 않는다. 원문이 명시한 사람 표지만 전사하고, 명시되지 않은
 경우 반드시 null이다.
 
-같은 action을 여러 seed가 참조할 수 있다. episode 공유만으로 action을 합치거나, 같은 actor의
-episode 전체를 support로 넣지 않는다. binding ID, action ID, character offset, legal role,
-predicate truth, participation mode, DAG edge는 출력하지 않는다.
+seed result는 서로 독립이며 배타적이지 않다. factual action을 seed들 사이에 나누어 배분하지
+않는다. 각 seed를 모든 factual action에 대해 독립적으로 판단한다. 하나의 focal 또는
+supporting action은 여러 seed result가 각각에 관련되는 한 그 모두에서 참조될 수 있다.
+어떤 action이 한 seed에 쓰였다는 사실은 그 action을 소모하지도, 다른 seed에서 배제하지도
+않는다.
+
+episode 공유만으로 action을 합치거나, 같은 actor의 episode 전체를 support로 넣지 않는다.
+binding ID, action ID, character offset, legal role, predicate truth, participation mode,
+DAG edge는 출력하지 않는다.
 
 입력에 `verified_factual_candidate_hints`가 있으면 그것은 기존 검토에서 놓치지 말라고 확인된
 사실 후보의 exact quote일 뿐이다. 해당 후보를 다시 찾아 action과 binding으로 반영하되,

@@ -503,3 +503,100 @@ def test_distinct_actor_injury_realizations_open_only_factual_article263_pair() 
         "realization:002",
     )
     assert plan.as_dict()["article263_pair_candidate_count"] == 1
+
+
+def test_article263_pairs_across_episodes_because_the_article_allows_이시_행위() -> None:
+    """제263조는 시간적 동시성을 요구하지 않는다.
+
+    조문은 "독립행위가 경합하여 상해의 결과를 발생하게 한 경우에 있어서 원인된 행위가
+    판명되지 아니한 때"라고만 하고, 대법원 80도3321은 약 3시간 간격의 이시 독립 상해행위에도
+    이를 적용했다. episode 경계는 Call 1.5가 서사를 나눈 결과일 뿐이므로 join 조건이 될 수
+    없다 -- `r10_p1_q2`에서 2시간 간격의 두 폭행이 서로 다른 episode로 나뉘며 pair가 0이 된
+    것이 이 테스트의 배경이다.
+    """
+    first = _episode(
+        "factual_episode:001",
+        participants=("甲", "B"),
+        actions=(("甲", ("甲", "B"), "甲이 B를 때렸다.", 0),),
+    )
+    second = _episode(
+        "factual_episode:002",
+        participants=("乙", "B"),
+        actions=(("乙", ("乙", "B"), "두 시간 뒤 乙이 B를 때렸다.", 40),),
+    )
+    bindings = (
+        _binding(
+            1,
+            episode=first,
+            seed_index=0,
+            offense_ref="offense.injury",
+            actor_id="甲",
+            focal_action_index=0,
+            factual_targets=("B",),
+        ),
+        _binding(
+            2,
+            episode=second,
+            seed_index=0,
+            offense_ref="offense.injury",
+            actor_id="乙",
+            focal_action_index=0,
+            factual_targets=("B",),
+        ),
+    )
+
+    plan = plan_binding_scoped_evaluation_instances(
+        REGISTRY,
+        case_id="case",
+        bindings=bindings,
+        factual_episodes=(first, second),
+    )
+
+    assert len(plan.article263_pair_candidates) == 1
+    pair = plan.article263_pair_candidates[0]
+    # 증거는 두 episode를 아울러야 한다. 한쪽만 주면 다른 쪽 행위가 증거에서 빠진다.
+    assert "甲이 B를 때렸다." in pair.relation_source_text
+    assert "두 시간 뒤 乙이 B를 때렸다." in pair.relation_source_text
+
+
+def test_same_actor_injury_realizations_never_pair_even_across_episodes() -> None:
+    """제거된 것은 episode 조건뿐이다. 동일인의 두 상해는 여전히 동시범이 아니다."""
+    first = _episode(
+        "factual_episode:001",
+        participants=("甲", "B"),
+        actions=(("甲", ("甲", "B"), "甲이 B를 때렸다.", 0),),
+    )
+    second = _episode(
+        "factual_episode:002",
+        participants=("甲", "B"),
+        actions=(("甲", ("甲", "B"), "두 시간 뒤 甲이 B를 다시 때렸다.", 40),),
+    )
+    bindings = (
+        _binding(
+            1,
+            episode=first,
+            seed_index=0,
+            offense_ref="offense.injury",
+            actor_id="甲",
+            focal_action_index=0,
+            factual_targets=("B",),
+        ),
+        _binding(
+            2,
+            episode=second,
+            seed_index=0,
+            offense_ref="offense.injury",
+            actor_id="甲",
+            focal_action_index=0,
+            factual_targets=("B",),
+        ),
+    )
+
+    plan = plan_binding_scoped_evaluation_instances(
+        REGISTRY,
+        case_id="case",
+        bindings=bindings,
+        factual_episodes=(first, second),
+    )
+
+    assert plan.article263_pair_candidates == ()

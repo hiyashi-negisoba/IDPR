@@ -1115,7 +1115,16 @@ def _plan_action_atomic_binding_instances(
         value for value in legal_realizations if value.offense_ref == "offense.injury"
     )
     for left, right in combinations(injury_realizations, 2):
-        if left.factual_episode_id != right.factual_episode_id or left.actor_id == right.actor_id:
+        # episode 동일성은 요구하지 않는다. 제263조는 "독립행위가 경합하여 상해 결과를
+        # 발생하게 한 경우 원인된 행위가 판명되지 아니한 때"라고만 하고 시간적 동시성을
+        # 요구하지 않으며, 대법원 80도3321은 약 3시간 간격의 이시(異時) 독립 상해행위에도
+        # 이 조문을 적용했다. episode 경계는 법적 요건이 아니라 Call 1.5가 서사를 나눈
+        # 결과이므로, 그것을 join 조건으로 쓰면 판례가 정면으로 인정하는 사안을 구조적으로
+        # 잘라낸다 -- `r10_p1_q2`의 2시간 간격이 정확히 그 경우였다.
+        #
+        # episode 동일성이 지고 있던 실질(같은 피해자에 대한 두 독립행위)은 아래 두 조건이
+        # 이미 각각 지고 있다: 서로 다른 행위자, 그리고 factual_targets의 교집합.
+        if left.actor_id == right.actor_id:
             continue
         left_targets = {
             target
@@ -1129,15 +1138,22 @@ def _plan_action_atomic_binding_instances(
         }
         if not (left_targets & right_targets):
             continue
-        episode = episode_by_id[left.factual_episode_id]
-        if not episode.source_fragments:
+        fragments = tuple(
+            fragment
+            for episode_id in dict.fromkeys(
+                (left.factual_episode_id, right.factual_episode_id)
+            )
+            for fragment in episode_by_id[episode_id].source_fragments
+        )
+        if not fragments:
             continue
-        start = min(fragment.source_start for fragment in episode.source_fragments)
-        end = max(fragment.source_end for fragment in episode.source_fragments)
+        # 두 episode를 아우르는 범위. 한쪽 episode만 주면 다른 쪽 행위가 증거에서 빠진다.
+        start = min(fragment.source_start for fragment in fragments)
+        end = max(fragment.source_end for fragment in fragments)
         relation_text = (
             case_text[start:end]
             if case_text is not None
-            else "\n".join(fragment.source_quote for fragment in episode.source_fragments)
+            else "\n".join(fragment.source_quote for fragment in fragments)
         )
         article263_pairs.append(
             Article263OccurrencePair(

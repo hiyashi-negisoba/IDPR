@@ -48,3 +48,9 @@ derived_offense.assault_causing_injury: {display_name: 폭행치상죄, minimal_
 derived_offense.assault_causing_death: {display_name: 폭행치사죄, minimal_conduct_description: "폭행 행위와 피해자의 사망 결과를 함께 보는 사실 episode"}
 offense.stolen_property_acquisition: {display_name: 장물취득죄, minimal_conduct_description: "다른 사람의 재산범죄로 영득된 재물을 넘겨받는 사실 episode"}
 offense.stolen_property_custody: {display_name: 장물보관죄, minimal_conduct_description: "다른 사람의 재산범죄로 영득된 재물을 맡아 두는 사실 episode"}
+# 2026-08-15: 새 rulebase의 Call 1이 라우팅했으나 cue가 없어 Call 1.5가 멈췄던 5건.
+derived_offense.special_robbery: {display_name: 특수강도죄, minimal_conduct_description: "야간주거침입 또는 흉기 휴대·합동으로 폭행·협박하여 재물을 빼앗는 사실 episode"}
+derived_offense.robbery_causing_intentional_homicide: {display_name: 강도살인죄, minimal_conduct_description: "강도의 실행 과정에서 사람을 살해하는 사실 episode"}
+derived_offense.robbery_rape: {display_name: 강도강간죄, minimal_conduct_description: "강도의 실행 과정에서 강간하는 사실 episode"}
+derived_offense.special_robbery_rape: {display_name: 특수강도강간죄, minimal_conduct_description: "특수강도의 실행 과정에서 강간하는 사실 episode"}
+offense.official_secret_disclosure: {display_name: 공무상비밀누설죄, minimal_conduct_description: "공무원이 직무상 알게 된 비밀을 다른 사람에게 알리는 사실 episode"}

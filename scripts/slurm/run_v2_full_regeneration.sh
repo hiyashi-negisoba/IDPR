@@ -98,6 +98,7 @@ step call15 "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_call15_issue_binding.
     --call1-artifact "$CALL1" \
     --occurrences "$PROJECT_ROOT/data/v2/gold_occurrences.jsonl" \
     --out "$CALL15" \
+    --max-tokens "${IDPR_CALL15_MAX_TOKENS:-4096}" \
     --prompt-approved
 
 # 3. planner -- 결정론적. 여기서 linked_offender_dependencies와 intended_object_divergences가
