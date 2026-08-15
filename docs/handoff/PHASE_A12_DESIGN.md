@@ -14,7 +14,7 @@
 | ① | `directed_action_target`의 원문 명시 봉쇄 | 조건부 승인 — episode가 아니라 **carried participant**로 제한 | 완료 |
 | ② | 위법성조각 전제사실 착오 cue | 승인 — 이번에 열지 않음 | 완료 (gap 유지) |
 | ③ | `linked_offender` 별도 필드 (나) | 승인 — activation은 host/저작이 소유 | 완료 |
-| ④ | 형량 metadata | 조건부 승인 — base+derived 모두, Article151 전용 이름, 값은 별도 검수 | 필드 완료 / **값 미저작** |
+| ④ | 형량 metadata | 조건부 승인 — base+derived 모두, Article151 전용 이름, 값은 별도 검수 | 필드 완료 / 값 워크시트 제출 → [`ARTICLE151_PENALTY_WORKSHEET.md`](ARTICLE151_PENALTY_WORKSHEET.md) |
 | ⑤ | 프롬프트 문구 | 수정 후 승인 | 완료 (main·recovery 양쪽) |
 | — | A1 §2-2 outcome universe | **반려** | 재설계, §6 참조 |
 
@@ -82,6 +82,11 @@ target producer가 아예 없었다 — `policy_probe_targets`는 참가 후보�
 고의"로 읽으면 FALSE가 돌아오고 정책은 침묵한다. 침묵이 틀린 귀속보다 안전하므로 그대로 두되,
 **지향 대상 기준 고의를 별도 target으로 물을지는 저작 결정**이다.
 
+2026-08-15 결재: **이번 A2에서 새 predicate를 만들지 않는다.** generic `legal_element.intent`가
+`intent_toward_intended_object`와 같은 semantics라고 보기 어렵다는 점은 인정하되, 지금 새
+predicate를 만들면 법률 저작이 다시 들어간다. 명시적 **authoring-review item**으로 남기고,
+UNKNOWN 작업 마지막 단계에서 실제 병목으로 드러나면 그때 검수한다.
+
 ---
 
 ## 4. 시공된 것 — A1 중 결정론적인 부분
@@ -118,49 +123,68 @@ target producer가 아예 없었다 — `policy_probe_targets`는 참가 후보�
 
 ---
 
-## 6. 남은 승인 대상 — A1 선행범죄 candidate universe
+## 6. A1의 남은 조각 — ROUTE를 재사용 가능한 operation으로 (2026-08-15 결재)
 
-반려 사유가 정확했다. `linked_offender × 기존 instance offense_refs`는 actor universe 문제만
-풀고 offense universe 문제를 그대로 남긴다. 제34조가 그 방식을 쓸 수 있는 이유는 "그 사람이
-**바로 그 utilizer의 죄**를 실현할 수 있었는가"를 묻기 때문이고, 제151조는 도피시킨 죄와
-乙의 선행범죄가 애초에 다른 죄다.
+제 제안(`dependency_offense_candidates`를 최초 Call 1 출력에 추가)은 **반려되었다.** 그러면
+한 Call이 서로 다른 두 atomic task를 하게 된다.
 
-그래서 남은 조각은 하나다.
-
-> **乙이 무슨 죄의 후보인지를 누가 정하는가.**
-
-Call 1.5는 아니다 — 그건 법적 candidate selection이다. Definition catalog를 보는 Call 1이 맞다.
-현재 Call 1은 질문이 묻는 actor 기준으로만 seed를 고른다.
-
-### 제안 — Call 1에 dependency candidate를 좁게 추가
-
-```
-Call 1 출력에 second, 별도 목록:
-  dependency_offense_candidates: [offense_ref, ...]
-
-조건: 이 case의 seed 중 linked_offender_dependency를 선언한 것이 있을 때만 요구한다.
-의미: "이 사건에서 **책임 후보가 아닌 사람**이 범했을 수 있는 죄".
-      누가 범했는지는 고르지 않는다 -- 사람은 Call 1.5의 linked_offender가 결박한다.
+```text
+1) 질문받은 actor의 offense routing
+2) 아직 binding되지도 않은 다른 actor의 선행범죄 routing
 ```
 
-그 다음은 전부 결정론이다.
+두 번째를 같이 시키면 Call 1이 linked offender를 사실상 다시 찾아야 하고, 지금까지 지킨
+atomicity가 깨진다. 제151조 전용 Call을 새로 만드는 것도 반려 — 조문 하나 때문에 stage를
+늘리는 땜질이다.
 
+### 결재된 구조
+
+진짜 missing abstraction은 이것이다.
+
+> **법적 rule이 다른 participant의 legal outcome을 요구할 때, binding된 participant를 대상으로
+> 기존 atomic offense-routing operation을 재사용할 수 있어야 한다.**
+
+Call 1을 "맨 처음 한 번 도는 stage"가 아니라 operator로 본다.
+
+```text
+ROUTE(actor, factual_scope, offense_catalog) → offense candidates
 ```
-linked_offender(사람)  ×  dependency_offense_candidates(죄)
-  → LinkedOffenderOutcomeTarget      (participant 수준, instance 아님)
-  → 필요한 predicate만 Call 2
-  → internal outcome fold
-  → article151_penalty_threshold 확인
-  → Article151QualifyingLink → resolve_article_151_liability()
+
+* 최초: `ROUTE(question_actor, question_scope)` → answer-facing seeds  (지금과 동일)
+* A1: Call 1.5가 `linked_offender = 乙`을 **사실로 먼저 결박한 뒤**, dependency planner가
+  필요할 때 같은 ROUTE를 다시 호출한다.
+
+```text
+Article151 rule
+→ linked legal dependency 필요 (저작된 linked_offender_dependency)
+→ linked_offender = 乙 확인            ← Call 1.5가 이미 결박
+→ ROUTE(乙, carried factual scope)      ← 기존 router capability 재사용
+→ predecessor offense candidates
+→ participant 수준 assessment / outcome  ← 제34조와 같은 모양
+→ article151_penalty_threshold
+→ offender_status_of_object
 ```
 
-> **검수 ⑥** Call 1 출력에 `dependency_offense_candidates`를 추가하는 방향에 동의하는가?
-> 동의하면 프롬프트·스키마 diff를 같은 형식으로 올린다.
->
-> **검수 ⑦** `article151_penalty_threshold` 값 저작 워크시트를 언제 올릴까.
-> 조문별 법정형 확인이 필요하고, 현재 저작된 offense 60여 개가 대상이다.
+새 pipeline stage가 아니라 **기존 capability의 재사용**이다. 그래서 제151조가 아닌 다른
+cross-actor dependency가 나와도 같은 abstraction을 쓴다 — 제33조·제34조·participation에서
+이미 반복해 나타난 "다른 actor의 상태가 필요함"을 조문마다 별도 코드로 처리하지 않는다.
 
----
+### 이 결재가 정정한 제 서술
+
+제가 "선행범죄 candidate universe는 Call 1의 것"이라고 쓴 것은 절반만 맞았다. 정확히는:
+
+> 선행범죄의 법적 routing **capability**는 Call 1의 것이 맞지만, **최초 invocation에 같이
+> 넣는 것은 아니다.** Call 1.5가 dependency participant를 결박한 뒤 동일 ROUTE primitive를
+> 재사용한다.
+
+### 구현 순서
+
+```text
+1. ROUTE를 (actor, scope, catalog) → candidates 로 재호출 가능하게 분리
+2. dependency planner: linked_offender_dependency 선언 + 결박된 linked_offender → ROUTE 재호출
+3. LinkedOffenderOutcomeTarget (participant 수준) → Call 2 → outcome fold
+4. Article151QualifyingLink → resolve_article_151_liability  (타입은 이미 완료, §4)
+```
 
 ## 7. 재실행 계획 (승인대로 수정)
 
