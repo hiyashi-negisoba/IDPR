@@ -6,11 +6,13 @@ exists. So these tests fail when a listed offense *appears*, which is the moment
 come back and delete the entry.
 """
 
+import dataclasses
 from pathlib import Path
 
 import pytest
 import yaml
 
+from idpr.v2.issue_binding import IssueBinding
 from idpr.v2.policy_probes import probe_requirements, unsatisfied_requirements
 from idpr.v2.registry import load_definitions
 
@@ -42,37 +44,33 @@ def test_the_assault_and_stolen_property_families_are_both_recorded(gaps) -> Non
     assert "gap.stolen_property_offense_family" in recorded
 
 
-def test_the_intended_object_gap_is_still_open_and_still_unblocked_by_reinterpretation(
+def test_the_intended_object_gap_is_closed_by_representation_not_reinterpretation(
     registry, gaps
 ) -> None:
-    """2026-08-13: reading Call 1.5's `factual_targets` as the intended object was refused.
+    """2026-08-13에 거부된 것은 `factual_targets` 재해석이지 이 기능이 아니다.
 
-    That field admits counterparts, recipients and merely-related participants, so treating it as
-    "the object the actor aimed at" would have the host manufacture meaning. The gap is the honest
-    answer until a narrower factual representation exists.
+    공백은 좁은 factual representation 두 개를 새로 결박해서 닫혔다. 그러니 gap 항목이
+    남아 있으면 안 되고(다음 사람이 없는 공백을 우회하게 된다), 동시에 재해석 경로가
+    되살아나도 안 된다. 둘 다 여기서 지킨다.
     """
-    gap = next(item for item in gaps if item["id"] == "gap.intended_object_identity")
-    assert gap["marker"] == "UNRESOLVED_MISTAKE_BINDING"
+    assert "gap.intended_object_identity" not in {gap["id"] for gap in gaps}
 
-    blocked = set(gap["blocks"])
-    outstanding = {
-        requirement.ref
-        for requirement in unsatisfied_requirements(
-            registry,
-            available_refs=_supplied_refs(registry),
-        )
-        if requirement.policy_id in blocked
-    }
-    assert "relation.intended_object_divergence" in outstanding
-
-
-def _supplied_refs(registry) -> set[str]:
-    """Everything except the divergence relation, which is exactly what the gap withholds."""
-    return {
+    supplied = {
         requirement.ref
         for requirement in probe_requirements(registry)
-        if requirement.ref != "relation.intended_object_divergence"
+        if requirement.supply != "structural_relation"
     }
+    outstanding = {
+        requirement.ref
+        for requirement in unsatisfied_requirements(registry, available_refs=supplied)
+        if requirement.policy_id == "mistake_policy.korean_law_concrete_fact"
+    }
+    # 이 relation은 Call 2가 아니라 host가 공급한다. 그래서 "아직 공급되지 않은 것"으로
+    # 남아 있는 것이 정상이고, 그 공급자가 실재하는지는 아래에서 확인한다.
+    assert outstanding == {"relation.intended_object_divergence"}
+
+    fields = {field.name for field in dataclasses.fields(IssueBinding)}
+    assert {"directed_action_target", "actual_result_bearer"} <= fields
 
 
 def test_every_gap_names_a_typed_marker(gaps) -> None:

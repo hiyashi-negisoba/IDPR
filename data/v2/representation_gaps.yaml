@@ -8,30 +8,12 @@
 version: 1
 
 gaps:
-  - id: gap.intended_object_identity
-    kind: factual_representation
-    marker: UNRESOLVED_MISTAKE_BINDING
-    blocks:
-      - mistake_policy.korean_law_concrete_fact
-    summary: >-
-      구성요건적 착오를 판단하려면 "행위자가 향한 대상"과 "결과가 실제로 발생한 대상"이
-      각각 사실로 결박되어야 하는데, 현재 binding에는 그 구분이 없다.
-    why_not_reinterpreted: >-
-      Call 1.5의 `factual_targets`를 intended_object로 읽으면 안 된다. 그 필드의 계약은 훨씬
-      넓어서 상대방, 수령자, 관련 participant까지 들어간다. 그것을 "행위자가 의도한 대상"으로
-      재해석하면 host가 원문에 없는 의미를 만들어내게 된다. 2026-08-13 검수에서 명시적으로
-      승인 거부되었다.
-    future_design: >-
-      필드 의미를 바꾸지 말고 아주 좁은 factual representation 두 개를 새로 결박한다.
-      `directed_action_target`(행위가 향한 대상)과 `actual_result_bearer`(결과를 입은 대상)를
-      각각 사실로 뽑고, 둘이 다르다는 것만 host가 structural하게 계산해
-      `relation.intended_object_divergence`를 만든다.
-    # `legal_element.object_misidentification`도 이 공백의 하류다. 별도로 열 수 없다.
-    # 객체의 착오와 방법의 착오를 가르려면 "목표한 대상"이 먼저 확정되어야 하는데, 그것
-    # 없이 Call 2에 물으면 모델이 identity를 스스로 지어내 답하게 된다. 그것은 factual_targets를
-    # 재해석하지 않기로 한 결정을 우회해 같은 일을 모델에게 시키는 것이다.
-    also_blocks_neural_target: legal_element.object_misidentification
-    affects_kcl26: 9
+  # gap.intended_object_identity는 2026-08-15에 닫혔다. `factual_targets`를 재해석하지 않고
+  # `directed_action_target` / `actual_result_bearer`를 Call 1.5 계약에 새로 넣었고, 둘이 모두
+  # 결박된 경우에만 host가 `relation.intended_object_divergence`를 structural하게 계산한다.
+  # `legal_element.object_misidentification`은 그 불일치가 TRUE인 instance에서만 열린다.
+  # 원문이 지향 대상을 명시하지 않으면 여전히 UNRESOLVED_MISTAKE_BINDING으로 남는다 --
+  # 그것은 공백이 아니라 3치 논리의 정상적인 미확정 상태다.
 
   - id: gap.assault_offense_family
     kind: unauthored_offense_family
@@ -86,5 +68,7 @@ gaps:
       production에서 raised되지 않는다. cue는 `raising_status: representation_gap`으로 카탈로그에
       남아 있고, 테스트가 "제기 경로 또는 명시적 공백 둘 중 하나"를 요구한다.
     future_design: >-
-      `gap.intended_object_identity`가 닫혀 `directed_action_target`/`actual_result_bearer`가
-      사실로 결박되면, 그 둘이 같은데 외부 사정 인식만 어긋난 경우로 이 cue를 다시 열 수 있다.
+      `directed_action_target`/`actual_result_bearer`는 2026-08-15에 사실로 결박되었으므로
+      기술적 기반은 생겼다. 그러나 이 cue는 **의도적으로 닫아 둔다**(2026-08-15 검수 ②).
+      다시 여는 것은 "두 대상이 같은데 외부 사정 인식만 어긋난 경우"로 cue를 좁히는 별도
+      저작 작업이고, false raise 재발을 측정할 여유가 있을 때 한다.

@@ -13,6 +13,11 @@ from typing import Any
 
 from idpr.v2 import expressions
 from idpr.v2.closure import ClosureResult, compile_closure
+from idpr.v2.runtime.intended_object import (
+    IntendedObjectDivergence,
+    intended_object_divergences,
+    offense_instance_probe_targets,
+)
 from idpr.v2.compile import CompiledOffense, compile_offense
 from idpr.v2.gold_factual_identity import GoldFactualParticipant, GoldOccurrence
 from idpr.v2.issue_binding import FactualAction, FactualEpisode, IssueBinding
@@ -221,6 +226,13 @@ class OccurrenceAwareEvaluationInstancePlan:
     article263_pair_candidates: tuple[Article263OccurrencePair, ...] = ()
     context_only_binding_ids: tuple[str, ...] = ()
     instance_provenance: tuple[InstanceProvenance, ...] = ()
+    intended_object_divergences: tuple[IntendedObjectDivergence, ...] = ()
+    """대상 동일성이 사실로 확정된 realization. TRUE도 FALSE도 결정론적 산출이다.
+
+    이 값이 있어야 착오 정책이 발화할 수 있고, TRUE인 자리에서만 객체의 착오 여부를 묻는
+    neural target이 열린다.
+    """
+
     factual_episode_order: tuple[str, ...] = ()
     """Call 1.5가 정한 factual episode의 서사 순서.
 
@@ -302,6 +314,10 @@ class OccurrenceAwareEvaluationInstancePlan:
             "context_only_binding_count": len(self.context_only_binding_ids),
             "instance_provenance": [value.as_dict() for value in self.instance_provenance],
             "instance_provenance_count": len(self.instance_provenance),
+            "intended_object_divergences": [
+                value.as_dict() for value in self.intended_object_divergences
+            ],
+            "intended_object_divergence_count": len(self.intended_object_divergences),
             "factual_episode_order": list(self.factual_episode_order),
             "top_level_instance_count": len(self.top_level_instances),
             "predicate_scope_instance_count": len(self.predicate_scope_instances),
@@ -862,10 +878,33 @@ def _plan_action_atomic_binding_instances(
         policies[ref] = completion_mod.completion_policy_for(registry, ref)
     predicate_scopes = _component_scopes(top_level_values, compiled_by_ref, policies)
     assessment = tuple(dict.fromkeys((*top_level_values, *predicate_scopes)))
+    # 지향 대상과 결과 귀속 대상이 둘 다 사실로 결박된 realization에서만 불일치를 센다.
+    # 불일치가 TRUE인 자리에서만 `applies_to: offense_instance` probe의 neural leaf를 연다 --
+    # 대상이 같은 사안에 "객체의 착오였는가"를 물으면 없는 착오를 만들 자리만 생긴다.
+    divergences = intended_object_divergences(
+        case_id=case_id,
+        realizations=tuple(
+            (
+                realization.realization_id,
+                realization.actor_id,
+                realization.offense_ref,
+                realization.source_binding_ids,
+            )
+            for realization in legal_realizations
+        ),
+        bindings=active_bindings,
+    )
     target_values = tuple(
-        (instance, ref)
-        for instance in assessment
-        for ref in _instance_predicate_refs(registry, instance)
+        dict.fromkeys(
+            (
+                *(
+                    (instance, ref)
+                    for instance in assessment
+                    for ref in _instance_predicate_refs(registry, instance)
+                ),
+                *offense_instance_probe_targets(registry, divergences),
+            )
+        )
     )
     assessment_targets = tuple(AssessmentTarget(instance, ref) for instance, ref in target_values)
     selected_predicates = tuple(dict.fromkeys(ref for _, ref in target_values))
@@ -1115,6 +1154,7 @@ def _plan_action_atomic_binding_instances(
         article263_pair_candidates=tuple(article263_pairs),
         context_only_binding_ids=context_only_binding_ids,
         instance_provenance=provenance_values,
+        intended_object_divergences=divergences,
         factual_episode_order=episode_sequence,
     )
 
