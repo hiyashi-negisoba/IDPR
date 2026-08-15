@@ -108,10 +108,16 @@ def test_an_unmodelled_target_is_asked_once_and_not_again(registry):
 
 
 def test_every_planned_target_is_asked_or_moot_for_a_stated_reason(registry):
-    """전수 회계: 계획된 것은 물어지거나, 모델링된 표현식이 무의미하다고 말한 것이다.
+    """전수 회계: 계획된 것은 물어지거나, 버려진 이유를 이 모듈이 말할 수 있다.
 
-    이것이 이 파일의 종료 증명이다. Call 2가 target을 버릴 수 있는 유일한 경로가
-    "이 모듈의 표현식이 어떤 답에도 같은 값을 낸다"임을 고정한다.
+    이것이 이 파일의 종료 증명이다. 이유는 둘뿐이다.
+
+    1. 모델링된 표현식이 어떤 답에도 같은 값을 낸다(무의미).
+    2. 앞선 conjunct를 물었는데 UNKNOWN으로 왔다 -- 그 앞이 풀리면 물어진다.
+
+    두 번째는 2026-08-16 측정으로 들어온 것이다. Call 2가 답을 주지 않는 최악의 경우를
+    가정하는 이 시뮬레이션에서는 사다리가 첫 UNKNOWN에서 멈추므로, 뒤에 선 target이 "이유
+    없이 사라진 것"이 아님을 upstream이 TRUE일 때 실제로 물어지는지로 확인한다.
     """
     key = instance()
     modelled = _modelled_refs(registry)
@@ -135,8 +141,32 @@ def test_every_planned_target_is_asked_or_moot_for_a_stated_reason(registry):
 
     dropped = planned - asked
     live_at_start = set(live_predicate_refs(registry, key, {}, candidate_refs=planned))
-    assert dropped.isdisjoint(live_at_start), (
-        f"planned targets vanished without a reason: {sorted(dropped & live_at_start)}"
+    laddered = dropped & live_at_start
+
+    # 사다리 뒤에 선 것은 upstream이 풀리면 물어진다. 그것이 "이유 있는 보류"와 "이유 없이
+    # 사라짐"을 가르는 유일한 증거다.
+    settled = {
+        "legal_element.commencement_of_execution": TRUE,
+        "ground_fact.death_of_victim": FALSE,
+        "ground_fact.means_or_object_defect": TRUE,
+    }
+    reachable: set[str] = set()
+    asked_when_settled = set(settled)
+    for _ in range(20):
+        batch = next_round_targets(
+            registry,
+            (key,),
+            {key: settled},
+            already_asked={key: asked_when_settled},
+            candidate_refs={key: planned},
+        )
+        if not batch:
+            break
+        refs = {ref for _instance, ref in batch}
+        reachable |= refs
+        asked_when_settled |= refs
+    assert laddered <= reachable, (
+        f"planned targets vanished without a reason: {sorted(laddered - reachable)}"
     )
     assert {INSTIGATOR_INTENT, AIDING_INTENT} <= asked
 

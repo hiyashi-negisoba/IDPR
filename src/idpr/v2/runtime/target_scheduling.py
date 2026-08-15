@@ -54,6 +54,7 @@ from idpr.v2.runtime.identity import OffenseInstanceKey
 _TRUTH_VALUES: tuple[TruthValue, ...] = (TRUE, FALSE, UNKNOWN)
 
 
+
 class TargetSchedulingError(ValueError):
     pass
 
@@ -277,9 +278,13 @@ def _frontier_of_raw(
             pending = expressions.leaf_refs(child) - settled
             if pending:
                 return pending
-            # An assessed UNKNOWN is settled for scheduling even though it is not
-            # logically TRUE.  A later conjunct can still force ALL to FALSE, so keep
-            # walking instead of stranding the frontier on an unaskable value.
+            # 이 conjunct는 물어봤는데 UNKNOWN으로 왔다. 논리적으로는 뒤 conjunct가 FALSE로
+            # 와서 ALL을 죽일 수 있으므로 예전에는 계속 걸어갔다. 2026-08-16 측정은 그
+            # 가능성이 실현되지 않는다고 답했다 -- `dangerousness`는 upstream
+            # `means_or_object_defect`가 UNKNOWN인 채로 14번 열렸고 FALSE는 0번,
+            # UNKNOWN이 13번, TRUE가 1번(그나마 defect 없이는 불능미수에 쓸 수 없는 값)이었다.
+            # 답할 수 없는 질문을 묻는 대가로 UNKNOWN만 얻는다. 여기서 멈춘다.
+            return frozenset()
     return frozenset()
 
 

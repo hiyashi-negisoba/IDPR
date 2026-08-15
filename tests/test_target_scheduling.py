@@ -129,8 +129,14 @@ def test_an_unanswered_target_cannot_spin_the_loop(registry):
     assert all(ref not in asked for _, ref in again)
 
 
-def test_an_assessed_unknown_advances_to_a_later_conjunct(registry):
-    """UNKNOWN does not kill ALL, so a later FALSE can still settle the guard."""
+def test_an_assessed_unknown_stops_the_ladder(registry):
+    """UNKNOWN이 논리적으로 ALL을 죽이지는 않지만, 그 뒤를 묻는 값은 실측에 없었다.
+
+    예전에는 뒤 conjunct가 FALSE로 와서 guard를 죽일 수 있다는 이유로 계속 걸어갔다.
+    2026-08-16 측정에서 `dangerousness`는 upstream `means_or_object_defect`가 UNKNOWN인
+    채로 14번 열렸고 FALSE는 0번이었다. 얻은 것은 UNKNOWN 13건이고, TRUE 1건은 defect
+    없이는 불능미수 판정에 쓸 수 없는 값이었다. 그래서 여기서 멈춘다.
+    """
     target = instance()
     known = {COMMENCEMENT: TRUE, DEATH: FALSE, DEFECT: UNKNOWN}
     batch = next_round_targets(
@@ -140,7 +146,7 @@ def test_an_assessed_unknown_advances_to_a_later_conjunct(registry):
         already_asked={target: set(known)},
         candidate_refs={target: {COMMENCEMENT, DEATH, DEFECT, DANGEROUSNESS}},
     )
-    assert batch == ((target, DANGEROUSNESS),)
+    assert batch == ()
 
 
 def test_scheduling_does_not_depend_on_the_blocker_being_a_ground_fact(registry):
