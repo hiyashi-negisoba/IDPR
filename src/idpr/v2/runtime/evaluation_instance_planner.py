@@ -13,6 +13,10 @@ from typing import Any
 
 from idpr.v2 import expressions
 from idpr.v2.closure import ClosureResult, compile_closure
+from idpr.v2.runtime.linked_offender import (
+    LinkedOffenderDependency,
+    linked_offender_dependencies,
+)
 from idpr.v2.runtime.intended_object import (
     IntendedObjectDivergence,
     intended_object_divergences,
@@ -226,6 +230,9 @@ class OccurrenceAwareEvaluationInstancePlan:
     article263_pair_candidates: tuple[Article263OccurrencePair, ...] = ()
     context_only_binding_ids: tuple[str, ...] = ()
     instance_provenance: tuple[InstanceProvenance, ...] = ()
+    linked_offender_dependencies: tuple[LinkedOffenderDependency, ...] = ()
+    """다른 participant의 결과를 요구하는 규칙과, 그 사람. ROUTE 재호출의 입력이다."""
+
     intended_object_divergences: tuple[IntendedObjectDivergence, ...] = ()
     """대상 동일성이 사실로 확정된 realization. TRUE도 FALSE도 결정론적 산출이다.
 
@@ -314,6 +321,10 @@ class OccurrenceAwareEvaluationInstancePlan:
             "context_only_binding_count": len(self.context_only_binding_ids),
             "instance_provenance": [value.as_dict() for value in self.instance_provenance],
             "instance_provenance_count": len(self.instance_provenance),
+            "linked_offender_dependencies": [
+                value.as_dict() for value in self.linked_offender_dependencies
+            ],
+            "linked_offender_dependency_count": len(self.linked_offender_dependencies),
             "intended_object_divergences": [
                 value.as_dict() for value in self.intended_object_divergences
             ],
@@ -892,6 +903,24 @@ def _plan_action_atomic_binding_instances(
     # 지향 대상과 결과 귀속 대상이 둘 다 사실로 결박된 realization에서만 불일치를 센다.
     # 불일치가 TRUE인 자리에서만 `applies_to: offense_instance` probe의 neural leaf를 연다 --
     # 대상이 같은 사안에 "객체의 착오였는가"를 물으면 없는 착오를 만들 자리만 생긴다.
+    realization_tuples = tuple(
+        (
+            realization.realization_id,
+            realization.actor_id,
+            realization.offense_ref,
+            realization.source_binding_ids,
+        )
+        for realization in legal_realizations
+    )
+    # 저작이 다른 사람의 결과를 요구하고 Call 1.5가 그 사람을 결박했으면, 그에 대해 ROUTE를
+    # 다시 호출해야 한다. 여기서는 그 필요를 기록만 하고 선행범죄를 고르지 않는다.
+    linked_dependencies = linked_offender_dependencies(
+        registry,
+        case_id=case_id,
+        realizations=realization_tuples,
+        bindings=active_bindings,
+        factual_actions=action_by_id.values(),
+    )
     divergences = intended_object_divergences(
         case_id=case_id,
         realizations=tuple(
@@ -1165,6 +1194,7 @@ def _plan_action_atomic_binding_instances(
         article263_pair_candidates=tuple(article263_pairs),
         context_only_binding_ids=context_only_binding_ids,
         instance_provenance=provenance_values,
+        linked_offender_dependencies=linked_dependencies,
         intended_object_divergences=divergences,
         factual_episode_order=episode_sequence,
     )

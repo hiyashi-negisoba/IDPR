@@ -132,10 +132,77 @@ def router_schema(catalog: Iterable[RouterCatalogEntry]) -> dict[str, Any]:
     }
 
 
+QUESTION_ROUTING = "question_actors"
+LINKED_OFFENDER_ROUTING = "linked_offender"
+
+
+@dataclass(frozen=True)
+class RouteRequest:
+    """One invocation of ROUTE(actor, factual_scope, offense_catalog).
+
+    Call 1 was written as "the stage that runs once at the beginning", but what it actually does
+    is an operation: given whose conduct is in scope and which text bounds that scope, choose
+    offense candidates from the closed catalog.  Nothing in it is specific to the actors the
+    question happens to name.
+
+    That matters because a legal rule can require another participant's own outcome -- Article
+    151's object, and the same shape recurs in Articles 33 and 34.  The alternative designs were
+    both worse: widening the first invocation would make one call do two different atomic tasks
+    (route the asked actors, and re-find an offender it has not bound yet), and a dedicated
+    Article 151 call would grow a pipeline stage for one article.  So the operation is reused
+    instead, after Call 1.5 has bound the participant as a fact.
+
+    `routed_actor_ids` is never chosen by a model at this point.  For the first invocation it is
+    the question's actors; for a dependency invocation it is the participant Call 1.5 bound.
+    """
+
+    routed_actor_ids: tuple[str, ...]
+    factual_scope_text: str
+    routing_basis: str = QUESTION_ROUTING
+    question_prompt: str | None = None
+    """The original sub-question, kept only for the question-actor invocation.
+
+    A dependency invocation deliberately has none: the question does not ask about this person,
+    and passing it would re-scope the routing back onto the asked actors.
+    """
+
+
+def route_request_payload(
+    request: RouteRequest, *, case_text: str, catalog: Iterable[RouterCatalogEntry]
+) -> dict[str, Any]:
+    """Serialize one ROUTE invocation for the router prompt."""
+    if not request.routed_actor_ids or not all(
+        value.strip() for value in request.routed_actor_ids
+    ):
+        raise RouterContractError(["routed_actor_ids must be non-empty labels"])
+    if not request.factual_scope_text.strip():
+        raise RouterContractError(["factual_scope_text must be a non-empty string"])
+    if request.routing_basis == QUESTION_ROUTING and not (request.question_prompt or "").strip():
+        raise RouterContractError(["question routing requires the question_prompt"])
+    if request.routing_basis != QUESTION_ROUTING and request.question_prompt is not None:
+        # 의존 routing에 질문을 함께 주면 범위가 다시 질문받은 행위자로 끌려간다.
+        raise RouterContractError(["dependency routing must not carry the question_prompt"])
+    payload: dict[str, Any] = {
+        "routing_basis": request.routing_basis,
+        "routed_actor_ids": list(request.routed_actor_ids),
+        "factual_scope_text": request.factual_scope_text,
+        "case_text": case_text,
+        "offense_catalog": [entry.as_dict() for entry in catalog],
+    }
+    if request.question_prompt is not None:
+        payload["question_prompt"] = request.question_prompt
+    return payload
+
+
 def router_request_payload(
     *, question_prompt: str, case_text: str, catalog: Iterable[RouterCatalogEntry]
 ) -> dict[str, Any]:
-    """The exact sub-question, its raw case text, and the closed definition catalog."""
+    """The exact sub-question, its raw case text, and the closed definition catalog.
+
+    The frozen wire shape of the first ROUTE invocation.  Kept as-is so the existing Call 1
+    artifacts and their lineage hashes stay comparable; `route_request_payload` is the general
+    form the dependency invocation uses.
+    """
     if not question_prompt.strip():
         raise RouterContractError(["question_prompt must be a non-empty string"])
     return {
