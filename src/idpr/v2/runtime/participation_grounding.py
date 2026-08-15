@@ -417,6 +417,23 @@ def compile_participation_bindings(
             for group in true_co
             if not any(group < other for other in true_co)
         )
+        # 같은 사람들 사이의 같은 관계가 두 상호작용에서 각각 확인되면 후보 instance가
+        # 상호작용마다 따로 만들어진다. 甲과 乙의 특수절도 공동정범은 그렇게 두 번 나와도
+        # 하나의 관계이지 서로 다투는 두 주장이 아니다. 행위자 집합이 같은 group은 하나로
+        # 보고, 그 중 하나만 남긴다.
+        by_actor_set: dict[frozenset[str], frozenset[OffenseInstanceKey]] = {}
+        for group in sorted(
+            maximal_co,
+            key=lambda value: sorted(
+                (i.case_id, i.actor_id, i.offense_ref, i.occurrence_id) for i in value
+            ),
+        ):
+            by_actor_set.setdefault(
+                frozenset(item.actor_id for item in group), group
+            )
+        maximal_co = tuple(by_actor_set.values())
+        # 여기 남은 겹침은 행위자 구성 자체가 다른 두 주장이다. 어느 쪽이 옳은지는 이
+        # 단계가 정할 수 없으므로 양보시키지 않고 계약 위반으로 올린다.
         for left, right in combinations(maximal_co, 2):
             if left & right:
                 raise ParticipationGroundingError(
