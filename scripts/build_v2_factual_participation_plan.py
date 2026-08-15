@@ -47,10 +47,13 @@ from idpr.v2.runtime.policy_probe_targets import (
     participation_mode_requirement_targets,
     unreachable_mode_findings,
 )
+from idpr.v2.runtime.target_scheduling import merge_target_opener
 
 DEFAULT_INVENTORY = ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
 DEFAULT_CASE_LIST = ROOT / "data/eval/kcl_substantive_case_ids.txt"
 DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
+
+
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -380,16 +383,20 @@ def main() -> None:
         row["instance_provenance_count"] = len(row.get("instance_provenance", ()))
 
         probe_targets = participation_candidate_probe_targets(registry, participation_targets)
-        existing = {
+        # 재사용할 때 opener를 버리지 않으려면 행 자체를 찾을 수 있어야 한다. key만 들고
+        # 있으면 할 수 있는 것이 `continue`뿐이고, 그것이 doctrine 빌더에서 닫은 것과 같은
+        # 구멍이다 -- 행에는 일반 요소 opener 하나만 남고 하류는 그렇게 읽는다.
+        row_by_target = {
             (
                 value["instance_key"]["case_id"],
                 value["instance_key"]["actor_id"],
                 value["instance_key"]["offense_ref"],
                 value["instance_key"]["occurrence_id"],
                 value["predicate_ref"],
-            )
+            ): value
             for value in row["assessment_targets"]
         }
+        existing = set(row_by_target)
         requirement_targets = participation_mode_requirement_targets(
             registry, participation_targets
         )
@@ -408,20 +415,22 @@ def main() -> None:
                     predicate_ref,
                 )
                 if key in existing:
+                    # 이미 열려 있어도 이 producer가 그 사실을 필요로 한다는 것은 남는다.
+                    merge_target_opener(row_by_target[key], opened_by)
                     continue
                 existing.add(key)
-                row["assessment_targets"].append(
-                    {
-                        "instance_key": {
-                            "case_id": instance.case_id,
-                            "actor_id": instance.actor_id,
-                            "offense_ref": instance.offense_ref,
-                            "occurrence_id": instance.occurrence_id,
-                        },
-                        "predicate_ref": predicate_ref,
-                        "opened_by": opened_by,
-                    }
-                )
+                created = {
+                    "instance_key": {
+                        "case_id": instance.case_id,
+                        "actor_id": instance.actor_id,
+                        "offense_ref": instance.offense_ref,
+                        "occurrence_id": instance.occurrence_id,
+                    },
+                    "predicate_ref": predicate_ref,
+                    "opened_by": opened_by,
+                }
+                row_by_target[key] = created
+                row["assessment_targets"].append(created)
                 if predicate_ref not in row["selected_predicate_refs"]:
                     row["selected_predicate_refs"].append(predicate_ref)
                 if opened_by == "participation_candidate_probe":
@@ -439,20 +448,23 @@ def main() -> None:
                         predicate_ref,
                     )
                     if key in existing:
+                        # 이 opener는 합치지 않는다. 파생 group의 일반 구성요건 target이고,
+                        # 그 필요를 표현하는 것이 offense/completion 표현식 그 자체다 --
+                        # scheduler가 모르는 별도 요구를 싣지 않으므로 기록할 것이 없다.
                         continue
                     existing.add(key)
-                    row["assessment_targets"].append(
-                        {
-                            "instance_key": {
-                                "case_id": instance.case_id,
-                                "actor_id": instance.actor_id,
-                                "offense_ref": instance.offense_ref,
-                                "occurrence_id": instance.occurrence_id,
-                            },
-                            "predicate_ref": predicate_ref,
-                            "opened_by": "post_participation_derived_group",
-                        }
-                    )
+                    created = {
+                        "instance_key": {
+                            "case_id": instance.case_id,
+                            "actor_id": instance.actor_id,
+                            "offense_ref": instance.offense_ref,
+                            "occurrence_id": instance.occurrence_id,
+                        },
+                        "predicate_ref": predicate_ref,
+                        "opened_by": "post_participation_derived_group",
+                    }
+                    row_by_target[key] = created
+                    row["assessment_targets"].append(created)
                     if predicate_ref not in row["selected_predicate_refs"]:
                         row["selected_predicate_refs"].append(predicate_ref)
         # Newly opened participation probes are logical targets too.  Give each

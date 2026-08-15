@@ -41,7 +41,7 @@ declined to answer cannot spin it.
 
 from __future__ import annotations
 
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Iterable, Mapping, MutableMapping, Sequence
 from typing import Any
 
 from idpr.v2 import expressions
@@ -163,6 +163,24 @@ def target_openers(raw_target: Mapping[str, Any]) -> frozenset[str]:
 def is_externally_opened(raw_target: Mapping[str, Any]) -> bool:
     """이 target을 연 producer 중 하나라도 이 모듈이 모르는 요구를 싣고 있는가."""
     return bool(target_openers(raw_target) - ELEMENT_DERIVED_OPENERS)
+
+
+def merge_target_opener(raw_target: MutableMapping[str, Any], opener: str) -> bool:
+    """이 target을 연 producer를 하나 더 기록한다. 새로 기록했으면 참.
+
+    producer가 이미 있는 `(instance, predicate_ref)`를 재사용할 때 부른다. 행을 새로 만들지
+    않는 것과 그 이유를 남기지 않는 것은 다르다 -- 남기지 않으면 그 target은 하류에서 죄의
+    일반 요소로만 보이고, 이 죄가 더 이상 그것을 필요로 하지 않게 된 순간 지워진다. 재사용을
+    `continue` 한 줄로 처리한 producer가 둘 있었고 둘 다 같은 구멍이었다.
+    """
+    if opener == str(raw_target.get("opened_by") or "unspecified"):
+        return False
+    openers = list(raw_target.get(ALSO_OPENED_BY_KEY) or ())
+    if opener in openers:
+        return False
+    openers.append(opener)
+    raw_target[ALSO_OPENED_BY_KEY] = openers
+    return True
 
 
 def unprunable_refs(
@@ -364,6 +382,7 @@ __all__ = [
     "live_predicate_refs",
     "ELEMENT_DERIVED_OPENERS",
     "is_externally_opened",
+    "merge_target_opener",
     "next_round_targets",
     "target_openers",
     "unprunable_refs",

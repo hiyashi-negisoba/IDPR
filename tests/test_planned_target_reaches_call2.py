@@ -31,10 +31,12 @@ from idpr.v2.runtime.doctrine_targets import (
 )
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.target_scheduling import (
+    ALSO_OPENED_BY_KEY,
     ELEMENT_DERIVED_OPENERS,
     frontier_predicate_refs,
     is_externally_opened,
     live_predicate_refs,
+    merge_target_opener,
     next_round_targets,
     target_openers,
 )
@@ -358,3 +360,57 @@ def test_two_doctrines_needing_one_leaf_do_not_duplicate_the_row(registry) -> No
         },
     )
     assert [value.reuses_existing_target for value in materialized] == [False, True]
+
+
+def test_a_participation_requirement_reusing_an_element_target_keeps_its_reason(
+    registry,
+) -> None:
+    """참가 빌더도 같은 계약을 진다. producer마다 다시 새지 않는다.
+
+    교사·방조가 요구하는 요소가 마침 그 죄의 일반 요소이기도 하면 참가 빌더도 기존 target을
+    재사용한다. doctrine 쪽에서 닫은 것과 **같은** 구멍이므로 규칙도 같은 곳이 소유한다.
+    """
+    key = instance()
+    raw_target = {
+        "instance_key": {
+            "case_id": key.case_id,
+            "actor_id": key.actor_id,
+            "offense_ref": key.offense_ref,
+            "occurrence_id": key.occurrence_id,
+        },
+        "predicate_ref": DANGEROUSNESS,
+    }
+    assert merge_target_opener(raw_target, "participation_mode_requirement")
+    assert not merge_target_opener(raw_target, "participation_mode_requirement")
+    assert target_openers(raw_target) == frozenset(
+        {"unspecified", "participation_mode_requirement"}
+    )
+    assert is_externally_opened(raw_target)
+
+
+def test_the_participation_builder_merges_instead_of_dropping_the_opener() -> None:
+    """재사용을 `continue` 한 줄로 처리한 producer가 둘 있었고 둘 다 같은 구멍이었다.
+
+    `post_participation_derived_group`만 예외다 -- 그 opener가 여는 것은 파생 group 위의 일반
+    구성요건이고, 그 필요를 표현하는 것이 offense/completion 표현식 그 자체이므로 scheduler가
+    모르는 별도 요구를 싣지 않는다.
+    """
+    source = (
+        Path(__file__).resolve().parents[1]
+        / "scripts/build_v2_factual_participation_plan.py"
+    ).read_text(encoding="utf-8")
+    assert "merge_target_opener(row_by_target[key], opened_by)" in source
+
+
+def test_the_opener_merge_rule_has_exactly_one_owner() -> None:
+    """같은 불변식이 producer마다 흩어지면 한 곳을 고쳐도 다른 곳으로 전달되지 않는다."""
+    root = Path(__file__).resolve().parents[1]
+    writers = [
+        path
+        for path in (root / "scripts").glob("build_v2_*.py")
+        if ALSO_OPENED_BY_KEY in path.read_text(encoding="utf-8")
+    ]
+    assert writers == [], (
+        "opener 병합은 target_scheduling이 소유한다 -- producer가 그 키를 직접 쓰면 "
+        f"두 번째 권위가 된다: {[p.name for p in writers]}"
+    )

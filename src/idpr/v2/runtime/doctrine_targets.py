@@ -24,7 +24,7 @@ from typing import Any
 
 from idpr.v2.runtime.doctrine_raising import RaisedDoctrine
 from idpr.v2.runtime.identity import OffenseInstanceKey
-from idpr.v2.runtime.target_scheduling import ALSO_OPENED_BY_KEY
+from idpr.v2.runtime.target_scheduling import merge_target_opener
 
 NOT_MATERIALIZED = "NOT_MATERIALIZED_NO_MATCHING_LEGAL_INSTANCE"
 
@@ -132,10 +132,7 @@ def merge_reused_openers(
 ) -> int:
     """재사용된 leaf의 opener를 기존 target 행에 합친다. 합쳐진 행 수를 돌려준다.
 
-    행을 새로 만들지 않는 것과 그 이유를 기록하지 않는 것은 다르다. 기록하지 않으면 행에는
-    `opened_by: unspecified` 하나만 남고, Call 2 scheduler는 그 죄 쪽 사정만 보고 "더 이상
-    결정적이지 않다"며 지워도 된다고 판단한다 -- doctrine은 여전히 답이 필요한데 아무도
-    그쪽에 묻지 않은 채로. 개방 이유를 넘기기로 한 계약이 producer 쪽에서 무효가 되는 자리다.
+    규칙 자체는 `merge_target_opener`가 소유한다. 여기서는 leaf를 그 행에 맞춰 주기만 한다.
     """
     rows = {
         (
@@ -161,11 +158,7 @@ def merge_reused_openers(
                 "reused doctrine leaf has no existing target row: "
                 f"{value.instance.occurrence_id}/{value.predicate_ref}"
             )
-        openers = list(item.get(ALSO_OPENED_BY_KEY) or ())
-        if DOCTRINE_OPENER not in openers:
-            openers.append(DOCTRINE_OPENER)
-            merged += 1
-        item[ALSO_OPENED_BY_KEY] = openers
+        merged += merge_target_opener(item, DOCTRINE_OPENER)
     return merged
 
 

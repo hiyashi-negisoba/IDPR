@@ -254,7 +254,10 @@ Call 3 프롬프트는 두 곳을 조인 상태로 설치했다 — 새 죄명·
   등록되기 전부터 보호된다. 같은 결함의 producer 쪽 절반도 함께 닫았다 -- doctrine이
   필요로 하는 leaf가 마침 그 죄의 일반 요소이면 빌더가 기존 target을 재사용하면서 이유를
   버렸고, 그러면 행에는 `unspecified` 하나만 남아 runner가 그것을 element-derived로 읽는다.
-  재사용도 결과에서 빼지 않고 `also_opened_by`로 합친다.
+  재사용도 결과에서 빼지 않고 `also_opened_by`로 합친다. 참가 빌더의 probe·mode 요건도
+  같은 자리에 같은 구멍이 있었고, 병합 규칙은 `target_scheduling.merge_target_opener` 하나가
+  소유한다. `post_participation_derived_group`만 합치지 않는다 -- 파생 group 위의 일반
+  구성요건이라 offense/completion 표현식이 그 필요를 그대로 표현한다.
 * 참가 빌더가 읽는 상호작용·inventory·case list가 `plan_inputs` 밖에 있어 기록만 되고
   freshness 검증에서는 빠졌다. 기록하는 목록과 검증하는 목록을 하나로 맞췄고, 빌더가 읽는
   Path 인자가 전부 그 안에 있는지 테스트가 확인한다.
