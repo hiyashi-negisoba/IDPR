@@ -222,6 +222,35 @@ Call 3 프롬프트는 두 곳을 조인 상태로 설치했다 — 새 죄명·
 
 종료 테스트: [`tests/test_answer_plan_handoff_contract.py`](../../tests/test_answer_plan_handoff_contract.py)
 
+## 코드베이스 전수 감사 조치 (2026-08-15)
+
+`CODEBASE_AUDIT.md`가 축별 감사로는 잡히지 않는 결함 10건을 보고했다. 전부 **모듈 안에서는
+계약이 초록인데 단계 사이에서 그 계약이 소비되지 않는** 한 가지 모양이었다. 아래가 조치
+결과이고, 각 줄의 종료 증명은 옆의 테스트다.
+
+| 감사 | 조치 | 종료 테스트 |
+|---|---|---|
+| P0-A Call 2 scheduler가 planner target을 탈락 | scheduler는 자기 표현식으로 이유를 댈 수 있을 때만 target을 뺀다. 표현식이 없는 것은 무의미한 것이 아니라 모르는 것이므로 통과시킨다. `blocked_when`도 후보·frontier에 넣었다 | [`tests/test_planned_target_reaches_call2.py`](../../tests/test_planned_target_reaches_call2.py) |
+| P0-B doctrine plan에서 lineage hard fail | 이미 `b46637c`에서 계보 방식으로 해소 | `test_plan_lineage_contract.py` |
+| P1 `evidence_scope` 기본값이 planner와 Call 2에서 다름 | 폭의 권위를 `carrier_contract.effective_evidence_scope` 하나로 모으고 두 직렬화가 모두 그것을 쓴다 | `test_evidence_scope_carrier_contract.py` |
+| P1 참가 group identity가 행위자 집합뿐 | 관계의 신원을 `(행위자, realization)`로. 후보 occurrence는 증거 식별자라 신원이 되지 않는다(`identity.realization_identity`) | `test_participation_axis_contract.py` |
+| P1 중앙 carrier validator가 Call 2에 없음 | `run_v2_call2_pilot`이 진입에서 `validate_plan_carriers`를 부른다 | `test_carrier_contract.py` |
+| P1 temporal anchor가 조용히 넓어짐 | `resolve_carrier`의 unanchored fallback 제거, planner의 `ensure_carrier`도 좁힐 수 없으면 hard fail | `test_carrier_contract.py` |
+| P1 `blocked_when`이 type check 밖 | completion·doctrine 양쪽 checker가 `when`/`requires`와 똑같이 순회한다 | `test_definition_system.py` |
+| P1 excess join이 별개 실현까지 연결 | 닫지 않는다 -- 닫으면 질적 초과(r11)가 함께 죽는다. `same_execution`으로 근거를 싣고 아닌 것은 `EXCESS_ACROSS_EXECUTIONS`로 올린다 | `test_excess_candidates.py`·`test_final_responsibility.py` |
+| P1 chain이 stale 조합을 만들 수 있음 | manifest가 입력 artifact의 **내용 해시**를 적고, Call 2·symbolic 진입에서 검증한다. 규칙베이스 변경은 경고로만 남긴다 | `test_plan_lineage_contract.py` |
+| P1 Call 3 완결성 감사 함수를 아무도 안 부름 | runner가 부르고 manifest·행에 기록하며 어긋나면 종료코드 2. 오프라인 감사도 같은 함수를 쓴다 | `test_answer_plan_required_conclusions.py` |
+| P1-eval LCR baseline 명칭 | "공식 구현 무수정 실행" 주장을 걷고 **LCR-inspired prompting baseline**으로 정정. `baseline_id`는 조인 키라 유지 | — |
+| P2 정리 | 참가 빌더의 carrier 복사본 제거, `rubric_evaluator`의 침묵 파싱 실패를 예외로, 옛 `v2`·Phase-3·수기 gold 모듈에 정향 헤더 | — |
+
+**측정된 사실 하나.** 완주한 Call 2(`experiments/v2_axis_closure_26_e2e/call2/`)에서
+`doctrine_raising_cue` 39개, `participation_mode_requirement` 27개, `participation_candidate_probe`
+4개가 **한 건도 질문되지 않았다**(planned 39/27/4 → asked 0/0/0). doctrine 축과 participation
+축에서 살렸다고 판단한 경로는 그 실행에서 실제로는 닫혀 있었다. 따라서 그 Call 2 산출물은
+두 축의 검증 artifact로 쓸 수 없고, symbolic부터 이어 돌리는 것으로는 확인되지 않는다.
+같은 사고가 다시 조용히 지나가지 않도록 Call 2 산출물이 `target_scheduling.asked_by_opened_by`·
+`skipped_by_opened_by`를 producer 단위로 기록한다.
+
 ## 반복된 결함 클래스: producer마다 흩어진 불변식
 
 축과 무관하게 **같은 모양의 결함이 세 번 반복**됐다. 축별 감사로는 잡히지 않는 종류이므로
@@ -292,9 +321,9 @@ doctrine 전부가 잠들어 있고, `run_v2_absorption_condition_pairs.py`가 �
 | call15d | 완료 — cue 13 |
 | plan_participation | 완료 — participation local target 52 |
 | plan_doctrine | 완료 — doctrine target 39, final target 758 |
-| **call2** | **26/26 완료** |
+| **call2** | **26/26 완료 — 그러나 doctrine 39·participation 27 target을 하나도 묻지 않았다(P0-A). 재실행 필요** |
 | absorption | 완료 |
-| **symbolic** | **미실행 — lineage 가드에서 끊겼고, 위 (2)로 수정 후 재개 대기** |
+| **symbolic** | **미실행 — lineage 가드는 해소됐으나 Call 2 재실행이 먼저다** |
 | answer_plan · call3 | 미실행 |
 
 체인 도중 발견되어 고친 경로 단절은 셋이다. doctrine leaf의 carrier 누락, 공동정범 그룹
@@ -312,9 +341,12 @@ symbolic을 막았다.
 
 ## 다음 작업
 
-1. **symbolic → answer_plan → call3 재개.** `IDPR_AXIS_SKIP="call15p call15d
-   plan_participation plan_doctrine call2 absorption"`. plan_doctrine은 계보가 붙고 순서가
-   고정된 것으로 이미 교체되어 있다(내용은 이전과 집합 동일, Call 2 산출물 그대로 유효).
+1. **Call 2부터 다시 돌린다.** symbolic 재개가 아니다 -- 위 감사에서 확인된 대로 기존 Call 2는
+   doctrine·participation target을 하나도 묻지 않았고, 그 산출물로는 두 축이 관통했는지
+   알 수 없다. `IDPR_AXIS_SKIP="call15p call15d"`로 plan부터 다시 만든다(plan 단계는 CPU만
+   쓰고 결과가 재현된다 -- 758 target 동일 확인). Call 2 완료 후 산출물의
+   `target_scheduling.asked_by_opened_by`에서 `doctrine_raising_cue`와
+   `participation_mode_requirement`가 0이 아닌 것을 먼저 확인한다.
 2. **경로 관통 확인.** leaf 진리값 → `active_doctrine` → doctrine effect → derivative
    participation/link → 최종 책임 → AnswerPlan → Call 3. 끊긴 지점만 구조 수정 대상이다.
 3. **UNKNOWN 문제** — 관통 이후로 미룬 항목. 발화하지 않은 규칙과 활성화되지 않은 지점을
@@ -326,6 +358,8 @@ symbolic을 막았다.
 - 가담자 흡수 전파 = "가담자의 죄명은 정범의 죄명을 따른다"의 최종 해소 단계 이동 (concurrence 축)
 - 초점행위 근사가 행위 단일성 판단으로 충분한가
 - 상상적 경합 저작 0개 — KCL 루브릭이 죄수관계를 직접 배점하므로 공백이 곧 실점이다
+- 초과 후보의 `same_execution=False` 처리 — 교사받은 실행이 더 나아간 것과 정범의 별개
+  범행을 상류 provenance로 가를 수 없어 unresolved로 올린다. 그 선이 맞는지
 
 ## 측정할 때 유의점
 
