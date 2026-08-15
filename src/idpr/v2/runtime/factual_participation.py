@@ -12,7 +12,10 @@ from idpr.v2.factual_interaction import FactualInteraction
 from idpr.v2.gold_factual_identity import GoldOccurrence
 from idpr.v2.issue_binding import IssueBindingResult
 from idpr.v2.registry import DefinitionRegistry
-from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.identity import (
+    PARTICIPATION_OCCURRENCE_PREFIX,
+    OffenseInstanceKey,
+)
 from idpr.v2.runtime.participation_grounding import ParticipationLocalTarget
 
 
@@ -53,7 +56,7 @@ def _participation_occurrence_id(
     identity = f"{offense_ref}\0{identity_discriminator or ''}"
     digest = hashlib.sha256(identity.encode("utf-8")).hexdigest()[:10]
     suffix = interaction.interaction_id.removeprefix("finteraction:")
-    return f"participation_realization:{suffix}:{actor_id}:{digest}"
+    return f"{PARTICIPATION_OCCURRENCE_PREFIX}{suffix}:{actor_id}:{digest}"
 
 
 def materialize_factual_participation_candidates(

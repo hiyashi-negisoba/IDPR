@@ -27,6 +27,7 @@ from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.participation_grounding import (
     ParticipationLocalAssessment,
+    ParticipationLocalTarget,
     compile_participation_bindings,
     participation_local_targets,
 )
@@ -146,6 +147,56 @@ def test_co_principal_and_derivative_on_one_participant_resolve_without_aborting
         for resolution in bindings.mode_resolutions
     ), "양보가 기록되지 않았다"
     assert bindings.co_principal_sources, "공동정범 관계가 사라졌다"
+
+
+def test_two_realizations_of_one_offense_by_one_pair_stay_two_relations() -> None:
+    """상호작용 중복과 법적 중복은 다르다.
+
+    같은 관계가 두 상호작용에서 확인되면 후보 instance가 상호작용마다 따로 만들어지고, 그
+    둘은 하나로 접어야 한다. 그러나 甲·乙이 함께 절도를 두 번 저지르면 그것은 두 개의 관계다.
+    행위자 구성만으로 접으면 뒤의 절도가 앞의 절도에 흡수되어 사라진다.
+    """
+    first = (_instance("甲", 1), _instance("乙", 1))
+    second = (_instance("甲", 2), _instance("乙", 2))
+    bindings = compile_participation_bindings(
+        tuple(
+            ParticipationLocalAssessment(
+                ParticipationLocalTarget("co_principal_group", members), "TRUE"
+            )
+            for members in (first, second)
+        ),
+        registry=REGISTRY,
+    )
+    sources = set(bindings.co_principal_sources)
+    assert {(first[0], first[1]), (first[1], first[0])} <= sources
+    assert {(second[0], second[1]), (second[1], second[0])} <= sources
+
+
+def test_one_relation_seen_in_two_interactions_is_still_one_relation() -> None:
+    """반대 방향. 후보의 occurrence는 증거 식별자이므로 관계의 신원이 되지 못한다."""
+    seen_once = (
+        OffenseInstanceKey("case", "甲", "offense.theft", "participation_realization:001:甲:a"),
+        OffenseInstanceKey("case", "乙", "offense.theft", "participation_realization:001:乙:a"),
+    )
+    seen_twice = (
+        OffenseInstanceKey("case", "甲", "offense.theft", "participation_realization:002:甲:b"),
+        OffenseInstanceKey("case", "乙", "offense.theft", "participation_realization:002:乙:b"),
+    )
+    bindings = compile_participation_bindings(
+        tuple(
+            ParticipationLocalAssessment(
+                ParticipationLocalTarget("co_principal_group", members), "TRUE"
+            )
+            for members in (seen_once, seen_twice)
+        ),
+        registry=REGISTRY,
+    )
+    actors = {
+        tuple(sorted((left.actor_id, right.actor_id)))
+        for left, right in bindings.co_principal_sources
+    }
+    assert actors == {("乙", "甲")}
+    assert len(bindings.co_principal_sources) == 2
 
 
 # --------------------------------------------------------------------------

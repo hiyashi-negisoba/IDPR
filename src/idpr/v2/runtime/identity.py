@@ -75,6 +75,25 @@ class OffenseInstanceKey:
     strictly upstream of it and belongs here."""
 
 
+#: 참가 후보 instance의 occurrence 접두사. 그 값은 상호작용에서 만들어진 **증거** 식별자이지
+#: 법적 realization 식별자가 아니다 -- 같은 관계가 두 상호작용에서 확인되면 서로 다른 값이
+#: 나온다. 두 자리(만드는 쪽·읽는 쪽)가 이 사실을 각자 문자열로 알고 있으면 또 갈라지므로
+#: 여기서 한 번만 선언한다.
+PARTICIPATION_OCCURRENCE_PREFIX = "participation_realization:"
+
+
+def realization_identity(instance: "OffenseInstanceKey") -> str | None:
+    """이 instance가 가리키는 법적 realization. 가리키지 않으면 `None`.
+
+    참가 후보는 realization을 가리키지 않는다. 그래서 "같은 관계가 두 번 보인 것"과 "같은
+    사람들이 같은 죄를 두 번 저지른 것"을 구별할 때, 후보의 occurrence는 구별 근거가 될 수
+    없고(증거가 둘이면 값도 둘) 실현의 occurrence는 근거가 된다.
+    """
+    if instance.occurrence_id.startswith(PARTICIPATION_OCCURRENCE_PREFIX):
+        return None
+    return instance.occurrence_id
+
+
 @dataclass(frozen=True)
 class RuntimeRelationKey:
     """A relation obligation at a definite place in a definite case.

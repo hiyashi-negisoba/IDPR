@@ -14,7 +14,7 @@ from idpr.v2.participation import (
     participation_policy_for,
 )
 from idpr.v2.registry import DefinitionRegistry
-from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.identity import OffenseInstanceKey, realization_identity
 from idpr.v2.runtime.truths import CaseTruths, TruthValue
 
 ParticipationRelationKind = Literal["instigation", "aiding", "co_principal_group"]
@@ -419,19 +419,29 @@ def compile_participation_bindings(
         )
         # 같은 사람들 사이의 같은 관계가 두 상호작용에서 각각 확인되면 후보 instance가
         # 상호작용마다 따로 만들어진다. 甲과 乙의 특수절도 공동정범은 그렇게 두 번 나와도
-        # 하나의 관계이지 서로 다투는 두 주장이 아니다. 행위자 집합이 같은 group은 하나로
-        # 보고, 그 중 하나만 남긴다.
-        by_actor_set: dict[frozenset[str], frozenset[OffenseInstanceKey]] = {}
+        # 하나의 관계이지 서로 다투는 두 주장이 아니다.
+        #
+        # 그렇다고 행위자 구성만으로 접으면 반대쪽으로 틀린다 -- 甲·乙이 함께 절도를 두 번
+        # 저지르면 그것은 두 개의 관계다. 상호작용 중복과 법적 중복은 다른 것이고, 둘을
+        # 가르는 것은 그 group이 가리키는 **realization**이다. 후보 instance의 occurrence는
+        # 증거 식별자라 관계의 신원이 되지 못하지만(그래서 `None`으로 접힌다), 실현 instance의
+        # occurrence는 신원이 된다.
+        by_relation: dict[
+            frozenset[tuple[str, str | None]], frozenset[OffenseInstanceKey]
+        ] = {}
         for group in sorted(
             maximal_co,
             key=lambda value: sorted(
                 (i.case_id, i.actor_id, i.offense_ref, i.occurrence_id) for i in value
             ),
         ):
-            by_actor_set.setdefault(
-                frozenset(item.actor_id for item in group), group
+            by_relation.setdefault(
+                frozenset(
+                    (item.actor_id, realization_identity(item)) for item in group
+                ),
+                group,
             )
-        maximal_co = tuple(by_actor_set.values())
+        maximal_co = tuple(by_relation.values())
         # 여기 남은 겹침은 행위자 구성 자체가 다른 두 주장이다. 어느 쪽이 옳은지는 이
         # 단계가 정할 수 없으므로 양보시키지 않고 계약 위반으로 올린다.
         for left, right in combinations(maximal_co, 2):
