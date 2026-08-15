@@ -89,13 +89,36 @@ def test_a_linked_offender_who_is_not_liable_does_not_establish_the_status() -> 
     assert _status_truth(_resolve(_link("offense.theft", "unresolved"))) == "UNKNOWN"
 
 
+def test_an_authored_qualifying_predecessor_establishes_the_status() -> None:
+    """2026-08-15 검수로 63개 offense 전부 `fine_or_greater`가 저작되었다."""
+    assert qualifies_for_article_151(REGISTRY, "offense.theft") is True
+    assert _status_truth(_resolve(_link("offense.theft", "liable_exact_offense"))) == "TRUE"
+
+
 def test_an_unauthored_penalty_threshold_is_unknown_not_an_implied_pass() -> None:
     """형법각칙은 사실상 전부 벌금 이상이다. 그래서 더더욱 host가 가정하면 안 된다.
 
-    가정이 틀린 단 한 자리가 보이지 않게 되기 때문이다. 값 저작 전에는 UNKNOWN이 맞다.
+    가정이 틀린 단 한 자리가 보이지 않게 되기 때문이다. 값이 없으면 UNKNOWN이 맞고, 새 죄가
+    저작될 때 이 필드를 빠뜨리면 조용히 통과하는 대신 여기서 막힌다.
     """
-    assert qualifies_for_article_151(REGISTRY, "offense.theft") is False
-    assert _status_truth(_resolve(_link("offense.theft", "liable_exact_offense"))) == "UNKNOWN"
+    from idpr.v2.registry import DefinitionEntry, DefinitionRegistry
+
+    original = REGISTRY.get("offense.theft")
+    stripped = DefinitionEntry(
+        original.id,
+        original.kind,
+        {k: v for k, v in original.payload.items() if k != "article151_penalty_threshold"},
+        original.source_file,
+    )
+    registry = DefinitionRegistry(
+        {**REGISTRY.by_id, stripped.id: stripped},
+        {
+            kind: tuple(stripped if value.id == stripped.id else value for value in values)
+            for kind, values in REGISTRY.by_kind.items()
+        },
+    )
+
+    assert qualifies_for_article_151(registry, "offense.theft") is False
 
 
 def test_the_raw_target_instance_fact_cannot_impersonate_the_linked_result() -> None:

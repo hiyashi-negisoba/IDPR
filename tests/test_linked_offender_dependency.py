@@ -135,3 +135,30 @@ def test_the_first_invocation_is_the_same_operation() -> None:
     assert payload["routing_basis"] == QUESTION_ROUTING
     assert payload["question_prompt"] == "丙의 죄책을 논하라."
     assert payload["offense_catalog"]
+
+
+def test_the_static_threshold_gates_before_any_neural_evaluation() -> None:
+    """threshold는 사건 사실이 아니라 저작된 metadata다. Call 2 앞에서 물을 수 있다.
+
+    어차피 제151조 대상이 될 수 없는 죄를 먼저 neural하게 평가할 이유가 없다.
+    """
+    from idpr.v2.runtime.linked_offender import gate_predecessor_candidates
+
+    dependency = _dependencies("offense.harboring_or_escape", "乙")[0]
+    gate = gate_predecessor_candidates(
+        REGISTRY, dependency, ("offense.theft", "offense.nope")
+    )
+
+    assert gate.qualifying == ("offense.theft",)
+    assert gate.unauthored == ("offense.nope",)
+
+
+def test_an_unauthored_threshold_is_not_folded_into_non_qualifying() -> None:
+    """미저작을 "자격 없음"과 합치면 저작 누락이 결정론적 부정으로 둔갑한다."""
+    from idpr.v2.runtime.linked_offender import gate_predecessor_candidates
+
+    dependency = _dependencies("offense.harboring_or_escape", "乙")[0]
+    gate = gate_predecessor_candidates(REGISTRY, dependency, ("offense.nope",))
+
+    assert gate.non_qualifying == ()
+    assert gate.unauthored == ("offense.nope",)

@@ -1,4 +1,7 @@
 - id: derived_offense.aggravated_injury
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제258조 제1항"}]
   identity:
     name: 중상해죄
     statutory_refs: ["형법 제258조 제1항", "형법 제258조 제2항"]
@@ -17,6 +20,9 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.aggravated_ancestral_injury
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제258조 제3항"}]
   identity:
     name: 존속중상해죄
     statutory_refs: ["형법 제258조 제3항"]
@@ -43,6 +49,9 @@
         - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
 
 - id: derived_offense.fraud
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제347조 제1항"}]
   identity:
     name: 사기죄
     statutory_refs: ["형법 제347조 제1항", "형법 제347조 제2항"]
@@ -66,6 +75,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.special_injury
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제258조의2 제1항"}]
   identity:
     name: 특수상해죄
     statutory_refs: ["형법 제258조의2 제1항"]
@@ -86,6 +98,9 @@
 
 - id: derived_offense.special_ancestral_injury
   # 제258조의2 제1항이 제257조 제1항과 제2항을 함께 인용하므로 존속상해도 같은 항이다.
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제258조의2 제1항"}]
   identity:
     name: 특수존속상해죄
     statutory_refs: ["형법 제258조의2 제1항"]
@@ -113,6 +128,9 @@
         - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
 
 - id: derived_offense.special_aggravated_injury
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제258조의2 제2항"}]
   identity:
     name: 특수중상해죄
     statutory_refs: ["형법 제258조의2 제2항"]
@@ -138,6 +156,9 @@
 - id: derived_offense.special_aggravated_ancestral_injury
   # 제258조의2 제2항은 항을 따로 집지 않고 "제258조의 죄"라고 규정한다. 존속중상해가 제258조
   # 제3항이므로 위험한 물건 등을 이용한 존속중상해도 그 문언에 들어간다. (2026-08-15 검수)
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제258조의2 제2항"}]
   identity:
     name: 특수존속중상해죄
     statutory_refs: ["형법 제258조의2 제2항"]
@@ -169,6 +190,9 @@
         - {op: ref, ref: legal_element.awareness_of_lineal_ascendant_status}
 
 - id: derived_offense.robbery_rape
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제339조"}]
   identity:
     name: 강도강간죄
     statutory_refs: ["형법 제339조"]
@@ -214,6 +238,9 @@
   # 형법 제339조는 일반 강도강간의 근거조문이다. 특수강도(제334조)를 범한 사람이 강간 등을
   # 범한 경우는 성폭력처벌법 제3조 제2항이 직접 규정하므로 그쪽이 근거조문이다.
   # (2026-08-15 검수)
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "성폭력범죄의 처벌 등에 관한 특례법 제3조 제2항"}]
   identity:
     name: 특수강도강간죄
     statutory_refs: ["성폭력범죄의 처벌 등에 관한 특례법 제3조 제2항"]
@@ -263,6 +290,9 @@
 
 - id: derived_offense.quasi_robbery_rape
   # 준강도(제335조)도 제339조의 '강도'에 포함된다는 판례의 취지에 따른다.
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제339조"}]
   identity:
     name: 준강도강간죄
     statutory_refs: ["형법 제339조"]
@@ -311,6 +341,9 @@
         - {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.rape_causing_intentional_injury
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제301조"}]
   identity:
     name: 강간상해죄
     statutory_refs: ["형법 제301조"]
@@ -349,6 +382,9 @@
         - {op: ref, ref: legal_element.injury_intent}
 
 - id: derived_offense.robbery_causing_intentional_injury
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제337조"}]
   identity:
     name: 강도상해죄
     statutory_refs: ["형법 제337조"]
@@ -381,6 +417,9 @@
         - {op: ref, ref: legal_element.injury_intent}
 
 - id: derived_offense.robbery_causing_intentional_homicide
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제338조"}]
   identity:
     name: 강도살인죄
     statutory_refs: ["형법 제338조"]
@@ -414,6 +453,9 @@
         - {op: ref, ref: legal_element.homicide_intent}
 
 - id: derived_offense.nighttime_dwelling_theft
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제330조"}]
   identity:
     name: 야간주거침입절도죄
     statutory_refs: ["형법 제330조"]
@@ -428,6 +470,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.special_theft
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제331조"}]
   identity:
     name: 특수절도죄
     statutory_refs: ["형법 제331조"]
@@ -454,6 +499,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.special_robbery
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제334조"}]
   identity:
     name: 특수강도죄
     statutory_refs: ["형법 제334조"]
@@ -477,6 +525,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.occupational_embezzlement
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제356조"}]
   identity:
     name: 업무상횡령죄
     statutory_refs: ["형법 제356조"]
@@ -492,6 +543,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.occupational_breach_of_trust
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제356조"}]
   identity:
     name: 업무상배임죄
     statutory_refs: ["형법 제356조"]
@@ -510,6 +564,9 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.quasi_robbery
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제335조"}]
   identity:
     name: 준강도죄
     statutory_refs: ["형법 제335조"]
@@ -549,6 +606,9 @@
             - {op: ref, ref: legal_element.purpose_to_conceal_evidence}
 
 - id: derived_offense.arson_causing_injury
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제164조 제2항"}]
   identity:
     name: 현주건조물등방화치상죄
     statutory_refs: ["형법 제164조 제2항"]
@@ -571,6 +631,9 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.arson_causing_death
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제164조 제2항"}]
   identity:
     name: 현주건조물등방화치사죄
     statutory_refs: ["형법 제164조 제2항"]
@@ -597,6 +660,9 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.injury_causing_death
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제259조 제1항"}]
   identity:
     name: 상해치사죄
     statutory_refs: ["형법 제259조 제1항"]
@@ -624,6 +690,9 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.rape_causing_injury_by_aggravated_result
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제301조"}]
   identity:
     name: 강간치상죄
     statutory_refs: ["형법 제301조"]
@@ -662,6 +731,9 @@
     mental: {op: ref, ref: legal_element.intent}
 
 - id: derived_offense.robbery_causing_injury_by_aggravated_result
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제337조"}]
   identity:
     name: 강도치상죄
     statutory_refs: ["형법 제337조"]
@@ -692,6 +764,9 @@
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
 - id: derived_offense.robbery_causing_death_by_aggravated_result
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제338조"}]
   identity:
     name: 강도치사죄
     statutory_refs: ["형법 제338조"]

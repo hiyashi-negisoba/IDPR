@@ -1,5 +1,8 @@
 - id: offense.theft
   identity: {name: "절도죄", statutory_refs: ["형법 제329조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제329조"}]
   elements:
     object: {op: ref, ref: legal_element.possession}
     conduct: {op: ref, ref: ground_fact.taking_conduct}
@@ -7,6 +10,9 @@
 
 - id: offense.robbery
   identity: {name: "강도죄", statutory_refs: ["형법 제333조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제333조"}]
   elements:
     object: {op: ref, ref: legal_element.possession}
     conduct:
@@ -18,6 +24,9 @@
 
 - id: offense.embezzlement
   identity: {name: "횡령죄", statutory_refs: ["형법 제355조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제355조 제1항"}]
   elements:
     object: {op: ref, ref: legal_element.custody_of_anothers_property}
     circumstance: {op: ref, ref: legal_element.entrustment_relationship}
@@ -26,12 +35,18 @@
 
 - id: offense.property_damage
   identity: {name: "재물손괴죄", statutory_refs: ["형법 제366조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제366조"}]
   elements:
     object: {op: ref, ref: legal_element.object_ownership_other}
     conduct: {op: ref, ref: legal_element.utility_impairment}
 
 - id: offense.lost_property_embezzlement
   identity: {name: "점유이탈물횡령죄", statutory_refs: ["형법 제360조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제360조"}]
   elements:
     object:
       op: all
@@ -43,6 +58,9 @@
 
 - id: offense.extortion
   identity: {name: "공갈죄", statutory_refs: ["형법 제350조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제350조 제1항"}]
   elements:
     conduct: {op: ref, ref: legal_element.fear_inducement}
     circumstance:
@@ -54,6 +72,9 @@
 
 - id: offense.dereliction_of_duty
   identity: {name: "직무유기죄", statutory_refs: ["형법 제122조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제122조"}]
   elements:
     subject: {op: ref, ref: legal_element.public_official_status}
     circumstance:
@@ -66,6 +87,9 @@
 
 - id: offense.official_secret_disclosure
   identity: {name: "공무상비밀누설죄", statutory_refs: ["형법 제127조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제127조"}]
   elements:
     subject: {op: ref, ref: legal_element.current_or_former_public_official}
     object: {op: ref, ref: legal_element.job_related_secret_worthy_of_protection}
@@ -73,6 +97,9 @@
 
 - id: offense.bribery_taking
   identity: {name: "수뢰죄", statutory_refs: ["형법 제129조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제129조 제1항"}]
   participation_constraints:
     necessary_counterpart_offense_refs:
       - offense.bribe_giving
@@ -97,6 +124,9 @@
 
 - id: offense.prospective_bribery_taking
   identity: {name: "사전수뢰죄", statutory_refs: ["형법 제129조 제2항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제129조 제2항"}]
   elements:
     subject: {op: ref, ref: legal_element.prospective_official_probability}
     conduct:
@@ -109,6 +139,9 @@
 
 - id: offense.third_party_bribery
   identity: {name: "제3자뇌물제공죄", statutory_refs: ["형법 제130조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제130조"}]
   elements:
     subject: {op: ref, ref: legal_element.official_or_arbitrator_status}
     circumstance:
@@ -126,6 +159,9 @@
 
 - id: offense.bribe_giving
   identity: {name: "뇌물공여죄", statutory_refs: ["형법 제133조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제133조 제1항"}]
   participation_constraints:
     necessary_counterpart_offense_refs:
       - offense.bribery_taking
@@ -140,6 +176,9 @@
 
 - id: offense.bribe_delivery_receipt
   identity: {name: "증뢰물전달죄", statutory_refs: ["형법 제133조 제2항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제133조 제2항"}]
   participation_constraints:
     necessary_counterpart_offense_refs:
       - offense.bribery_taking
@@ -150,23 +189,35 @@
 
 - id: offense.obstruction_of_official_duty
   identity: {name: "공무집행방해죄", statutory_refs: ["형법 제136조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제136조 제1항"}]
   elements:
     subject: {op: ref, ref: legal_element.lawful_performance_of_duty}
     conduct: {op: ref, ref: legal_element.violence_or_threat_against_official}
 
 - id: offense.coercion_of_official_duty_or_resignation
   identity: {name: "직무·사직강요죄", statutory_refs: ["형법 제136조 제2항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제136조 제2항"}]
   elements:
     conduct: {op: ref, ref: legal_element.violence_or_threat_against_official}
     mental: {op: ref, ref: legal_element.purpose_of_coercing_duty_or_resignation}
 
 - id: offense.deceptive_obstruction_of_official_duty
   identity: {name: "위계공무집행방해죄", statutory_refs: ["형법 제137조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제137조"}]
   elements:
     conduct: {op: ref, ref: legal_element.deceptive_scheme_conduct}
 
 - id: offense.perjury
   identity: {name: "위증죄", statutory_refs: ["형법 제152조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제152조 제1항"}]
   participation_constraints:
     # 형법 제33조 본문. 위증죄는 법률에 의하여 선서한 증인만이 주체가 되는 진정신분범이다.
     constitutive_status_refs: [legal_element.witness_took_lawful_oath]
@@ -177,6 +228,9 @@
 
 - id: offense.arson_of_occupied_structure
   identity: {name: "현주건조물등방화죄", statutory_refs: ["형법 제164조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제164조 제1항"}]
   participation_constraints:
     attributable_slots: [result]
   elements:
@@ -186,6 +240,9 @@
 
 - id: offense.public_document_forgery
   identity: {name: "공문서위조·변조죄", statutory_refs: ["형법 제225조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제225조"}]
   elements:
     object: {op: ref, ref: legal_element.public_document_object}
     conduct:
@@ -197,6 +254,9 @@
 
 - id: offense.false_public_document_creation
   identity: {name: "허위공문서작성죄", statutory_refs: ["형법 제227조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제227조"}]
   indirect_principal_capability: {legally_possible: true}
   participation_constraints:
     # 형법 제33조 본문. 작성 권한 있는 공무원만이 주체가 되는 진정신분범이다.
@@ -213,6 +273,9 @@
 
 - id: offense.private_document_forgery
   identity: {name: "사문서위조·변조죄", statutory_refs: ["형법 제231조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제231조"}]
   indirect_principal_capability: {legally_possible: true}
   elements:
     object: {op: ref, ref: legal_element.private_document_object}
@@ -225,12 +288,18 @@
 
 - id: offense.use_of_forged_private_document
   identity: {name: "위조사문서행사죄", statutory_refs: ["형법 제234조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제234조"}]
   elements:
     object: {op: ref, ref: legal_element.private_document_object}
     conduct: {op: ref, ref: legal_element.utterance_conduct}
 
 - id: offense.seal_forgery_or_misuse
   identity: {name: "사인등의위조·부정사용죄", statutory_refs: ["형법 제239조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제239조"}]
   elements:
     object: {op: ref, ref: legal_element.seal_or_signature_object}
     conduct:
@@ -242,6 +311,9 @@
 
 - id: offense.homicide
   identity: {name: "살인죄", statutory_refs: ["형법 제250조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제250조 제1항"}]
   elements:
     object: {op: ref, ref: legal_element.natural_person_victim_status}
     conduct: {op: ref, ref: ground_fact.killing_conduct}
@@ -254,6 +326,9 @@
 
 - id: offense.ancestral_homicide
   identity: {name: "존속살해죄", statutory_refs: ["형법 제250조 제2항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제250조 제2항"}]
   participation_constraints:
     # 형법 제33조 단서. 직계비속이 비신분자를 교사하여 자기 직계존속을 살해하게 한 경우,
     # 정범은 보통살인이지만 가담자는 존속살해의 해당 mode로 성립하고 그 형으로 처벌된다.
@@ -280,6 +355,9 @@
 
 - id: offense.negligent_homicide
   identity: {name: "과실치사죄", statutory_refs: ["형법 제267조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제267조"}]
   participation_constraints:
     attributable_slots: [causation, result]
   elements:
@@ -295,6 +373,9 @@
 
 - id: offense.occupational_or_gross_negligence_injury_or_homicide
   identity: {name: "업무상과실·중과실치사상죄", statutory_refs: ["형법 제268조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제268조"}]
   participation_constraints:
     attributable_slots: [causation, result]
   elements:
@@ -319,6 +400,9 @@
 
 - id: offense.injury
   identity: {name: "상해죄", statutory_refs: ["형법 제257조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제257조 제1항"}]
   participation_constraints:
     statutory_deeming:
       requires:
@@ -339,6 +423,9 @@
 
 - id: offense.ancestral_injury
   identity: {name: "존속상해죄", statutory_refs: ["형법 제257조 제2항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제257조 제2항"}]
   elements:
     object:
       op: all
@@ -356,6 +443,9 @@
 
 - id: offense.breach_of_trust
   identity: {name: "배임죄", statutory_refs: ["형법 제355조 제2항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제355조 제2항"}]
   elements:
     subject: {op: ref, ref: legal_element.duty_of_other_affairs}
     conduct: {op: ref, ref: legal_element.breach_of_trust_conduct}
@@ -364,6 +454,9 @@
 
 - id: offense.rape
   identity: {name: "강간죄", statutory_refs: ["형법 제297조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제297조"}]
   elements:
     object: {op: ref, ref: legal_element.natural_person_victim_status}
     conduct:
@@ -381,6 +474,9 @@
 
 - id: offense.forcible_indecency
   identity: {name: "강제추행죄", statutory_refs: ["형법 제298조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제298조"}]
   indirect_principal_capability: {legally_possible: true}
   elements:
     object: {op: ref, ref: legal_element.natural_person_victim_status}
@@ -399,6 +495,9 @@
 
 - id: offense.quasi_rape
   identity: {name: "준강간죄", statutory_refs: ["형법 제299조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제299조"}]
   elements:
     object: {op: ref, ref: legal_element.mental_incapacity_or_physical_helplessness_status}
     conduct: {op: ref, ref: ground_fact.vaginal_intercourse_conduct}
@@ -407,6 +506,9 @@
 
 - id: offense.quasi_forcible_indecency
   identity: {name: "준강제추행죄", statutory_refs: ["형법 제299조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제299조"}]
   elements:
     object: {op: ref, ref: legal_element.mental_incapacity_or_physical_helplessness_status}
     conduct: {op: ref, ref: legal_element.indecent_act}
@@ -415,12 +517,18 @@
 
 - id: offense.dwelling_intrusion
   identity: {name: "주거침입죄", statutory_refs: ["형법 제319조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제319조 제1항"}]
   elements:
     object: {op: ref, ref: legal_element.dwelling_or_managed_premises_object}
     conduct: {op: ref, ref: legal_element.trespass_entry}
 
 - id: offense.refusal_to_leave
   identity: {name: "퇴거불응죄", statutory_refs: ["형법 제319조 제2항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제319조 제2항"}]
   elements:
     object: {op: ref, ref: legal_element.dwelling_or_managed_premises_object}
     circumstance:
@@ -434,6 +542,9 @@
 
 - id: offense.obstruction_of_right_exercise
   identity: {name: "권리행사방해죄", statutory_refs: ["형법 제323조"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제323조"}]
   indirect_principal_capability: {legally_possible: true}
   participation_constraints:
     attributable_slots: [conduct]
@@ -451,6 +562,9 @@
 
 - id: offense.harboring_or_escape
   identity: {name: "범인은닉·도피죄", statutory_refs: ["형법 제151조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제151조 제1항"}]
   # 이 죄의 객체는 "벌금 이상의 형에 해당하는 죄를 범한 타인"이다. 그 타인의 죄가 성립하는지는
   # 이 사건에서 죄책을 묻는 행위자와 무관하게 따로 확정되어야 하므로, 대상자의 사실적 동일성만
   # Call 1.5가 결박하고 그 사람의 책임은 별도 내부 outcome이 판단한다.

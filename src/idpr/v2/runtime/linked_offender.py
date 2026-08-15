@@ -143,7 +143,67 @@ def linked_offender_dependencies(
     return tuple(output)
 
 
+@dataclass(frozen=True, slots=True)
+class PredecessorCandidateGate:
+    """ROUTE가 낸 선행범죄 후보를, 저작된 threshold로 미리 가른 결과.
+
+    `article151_penalty_threshold`는 사건 사실이 아니라 authored static metadata다. 그러니
+    Call 2로 보내기 **전에** 물어볼 수 있고, 물어보는 것이 맞다 -- 어차피 제151조 대상이 될
+    수 없는 죄를 먼저 neural하게 평가할 이유가 없다.
+
+    세 갈래를 각각 남긴다. `non_qualifying`은 결정론적 부정이고, `unauthored`는 부정이 아니라
+    미확정이다. 둘을 합치면 "저작을 빠뜨렸다"가 "자격 없다"로 조용히 둔갑한다.
+    """
+
+    dependency: LinkedOffenderDependency
+    qualifying: tuple[str, ...]
+    non_qualifying: tuple[str, ...]
+    unauthored: tuple[str, ...]
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            **self.dependency.as_dict(),
+            "qualifying_offense_refs": list(self.qualifying),
+            "non_qualifying_offense_refs": list(self.non_qualifying),
+            "unauthored_threshold_offense_refs": list(self.unauthored),
+        }
+
+
+def gate_predecessor_candidates(
+    registry: DefinitionRegistry,
+    dependency: LinkedOffenderDependency,
+    candidate_offense_refs: Iterable[str],
+) -> PredecessorCandidateGate:
+    """저작된 threshold로 후보를 가른다. Call 2는 `qualifying`에만 쓴다."""
+    from idpr.v2.runtime.statutory import (
+        ARTICLE_151_QUALIFYING_CLASS,
+        ARTICLE_151_THRESHOLD_FIELD,
+    )
+
+    qualifying: list[str] = []
+    non_qualifying: list[str] = []
+    unauthored: list[str] = []
+    for ref in dict.fromkeys(candidate_offense_refs):
+        entry = registry.get(ref)
+        threshold = (
+            entry.payload.get(ARTICLE_151_THRESHOLD_FIELD)
+            if entry is not None and entry.kind in {"offense", "derived_offense"}
+            else None
+        )
+        if not isinstance(threshold, Mapping):
+            unauthored.append(ref)
+        elif threshold.get("class") == ARTICLE_151_QUALIFYING_CLASS:
+            qualifying.append(ref)
+        else:
+            non_qualifying.append(ref)
+    return PredecessorCandidateGate(
+        dependency, tuple(qualifying), tuple(non_qualifying), tuple(unauthored)
+    )
+
+
 __all__ = [
     "LinkedOffenderDependency",
+    "PredecessorCandidateGate",
+    "gate_predecessor_candidates",
     "linked_offender_dependencies",
 ]

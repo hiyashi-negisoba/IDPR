@@ -1,9 +1,56 @@
-# dependency ROUTE invocation — 프롬프트/스키마 검수 요청
+# dependency ROUTE invocation — 결재 완료 · 시공 기록
 
 기준: 2026-08-15 · 결재된 구조: [`PHASE_A12_DESIGN.md`](PHASE_A12_DESIGN.md) §6
-검수 범위: **이 invocation이 atomic ROUTE 계약을 실제로 지키는가**, 그것만.
 
-결정론 부분은 이미 서 있다(`4cffa56`). 남은 것은 모델에게 보내는 절반이다.
+**이 문서는 더 이상 승인 대상이 아니다.** 2026-08-15 결재 결과와 그대로 반영된 내용이다.
+
+| | 판정 | 반영 |
+|---|---|---|
+| ① dependency에서 question-facing user 프롬프트 제거 | 승인 | 신규 파일 분리 |
+| ② system 프롬프트 | **수정 후 승인** — 2번만으로 부족, 완전 basis-neutral화 | 첫머리·2번·마지막 줄 교체, Routing 예시를 question-facing user로 이동 |
+| ③ dependency user 프롬프트 | 문구 1곳 수정 후 승인 | "자신의 행위만" → "귀속될 수 있는 행위·부작위·상태·결과" |
+| ④ dependency `maxItems=3` | **반려** | 10 유지 — 코드 변경 없음 |
+| ⑤ 이후 closure 순서 | 순서 수정 후 승인 | threshold를 Call 2 **앞**으로 pre-gate |
+
+### ②에서 놓친 것 — 2번 항목만으로는 부족했다
+
+지적대로 shared system의 다른 세 곳이 아직 question-facing 전용이었다.
+
+* 첫머리 "`question_prompt`, `case_text`, `offense_catalog`만 사용한다"
+* **Routing 예시 자체**가 A/B/C를 동시에 routing하며 `offense.harboring_or_escape`까지 고르는
+  question-facing 예시였다 — dependency 호출에 노출되면 §1의 순환이 예시로 되살아난다
+* 마지막 줄이 다시 `question_prompt`를 전제
+
+예시는 삭제하지 않고 question-facing user 프롬프트로 **옮겼다.** 기존 recall 신호는 보존되고
+dependency invocation에는 아예 노출되지 않는다.
+
+### ④ 반려 이유 (기록)
+
+`maxItems=3`은 "좁은 조회"를 알려 주는 신호가 아니라, 정답 후보가 우연히 4개 이상일 때 네
+번째를 구조적으로 삭제하는 hard cap이다. 좁음은 `factual_scope_text`와 "개수를 채우지 말라"가
+이미 소유한다. **scope 위반을 seed 수로 막지 않는다.** 동일 operation이면 출력 계약도 동일하게
+`MAX_SEEDS_PER_CASE = 10`으로 둔다.
+
+### ⑤ 수정된 순서 — threshold는 neural 앞이다
+
+```text
+dependency ROUTE
+→ predecessor offense candidates
+→ article151_penalty_threshold 확인          ← 사건 사실이 아니라 authored metadata
+    ├─ fine_or_greater → outcome target 생성
+    ├─ below_fine     → 결정론적 non-qualifying
+    └─ 미저작          → UNKNOWN / fail-closed  (non_qualifying과 절대 합치지 않는다)
+→ qualifying 후보만 Call 2
+→ internal outcome fold
+→ Article151QualifyingLink → resolve_article_151_liability()
+```
+
+`gate_predecessor_candidates()`가 세 갈래를 각각 남긴다. 미저작을 "자격 없음"과 합치면 저작
+누락이 결정론적 부정으로 둔갑하므로 분리해서 기록한다.
+
+---
+
+## 아래는 검수 당시의 제안 원문 (기록용)
 
 ---
 

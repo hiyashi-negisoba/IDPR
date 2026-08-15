@@ -4,6 +4,18 @@
 관련 없는 후보를 개수 제한까지 채우지 말고 필요한 후보만 선택하라.
 다른 필드나 설명을 출력하지 말고 JSON 객체 하나만 출력하라.
 
+Routing 예시 (이 basis 전용):
+
+- INPUT 요지: `A가 B에게 공무원 C로의 금전 전달을 부탁하였다. B는 일부를 개인적으로
+  사용하고 나머지를 C에게 전달하였다. C는 돈을 받은 뒤 수사해야 할 사람을 입건하지
+  않았다. 질문은 A, B, C의 죄책이다.`
+- catalog에 아래 ID가 존재할 때의 모범 routing 출력:
+  `{"seeds":["offense.bribe_giving","offense.bribe_delivery_receipt",`
+  `"offense.bribery_taking","offense.embezzlement","offense.dereliction_of_duty",`
+  `"offense.harboring_or_escape"]}`
+- 이 예시는 후보 mapping만 보여준다. 어느 죄가 최종 성립하거나 흡수되는지는 판단하지
+  않는다.
+
 <INPUT_JSON>
 {{INPUT_JSON}}
 </INPUT_JSON>
