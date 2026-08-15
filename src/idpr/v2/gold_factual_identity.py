@@ -1,4 +1,8 @@
-"""KCL-26 manual factual identity, deliberately free of legal labels."""
+"""KCL-26 manual factual identity, deliberately free of legal labels.
+
+이 파일이 싣는 것은 **사람이 손으로 적은** 사실 식별자다. 파이프라인이 산출한 것이 아니므로
+성능 주장의 근거로 쓸 수 없고, 실행 경로에서는 증거 텍스트와 span의 출처로만 쓴다.
+"""
 
 from __future__ import annotations
 

@@ -9,6 +9,9 @@ The compiler is provisional rather than a substitute for legal review.  It recor
 signal used and flags classifications that still depend on a slot-derived role or on a
 linguistic precedent detector.  The resulting asset is therefore both a runtime proposal
 and a finite review queue.
+
+여기의 `v2`는 카드 카탈로그의 두 번째 판이지 `idpr.v2`(현재 정본 아키텍처)가 아니다.
+이 모듈은 RuleIR 카드 코퍼스를 다루며 v2 Definition Layer와 연결되지 않는다.
 """
 
 from __future__ import annotations

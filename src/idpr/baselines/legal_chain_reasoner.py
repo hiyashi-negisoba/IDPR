@@ -1,10 +1,18 @@
-"""
-legal_chain_reasoner.py
-Baseline 4: LegalChainReasoner (ACL 2026 Baseline)
-Adapter utilizing the official repository https://github.com/Statistical-NLP-Lab/LegalChainReasoner
-WITHOUT any modifications or wrapper prompts.
-COMPLIANCE NOTICE: Automatically monkey-patches huggingface_hub and openai APIs to intercept
-external calls, bypass token authentication, and redirect prompts to the local vLLM instance.
+"""LCR 방식을 본뜬 프롬프팅 baseline. 공식 구현의 재현이 아니다.
+
+이 파일은 한때 "공식 저장소를 수정 없이 실행한다"고 적혀 있었지만, `run_case`가 실제로 하는
+일은 LCR의 단계 이름(Fact Decomposer -> Rule Selector -> Element Matcher -> Synthesizer)을
+문장으로 적은 **하나의 프롬프트**를 로컬 vLLM에 보내는 것이다. 위의 sys.path 주입과 monkey
+patch는 저장소를 실행할 준비이지 실행 자체가 아니고, 저장소가 없어도 이 baseline은 그대로
+결과를 낸다.
+
+논문에서 이것을 "official LegalChainReasoner baseline"으로 부르면 비교의 성질을 잘못
+말하는 것이 된다. 우리 프롬프트로 우리 모델을 돌린 결과이므로, 주장할 수 있는 것은
+**LCR-inspired prompting baseline**까지다. 공식 구현 재현이 필요하면 그것은 별도 작업이고,
+그때 이 파일이 아니라 실제로 저장소 파이프라인을 호출하는 어댑터를 쓴다.
+
+huggingface_hub·openai monkey patch는 저장소를 오프라인 환경에서 import할 수 있게 하려고
+남겨 둔다.
 """
 
 from __future__ import annotations
@@ -48,13 +56,18 @@ from idpr.baselines.base import BaseBaseline
 from idpr.neural.vllm_client import VLLMClient
 
 class LegalChainReasonerBaseline(BaseBaseline):
-    """LegalChainReasoner Multi-Agent Sequential Baseline Adapter (100% Unmodified Original Code Execution)."""
+    """LCR의 단계 구성을 본뜬 단일 프롬프트 baseline. 공식 파이프라인을 호출하지 않는다."""
 
     def __init__(self, client: VLLMClient | None = None) -> None:
         super().__init__(
             baseline_id="legal_chain_reasoner",
-            name="LegalChainReasoner (ACL 2026)",
-            description="Runs LegalChainReasoner's canonical pipeline directly without any custom wrapping or modification."
+            # baseline_id는 기존 산출물의 조인 키라 그대로 두고, 무엇을 돌린 것인지를
+            # 말하는 이름과 설명만 사실에 맞춘다.
+            name="LCR-inspired prompting baseline",
+            description=(
+                "Sends one prompt that names LegalChainReasoner's stages to the local model. "
+                "This is not a reproduction of the official LCR implementation."
+            )
         )
         self.client = client
         self.repo_path = LEGAL_CHAIN_DIR
@@ -62,7 +75,7 @@ class LegalChainReasonerBaseline(BaseBaseline):
     def run_case(self, case_data: Dict[str, Any]) -> Dict[str, Any]:
         sub_question_id = case_data.get("sub_question_id", "UNKNOWN")
 
-        # Direct E2E execution: complete the response using vLLM on the structured prompt
+        # 단계 이름을 문장으로 적은 프롬프트 하나. 저장소 파이프라인은 호출되지 않는다.
         response_text = ""
         if self.client:
             fact_text = "\n".join(case_data.get("fact_sentences", [])) if "fact_sentences" in case_data else case_data.get("question_text", "")
@@ -85,7 +98,7 @@ class LegalChainReasonerBaseline(BaseBaseline):
             "legal_chain_repo_available": self.repo_path.exists(),
             "generated_response": response_text,
             "reasoning_trace": {
-                "method": "legal_chain_unmodified_e2e",
+                "method": "lcr_inspired_single_prompt",
                 "repo_path": str(self.repo_path),
                 "repo_available": self.repo_path.exists()
             }

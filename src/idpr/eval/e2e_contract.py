@@ -1,5 +1,10 @@
 """Deterministic Phase-3 E2E freeze contract.
 
+주의: 여기서 말하는 E2E는 **Phase-3 issue/card 파이프라인**이다. 현재 정본인 `idpr.v2`
+체인(Call 1 → 1.5 → 2 → symbolic → AnswerPlan → Call 3)과는 다른 실행이고, 이 모듈의
+freeze 게이트는 v2 산출물에 대해 아무것도 말하지 않는다. v2의 계보·해시 계약은
+`idpr.v2.runtime.plan_lineage`에 있다.
+
 This module validates persisted stage boundaries.  It does not grade legal quality and it
 does not read a rubric to construct any model request.  The two activities are deliberately
 separated: contract validity is the freeze gate; rubric review happens only after the tagged

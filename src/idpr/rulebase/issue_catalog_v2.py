@@ -11,6 +11,8 @@ section (Roman numeral) is divided only when its leaf slots have genuinely diffe
 functions such as element, stage, concurrence, or defence.  This preserves every source
 card exactly once while preventing a commentary chapter full of examples from becoming
 dozens of independent mandatory questions.
+
+여기의 `v2`는 이슈 카탈로그의 두 번째 판이지 `idpr.v2`(현재 정본 아키텍처)가 아니다.
 """
 
 from __future__ import annotations
