@@ -2,48 +2,83 @@
   "$id": "https://schemas.idpr.local/v2/DerivedOffenseDef",
   "description": "v2.1.0 sections 9.1/9.2/18 — an offense produced by QUALIFY or COMPOSE. The 'derivation' field IS the provenance path (section 18 requires the compiler preserve it rather than only keeping a flattened element set) since it references its inputs by id instead of inlining their content.",
   "type": "object",
-  "required": ["id", "derivation", "flattened_elements"],
+  "required": [
+    "id",
+    "derivation",
+    "flattened_elements"
+  ],
   "additionalProperties": false,
   "properties": {
-    "id": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+    "id": {
+      "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+    },
     "identity": {
       "type": "object",
-      "required": ["name", "statutory_refs"],
+      "required": [
+        "name",
+        "statutory_refs"
+      ],
       "additionalProperties": false,
       "properties": {
-        "name": { "type": "string", "minLength": 1 },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
         "statutory_refs": {
           "type": "array",
           "minItems": 1,
           "uniqueItems": true,
-          "items": { "type": "string", "minLength": 1 }
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
         }
       },
       "description": "Optional reviewed statutory identity for retrieval/citation. It carries no derivation or liability effect and is never inferred from base/component offenses."
     },
     "derivation": {
       "oneOf": [
-        { "$ref": "#/$defs/qualify_derivation" },
-        { "$ref": "#/$defs/compose_derivation" }
+        {
+          "$ref": "#/$defs/qualify_derivation"
+        },
+        {
+          "$ref": "#/$defs/compose_derivation"
+        }
       ]
     },
     "flattened_elements": {
       "type": "object",
       "additionalProperties": false,
       "properties": {
-        "subject": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "object": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "conduct": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "circumstance": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "result": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "causation": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" },
-        "mental": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression" }
+        "subject": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "object": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "conduct": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "circumstance": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "result": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "causation": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        },
+        "mental": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/element_expression"
+        }
       },
       "description": "Same shape as OffenseDef.elements — the materialized slot set after applying the qualifier/compose derivation. This is a cache of the derivation's effect, not a second source of truth; the compiler (step 4) must regenerate it from 'derivation', never hand-author it independently. The Type checker (step 2) verifies this by full semantic-equality replay of 'derivation', not by hand-authoring rules here."
     },
     "indirect_principal_capability": {
       "type": "object",
-      "required": ["legally_possible"],
+      "required": [
+        "legally_possible"
+      ],
       "additionalProperties": false,
       "properties": {
         "legally_possible": {
@@ -55,11 +90,21 @@
     },
     "candidate_materialization": {
       "type": "object",
-      "required": ["episode_constraint"],
+      "required": [
+        "episode_constraint"
+      ],
       "additionalProperties": false,
       "anyOf": [
-        { "required": ["binding_sets"] },
-        { "required": ["distinct_actor_binding_sets"] }
+        {
+          "required": [
+            "binding_sets"
+          ]
+        },
+        {
+          "required": [
+            "distinct_actor_binding_sets"
+          ]
+        }
       ],
       "properties": {
         "episode_constraint": {
@@ -74,7 +119,9 @@
             "type": "array",
             "minItems": 2,
             "uniqueItems": true,
-            "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" }
+            "items": {
+              "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+            }
           },
           "description": "OR-of-AND typed binding requirements. A base binding alone is structurally forbidden. This metadata only opens a Call 2 candidate and never establishes its predicates."
         },
@@ -86,53 +133,133 @@
             "type": "array",
             "minItems": 1,
             "uniqueItems": true,
-            "items": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" }
+            "items": {
+              "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+            }
           },
           "description": "OR-of-AND requirements that each named binding ref exists for the candidate actor and for at least one distinct actor in the same factual episode. The two physical bindings satisfy the no-base-only rule."
         }
       }
+    },
+    "linked_offender_dependency": {
+      "type": "object",
+      "required": [
+        "role",
+        "resolved_element"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "enum": [
+            "article151_offender"
+          ],
+          "description": "Which linked-offender role this offense presupposes. Authored here rather than inferred at Call 1.5, because whether an offense presupposes another person's crime is a legal property of the offense, not a fact about the case."
+        },
+        "resolved_element": {
+          "type": "string",
+          "description": "The legal element whose truth this linked offender's own liability resolves. The runtime overrides that element from the linked outcome and never asks a model for it."
+        }
+      },
+      "description": "Static authoring opt-in: this offense's object is another person whose own crime must be established separately. It marks which seeds may bind a `linked_offender` factual identity and which element the linked result resolves. It is not a case fact and never asserts that such a person exists."
+    },
+    "article151_penalty_threshold": {
+      "type": "object",
+      "required": [
+        "class"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "enum": [
+            "fine_or_greater",
+            "below_fine"
+          ],
+          "description": "Whether this offense's statutory penalty reaches Article 151(1)'s '벌금 이상의 형에 해당하는 죄' threshold."
+        },
+        "authority_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref"
+          },
+          "minItems": 1
+        }
+      },
+      "description": "Authored Article 151 threshold classification for this offense. Deliberately Article-151-specific rather than general sentencing metadata: nothing else in the layer consumes a penalty class today. Absence is UNKNOWN, never an implied pass -- the host must not assume that every offense reaches the threshold."
     }
   },
   "$defs": {
     "qualify_derivation": {
       "type": "object",
-      "required": ["kind", "base", "qualifier"],
+      "required": [
+        "kind",
+        "base",
+        "qualifier"
+      ],
       "additionalProperties": false,
       "properties": {
-        "kind": { "const": "qualify" },
-        "base": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "OffenseDef id — strictly OffenseDef, never DerivedOffenseDef, per section 9.1's typed signature QUALIFY: OffenseDef x QualifierDef -> DerivedOffenseDef. Enforced by the Type checker (step 2), not structurally checkable here (both share the same id shape)." },
-        "qualifier": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "QualifierDef id." }
+        "kind": {
+          "const": "qualify"
+        },
+        "base": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+          "description": "OffenseDef id — strictly OffenseDef, never DerivedOffenseDef, per section 9.1's typed signature QUALIFY: OffenseDef x QualifierDef -> DerivedOffenseDef. Enforced by the Type checker (step 2), not structurally checkable here (both share the same id shape)."
+        },
+        "qualifier": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+          "description": "QualifierDef id."
+        }
       }
     },
     "compose_derivation": {
       "type": "object",
-      "required": ["kind", "components", "relations"],
+      "required": [
+        "kind",
+        "components",
+        "relations"
+      ],
       "additionalProperties": false,
       "properties": {
-        "kind": { "const": "compose" },
+        "kind": {
+          "const": "compose"
+        },
         "components": {
           "type": "array",
           "minItems": 2,
-          "items": { "$ref": "#/$defs/component_ref" }
+          "items": {
+            "$ref": "#/$defs/component_ref"
+          }
         },
         "relations": {
           "type": "array",
           "minItems": 1,
-          "items": { "$ref": "#/$defs/relation_binding" },
+          "items": {
+            "$ref": "#/$defs/relation_binding"
+          },
           "description": "Section 9.2: COMPOSE is not naive Boolean conjunction — this is what distinguishes it from AND. 2026-08-08 review: each entry now explicitly binds a RelationDef to the two components it connects (not just a bare list of relation ids), since nothing else records which two components a relation relates."
         }
       }
     },
     "component_ref": {
       "type": "object",
-      "required": ["kind", "ref", "local_key"],
+      "required": [
+        "kind",
+        "ref",
+        "local_key"
+      ],
       "additionalProperties": false,
       "properties": {
         "kind": {
-          "enum": ["primitive", "bundle", "exported_component", "offense"],
+          "enum": [
+            "primitive",
+            "bundle",
+            "exported_component",
+            "offense"
+          ],
           "description": "Which ComponentDef union member (section 9.2) this points to."
         },
-        "ref": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id" },
+        "ref": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/id"
+        },
         "local_key": {
           "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key",
           "description": "Composition-local name for this component occurrence, scoped to this derivation's components array (must be unique within it — a Type checker obligation, see $defs/local_key). relation_binding.left/right address components by this, not by 'ref', so 'which object' and 'which operand of this relation' stay decoupled."
@@ -148,27 +275,96 @@
       },
       "allOf": [
         {
-          "if": { "properties": { "kind": { "const": "offense" } } },
-          "then": { "not": { "anyOf": [ { "required": ["slot"] }, { "required": ["placement"] } ] } }
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "offense"
+              }
+            }
+          },
+          "then": {
+            "not": {
+              "anyOf": [
+                {
+                  "required": [
+                    "slot"
+                  ]
+                },
+                {
+                  "required": [
+                    "placement"
+                  ]
+                }
+              ]
+            }
+          }
         },
         {
-          "if": { "properties": { "kind": { "enum": ["primitive", "exported_component"] } } },
-          "then": { "required": ["slot"], "not": { "required": ["placement"] } }
+          "if": {
+            "properties": {
+              "kind": {
+                "enum": [
+                  "primitive",
+                  "exported_component"
+                ]
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "slot"
+            ],
+            "not": {
+              "required": [
+                "placement"
+              ]
+            }
+          }
         },
         {
-          "if": { "properties": { "kind": { "const": "bundle" } } },
-          "then": { "required": ["placement"], "not": { "required": ["slot"] } }
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "bundle"
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "placement"
+            ],
+            "not": {
+              "required": [
+                "slot"
+              ]
+            }
+          }
         }
       ]
     },
     "relation_binding": {
       "type": "object",
-      "required": ["relation", "left", "right", "left_view", "right_view"],
+      "required": [
+        "relation",
+        "left",
+        "right",
+        "left_view",
+        "right_view"
+      ],
       "additionalProperties": false,
       "properties": {
-        "relation": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/id", "description": "RelationDef id — still a global reference, unaffected by the local_key change below." },
-        "left": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key", "description": "Must equal one of this same derivation's components[].local_key. A Type checker obligation — JSON Schema can't cross-reference sibling array items." },
-        "right": { "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key", "description": "Must equal a DIFFERENT one of this same derivation's components[].local_key (left != right, also a Type checker obligation)." },
+        "relation": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/id",
+          "description": "RelationDef id — still a global reference, unaffected by the local_key change below."
+        },
+        "left": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key",
+          "description": "Must equal one of this same derivation's components[].local_key. A Type checker obligation — JSON Schema can't cross-reference sibling array items."
+        },
+        "right": {
+          "$ref": "https://schemas.idpr.local/v2/common#/$defs/local_key",
+          "description": "Must equal a DIFFERENT one of this same derivation's components[].local_key (left != right, also a Type checker obligation)."
+        },
         "left_view": {
           "type": "string",
           "minLength": 1,

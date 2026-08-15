@@ -19,6 +19,8 @@ from idpr.prompts import load_prompt, prompt_path
 from idpr.v2.issue_binding import (
     IssueBindingContractError,
     binding_seed_cues,
+    issue_binding_schema,
+    linked_offender_seed_refs,
     load_binding_seed_cue_catalog,
     normalize_issue_binding_output,
     question_actor_ids,
@@ -41,43 +43,14 @@ def _sha256(path: Path) -> str:
 
 
 def _schema() -> dict[str, Any]:
-    quotes = {
-        "type": "array",
-        "uniqueItems": True,
-        "items": {"type": "string", "minLength": 1},
-    }
-    return {
-        "type": "object",
-        "additionalProperties": False,
-        "required": ["bindings"],
-        "properties": {
-            "bindings": {
-                "type": "array",
-                "maxItems": 8,
-                "uniqueItems": True,
-                "items": {
-                    "type": "object",
-                    "additionalProperties": False,
-                    "required": [
-                        "actor_id",
-                        "actor_action_quotes",
-                        "context_quotes",
-                        "factual_targets",
-                    ],
-                    "properties": {
-                        "actor_id": {"type": "string", "minLength": 1},
-                        "actor_action_quotes": {**quotes, "minItems": 1},
-                        "context_quotes": quotes,
-                        "factual_targets": {
-                            "type": "array",
-                            "uniqueItems": True,
-                            "items": {"type": "string", "minLength": 1},
-                        },
-                    },
-                },
-            }
-        },
-    }
+    """The main Call 1.5 contract, narrowed to one seed.
+
+    Recovery used to have its own quote-shaped binding format.  That format predates the
+    action-atomic contract and no longer validates, and keeping any second shape would mean a
+    binding produced here could carry fewer typed facts than the same binding produced by the main
+    pass.  There is only one wire contract now.
+    """
+    return issue_binding_schema(seed_count=1)
 
 
 def _validate(
@@ -87,28 +60,10 @@ def _validate(
     case_text: str,
     factual_scope_text: str,
     actor_ids: tuple[str, ...],
+    linked_offender_seeds: tuple[str, ...],
 ) -> tuple[dict[str, Any], tuple[dict[str, Any], ...]]:
-    episodes = []
-    bindings = []
-    for index, binding in enumerate(raw.get("bindings", [])):
-        quotes = list(
-            dict.fromkeys(
-                [*binding["actor_action_quotes"], *binding["context_quotes"]]
-            )
-        )
-        participants = list(
-            dict.fromkeys([binding["actor_id"], *binding["factual_targets"]])
-        )
-        episodes.append(
-            {"episode_index": index, "source_quotes": quotes, "participants": participants}
-        )
-        bindings.append({"episode_index": index, **binding})
-    payload = {
-        "factual_episodes": episodes,
-        "seed_results": [{"seed_index": 0, "bindings": bindings}],
-    }
     normalized, changes = normalize_issue_binding_output(
-        payload,
+        raw,
         case_text=case_text,
         factual_scope_text=factual_scope_text,
     )
@@ -118,6 +73,7 @@ def _validate(
         case_text=case_text,
         factual_scope_text=factual_scope_text,
         candidate_actor_ids=actor_ids,
+        linked_offender_seed_refs=linked_offender_seeds,
     )
     return result.as_dict(), changes
 
@@ -231,6 +187,7 @@ def main() -> None:
                 case_text=case_text,
                 factual_scope_text=scope,
                 actor_ids=actor_ids,
+                linked_offender_seeds=linked_offender_seed_refs(registry, (offense_ref,)),
             )
             binding_count = sum(
                 len(result["bindings"]) for result in validated["seed_results"]

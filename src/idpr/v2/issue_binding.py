@@ -30,15 +30,25 @@ class BindingSeedCue:
     display_name: str
     statutory_refs: tuple[str, ...]
     minimal_conduct_description: str
+    linked_offender_role: str | None = None
+    """Which seeds may bind a `linked_offender`, read from the offense definition.
+
+    Whether an offense presupposes another person's crime is a legal property of the offense, so
+    the host answers it from the authored definition and tells Call 1.5.  Asking the model to
+    decide it would put a legal classification back inside the factual binding step.
+    """
 
     def as_dict(self) -> dict[str, Any]:
-        return {
+        payload = {
             "seed_index": self.seed_index,
             "offense_ref": self.offense_ref,
             "display_name": self.display_name,
             "statutory_refs": list(self.statutory_refs),
             "minimal_conduct_description": self.minimal_conduct_description,
         }
+        if self.linked_offender_role is not None:
+            payload["requires_linked_offender"] = self.linked_offender_role
+        return payload
 
 
 @dataclass(frozen=True)
@@ -123,6 +133,26 @@ class IssueBinding:
     supporting_action_ids: tuple[str, ...]
     factual_targets: tuple[str, ...]
 
+    directed_action_target: str | None = None
+    """The person the source text explicitly says the conduct was aimed at.
+
+    Deliberately narrower than `factual_targets`, which carries counterparts, recipients and any
+    directly involved participant.  This is one person or nothing, and only when the source itself
+    names the direction ("乙인 줄 알고", "…를 겨누어").  Together with `actual_result_bearer` it is
+    the only factual basis for `relation.intended_object_divergence`; neither field asserts that a
+    mistake occurred.
+    """
+
+    actual_result_bearer: str | None = None
+    """The person the source text says actually bore the result of that conduct."""
+
+    linked_offender: str | None = None
+    """The other person whose own crime this offense presupposes (Article 151's object).
+
+    Only bindable on a seed the host marked, from the offense's authored linked-offender
+    dependency.  It names a person, never that person's liability.
+    """
+
     def as_dict(self) -> dict[str, Any]:
         return {
             "binding_id": self.binding_id,
@@ -133,6 +163,9 @@ class IssueBinding:
             "focal_action_id": self.focal_action_id,
             "supporting_action_ids": list(self.supporting_action_ids),
             "factual_targets": list(self.factual_targets),
+            "directed_action_target": self.directed_action_target,
+            "actual_result_bearer": self.actual_result_bearer,
+            "linked_offender": self.linked_offender,
         }
 
 
@@ -205,6 +238,31 @@ def _identity(registry: DefinitionRegistry, ref: str) -> tuple[str, tuple[str, .
     return ref, tuple(dict.fromkeys(statutes))
 
 
+def linked_offender_role(registry: DefinitionRegistry, offense_ref: str) -> str | None:
+    """The authored linked-offender role for a seed, or None.
+
+    Read from the definition so no code names an offense id.  Both offense kinds are consulted:
+    a presupposing offense could later be authored as a derived offense.
+    """
+    entry = registry.get(offense_ref)
+    if entry is None or entry.kind not in {"offense", "derived_offense"}:
+        return None
+    dependency = entry.payload.get("linked_offender_dependency")
+    if not isinstance(dependency, Mapping):
+        return None
+    role = dependency.get("role")
+    return role if isinstance(role, str) else None
+
+
+def linked_offender_seed_refs(
+    registry: DefinitionRegistry, seeds: Iterable[str]
+) -> tuple[str, ...]:
+    """The subset of seeds the host will accept a `linked_offender` on."""
+    return tuple(
+        dict.fromkeys(ref for ref in seeds if linked_offender_role(registry, ref) is not None)
+    )
+
+
 def load_binding_seed_cue_catalog(path: Path) -> dict[str, tuple[str, str]]:
     raw = yaml.safe_load(path.read_text(encoding="utf-8"))
     if not isinstance(raw, Mapping) or not raw:
@@ -242,6 +300,7 @@ def binding_seed_cues(
                 name,
                 statutes,
                 description,
+                linked_offender_role(registry, ref),
             )
         )
     return tuple(output)
@@ -291,6 +350,7 @@ def issue_binding_schema(*, seed_count: int) -> dict[str, Any]:
         "uniqueItems": True,
         "items": {"type": "string", "minLength": 1},
     }
+    _nullable_participant = {"type": ["string", "null"], "minLength": 1}
     return {
         "type": "object",
         "additionalProperties": False,
@@ -377,6 +437,12 @@ def issue_binding_schema(*, seed_count: int) -> dict[str, Any]:
                                     "focal_action_index",
                                     "supporting_action_indexes",
                                     "factual_targets",
+                                    # Required but nullable: an absent identity must be stated,
+                                    # never left out, or a silent omission and a considered "the
+                                    # source does not say" become the same wire value.
+                                    "directed_action_target",
+                                    "actual_result_bearer",
+                                    "linked_offender",
                                 ],
                                 "properties": {
                                     "episode_index": {"type": "integer", "minimum": 0},
@@ -395,6 +461,9 @@ def issue_binding_schema(*, seed_count: int) -> dict[str, Any]:
                                         "uniqueItems": True,
                                         "items": {"type": "string", "minLength": 1},
                                     },
+                                    "directed_action_target": _nullable_participant,
+                                    "actual_result_bearer": _nullable_participant,
+                                    "linked_offender": _nullable_participant,
                                 },
                             },
                         },
@@ -636,6 +705,7 @@ def _validate_action_atomic_issue_binding_output(
     case_text: str,
     factual_scope_text: str | None = None,
     candidate_actor_ids: Iterable[str] | None = None,
+    linked_offender_seed_refs: Iterable[str] = (),
 ) -> IssueBindingResult:
     """Validate the v2 action-atomic Call 1.5 contract.
 
@@ -646,6 +716,7 @@ def _validate_action_atomic_issue_binding_output(
     """
     seed_values = tuple(seeds)
     actor_scope = frozenset(candidate_actor_ids or ())
+    linked_offender_seeds = frozenset(linked_offender_seed_refs)
     errors: list[str] = []
     if set(payload) != {"factual_episodes", "seed_results"}:
         errors.append("output must contain exactly factual_episodes and seed_results")
@@ -823,6 +894,9 @@ def _validate_action_atomic_issue_binding_output(
         "focal_action_index",
         "supporting_action_indexes",
         "factual_targets",
+        "directed_action_target",
+        "actual_result_bearer",
+        "linked_offender",
     }
     seen: set[tuple[int, int, str, int, tuple[int, ...]]] = set()
     seed_results: list[SeedBindingResult] = []
@@ -908,6 +982,35 @@ def _validate_action_atomic_issue_binding_output(
             ):
                 errors.append(f"{where}.factual_targets must be episode participants")
                 continue
+            # The narrow identities are scoped to the evidence this binding actually carries, not
+            # to the episode.  An episode is broad narrative context, so an episode-wide check
+            # would let a person from an unrelated part of the story be named as the target this
+            # very action was aimed at.
+            identity_errors: list[str] = []
+            narrow_identities: dict[str, str | None] = {}
+            for field in ("directed_action_target", "actual_result_bearer", "linked_offender"):
+                value = raw_binding.get(field)
+                if value is None:
+                    narrow_identities[field] = None
+                    continue
+                if not isinstance(value, str) or value not in carried_participants:
+                    identity_errors.append(
+                        f"{where}.{field} must be a participant of its focal or supporting "
+                        "factual actions, or null"
+                    )
+                    continue
+                narrow_identities[field] = value
+            if (
+                narrow_identities.get("linked_offender") is not None
+                and seed_values[seed_index] not in linked_offender_seeds
+            ):
+                identity_errors.append(
+                    f"{where}.linked_offender is set on a seed the host did not mark as "
+                    "presupposing another person's offense"
+                )
+            if identity_errors:
+                errors.extend(identity_errors)
+                continue
             identity = (seed_index, episode_index, actor_id, focal_index, tuple(supports))
             if identity in seen:
                 errors.append(f"{where} duplicates an earlier binding")
@@ -924,6 +1027,9 @@ def _validate_action_atomic_issue_binding_output(
                     focal_action.factual_action_id,
                     tuple(actions[value].factual_action_id for value in supports),
                     tuple(targets),
+                    narrow_identities["directed_action_target"],
+                    narrow_identities["actual_result_bearer"],
+                    narrow_identities["linked_offender"],
                 )
             )
         seed_results.append(
@@ -941,6 +1047,7 @@ def validate_issue_binding_output(
     case_text: str,
     factual_scope_text: str | None = None,
     candidate_actor_ids: Iterable[str] | None = None,
+    linked_offender_seed_refs: Iterable[str] = (),
 ) -> IssueBindingResult:
     return _validate_action_atomic_issue_binding_output(
         payload,
@@ -948,6 +1055,7 @@ def validate_issue_binding_output(
         case_text=case_text,
         factual_scope_text=factual_scope_text,
         candidate_actor_ids=candidate_actor_ids,
+        linked_offender_seed_refs=linked_offender_seed_refs,
     )
 
 
@@ -957,6 +1065,7 @@ def _parse_action_atomic_issue_binding_result(
     seeds: Iterable[str],
     case_text: str,
     candidate_actor_ids: Iterable[str] | None = None,
+    linked_offender_seed_refs: Iterable[str] = (),
 ) -> IssueBindingResult:
     if set(payload) != {"factual_episodes", "seed_results"}:
         raise IssueBindingContractError(["persisted result has unexpected fields"])
@@ -1067,6 +1176,9 @@ def _parse_action_atomic_issue_binding_result(
                     "focal_action_index": focal[1],
                     "supporting_action_indexes": support_indexes,
                     "factual_targets": binding.get("factual_targets"),
+                    "directed_action_target": binding.get("directed_action_target"),
+                    "actual_result_bearer": binding.get("actual_result_bearer"),
+                    "linked_offender": binding.get("linked_offender"),
                 }
             )
         raw_results.append({"seed_index": seed_index, "bindings": bindings})
@@ -1077,6 +1189,7 @@ def _parse_action_atomic_issue_binding_result(
         seeds=seed_values,
         case_text=case_text,
         candidate_actor_ids=candidate_actor_ids,
+        linked_offender_seed_refs=linked_offender_seed_refs,
     )
 
 
@@ -1086,6 +1199,7 @@ def parse_issue_binding_result(
     seeds: Iterable[str],
     case_text: str,
     candidate_actor_ids: Iterable[str] | None = None,
+    linked_offender_seed_refs: Iterable[str] = (),
 ) -> IssueBindingResult:
     """Revalidate a host-enriched persisted Call 1.5 artifact."""
     return _parse_action_atomic_issue_binding_result(
@@ -1093,6 +1207,7 @@ def parse_issue_binding_result(
         seeds=seeds,
         case_text=case_text,
         candidate_actor_ids=candidate_actor_ids,
+        linked_offender_seed_refs=linked_offender_seed_refs,
     )
 
 
@@ -1108,6 +1223,8 @@ __all__ = [
     "SeedBindingResult",
     "binding_seed_cues",
     "issue_binding_request_payload",
+    "linked_offender_role",
+    "linked_offender_seed_refs",
     "issue_binding_schema",
     "load_binding_seed_cue_catalog",
     "normalize_issue_binding_output",

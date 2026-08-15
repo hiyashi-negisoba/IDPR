@@ -451,6 +451,12 @@
 
 - id: offense.harboring_or_escape
   identity: {name: "범인은닉·도피죄", statutory_refs: ["형법 제151조 제1항"]}
+  # 이 죄의 객체는 "벌금 이상의 형에 해당하는 죄를 범한 타인"이다. 그 타인의 죄가 성립하는지는
+  # 이 사건에서 죄책을 묻는 행위자와 무관하게 따로 확정되어야 하므로, 대상자의 사실적 동일성만
+  # Call 1.5가 결박하고 그 사람의 책임은 별도 내부 outcome이 판단한다.
+  linked_offender_dependency:
+    role: article151_offender
+    resolved_element: legal_element.offender_status_of_object
   elements:
     object: {op: ref, ref: legal_element.offender_status_of_object}
     circumstance:

@@ -197,6 +197,51 @@
           }
         }
       }
+    },
+    "linked_offender_dependency": {
+      "type": "object",
+      "required": [
+        "role",
+        "resolved_element"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "role": {
+          "enum": [
+            "article151_offender"
+          ],
+          "description": "Which linked-offender role this offense presupposes. Authored here rather than inferred at Call 1.5, because whether an offense presupposes another person's crime is a legal property of the offense, not a fact about the case."
+        },
+        "resolved_element": {
+          "type": "string",
+          "description": "The legal element whose truth this linked offender's own liability resolves. The runtime overrides that element from the linked outcome and never asks a model for it."
+        }
+      },
+      "description": "Static authoring opt-in: this offense's object is another person whose own crime must be established separately. It marks which seeds may bind a `linked_offender` factual identity and which element the linked result resolves. It is not a case fact and never asserts that such a person exists."
+    },
+    "article151_penalty_threshold": {
+      "type": "object",
+      "required": [
+        "class"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "class": {
+          "enum": [
+            "fine_or_greater",
+            "below_fine"
+          ],
+          "description": "Whether this offense's statutory penalty reaches Article 151(1)'s '벌금 이상의 형에 해당하는 죄' threshold."
+        },
+        "authority_refs": {
+          "type": "array",
+          "items": {
+            "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref"
+          },
+          "minItems": 1
+        }
+      },
+      "description": "Authored Article 151 threshold classification for this offense. Deliberately Article-151-specific rather than general sentencing metadata: nothing else in the layer consumes a penalty class today. Absence is UNKNOWN, never an implied pass -- the host must not assume that every offense reaches the threshold."
     }
   }
 }

@@ -32,6 +32,20 @@ action은 법적 행위자가 아니라 원문상의 시간 단위다. 한 문�
 - `supporting_action_indexes`: focal action을 이해하는 데 직접 필요한 같은 episode의
   action들만, 시간상 별개의 후속 범행이나 결과를 억지로 넣지 않는다. 없으면 빈 배열이다.
 - `factual_targets`: focal action이 명시적으로 향하거나 직접 관련되는 다른 factual participant.
+- `directed_action_target`: 이 binding의 focal/supporting action에 포함된 사람 중,
+  원문이 "그 사람인 줄 알고", "…를 겨누어"처럼 행위자가 그 행위 또는 결과를 향하게 한
+  대상을 명시적으로 서술한 경우 그 사람 하나. 원문에 명시되지 않으면 null이다.
+  동기·관계·정황에서 누구를 겨냥했을지 추측하지 않는다.
+- `actual_result_bearer`: 이 binding의 focal/supporting action에 포함된 사람 중,
+  원문이 해당 행위의 결과를 실제로 입은 사람을 명시한 경우 그 사람 하나.
+  결과 또는 결과의 귀속 대상이 명시되지 않으면 null이다.
+- `linked_offender`: host가 그 seed에 `requires_linked_offender`를 표시한 경우에만,
+  이 binding의 focal/supporting action에서 원문이 은닉·도피 등의 대상으로 명시한 사람 하나.
+  표시가 없거나 대상이 명시되지 않으면 null이다.
+
+이 세 필드는 대상 동일성의 법적 효과, 객체의 착오 여부, `linked_offender`의 범죄 성립,
+공범형태 또는 죄책을 판단하지 않는다. 원문이 명시한 사람 표지만 전사하고, 명시되지 않은
+경우 반드시 null이다.
 
 같은 action을 여러 seed가 참조할 수 있다. episode 공유만으로 action을 합치거나, 같은 actor의
 episode 전체를 support로 넣지 않는다. binding ID, action ID, character offset, legal role,

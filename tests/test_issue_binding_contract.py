@@ -45,6 +45,9 @@ def test_call15_contract_separates_actions_from_seed_bindings_without_legal_edge
         "focal_action_index",
         "supporting_action_indexes",
         "factual_targets",
+        "directed_action_target",
+        "actual_result_bearer",
+        "linked_offender",
     }
     assert not {
         "dependency",
@@ -88,6 +91,9 @@ def test_full_case_quote_validation_materializes_action_references_not_evidence_
                         "focal_action_index": 0,
                         "supporting_action_indexes": [],
                         "factual_targets": ["丙"],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -139,6 +145,9 @@ def test_call15_rejects_synthetic_action_quote() -> None:
                         "focal_action_index": 0,
                         "supporting_action_indexes": [],
                         "factual_targets": [],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -183,6 +192,9 @@ def test_call15_rejects_overlapping_actions_that_reuse_a_broad_episode_quote() -
                         "focal_action_index": 1,
                         "supporting_action_indexes": [],
                         "factual_targets": [],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -253,6 +265,9 @@ def test_call15_rejects_action_quote_from_another_numbered_fact_scope() -> None:
                         "focal_action_index": 0,
                         "supporting_action_indexes": [],
                         "factual_targets": ["B"],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -297,6 +312,9 @@ def test_call15_rejects_actor_outside_question_responsibility_scope() -> None:
                         "focal_action_index": 0,
                         "supporting_action_indexes": [],
                         "factual_targets": [],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -345,6 +363,9 @@ def test_host_normalizes_only_unique_action_copy_error_and_episode_scope() -> No
                         "focal_action_index": 0,
                         "supporting_action_indexes": [1],
                         "factual_targets": ["A"],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -394,6 +415,9 @@ def test_host_does_not_invent_or_split_a_mixed_action_boundary() -> None:
                         "focal_action_index": 0,
                         "supporting_action_indexes": [],
                         "factual_targets": ["丙"],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -436,6 +460,9 @@ def test_host_replaces_invalid_episode_copy_with_its_exact_action_quotes() -> No
                         "focal_action_index": 0,
                         "supporting_action_indexes": [],
                         "factual_targets": ["A"],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -494,6 +521,9 @@ def test_accessory_binds_to_the_principal_execution_action_it_supported() -> Non
                         "focal_action_index": 1,
                         "supporting_action_indexes": [0],
                         "factual_targets": [],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -543,6 +573,9 @@ def test_actor_absent_from_every_carried_action_is_still_rejected() -> None:
                         "focal_action_index": 1,
                         "supporting_action_indexes": [],
                         "factual_targets": [],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -594,6 +627,9 @@ def test_incidental_source_actor_is_registered_instead_of_failing_the_case() -> 
                         "focal_action_index": 0,
                         "supporting_action_indexes": [1],
                         "factual_targets": ["A"],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
                     }
                 ],
             },
@@ -610,3 +646,125 @@ def test_incidental_source_actor_is_registered_instead_of_failing_the_case() -> 
         for change in changes
     )
     assert result.seed_results[0].bindings[0].actor_id == "甲"
+
+
+_MISTAKE_CASE_TEXT = (
+    "甲은 어두운 골목에서 乙인 줄 알고 C의 머리를 각목으로 내리쳤다. "
+    "C는 전치 4주의 상해를 입었다."
+)
+
+
+def _mistake_payload(**binding: object) -> dict[str, object]:
+    return {
+        "factual_episodes": [
+            {
+                "episode_index": 0,
+                "source_quotes": [_MISTAKE_CASE_TEXT],
+                "participants": ["甲", "乙", "C"],
+                "actions": [
+                    {
+                        "action_index": 0,
+                        "source_actor_id": "甲",
+                        "participant_ids": ["甲", "乙", "C"],
+                        "action_quotes": [
+                            "甲은 어두운 골목에서 乙인 줄 알고 C의 머리를 각목으로 내리쳤다."
+                        ],
+                    },
+                ],
+            }
+        ],
+        "seed_results": [
+            {
+                "seed_index": 0,
+                "bindings": [
+                    {
+                        "episode_index": 0,
+                        "actor_id": "甲",
+                        "focal_action_index": 0,
+                        "supporting_action_indexes": [],
+                        "factual_targets": ["C"],
+                        "directed_action_target": None,
+                        "actual_result_bearer": None,
+                        "linked_offender": None,
+                        **binding,
+                    }
+                ],
+            },
+            {"seed_index": 1, "bindings": []},
+        ],
+    }
+
+
+def test_directed_target_and_result_bearer_are_bound_as_separate_identities() -> None:
+    """객체착오는 두 대상이 각각 사실로 결박되어야 표현된다.
+
+    `factual_targets`는 상대방·수령자까지 담는 넓은 집합이라 "겨냥한 대상"을 여기서 읽으면
+    host가 원문에 없는 의미를 만들게 된다. 그래서 좁은 필드를 따로 둔다.
+    """
+    result = validate_issue_binding_output(
+        _mistake_payload(directed_action_target="乙", actual_result_bearer="C"),
+        seeds=SEEDS,
+        case_text=_MISTAKE_CASE_TEXT,
+    )
+    binding = result.bindings[0]
+
+    assert binding.directed_action_target == "乙"
+    assert binding.actual_result_bearer == "C"
+    assert binding.factual_targets == ("C",)
+    assert binding.linked_offender is None
+
+
+def test_narrow_identities_are_scoped_to_the_evidence_the_binding_carries() -> None:
+    """episode participant가 아니라 focal/supporting action의 participant여야 한다.
+
+    episode는 의도적으로 넓은 서사 맥락이다. episode 범위로 검사하면 이 행위와 무관한
+    사람이 "이 행위가 겨냥한 대상"으로 들어올 수 있다.
+    """
+    # 乙은 episode participant지만 이 focal action이 carry하는 사람은 아니다.
+    payload = _mistake_payload(directed_action_target="乙")
+    payload["factual_episodes"][0]["actions"][0]["participant_ids"] = ["甲", "C"]
+
+    with pytest.raises(IssueBindingContractError, match="directed_action_target"):
+        validate_issue_binding_output(
+            payload, seeds=SEEDS, case_text=_MISTAKE_CASE_TEXT
+        )
+
+
+def test_linked_offender_is_refused_on_a_seed_the_host_did_not_mark() -> None:
+    """어떤 죄가 타인의 범죄를 전제로 하는지는 저작된 법적 성질이지 모델의 판단이 아니다."""
+    with pytest.raises(IssueBindingContractError, match="linked_offender"):
+        validate_issue_binding_output(
+            _mistake_payload(linked_offender="乙"),
+            seeds=SEEDS,
+            case_text=_MISTAKE_CASE_TEXT,
+            linked_offender_seed_refs=(),
+        )
+
+
+def test_linked_offender_is_accepted_on_the_authored_dependency_seed() -> None:
+    from idpr.v2.issue_binding import linked_offender_role, linked_offender_seed_refs
+
+    seeds = ("offense.harboring_or_escape", "offense.embezzlement")
+    assert linked_offender_role(REGISTRY, "offense.harboring_or_escape") == "article151_offender"
+    assert linked_offender_role(REGISTRY, "offense.embezzlement") is None
+    assert linked_offender_seed_refs(REGISTRY, seeds) == ("offense.harboring_or_escape",)
+
+    result = validate_issue_binding_output(
+        _mistake_payload(linked_offender="乙"),
+        seeds=seeds,
+        case_text=_MISTAKE_CASE_TEXT,
+        linked_offender_seed_refs=linked_offender_seed_refs(REGISTRY, seeds),
+    )
+
+    assert result.bindings[0].linked_offender == "乙"
+
+
+def test_seed_cue_tells_the_model_which_seed_may_bind_a_linked_offender() -> None:
+    cues = binding_seed_cues(
+        REGISTRY,
+        ("offense.harboring_or_escape", "offense.embezzlement"),
+        cue_catalog=CUE_CATALOG,
+    )
+
+    assert cues[0].as_dict()["requires_linked_offender"] == "article151_offender"
+    assert "requires_linked_offender" not in cues[1].as_dict()
