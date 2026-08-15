@@ -41,7 +41,11 @@ from idpr.v2.runtime.participation_grounding import (
     add_co_principal_established_truths,
     compile_participation_bindings,
 )
-from idpr.v2.runtime.plan_lineage import plan_lineage
+from idpr.v2.runtime.plan_lineage import (
+    definitions_drift,
+    plan_lineage,
+    require_fresh_inputs,
+)
 from idpr.v2.runtime.relation_grounding import (
     RelationAssessment,
     RelationAssessmentTarget,
@@ -383,6 +387,13 @@ def main() -> None:
     )
     if plan_lineage:
         print(f"plan lineage: {plan_lineage}")
+    if args.plan:
+        # 계보는 "어떤 단계를 거쳤는가"만 말한다. 그 단계들이 **지금 디스크에 있는 그 파일**을
+        # 읽고 만들어졌는지는 별개의 질문이고, 축별 수정과 부분 재실행을 섞어 돌리는 동안
+        # 정확히 그 조합이 조용히 만들어졌다.
+        require_fresh_inputs(args.plan)
+        for problem in definitions_drift(args.plan, args.definitions):
+            print(f"WARNING: {problem}", file=sys.stderr)
     provenance_by_case = _instance_provenance(args.plan) if args.plan else {}
     episode_order_by_case = _episode_order(args.plan) if args.plan else {}
     concurrence_rules = (

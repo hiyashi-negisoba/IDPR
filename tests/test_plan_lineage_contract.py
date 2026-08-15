@@ -12,11 +12,18 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
+import pytest
+
 from idpr.v2.runtime.plan_lineage import (
     LINEAGE_KEY,
+    PlanLineageError,
+    definitions_drift,
     lineage_for_manifest,
     passed_through,
     plan_lineage,
+    provenance,
+    require_fresh_inputs,
+    stale_inputs,
 )
 
 PARTICIPATION_STEP = "v2_factual_participation_plan"
@@ -88,3 +95,75 @@ def test_a_legacy_manifest_reads_as_its_single_step(tmp_path: Path) -> None:
 
 def test_no_manifest_is_no_lineage_not_a_crash(tmp_path: Path) -> None:
     assert plan_lineage(_plan(tmp_path, "bare", None)) == ()
+
+
+# --------------------------------------------------------------------------
+# 계보의 두 번째 질문: 거쳐 온 단계들이 **지금 그 파일**을 읽었는가
+# --------------------------------------------------------------------------
+
+
+def test_a_regenerated_upstream_artifact_is_rejected_downstream(tmp_path: Path) -> None:
+    """축별 수정과 부분 재실행을 섞어 돌릴 때 조용히 만들어지던 조합.
+
+    단계 이름은 다 맞는데 상류 파일이 그 뒤에 다시 생성된 상태다. 코드가 바뀌어도 옛 상류
+    artifact를 그대로 읽고 이어 돌리면, 상류의 의미와 하류의 가정이 어긋난 채로 끝까지
+    간다. 이름만 보는 계보로는 보이지 않는다.
+    """
+    base = _plan(tmp_path, "base", {"step": "v2_evaluation_instance_plan"})
+    doctrine = _plan(
+        tmp_path,
+        "doctrine",
+        {
+            "step": DOCTRINE_STEP,
+            LINEAGE_KEY: list(lineage_for_manifest(base, DOCTRINE_STEP)),
+            **provenance({"plan": base}),
+        },
+    )
+    assert stale_inputs(doctrine) == ()
+    require_fresh_inputs(doctrine)
+
+    base.write_text('{"regenerated": true}\n', encoding="utf-8")
+    problems = stale_inputs(doctrine)
+    assert problems and "changed after" in problems[0]
+    with pytest.raises(PlanLineageError):
+        require_fresh_inputs(doctrine)
+
+
+def test_the_whole_ancestry_is_walked_not_just_the_parent(tmp_path: Path) -> None:
+    base = _plan(tmp_path, "base", {"step": "v2_evaluation_instance_plan"})
+    participation = _plan(
+        tmp_path,
+        "participation",
+        {"step": PARTICIPATION_STEP, **provenance({"plan": base})},
+    )
+    doctrine = _plan(
+        tmp_path,
+        "doctrine",
+        {"step": DOCTRINE_STEP, **provenance({"plan": participation})},
+    )
+    base.write_text('{"regenerated": true}\n', encoding="utf-8")
+    assert stale_inputs(doctrine), "조부모가 바뀐 것은 부모만 봐서는 보이지 않는다"
+
+
+def test_an_old_artifact_without_input_hashes_is_unverifiable_not_stale(
+    tmp_path: Path,
+) -> None:
+    """확인할 수 없는 것과 틀린 것은 다르다. 옛 산출물을 소급해 거부하지 않는다."""
+    legacy = _plan(tmp_path, "legacy", {"step": DOCTRINE_STEP})
+    assert stale_inputs(legacy) == ()
+
+
+def test_definition_drift_is_reported_but_does_not_abort(tmp_path: Path) -> None:
+    """Call 2 산출물은 비싸다. 저작 한 줄 때문에 그것을 버리게 하면 계약이 아니라 장애다."""
+    definitions = tmp_path / "definitions"
+    definitions.mkdir()
+    (definitions / "offenses.yaml").write_text("- id: offense.x\n", encoding="utf-8")
+    plan = _plan(
+        tmp_path,
+        "plan",
+        {"step": DOCTRINE_STEP, **provenance({}, definitions_dir=definitions)},
+    )
+    assert definitions_drift(plan, definitions) == ()
+    (definitions / "offenses.yaml").write_text("- id: offense.y\n", encoding="utf-8")
+    assert definitions_drift(plan, definitions)
+    require_fresh_inputs(plan)  # 규칙베이스 변경은 계보를 끊지 않는다

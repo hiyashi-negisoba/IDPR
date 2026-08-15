@@ -36,7 +36,11 @@ from idpr.v2.runtime.carrier_contract import (
     resolve_carrier,
     validate_plan_carriers,
 )
-from idpr.v2.runtime.plan_lineage import LINEAGE_KEY, lineage_for_manifest
+from idpr.v2.runtime.plan_lineage import (
+    LINEAGE_KEY,
+    lineage_for_manifest,
+    provenance as plan_provenance,
+)
 from idpr.v2.runtime.policy_probe_targets import (
     DERIVATIVE_RELATION_KINDS,
     participation_candidate_probe_targets,
@@ -47,11 +51,6 @@ from idpr.v2.runtime.policy_probe_targets import (
 DEFAULT_INVENTORY = ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
 DEFAULT_CASE_LIST = ROOT / "data/eval/kcl_substantive_case_ids.txt"
 DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
-_ACTOR_BOUND_ARGUMENTS = frozenset(
-    {"actor", "witness", "offender", "disposer", "possessor", "official"}
-)
-
-
 def _sha256(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
@@ -92,26 +91,10 @@ def _is_relation_predicate(registry: Any, predicate_ref: str) -> bool:
     return entry is not None and entry.kind == "relation"
 
 
-def _requires_focal_action_carrier(registry: Any, predicate_ref: str) -> bool:
-    """Mirror the planner's authored carrier rule for newly opened targets.
-
-    Participation can add targets after the planner has assigned its original
-    carrier map.  The builder must preserve the same focal-action rule instead
-    of sending an actor-bound fact back to a realization-wide carrier.
-    """
-
-    entry = registry.get(predicate_ref)
-    if entry is None:
-        raise ValueError(f"unknown participation predicate carrier: {predicate_ref}")
-    if entry.payload.get("temporal_anchor") == "focal_action":
-        return True
-    if entry.kind != "ground_fact":
-        return False
-    return any(
-        isinstance(argument, Mapping)
-        and argument.get("name") in _ACTOR_BOUND_ARGUMENTS
-        for argument in entry.payload.get("arguments", ())
-    )
+# `_requires_focal_action_carrier`가 여기 있었다. 이 빌더가 carrier 규칙을 자기 코드로
+# 한 벌 더 갖고 있던 흔적이고, 그 중복이 바로 `evidence_scope` 수정이 다른 producer로
+# 전달되지 않은 이유다. 규칙은 `carrier_contract`가 단독으로 소유하며 이 빌더는
+# `resolve_carrier`를 부른다 -- 복사본을 남겨 두면 다음 사람이 그것을 고친다.
 
 
 def main() -> None:
@@ -583,6 +566,12 @@ def main() -> None:
         "plan_artifact_sha256": _sha256(args.plan_artifact),
         "call15_artifact": str(args.call15_artifact),
         "call15_artifact_sha256": _sha256(args.call15_artifact),
+        # 입력의 내용 해시. 옛 상류 artifact 위에 새 하류 가정이 얹히는 조합을 다음 소비
+        # 지점에서 바로 걸리게 한다.
+        **plan_provenance(
+            {"plan": args.plan_artifact, "call15": args.call15_artifact},
+            definitions_dir=args.definitions,
+        ),
         "interaction_artifact": str(args.interaction_artifact),
         "interaction_artifact_sha256": _sha256(args.interaction_artifact),
         "inventory_sha256": _sha256(args.inventory),

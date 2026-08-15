@@ -33,7 +33,11 @@ from idpr.v2.runtime.doctrine_raising import raise_doctrines
 from idpr.v2.runtime.carrier_contract import resolve_carrier, validate_plan_carriers
 from idpr.v2.runtime.doctrine_targets import materialize_doctrine_leaf_targets
 from idpr.v2.runtime.identity import OffenseInstanceKey
-from idpr.v2.runtime.plan_lineage import LINEAGE_KEY, lineage_for_manifest
+from idpr.v2.runtime.plan_lineage import (
+    LINEAGE_KEY,
+    lineage_for_manifest,
+    provenance as plan_provenance,
+)
 
 DEFAULT_CUES = ROOT / "data/v2/doctrine_raising_cues.yaml"
 DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
@@ -270,6 +274,16 @@ def main() -> None:
         "call15d_artifact": str(args.call15d_artifact),
         "call15d_artifact_sha256": _sha256(args.call15d_artifact),
         "cues_sha256": _sha256(args.cues),
+        # 입력의 내용 해시를 한 자리에 모아 둔다. 소비자는 이 기록으로 "이 산출물이 만들어진
+        # 뒤에 상류가 다시 생성되었는가"를 확인한다.
+        **plan_provenance(
+            {
+                "plan": args.plan_artifact,
+                "call15d": args.call15d_artifact,
+                "cues": args.cues,
+            },
+            definitions_dir=args.definitions,
+        ),
     }
     args.out.with_suffix(".manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
