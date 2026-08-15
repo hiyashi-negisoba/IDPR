@@ -7,6 +7,7 @@ legal classification to a model.
 
 from __future__ import annotations
 
+from collections.abc import Mapping
 from dataclasses import dataclass
 
 from idpr.v2 import expressions
@@ -25,6 +26,7 @@ from idpr.v2.runtime.stages import (
     LiabilityEvaluation,
     ObligationOutcome,
     StatutoryDeemingObligation,
+    UtilizedParticipantOutcome,
 )
 from idpr.v2.runtime.truths import CaseTruths
 from idpr.v2.compile import CompiledOffense
@@ -32,15 +34,41 @@ from idpr.v2.compile import CompiledOffense
 
 @dataclass(frozen=True)
 class Article151QualifyingLink:
-    """A caller-selected, qualifying other-actor result.
+    """A qualifying outcome for the harboured offender, at participant level.
 
-    The caller supplies the fine-or-greater classification and records why.  `evaluation` is
-    retained rather than reduced to a Boolean so the linked `OffenseInstanceKey` remains available
-    in Elements provenance.  The runtime accepts no missing-result shortcut as TRUE.
+    Article 151's object is another person's crime, and that person is not the actor whose
+    liability the question asks about.  So the input here is the same shape Article 34 uses for a
+    utilised participant -- a `UtilizedParticipantOutcome` -- and never a `LiabilityEvaluation`,
+    which would require inventing an answer-facing instance for someone the case never asks about.
+
+    The threshold is not decided here.  `qualifies_for_article_151()` reads the authored
+    classification off the offense definition, and an unauthored offense stays UNKNOWN.
     """
 
-    evaluation: LiabilityEvaluation
+    outcome: UtilizedParticipantOutcome
     qualification_provenance: str
+
+
+LINKED_OFFENDER_LIABLE_STATUS = "liable_exact_offense"
+
+ARTICLE_151_THRESHOLD_FIELD = "article151_penalty_threshold"
+ARTICLE_151_QUALIFYING_CLASS = "fine_or_greater"
+
+
+def qualifies_for_article_151(registry: DefinitionRegistry, offense_ref: str) -> bool:
+    """Whether this offense reaches 형법 제151조 제1항's '벌금 이상의 형' threshold.
+
+    Absence is not a pass.  Nearly every 형법각칙 offense does reach it, which is exactly why the
+    host must not assume it: the one place the assumption is wrong would be invisible.  An
+    unauthored offense makes the status leaf UNKNOWN, never TRUE.
+    """
+    entry = registry.get(offense_ref)
+    if entry is None or entry.kind not in {"offense", "derived_offense"}:
+        return False
+    threshold = entry.payload.get(ARTICLE_151_THRESHOLD_FIELD)
+    if not isinstance(threshold, Mapping):
+        return False
+    return threshold.get("class") == ARTICLE_151_QUALIFYING_CLASS
 
 
 def resolve_article_151_liability(
@@ -59,18 +87,24 @@ def resolve_article_151_liability(
     UNKNOWN, never FALSE, because this narrow caller input cannot establish that no qualifying
     offense exists.
     """
-    linked_instance = None
+    linked_participant = None
+    qualifying_offense_ref = None
     qualification_provenance = None
     truth = UNKNOWN
     if qualifying_link is not None:
-        linked_instance = qualifying_link.evaluation.instance
+        outcome = qualifying_link.outcome
+        linked_participant = outcome.participant
+        qualifying_offense_ref = outcome.offense_ref
         qualification_provenance = qualifying_link.qualification_provenance
-        if qualifying_link.evaluation.liability_result is not None:
+        if outcome.status == LINKED_OFFENDER_LIABLE_STATUS and qualifies_for_article_151(
+            registry, outcome.offense_ref
+        ):
             truth = TRUE
 
     obligation = ObligationOutcome(
         obligation=Article151OffenderStatusObligation(
-            linked_instance=linked_instance,
+            linked_participant=linked_participant,
+            qualifying_offense_ref=qualifying_offense_ref,
             qualification_provenance=qualification_provenance,
         ),
         truth=truth,
@@ -153,9 +187,13 @@ def resolve_article_263_deemed_liability(
 
 
 __all__ = [
+    "ARTICLE_151_QUALIFYING_CLASS",
+    "ARTICLE_151_THRESHOLD_FIELD",
+    "LINKED_OFFENDER_LIABLE_STATUS",
     "Article151QualifyingLink",
     "Article263AuthorityError",
     "article_263_deeming_expression",
+    "qualifies_for_article_151",
     "resolve_article_151_liability",
     "resolve_article_263_deemed_liability",
 ]

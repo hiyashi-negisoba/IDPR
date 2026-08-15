@@ -111,9 +111,17 @@ class CoPrincipalConstitutiveStatusObligation:
 
 @dataclass(frozen=True)
 class Article151OffenderStatusObligation:
-    """Caller-supplied qualifying linked result for Article 151's status leaf."""
+    """The linked offender's own outcome, as Article 151's status leaf reads it.
 
-    linked_instance: OffenseInstanceKey | None
+    The linked person is a factual participant, not an answer-facing actor: the question asks
+    about the harbourer's liability, so the harboured offender has no `OffenseInstanceKey` in this
+    case and never should be given one to satisfy a type.  This mirrors Article 34, where the
+    utilised participant also stays at participant level.  `qualifying_offense_ref` records which
+    offense cleared the threshold, so Elements provenance still says why the status held.
+    """
+
+    linked_participant: FactualParticipantKey | None
+    qualifying_offense_ref: str | None
     qualification_provenance: str | None
 
 
