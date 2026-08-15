@@ -1,12 +1,16 @@
 # 다음 세션 시작점
 
-기준: 2026-08-15 · 브랜치 `deadline_v2_0808` · 데드라인 2026-08-19 21:00
-검증: `571 passed, 16 skipped` (conda **base**, `/data5/jaehoonjeong/miniconda3/bin/python -m pytest -q`)
+기준: 2026-08-16 · 브랜치 `deadline_v2_0808` · 데드라인 2026-08-19 21:00
+검증: `585 passed, 16 skipped` (conda **base**, `/data5/jaehoonjeong/miniconda3/bin/python -m pytest -q`)
 
 ## 한 줄 상태
 
-**Phase A·B·C가 전부 닫혔다.** 다음 작업은 **전체 재생성 한 사이클**이고, 설계 결재가 남은
-항목은 없다. 재생성 순서와 함정은 §4에 있다.
+**Phase A~C가 닫혔고 Call 1 → Call 2 재생성이 완주했다.** 그 결과가 새 structural baseline이다
+(§4). 다음 작업은 **residual UNKNOWN 저작 개선**이며, 그 전에 freeze용 deterministic cleanup이
+하나 남아 있다(§6).
+
+여기서 `intent`나 `means_or_object_defect`를 먼저 건드리면 "구조 수정으로 좋아진 것"과
+"저작 개선으로 좋아진 것"의 경계가 섞인다. baseline을 얼려 두고 시작한다.
 
 ## 읽는 순서
 
@@ -88,59 +92,105 @@ predicate 6건, qualifier 1건, 흡수 규칙 1건, 질적 초과 pair 1건, see
 
 ---
 
-## 4. 다음 작업 — 전체 재생성 한 사이클
+## 4. 새 structural baseline (2026-08-15 재생성, `experiments/v2_rulebase_regen_26/`)
 
 ```text
-Call 1 (1회)   ← 필수. offense 6개가 늘어 routing universe가 바뀌었다
-→ Call 1.5 (1회)  ← 필수. binding 계약에 사실 3개가 늘었다
-→ dependency ROUTE  ← 신규. linked_offender가 결박된 case에서만 돈다
-→ deterministic planner
-→ rule→target accounting
-→ Call 2 (1회)
-→ symbolic → AnswerPlan → Call 3
+                이번        직전(v2_final_e2e_26)
+planned         635         758
+asked           595         697
+TRUE            286 48.1%   256 36.7%
+FALSE            21  3.5%    25  3.6%
+UNKNOWN         288 48.4%   416 59.7%
 ```
 
-### 반드시 지킬 것
+**UNKNOWN 감소를 모델 성능 개선으로 읽지 말 것.** 구조적으로 잘못 열리던 target의 제거와,
+새로 도달 가능해진 target의 실제 평가가 합쳐진 재생성 결과다. 모델은 같고 프롬프트도 계약
+문구 하나 외에 그대로다.
 
-* **Call 1을 건너뛰지 마라.** 옛 router manifest는 이제 lineage 검증에서 실패하고 그것이
-  의도된 동작이다(`tests/test_call1_catalog_lineage.py`). 재사용하면 존재하지 않던 죄로
-  라우팅된 seed 위에 새 rulebase를 얹게 된다.
-* **758 target은 invariant가 아니다.** offense 6개와 사실 3개가 늘었으므로 늘어나는 것이 정상.
-* Call 2는 **마지막에 한 번만.**
+축별 판정과 그 근거는 [`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md) §11-quater에 있다. 요약:
 
-### 제151조 경로 — 어디까지 배선되었나
+* **A1** dependency ROUTE 4/4 reachable. `r10_p2_q2`에서 `offender_status_of_object = TRUE`
+* **A2/제263조** pair 생성, `asked 6 / TRUE 4 / UNKNOWN 2`. 객체 불일치 TRUE 3건
+* **A3/A4** 신규 죄 `asked 80 / TRUE 45 / FALSE 1 / UNKNOWN 34`
 
-체인에 `dependency_route` 단계가 들어갔다(`plan_doctrine`과 `call2` 사이). 흐름은 이렇다.
+### 재생성 중 드러난 것 — 다음 사람이 반드시 알아야 할 두 가지
 
-```text
-planner 산출 (linked_offender_dependencies)
-→ [체인] scripts/run_v2_dependency_route.py     ← 들어감
-     ROUTE 재호출 → threshold pre-gate → predicate_targets
-→ [미배선] participant 수준 Call 2                ← 아래 참조
-→ linked_offender.article151_predecessor_status()
-→ linked_offender.article151_status_truths()
-→ [배선됨] symbolic 러너가 `article151_status_truths` 행으로 읽는다
+**① A3가 겹치는 seed를 들여오자 unauthored structural assumption 다섯 개가 연쇄로 드러났다.**
+전부 "서사 분할이나 추출 필드를 법적 요건으로 쓰고 있었다"는 같은 형태다. 감사보고서
+§11-quater의 표가 사슬 전체를 담고 있다. 앞으로 비슷한 증상이 나오면 그 표부터 볼 것.
+
+**② A1 관련 수정 후에는 기반 planner부터 다시 돌려야 한다.**
+`linked_offender_dependencies`는 축 체인이 아니라
+`scripts/run_v2_full_regeneration.sh`의 `plan` 단계가 만들고, 축 체인의 `plan_participation`은
+그것을 `deepcopy`해 나른다. 축 체인만 돌리면 **옛 값으로 조용히 통과한다** -- 이번에 한 번
+그렇게 속았다.
+
+### 재생성 실행 방법
+
+```bash
+# 상류 (Call 1 → Call 1.5 → planner)
+IDPR_STEP8_SERVICE_JOB_ID=<job> IDPR_REGEN_SKIP="" \
+  srun --jobid=<job> --ntasks=1 --cpus-per-task=2 /bin/bash \
+  scripts/slurm/run_v2_full_regeneration.sh --execution-approved
+
+# 축 체인 (participation → doctrine → dependency ROUTE → Call 2 → 제151조 신분)
+IDPR_STEP8_SERVICE_JOB_ID=<job> \
+IDPR_AXIS_RUN_ROOT=.../v2_rulebase_regen_26 \
+IDPR_CALL1_ARTIFACT=.../call1/router_output.jsonl \
+IDPR_CALL15_ARTIFACT=.../call15/issue_binding.jsonl \
+IDPR_BASE_PLAN=.../plan/evaluation_instance_plan.jsonl \
+  srun --jobid=<job> --ntasks=1 --cpus-per-task=2 /bin/bash \
+  scripts/slurm/run_v2_axis_closure_e2e.sh --execution-approved
 ```
 
-**남은 한 칸은 participant 수준 Call 2 러너다.** 필요한 조각은 다 있다.
+`--cpus-per-task`는 allocation 한도(현재 2)를 넘기면 job step이 만들어지지 않는다.
+Call 1.5는 `--max-tokens 4096`이 필요하다 -- 죄가 늘면서 2048에서 잘렸다.
 
-* payload: `linked_offender_request_payload()` — 제34조 builder를 쓸 수 없어 따로 만들었다
-  (그쪽은 간접정범 capability를 요구하고 completion 있는 죄를 거부하는데, 선행범죄는 거의
-  전부 completion을 가진다)
-* 프롬프트: `v2_call2_utilized_participant_outcome` **재사용**. 이미 승인된 것이고, 묻는 일이
-  같다(한 사람 × 하나의 exact offense × predicate별 truth). 새 프롬프트 승인이 필요 없다
-* schema·validator: `utilized_participant_schema` / `validate_utilized_participant_output`
-  그대로 — `predicate_ref`만 읽으므로 타입이 달라도 맞는다 (테스트로 확인)
+분포 확인:
 
-`scripts/run_v2_indirect_principal_call2.py`가 같은 자리의 선례다. 그것을 본떠 러너 하나를
-쓰고 체인에 한 단계 더 넣으면 제151조가 닫힌다.
-
-그 전까지도 나머지 재생성은 정상으로 돈다 — `linked_offender_dependencies`가 비어 있으면
-아무 일도 하지 않고, 제151조만 UNKNOWN으로 남는다.
+```bash
+python scripts/audit_v2_call2_distribution.py --plan <plan_doctrine> --call2 <call2>
+```
 
 ---
 
-## 5. 실행 환경 (변경 없음)
+## 5. 다음 작업 — residual UNKNOWN 저작 개선
+
+실측 병목이 authoring-review 목록과 겹친다. 순서는 이렇게 간다.
+
+**① `legal_element.intent` (28/42 UNKNOWN, 1위).**
+결과적 가중범에서 이 고의가 기본범죄에 대한 것인지 중한 결과에 대한 것인지 모델이 스스로
+정한다. 폭행치상에서 후자로 읽히면 성립이 정반대로 뒤집힌다. 기본범죄 고의의 scope를
+저작이 명시적으로 소유하게 한다.
+
+**② `ground_fact.means_or_object_defect` (25/31 UNKNOWN, 2위).**
+exclusion 둘이 TRUE·FALSE 양쪽 경로를 과도하게 막는지 재저작 검수. `dangerousness`(13/14)가
+그 하류다.
+
+**③ FALSE 희소성 (3.5%).**
+**목표를 "FALSE 비율을 올리는 것"으로 잡지 말 것.** 정답 분포를 모르므로 그것은 측정할 수
+없는 목표다. 찾는 것은 *명확한 반증이 있는데도 UNKNOWN으로 빠지는 systematic pattern*이고,
+predicate·프롬프트별 failure mode로 분해해야 보인다.
+
+①~③ 모두 저작 검수가 필요하므로 문안을 만들어 승인받은 뒤 설치한다.
+
+---
+
+## 6. freeze 전 남은 deterministic cleanup
+
+**cue 카탈로그 완결성.** 라우팅 가능한 죄 중 16건이 cue 없이 남아 있다. cue가 없으면 Call 1이
+그 죄를 고르는 순간 Call 1.5가 **그 사건에서 예외로 죽는다** -- 이번 재생성에서 실제로 그렇게
+멈췄고, 그때 라우팅된 5건만 채웠다.
+
+16건은 `data/v2/binding_seed_cues.yaml`의 `unauthored_cue_offense_refs`에 명시했고,
+`tests/test_binding_seed_cue_catalog.py`가 "cue가 있거나 미저작으로 선언되어 있거나" 둘 중
+하나를 강제한다. 그래서 지금은 조용히 죽지는 않지만, **freeze 전에 16건을 저작해야 한다.**
+cue는 binding을 유도하는 자산이라 검수가 필요하고, 그래서 미검수 16개를 한꺼번에 써 넣지
+않았다.
+
+---
+
+## 7. 실행 환경 (변경 없음)
 
 * pytest: conda **base** — `/data5/jaehoonjeong/miniconda3/bin/python`. 레포 `.venv`는 빈 껍데기
 * 긴 작업·GPU 작업은 **길이 무관 항상 sbatch**. nohup은 고아 프로세스가 된다
@@ -148,12 +198,15 @@ planner 산출 (linked_offender_dependencies)
 * job 진행상황 백그라운드 폴링 금지
 * 체인은 `IDPR_AXIS_SKIP`으로 이어 돌린다
 
-## 6. 정본 artifact (직전 사이클 — 재생성하면 대체된다)
+## 8. 정본 artifact
 
-`experiments/v2_final_e2e_26/` · plan 758 target · Call 2 26/26 · Call 3 26/26
-Call 3의 exit 2는 실패가 아니라 감사 게이트다.
+**현재 정본: `experiments/v2_rulebase_regen_26/`** (Call 2까지). symbolic·AnswerPlan·Call 3은
+아직 돌리지 않았다 -- 이번 사이클은 최종 Call 2까지가 범위였다.
 
-## 7. 정책 (변경 불가)
+직전 정본 `experiments/v2_final_e2e_26/`은 Call 3까지 있으나 rulebase가 다르다. 비교용으로만
+본다. Call 3의 exit 2는 실패가 아니라 감사 게이트다.
+
+## 9. 정책 (변경 불가)
 
 * **sealed-59**: `kcl_criminal_r10_p1_q1_ga`와 `kcl_criminal_r14_p1_q2` 두 dev case만 열 수 있다.
   나머지 59건은 채점 전용. **sealed-59를 열어 UNKNOWN을 분류하지 않는다.**

@@ -832,6 +832,70 @@ menu로 설명하지 않도록 계약을 바꾸거나. 결과를 바꾸지 않�
 
 ---
 
+# 11-quater. 재생성 결과와 새 baseline (2026-08-15)
+
+Phase A~C를 닫은 뒤 Call 1부터 Call 2까지 한 사이클을 돌렸다. 그 과정에서 **A3가 겹치는
+offense seed를 들여오자 pipeline에 숨어 있던 unauthored structural assumption 다섯 개가
+차례로 드러났다.** 이 절은 그 사슬과, 그 결과 확정된 새 baseline을 기록한다.
+
+## 원인 사슬 — 서사 분할과 추출 필드가 법적 요건 노릇을 하고 있었다
+
+공통 원칙 한 줄로 요약된다.
+
+> **narrative segmentation과 extraction field는 unauthored legal constraint가 되어서는 안 된다.**
+
+| | 숨어 있던 가정 | 드러난 방식 | 조치 |
+|---|---|---|---|
+| ① | 하나의 factual action은 하나의 seed에만 귀속된다 | 폭행죄가 구타 action을 가져가고 상해죄에 결과만 남아, 행위자가 자기 realization의 증거에 없어 계약 위반 | Call 1.5 계약을 permission에서 **non-partition**으로 교체 |
+| ② | 제263조의 두 realization은 같은 factual episode여야 한다 | 2시간 간격의 두 폭행이 다른 episode로 나뉘어 pair 0 | episode 게이트 제거 (대법원 80도3321: 이시 독립 상해행위에도 적용) |
+| ③ | 공통 피해자는 `factual_targets`에 나타난다 | 두 상해 binding이 그 배열을 비워 pair가 여전히 0 | `actual_result_bearer`를 candidate scoping에 포함 |
+| ④ | 파생 group member는 base 실현 occurrence를 재사용해도 된다 | `special_theft`를 선언하면서 `theft` 실현을 가리키는 instance 3건 | 파생죄 실현을 가리키게 하고, 없으면 group을 열지 않음 |
+| ⑤ | dependency ROUTE의 범위는 그 dependency를 연 binding의 증거다 | 라우터가 도피 행위만 보고 `harboring_or_escape` 자신을 선행범죄로 지목(자기순환) | **행위자 귀속 case-wide projection**으로 교체, carried evidence는 provenance로 분리 |
+
+⑤의 교훈이 특히 크다. **dependency를 발생시킨 증거와 dependency의 내용을 평가할 증거는
+같을 필요가 없다.** 둘을 합친 것이 순환의 원인이었고, 분리하자 라우터가 각자의 진짜
+선행범죄를 골랐다.
+
+②·⑤는 A4의 `ordered_cross_episode`와 같은 뿌리다 -- episode는 추출 단위이지 법적 범위가
+아니다. ①·③·④는 "모델이 채운 필드의 모양"을 계약으로 오해한 경우다.
+
+## 축별 판정
+
+**A1 (제151조).** dependency ROUTE 4/4 production reachable. `r10_p2_q2`에서 乙 →
+강도·주거침입·특수강도가 라우팅되고 주거침입죄가 threshold를 통과해
+**`offender_status_of_object = TRUE`**. 나머지 두 건의 UNKNOWN은 reachability가 아니라
+선행범죄 구성요건의 평가 미확정이다. `NO_ATTRIBUTABLE_FACT`(귀속 사실이 원문에 없는 경우)도
+결함이 아니라 정상적인 typed outcome이다.
+
+**A2 / 제263조.** pair 실제 생성, `asked 6 / TRUE 4 / UNKNOWN 2`. 객체 불일치 TRUE 3건이
+감사가 지목한 `r10_p2_q1`·`r12_p2_q1_ga`와 정확히 일치한다.
+
+**A3 / A4.** 신규 family가 Call 1 → 1.5 → planner → Call 2까지 관통.
+`asked 80 / TRUE 45 / FALSE 1 / UNKNOWN 34`. 남긴 explicit gap 세 건은
+`co_principal_qualitative_excess` · `special_assault_aggravated_result` ·
+`stolen_property_self_principal_exclusion`이다.
+
+## 새 Call 2 baseline
+
+```text
+                이번 (v2_rulebase_regen_26)   직전 (v2_final_e2e_26)
+planned         635                           758
+asked           595                           697
+TRUE            286  (48.1%)                  256  (36.7%)
+FALSE            21  ( 3.5%)                   25  ( 3.6%)
+UNKNOWN         288  (48.4%)                  416  (59.7%)
+```
+
+**이 UNKNOWN 감소를 모델 성능 개선으로 읽으면 안 된다.** 두 가지가 합쳐진 재생성 결과다 --
+구조적으로 잘못 열리던 target의 제거(`offender_status_of_object` 6건 등)와, 새로 도달 가능해진
+target의 실제 평가. 모델은 같은 모델이고 프롬프트도 계약 문구 하나 외에는 그대로다.
+
+UNKNOWN 병목 상위는 `legal_element.intent` 28/42, `ground_fact.means_or_object_defect` 25/31,
+`unlawful_appropriation_intent` 20/33, `possession` 20/27, `taking_conduct` 20/27이다.
+1위가 authoring-review로 남겨 둔 항목이라는 점이 다음 단계의 출발점이다.
+
+---
+
 # 12. 최종 판정
 
 현재 pipeline 자체는 이전보다 훨씬 안정화되었다.

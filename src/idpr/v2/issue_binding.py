@@ -263,12 +263,34 @@ def linked_offender_seed_refs(
     )
 
 
+UNAUTHORED_CUE_KEY = "unauthored_cue_offense_refs"
+"""cue가 아직 저작되지 않은 죄의 명시적 목록.
+
+Call 1이 라우팅한 죄에 cue가 없으면 Call 1.5가 그 사건에서 예외로 죽는다. 그 구멍을 조용히
+두지 않으려면 어딘가에 적혀 있어야 하고, 그 자리가 카탈로그 자신이다 -- 별도 문서에 적으면
+카탈로그를 고치는 사람이 그 문서를 보지 않는다.
+"""
+
+
+def load_unauthored_cue_refs(path: Path) -> tuple[str, ...]:
+    """저작되지 않았다고 명시된 죄. 목록에 없으면서 cue도 없는 죄는 계약 위반이다."""
+    raw = yaml.safe_load(path.read_text(encoding="utf-8"))
+    values = raw.get(UNAUTHORED_CUE_KEY) if isinstance(raw, Mapping) else None
+    if values is None:
+        return ()
+    if not isinstance(values, list) or not all(isinstance(value, str) for value in values):
+        raise IssueBindingContractError([f"{path}: {UNAUTHORED_CUE_KEY} must be a ref list"])
+    return tuple(values)
+
+
 def load_binding_seed_cue_catalog(path: Path) -> dict[str, tuple[str, str]]:
     raw = yaml.safe_load(path.read_text(encoding="utf-8"))
     if not isinstance(raw, Mapping) or not raw:
         raise IssueBindingContractError([f"{path}: cue catalog must be a nonempty mapping"])
     output: dict[str, tuple[str, str]] = {}
     for ref, value in raw.items():
+        if ref == UNAUTHORED_CUE_KEY:
+            continue
         if (
             not isinstance(ref, str)
             or not isinstance(value, Mapping)
@@ -1238,7 +1260,9 @@ __all__ = [
     "linked_offender_role",
     "linked_offender_seed_refs",
     "issue_binding_schema",
+    "UNAUTHORED_CUE_KEY",
     "load_binding_seed_cue_catalog",
+    "load_unauthored_cue_refs",
     "normalize_issue_binding_output",
     "parse_issue_binding_result",
     "question_actor_ids",

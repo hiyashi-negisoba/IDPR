@@ -89,7 +89,9 @@ def main() -> None:
     for row in _jsonl(args.dependency_route):
         case_id = str(row["sub_question_id"])
         if row.get("status") != "SUCCEEDED":
-            # 계약 실패는 "자격 있는 선행범죄가 없다"가 아니다. 미확정으로 두고 기록만 한다.
+            # 계약 실패도, 귀속되는 사실이 없는 것도 "자격 있는 선행범죄가 없다"가 아니다.
+            # 둘 다 미확정으로 두되 상태는 구분해 기록한다 -- 하나는 고칠 결함이고 다른
+            # 하나는 사건이 그렇게 생긴 것이다.
             records.append({"sub_question_id": case_id, "status": row.get("status")})
             continue
         dependency = _dependency(row)

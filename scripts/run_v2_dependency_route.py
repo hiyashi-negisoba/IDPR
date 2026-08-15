@@ -122,6 +122,23 @@ def main() -> None:
         case_id = str(plan_row["sub_question_id"])
         for value in plan_row.get("linked_offender_dependencies", []):
             dependency = _dependency(value)
+            if not dependency.factual_scope_text.strip():
+                # 이 사람에게 귀속되는 사실이 원문에 없다. 빈 범위로 라우팅을 물으면 모델은
+                # 볼 것이 없는 채로 답해야 하고, 그 답은 어느 사실에도 근거하지 않는다.
+                # 계약 실패로 적어서도 안 된다 -- 호출은 실패한 적이 없고, 물을 사실이 없는
+                # 것과 물었는데 답을 못 받은 것은 다른 상태다.
+                rows.append(
+                    {
+                        "sub_question_id": case_id,
+                        **dependency.as_dict(),
+                        "status": "NO_ATTRIBUTABLE_FACT",
+                        "qualifying_offense_refs": [],
+                        "non_qualifying_offense_refs": [],
+                        "unauthored_threshold_offense_refs": [],
+                        "predicate_targets": [],
+                    }
+                )
+                continue
             payload = route_request_payload(
                 dependency.route_request(),
                 case_text=case_text_by_id[case_id],

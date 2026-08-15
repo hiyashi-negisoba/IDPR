@@ -54,3 +54,31 @@ derived_offense.robbery_causing_intentional_homicide: {display_name: 강도살�
 derived_offense.robbery_rape: {display_name: 강도강간죄, minimal_conduct_description: "강도의 실행 과정에서 강간하는 사실 episode"}
 derived_offense.special_robbery_rape: {display_name: 특수강도강간죄, minimal_conduct_description: "특수강도의 실행 과정에서 강간하는 사실 episode"}
 offense.official_secret_disclosure: {display_name: 공무상비밀누설죄, minimal_conduct_description: "공무원이 직무상 알게 된 비밀을 다른 사람에게 알리는 사실 episode"}
+
+# 저작되지 않은 cue -- structural freeze 전 처리할 deterministic cleanup.
+#
+# Call 1이 라우팅했는데 cue가 없으면 Call 1.5가 그 사건에서 예외로 죽는다. 2026-08-15
+# 재생성에서 실제로 그렇게 멈췄고(특수강도 등 5건), 그때 라우팅된 것만 채웠다. 아래 16건은
+# 그날 라우팅되지 않았을 뿐이며, routing이 조금만 달라지면 같은 방식으로 런을 중단시킨다.
+#
+# 미검수 cue 16개를 한꺼번에 써 넣는 것이 구멍을 막는 것보다 나쁘다고 보아 남겨 둔다 --
+# cue는 binding을 유도하는 자산이고, 잘못 쓰면 그 죄의 결박 자체가 비뚤어진다. 대신
+# `tests/test_binding_seed_cue_catalog.py`가 이 목록을 못박아, 여기 없는 죄가 cue 없이
+# 남는 일은 생기지 않는다.
+unauthored_cue_offense_refs:
+  - derived_offense.aggravated_ancestral_injury
+  - derived_offense.aggravated_injury
+  - derived_offense.arson_causing_injury
+  - derived_offense.nighttime_dwelling_theft
+  - derived_offense.occupational_breach_of_trust
+  - derived_offense.occupational_embezzlement
+  - derived_offense.quasi_robbery_rape
+  - derived_offense.rape_causing_intentional_injury
+  - derived_offense.special_aggravated_ancestral_injury
+  - derived_offense.special_aggravated_injury
+  - derived_offense.special_ancestral_injury
+  - offense.ancestral_injury
+  - offense.coercion_of_official_duty_or_resignation
+  - offense.occupational_or_gross_negligence_injury_or_homicide
+  - offense.prospective_bribery_taking
+  - offense.refusal_to_leave
