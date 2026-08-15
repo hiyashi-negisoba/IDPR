@@ -104,6 +104,7 @@
 - id: ground_fact.taking_conduct
   arguments: [{name: actor, type: entity}, {name: property, type: entity}]
   canonical_meaning: "타인 점유 재물을 점유자 의사에 반해 자기 점유로 옮김"
+  evidence_scope: same_actor_episode
   source_refs:
     - comment_id: "comm_001692_제329조_Ⅰ.1_0"
       section_path: "Ⅰ.1"

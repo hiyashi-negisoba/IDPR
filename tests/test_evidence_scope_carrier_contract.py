@@ -34,7 +34,7 @@ ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = load_definitions(ROOT / "data/v2/definitions")
 PLAN = (
     ROOT
-    / "experiments/v2_action_realization_26_e2e/plan_scoped_participation"
+    / "experiments/v2_unknown_reduction_26/plan_doctrine"
     / "evaluation_instance_plan.jsonl"
 )
 

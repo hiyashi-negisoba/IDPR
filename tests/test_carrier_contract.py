@@ -73,14 +73,14 @@ def test_authored_evidence_scope_decides_the_carrier_kind() -> None:
     ) == ("actor_episode", False)
     # 저작이 없는 행위자 결박 ground fact는 일반 규칙이 초점행위로 좁힌다.
     assert carrier_kind_for(
-        REGISTRY, "ground_fact.taking_conduct", actor_in_focal=True
+        REGISTRY, "ground_fact.bribe_acceptance", actor_in_focal=True
     ) == ("focal_action", False)
 
 
 def test_an_accessory_never_gets_a_focal_only_carrier() -> None:
     """가담자의 초점행위는 정범의 실행이다. 그리로 좁히면 없는 행위자를 두고 묻게 된다."""
     assert carrier_kind_for(
-        REGISTRY, "ground_fact.taking_conduct", actor_in_focal=False
+        REGISTRY, "ground_fact.bribe_acceptance", actor_in_focal=False
     ) == ("realization", False)
 
 
@@ -147,7 +147,7 @@ def test_an_anchored_predicate_takes_the_anchored_carrier_when_it_exists() -> No
 def test_a_target_without_a_carrier_fails_at_plan_time() -> None:
     """Call 2까지 가서 `missing=3`으로 알게 되지 않는다."""
     row = _row(
-        [{"instance_key": _instance(), "predicate_ref": "ground_fact.taking_conduct"}],
+        [{"instance_key": _instance(), "predicate_ref": "ground_fact.bribe_acceptance"}],
         [],
         [_provenance()],
     )
@@ -191,11 +191,11 @@ def test_provenance_identity_is_the_whole_instance_not_the_occurrence() -> None:
     theft = _instance("offense.theft", "realization:001")
     special = _instance("derived_offense.special_theft", "realization:001")
     row = _row(
-        [{"instance_key": theft, "predicate_ref": "ground_fact.taking_conduct"}],
+        [{"instance_key": theft, "predicate_ref": "ground_fact.bribe_acceptance"}],
         [
             {
                 "instance_key": theft,
-                "predicate_ref": "ground_fact.taking_conduct",
+                "predicate_ref": "ground_fact.bribe_acceptance",
                 "carrier_id": "carrier:focal_action:甲",
                 "carrier_kind": "focal_action",
             }
@@ -241,7 +241,7 @@ def test_a_carrier_without_a_target_is_also_a_break() -> None:
         [
             {
                 "instance_key": _instance(),
-                "predicate_ref": "ground_fact.taking_conduct",
+                "predicate_ref": "ground_fact.bribe_acceptance",
                 "carrier_id": "carrier:focal_action:甲",
                 "carrier_kind": "focal_action",
             }
@@ -257,7 +257,7 @@ def test_a_carrier_without_a_target_is_also_a_break() -> None:
 # --------------------------------------------------------------------------
 
 
-_PRODUCED_PLAN = ROOT / "experiments/v2_axis_closure_26_e2e/plan_doctrine/evaluation_instance_plan.jsonl"
+_PRODUCED_PLAN = ROOT / "experiments/v2_unknown_reduction_26/plan_doctrine/evaluation_instance_plan.jsonl"
 
 
 @pytest.mark.skipif(not _PRODUCED_PLAN.exists(), reason="no produced plan in the tree")

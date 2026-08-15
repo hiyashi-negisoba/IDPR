@@ -442,8 +442,10 @@ def test_same_action_across_offenses_reuses_factual_ground_fact_carrier() -> Non
         and value.target.instance_key.offense_ref in {"offense.theft", "offense.robbery"}
     ]
     assert len(taking) == 2
+    # taking_conduct는 same_actor_episode로 저작되어 있다. 같은 행위를 두 죄가 나눠 써도
+    # 재사용되는 carrier라는 이 테스트의 요지는 그대로이고, 폭만 저작이 정한 값이다.
     assert {value.carrier_id for value in taking} == {
-        "carrier:focal_action:甲:factual_action:001:001"
+        "carrier:actor_episode:甲:factual_action:001:001"
     }
 
 

@@ -238,11 +238,11 @@ def test_unknown_fallback_is_bounded_by_the_carrier_contract():
     }
     # 행위자 결박 ground fact는 초점행위가 carrier다. 넓힐 자리가 없으므로 fallback도 없다.
     assert authored_unknown_fallback_context(
-        target=AssessmentTarget(instance, "ground_fact.taking_conduct"), **common
+        target=AssessmentTarget(instance, "ground_fact.injury_conduct"), **common
     ) is None
     # 결박되지 않은 요소는 realization이 원래 자기 carrier다.
     realization_scoped = authored_unknown_fallback_context(
-        target=AssessmentTarget(instance, "legal_element.possession"), **common
+        target=AssessmentTarget(instance, "legal_element.commencement_of_execution"), **common
     )
     assert realization_scoped is not None
     assert realization_scoped["carrier_policy"] == "source_binding_realization_v1"
