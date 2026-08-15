@@ -210,6 +210,8 @@ class ConcurrenceResolution:
     imaginative_pairs: tuple[tuple[OffenseInstanceKey, OffenseInstanceKey], ...]
     unresolved_candidates: tuple[ConcurrenceCandidate, ...]
     rejected_conflicts: tuple[ConcurrenceCandidate, ...]
+    absorbed_into: tuple[tuple[OffenseInstanceKey, OffenseInstanceKey], ...] = ()
+    """`(밀려난 죄, 밀어낸 죄)`. 가담자 쪽으로 같은 결정을 옮기려면 상대가 누구인지가 필요하다."""
 
 
 def plan_concurrence_candidates(
@@ -268,6 +270,43 @@ def plan_concurrence_candidates(
                         ConcurrenceCandidate(rule, first, second, first_episode)
                     )
     return tuple(output)
+
+
+def same_realization_keys(
+    *,
+    focal_action_by_instance: Mapping[OffenseInstanceKey, str],
+    source_realizations_by_instance: Mapping[OffenseInstanceKey, Iterable[str]],
+    focal_action_by_occurrence: Mapping[str, str],
+) -> dict[OffenseInstanceKey, str]:
+    """`same_realization` 비교에 쓸 실현 식별자. 초점행위가 없는 파생실현까지 포함한다.
+
+    host가 두 개 이상의 source realization에서 조립한 파생죄에는 초점행위가 없다. 강도치상은
+    강도와 상해 두 실현에 걸쳐 있어 어느 하나를 초점으로 고를 수 없기 때문이고, 그 결정 자체는
+    옳다 -- 증거 폭을 하나의 행위로 좁히면 안 되는 죄다.
+
+    그런데 `same_realization`을 초점행위 동일성으로만 보면, 결과적 가중범(파생, 초점 없음)과
+    고의범(직접 결박, 초점 있음)을 짝지으라고 저작된 규칙이 후보조차 열지 못한다. 실제로
+    `r14_p2_q1`의 강도치상 대 강도상해가 그렇게 막혀 있었다.
+
+    그래서 파생실현의 실현 식별자는 그 source realization들이 **한 초점행위에 모일 때** 그
+    행위로 읽는다. 사건 원문을 다시 해석하는 것이 아니라 host 자신의 조립 기록을 되읽는 것이고,
+    source들이 서로 다른 초점을 가지면 모호하므로 식별자를 만들지 않는다.
+    """
+    output: dict[OffenseInstanceKey, str] = {}
+    for instance, focal in focal_action_by_instance.items():
+        if focal:
+            output[instance] = focal
+    for instance, source_ids in source_realizations_by_instance.items():
+        if output.get(instance):
+            continue
+        focals = {
+            focal_action_by_occurrence[source_id]
+            for source_id in source_ids
+            if focal_action_by_occurrence.get(source_id)
+        }
+        if len(focals) == 1:
+            output[instance] = focals.pop()
+    return output
 
 
 def plan_specialty_candidates(
@@ -397,7 +436,70 @@ def resolve_concurrence(
         imaginative_pairs=tuple(dict.fromkeys(imaginative)),
         unresolved_candidates=(*unresolved, *rejected),
         rejected_conflicts=rejected,
+        absorbed_into=tuple(
+            (candidate.first, candidate.second) for candidate in applied
+        ),
     )
+
+
+def propagate_absorption_to_accessories(
+    resolution: ConcurrenceResolution,
+    *,
+    derivative_links: Iterable[tuple[OffenseInstanceKey, OffenseInstanceKey, str]],
+) -> ConcurrenceResolution:
+    """정범의 죄가 밀려나면 그 정범을 향한 가담자의 죄도 같이 밀려난다.
+
+    가담자 후보는 정범 realization 하나마다 따로 만들어지므로, 甲의 절도가 특수절도에 밀려도
+    乙의 절도방조는 그대로 남는다. 그러면 乙에게 절도방조와 특수절도방조가 함께 선다.
+
+    여기서 새로 판단하는 것은 없다. 정범 단계에서 이미 내려진 결정을 그 정범을 향한 가담
+    관계로 옮길 뿐이고, **대체가 실제로 존재할 때만** 옮긴다 -- 乙이 밀어낸 죄 쪽 정범에게도
+    같은 mode로 연결되어 있어야 한다. 대체 없이 밀어내면 책임을 지우는 것이 되고, 그것은
+    경합이 하는 일이 아니다.
+    """
+    links = tuple(derivative_links)
+    if not resolution.absorbed_into or not links:
+        return resolution
+    principal_of = {
+        (accessory, mode): principal for accessory, principal, mode in links
+    }
+    accessories_of: dict[tuple[OffenseInstanceKey, str], list[OffenseInstanceKey]] = {}
+    for accessory, principal, mode in links:
+        accessories_of.setdefault((principal, mode), []).append(accessory)
+    extra: dict[OffenseInstanceKey, OffenseInstanceKey] = {}
+    for child, parent in resolution.absorbed_into:
+        for (accessory, mode), principal in principal_of.items():
+            if principal != child or accessory not in resolution.retained_instances:
+                continue
+            replacement = next(
+                (
+                    value
+                    for value in accessories_of.get((parent, mode), ())
+                    if value.actor_id == accessory.actor_id
+                    and value in resolution.retained_instances
+                ),
+                None,
+            )
+            if replacement is not None:
+                extra[accessory] = replacement
+    if not extra:
+        return resolution
+    absorbed = resolution.absorbed_instances | frozenset(extra)
+    return ConcurrenceResolution(
+        retained_instances=resolution.retained_instances - frozenset(extra),
+        absorbed_instances=absorbed,
+        imaginative_pairs=resolution.imaginative_pairs,
+        unresolved_candidates=resolution.unresolved_candidates,
+        rejected_conflicts=resolution.rejected_conflicts,
+        absorbed_into=(*resolution.absorbed_into, *sorted(
+            extra.items(),
+            key=lambda value: (*_instance_fields(value[0]), *_instance_fields(value[1])),
+        )),
+    )
+
+
+def _instance_fields(value: OffenseInstanceKey) -> tuple[str, str, str, str]:
+    return (value.case_id, value.actor_id, value.offense_ref, value.occurrence_id)
 
 
 __all__ = [
@@ -419,5 +521,7 @@ __all__ = [
     "load_concurrence_rules",
     "plan_concurrence_candidates",
     "plan_specialty_candidates",
+    "propagate_absorption_to_accessories",
     "resolve_concurrence",
+    "same_realization_keys",
 ]

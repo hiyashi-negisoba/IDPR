@@ -16,7 +16,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from idpr.v2.compile import CompiledOffense, compile_offense
 from idpr.v2.registry import load_definitions
 from idpr.v2.relations import RelationInstanceKey
-from idpr.v2.runtime.concurrence import load_concurrence_rules
+from idpr.v2.runtime.concurrence import load_concurrence_rules, same_realization_keys
 from idpr.v2.runtime.doctrine_activation import raised_active_doctrines
 from idpr.v2.runtime.final_responsibility import (
     excess_parity_rows,
@@ -644,11 +644,22 @@ def main() -> None:
                 },
                 # A definitional resolution joins on the realized conduct, not the episode:
                 # one episode can hold the same actor injuring one victim and killing another.
-                focal_action_by_instance={
-                    instance: values[3]
-                    for instance, values in provenance.items()
-                    if values[3]
-                },
+                # 파생실현은 초점행위가 없으므로 그 source realization들의 초점에서 읽는다.
+                focal_action_by_instance=same_realization_keys(
+                    focal_action_by_instance={
+                        instance: values[3]
+                        for instance, values in provenance.items()
+                        if values[3]
+                    },
+                    source_realizations_by_instance={
+                        instance: values[2] for instance, values in provenance.items()
+                    },
+                    focal_action_by_occurrence={
+                        instance.occurrence_id: values[3]
+                        for instance, values in provenance.items()
+                        if values[3]
+                    },
+                ),
                 derivative_links=derivative_links,
                 truths=truths,
                 concurrence_rules=concurrence_rules,

@@ -163,30 +163,61 @@ Call 1.5-D와 `build_v2_doctrine_target_plan.py`가 현재 체인에 없어서�
 — 13개 doctrine × "예외 미서술 시 발화 가능" 전수, blocker의 확정/UNKNOWN 구분, blocker
 predicate의 긍정형 저작, 제기 경로 또는 공백 기록의 존재.
 
+### concurrence (2026-08-15)
+
+| 결함 | 유형 |
+|---|---|
+| 파생실현에 초점행위가 없어 `same_realization` 규칙이 후보조차 못 엶 | 1 |
+| 정범에서 밀려난 죄가 가담자 쪽에 그대로 남음 | 최종 중복 |
+| 흡수조건 단계가 26문항 파이프라인에 없음 | 파이프라인 |
+
+**`same_realization` 발화 불가**: host가 두 개 이상의 source realization에서 조립한 파생죄
+(`realization:derived:*`)에는 초점행위가 없다. 강도치상은 강도와 상해에 걸쳐 있어 어느 하나를
+초점으로 고를 수 없기 때문이고 그 결정 자체는 옳다 — 증거 폭을 한 행위로 좁히면 안 되는
+죄다. 그런데 `same_realization`을 초점행위 동일성으로만 보면 결과적 가중범(초점 없음)과
+고의범(초점 있음)을 짝지으라고 저작된 규칙 3개가 후보를 하나도 열지 못한다. `r14_p2_q1`의
+乙 강도치상 대 강도상해가 정확히 그 상태였다. 파생실현의 실현 식별자는 그 source들이 **한
+초점행위에 모일 때** 그 행위로 읽도록 했다 — 원문 재해석이 아니라 host 자신의 조립 기록을
+되읽는 것이고, source들이 어긋나면 식별자를 만들지 않는다. 그 사건에서 막혀 있던 짝이
+`factual_action:001:007`로 이어졌다.
+
+**가담자 쪽 잔류**: 가담자 후보는 정범 realization 하나마다 따로 만들어진다. 甲의 절도가
+특수절도에 밀려도 乙의 절도방조는 남아 乙에게 절도방조와 특수절도방조가 함께 선다.
+정범 단계의 결정을 그 정범을 향한 가담 관계로 옮기되, **대체가 실제로 존재할 때만** 옮긴다
+(乙이 밀어낸 죄 쪽 정범에게도 같은 mode로 연결되어 있어야 한다). 대체 없이 밀어내면 책임을
+지우는 일이 되고 그것은 경합이 하는 일이 아니다. **법률 검수 필요** — "가담자의 죄명은
+정범의 죄명을 따른다"를 최종 해소 단계로 옮긴 것이다.
+
+**파이프라인 공백**: 저작된 흡수규칙 1개(인장위조←사문서위조)는 조건 평가가 필요한데
+`run_v2_absorption_condition_pairs.py` 산출물이 현재 체인에 없어 조건이 영구 UNKNOWN이다.
+doctrine 단계와 같은 성격이고 재실행 때 함께 넣는다.
+
+**공백으로 남기는 것**: 상상적 경합은 저작된 규칙이 0개다. legacy 4개가 포팅되지 못한 이유는
+v2 죄명 쪽 결손이고, `gap.assault_offense_family`·`gap.stolen_property_offense_family`로 이미
+기록되어 있다. 경합 축의 결함이 아니므로 여기서 열지 않는다.
+
+종료 테스트: [`tests/test_concurrence_axis_contract.py`](../../tests/test_concurrence_axis_contract.py)
+— 저작 규칙 전수의 endpoint 실재·후보 개방, 파생실현 실현 식별자의 해소와 모호할 때의 침묵,
+가담자 흡수 전파의 대체 조건, 두 부모 충돌 시 자식 잔류.
+
 ## 재실행 시점 (2026-08-15 확정)
 
 축마다 GPU를 돌리지 않는다. 남은 축에서 구조 결함이 나오면 1.5 계열·plan·Call 2 artifact가
 다시 바뀌어 중간 checkpoint가 하나 더 생긴다. 순서는:
 
-> participation 감사 완료 → doctrine 감사 완료 → **concurrence 감사** → 구조 수정 전부 동결
-> → Call 1.5-P(episode 스코프) · Call 1.5-D 재생성 → 최종 plan → Call 2 한 번
+> 네 축 감사 완료 → 구조 수정 전부 동결 → Call 1.5-P(episode 스코프) · Call 1.5-D 재생성
+> → doctrine target plan → 흡수조건 pair 평가 → 최종 plan → Call 2 한 번
 
-재실행 체인에 doctrine 단계를 넣어야 한다. 현재 26문항 체인에는 Call 1.5-D와
-`build_v2_doctrine_target_plan.py`가 없어서 13개 doctrine 전부가 잠들어 있다.
+체인에 빠져 있는 단계가 둘이다. Call 1.5-D + `build_v2_doctrine_target_plan.py`가 없어 13개
+doctrine 전부가 잠들어 있고, `run_v2_absorption_condition_pairs.py`가 없어 흡수규칙 1개의
+조건이 영구 UNKNOWN이다. 둘 다 frozen root에서는 동작했다.
 
 지금 GPU로 확인해야 할 긴급 회귀는 없다. reachability와 mode resolution은 계약 테스트로
 고정되어 있고, 기존 Call 2 산출물에 대한 symbolic 회귀는 26/26 동일하다.
 
 ## 남은 축 순서
 
-### 1. Concurrence / final resolution
-
-- absorption, specialty, imaginative concurrence, 이번에 추가한 `definitional_resolution`
-- occurrence / same-realization 정합, established liability 사이 최종 중복·배제
-- `definitional_resolution` 3규칙은 단위 테스트로 발화를 고정했으나 26문항에서는 아직
-  발동하지 않았다(두 죄가 모두 established여야 한다). doctrine 축이 열리면 발동 여지가 생긴다
-
-### 2. AnswerPlan / Call 3 E2E handoff
+### 1. AnswerPlan / Call 3 E2E handoff
 
 축이 아니라 전달 감사다. LiabilityResult → AnswerPlan → Call 3에서 symbolic conclusion 누락,
 authority·dispute 전달, 내부 status/ID 유출, final conclusion completeness를 본다.

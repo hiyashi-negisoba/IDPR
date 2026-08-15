@@ -43,6 +43,7 @@ from idpr.v2.runtime.concurrence import (
     ConcurrenceRule,
     plan_concurrence_candidates,
     plan_specialty_candidates,
+    propagate_absorption_to_accessories,
     resolve_concurrence,
 )
 from idpr.v2.runtime.excess import (
@@ -413,10 +414,13 @@ def resolve_final_responsibility(
         rules=concurrence_rules,
         focal_action_by_instance=focal_action_by_instance,
     )
-    resolution = resolve_concurrence(
-        tuple(attributed_episodes),
-        (*specialty, *authored),
-        condition_truths=condition_truths,
+    resolution = propagate_absorption_to_accessories(
+        resolve_concurrence(
+            tuple(attributed_episodes),
+            (*specialty, *authored),
+            condition_truths=condition_truths,
+        ),
+        derivative_links=links,
     )
 
     unresolved = [
