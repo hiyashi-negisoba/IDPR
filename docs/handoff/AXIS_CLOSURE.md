@@ -230,18 +230,34 @@ Call 3 프롬프트는 두 곳을 조인 상태로 설치했다 — 새 죄명·
 
 | 감사 | 조치 | 종료 테스트 |
 |---|---|---|
-| P0-A Call 2 scheduler가 planner target을 탈락 | scheduler는 자기 표현식으로 이유를 댈 수 있을 때만 target을 뺀다. 표현식이 없는 것은 무의미한 것이 아니라 모르는 것이므로 통과시킨다. `blocked_when`도 후보·frontier에 넣었다 | [`tests/test_planned_target_reaches_call2.py`](../../tests/test_planned_target_reaches_call2.py) |
+| P0-A Call 2 scheduler가 planner target을 탈락 | scheduler는 자기 표현식으로 이유를 댈 수 있을 때만 target을 뺀다. 표현식이 없는 것도, 외부 producer가 함께 연 것도 빼지 않는다(`opened_by` 보존). `blocked_when`도 후보·frontier에 넣었다 | [`tests/test_planned_target_reaches_call2.py`](../../tests/test_planned_target_reaches_call2.py) |
 | P0-B doctrine plan에서 lineage hard fail | 이미 `b46637c`에서 계보 방식으로 해소 | `test_plan_lineage_contract.py` |
 | P1 `evidence_scope` 기본값이 planner와 Call 2에서 다름 | 폭의 권위를 `carrier_contract.effective_evidence_scope` 하나로 모으고 두 직렬화가 모두 그것을 쓴다 | `test_evidence_scope_carrier_contract.py` |
 | P1 참가 group identity가 행위자 집합뿐 | 관계의 신원을 `(행위자, realization)`로. 후보 occurrence는 증거 식별자라 신원이 되지 않는다(`identity.realization_identity`) | `test_participation_axis_contract.py` |
 | P1 중앙 carrier validator가 Call 2에 없음 | `run_v2_call2_pilot`이 진입에서 `validate_plan_carriers`를 부른다 | `test_carrier_contract.py` |
 | P1 temporal anchor가 조용히 넓어짐 | `resolve_carrier`의 unanchored fallback 제거, planner의 `ensure_carrier`도 좁힐 수 없으면 hard fail | `test_carrier_contract.py` |
 | P1 `blocked_when`이 type check 밖 | completion·doctrine 양쪽 checker가 `when`/`requires`와 똑같이 순회한다 | `test_definition_system.py` |
-| P1 excess join이 별개 실현까지 연결 | 닫지 않는다 -- 닫으면 질적 초과(r11)가 함께 죽는다. `same_execution`으로 근거를 싣고 아닌 것은 `EXCESS_ACROSS_EXECUTIONS`로 올린다 | `test_excess_candidates.py`·`test_final_responsibility.py` |
-| P1 chain이 stale 조합을 만들 수 있음 | manifest가 입력 artifact의 **내용 해시**를 적고, Call 2·symbolic 진입에서 검증한다. 규칙베이스 변경은 경고로만 남긴다 | `test_plan_lineage_contract.py` |
+| P1 excess join이 별개 실현까지 연결 | 닫지 않는다 -- 닫으면 질적 초과(r11)가 함께 죽는다. `same_execution`으로 근거를 싣고 아닌 것은 분류·귀속·symbolic 효과 없이 `EXCESS_ACROSS_EXECUTIONS`로만 남긴다 | `test_excess_candidates.py`·`test_final_responsibility.py` |
+| P1 chain이 stale 조합을 만들 수 있음 | manifest가 **읽은 입력 전부**의 내용 해시를 적고, Call 2·symbolic 진입에서 검증한다. 규칙베이스 변경은 경고로만 남긴다 | `test_plan_lineage_contract.py` |
 | P1 Call 3 완결성 감사 함수를 아무도 안 부름 | runner가 부르고 manifest·행에 기록하며 어긋나면 종료코드 2. 오프라인 감사도 같은 함수를 쓴다 | `test_answer_plan_required_conclusions.py` |
 | P1-eval LCR baseline 명칭 | "공식 구현 무수정 실행" 주장을 걷고 **LCR-inspired prompting baseline**으로 정정. `baseline_id`는 조인 키라 유지 | — |
 | P2 정리 | 참가 빌더의 carrier 복사본 제거, `rubric_evaluator`의 침묵 파싱 실패를 예외로, 옛 `v2`·Phase-3·수기 gold 모듈에 정향 헤더 | — |
+
+**재검토에서 마저 닫은 세 곳(2026-08-15).** 위 조치가 계약을 세웠지만 그 계약을 끝까지
+일관되게 적용하지 못한 자리가 셋 남아 있었다. 셋 다 새 법리가 아니라 이미 정한 계약의
+적용 범위 문제다.
+
+* scheduler가 `opened_by`를 버리고 ref만 받았다. 한 predicate를 이 죄의 요소로도 쓰고
+  doctrine이 따로 열기도 하면 같은 ref 하나로 보이고, 이 죄가 그것을 더 이상 필요로 하지
+  않게 된 순간 지워진다. 그 판단은 이 죄에 대해서만 옳다. 개방 이유를 함께 넘기고, 기본
+  요소 opener(`ELEMENT_DERIVED_OPENERS`)만 pruning 대상으로 둔다 -- 목록에 없는 opener는
+  등록되기 전부터 보호된다.
+* 참가 빌더가 읽는 상호작용·inventory·case list가 `plan_inputs` 밖에 있어 기록만 되고
+  freshness 검증에서는 빠졌다. 기록하는 목록과 검증하는 목록을 하나로 맞췄고, 빌더가 읽는
+  Path 인자가 전부 그 안에 있는지 테스트가 확인한다.
+* `same_execution=False`인 초과 후보에 unresolved marker와 확정된 분류·귀속이 동시에 붙었다.
+  모른다고 적으면서 효과를 확정하면 그 unresolved는 아무것도 막지 못하는 장식이다. 이제
+  후보와 provenance만 남기고 `classify_excess`·귀속·symbolic parity 행은 만들지 않는다.
 
 **측정된 사실 하나.** 완주한 Call 2(`experiments/v2_axis_closure_26_e2e/call2/`)에서
 `doctrine_raising_cue` 39개, `participation_mode_requirement` 27개, `participation_candidate_probe`
