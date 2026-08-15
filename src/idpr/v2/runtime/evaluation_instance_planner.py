@@ -1126,17 +1126,24 @@ def _plan_action_atomic_binding_instances(
         # 이미 각각 지고 있다: 서로 다른 행위자, 그리고 factual_targets의 교집합.
         if left.actor_id == right.actor_id:
             continue
-        left_targets = {
-            target
-            for binding_id in left.source_binding_ids
-            for target in binding_by_id[binding_id].factual_targets
-        }
-        right_targets = {
-            target
-            for binding_id in right.source_binding_ids
-            for target in binding_by_id[binding_id].factual_targets
-        }
-        if not (left_targets & right_targets):
+        # 결과를 입은 사람도 후보를 여는 근거다. 제263조가 묻는 것은 상해의 결과가 같은
+        # 사람에게 발생한 두 독립행위이고, `actual_result_bearer`는 바로 그 사실을 좁게
+        # 결박한 값이다. `factual_targets`만 보면 모델이 그 배열을 비운 사건에서 후보가
+        # 열리지 않는다 -- `r10_p1_q2`의 두 상해 binding이 정확히 그랬고, 대신 양쪽 모두
+        # 결과 귀속 대상으로 B를 적고 있었다.
+        #
+        # 이것은 후보 scoping일 뿐이다. `legal_element.same_object_of_result`가 실제로
+        # 참인지는 여전히 Call 2가 답한다.
+        def victims(realization) -> set[str]:
+            values: set[str] = set()
+            for binding_id in realization.source_binding_ids:
+                binding = binding_by_id[binding_id]
+                values.update(binding.factual_targets)
+                if binding.actual_result_bearer is not None:
+                    values.add(binding.actual_result_bearer)
+            return values
+
+        if not (victims(left) & victims(right)):
             continue
         fragments = tuple(
             fragment

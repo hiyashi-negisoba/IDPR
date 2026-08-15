@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import dataclasses
 from pathlib import Path
 
 from idpr.v2.issue_binding import (
@@ -589,6 +590,109 @@ def test_same_actor_injury_realizations_never_pair_even_across_episodes() -> Non
             actor_id="甲",
             focal_action_index=0,
             factual_targets=("B",),
+        ),
+    )
+
+    plan = plan_binding_scoped_evaluation_instances(
+        REGISTRY,
+        case_id="case",
+        bindings=bindings,
+        factual_episodes=(first, second),
+    )
+
+    assert plan.article263_pair_candidates == ()
+
+
+def test_the_bound_result_bearer_also_opens_an_article263_pair() -> None:
+    """제263조가 묻는 것은 결과가 같은 사람에게 발생한 두 독립행위다.
+
+    `factual_targets`만 보면 모델이 그 배열을 비운 사건에서 후보가 열리지 않는다.
+    `r10_p1_q2`의 두 상해 binding이 정확히 그랬고, 대신 양쪽 다 결과 귀속 대상으로 B를
+    적고 있었다. 후보를 여는 것까지가 host의 몫이고 `same_object_of_result`가 참인지는
+    여전히 Call 2가 답한다.
+    """
+    first = _episode(
+        "factual_episode:001",
+        participants=("甲", "B"),
+        actions=(("甲", ("甲", "B"), "甲이 B를 때렸다.", 0),),
+    )
+    second = _episode(
+        "factual_episode:002",
+        participants=("乙", "B"),
+        actions=(("乙", ("乙", "B"), "두 시간 뒤 乙이 B를 때렸다.", 40),),
+    )
+    bindings = (
+        dataclasses.replace(
+            _binding(
+                1,
+                episode=first,
+                seed_index=0,
+                offense_ref="offense.injury",
+                actor_id="甲",
+                focal_action_index=0,
+                factual_targets=(),
+            ),
+            actual_result_bearer="B",
+        ),
+        dataclasses.replace(
+            _binding(
+                2,
+                episode=second,
+                seed_index=0,
+                offense_ref="offense.injury",
+                actor_id="乙",
+                focal_action_index=0,
+                factual_targets=(),
+            ),
+            actual_result_bearer="B",
+        ),
+    )
+
+    plan = plan_binding_scoped_evaluation_instances(
+        REGISTRY,
+        case_id="case",
+        bindings=bindings,
+        factual_episodes=(first, second),
+    )
+
+    assert len(plan.article263_pair_candidates) == 1
+
+
+def test_a_different_result_bearer_does_not_open_a_pair() -> None:
+    first = _episode(
+        "factual_episode:001",
+        participants=("甲", "B"),
+        actions=(("甲", ("甲", "B"), "甲이 B를 때렸다.", 0),),
+    )
+    second = _episode(
+        "factual_episode:002",
+        participants=("乙", "C"),
+        actions=(("乙", ("乙", "C"), "乙이 C를 때렸다.", 40),),
+    )
+    bindings = (
+        dataclasses.replace(
+            _binding(
+                1,
+                episode=first,
+                seed_index=0,
+                offense_ref="offense.injury",
+                actor_id="甲",
+                focal_action_index=0,
+                factual_targets=(),
+            ),
+            actual_result_bearer="B",
+        ),
+        dataclasses.replace(
+            _binding(
+                2,
+                episode=second,
+                seed_index=0,
+                offense_ref="offense.injury",
+                actor_id="乙",
+                focal_action_index=0,
+                factual_targets=(),
+            ),
+            actual_result_bearer="C",
         ),
     )
 
