@@ -12,6 +12,10 @@ from dataclasses import dataclass
 from idpr.v2 import expressions
 from idpr.v2.evaluate import TRUE, UNKNOWN, evaluate
 from idpr.v2.registry import DefinitionRegistry
+from idpr.v2.runtime.article263_grounding import (
+    ARTICLE263_PREDICATE_REFS,
+    ARTICLE263_SHARED_RESULT_REFS,
+)
 from idpr.v2.runtime.completion import CompletionResult
 from idpr.v2.runtime.effects import ActiveDoctrineRefs
 from idpr.v2.runtime.identity import OffenseInstanceKey
@@ -83,15 +87,38 @@ def resolve_article_151_liability(
     )
 
 
-_ARTICLE_263_REQUIRES = {
-    "op": "all",
-    "args": [
-        {"op": "ref", "ref": "legal_element.concurrent_independent_acts"},
-        {"op": "ref", "ref": "legal_element.same_object_of_result"},
-        {"op": "ref", "ref": "legal_element.causal_origin_unascertained"},
-        {"op": "ref", "ref": "legal_element.injury_result"},
-    ],
-}
+class Article263AuthorityError(ValueError):
+    """The authored Article 263 constraint is absent or is not the checked probe."""
+
+
+def article_263_deeming_expression(
+    registry: DefinitionRegistry, offense_ref: str
+) -> expressions.CanonicalExpr:
+    """Return the one authored Article 263 deeming condition.
+
+    `participation_constraints.statutory_deeming.requires` in the offense definition is the sole
+    owner of which predicates Article 263 deems on.  Every consumer -- this module's resolver, the
+    Scallop backend, and the dedicated Call 2 route -- reads it from here so a YAML edit cannot
+    leave one of them behind.  The wire-order tuples in `article263_grounding` stay the ordering
+    authority for the request/response contract and are verified against the authored set.
+    """
+    entry = registry.get(offense_ref)
+    constraints = (entry.payload.get("participation_constraints") or {}) if entry else {}
+    statutory = constraints.get("statutory_deeming")
+    if statutory is None:
+        raise Article263AuthorityError(
+            f"{offense_ref!r} has no approved Article 263 statutory_deeming constraint"
+        )
+    requires = expressions.canonicalize(statutory.get("requires"))
+    if requires is None or expressions.canonical_leaf_refs(requires) != frozenset(
+        ARTICLE263_PREDICATE_REFS
+    ):
+        raise Article263AuthorityError(
+            "Article 263 statutory_deeming constraint is not the checked probe"
+        )
+    return expressions.combine_all(
+        requires, *(("ref", ref) for ref in ARTICLE263_SHARED_RESULT_REFS)
+    )
 
 
 def resolve_article_263_deemed_liability(
@@ -108,7 +135,7 @@ def resolve_article_263_deemed_liability(
     This function never calls ATTRIBUTE or merges any actor's conduct truths.
     """
     truth = evaluate(
-        expressions.canonicalize(_ARTICLE_263_REQUIRES), truths.predicate_view(instance)
+        article_263_deeming_expression(registry, compiled.id), truths.predicate_view(instance)
     )
     obligation = ObligationOutcome(
         obligation=StatutoryDeemingObligation(underlying_instance=instance),
@@ -127,6 +154,8 @@ def resolve_article_263_deemed_liability(
 
 __all__ = [
     "Article151QualifyingLink",
+    "Article263AuthorityError",
+    "article_263_deeming_expression",
     "resolve_article_151_liability",
     "resolve_article_263_deemed_liability",
 ]

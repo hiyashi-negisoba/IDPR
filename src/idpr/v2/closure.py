@@ -345,6 +345,12 @@ def _item_for_entry(
         expressions.extend((entry.payload.get("additions") or {}).values())
     elif entry.kind == "doctrine":
         expressions.append(entry.payload["requires"])
+        # A blocker defeats only when TRUE, so an uncollected blocker leaf is never asked, stays
+        # UNKNOWN, and reads as "no exception here" -- the traversal's own omission would decide a
+        # legal question.  Five authored blockers (원인에 있어서 자유로운 행위 등) name a predicate
+        # that appears nowhere else, so this is the only place they can enter the dependency set.
+        if entry.payload.get("blocked_when") is not None:
+            expressions.append(entry.payload["blocked_when"])
         initial_deferred.append(entry.id)
     elif entry.kind == "completion_policy":
         for state in (entry.payload.get("states") or {}).values():
@@ -352,6 +358,8 @@ def _item_for_entry(
                 expressions.append(state["when"])
             if state.get("requires") is not None:
                 expressions.append(state["requires"])
+            if state.get("blocked_when") is not None:
+                expressions.append(state["blocked_when"])
     elif entry.kind == "participation_policy":
         for mode in (entry.payload.get("modes") or {}).values():
             if mode.get("requires") is not None:
@@ -489,6 +497,8 @@ def _collect_entry(
         elif entry.kind == "doctrine":
             deferred.append(entry.id)
             _collect_expression(registry, entry.payload["requires"], source_path + ("requires",), occurrence_path, facts, deferred, visiting)
+            if entry.payload.get("blocked_when") is not None:
+                _collect_expression(registry, entry.payload["blocked_when"], source_path + ("blocked_when",), occurrence_path, facts, deferred, visiting)
         elif entry.kind == "relation":
             deferred.append(entry.id)
         elif entry.kind == "completion_policy":
@@ -497,6 +507,8 @@ def _collect_entry(
                     _collect_expression(registry, state["when"], source_path + (f"states.{state_name}.when",), occurrence_path, facts, deferred, visiting)
                 if state.get("requires") is not None:
                     _collect_expression(registry, state["requires"], source_path + (f"states.{state_name}.requires",), occurrence_path, facts, deferred, visiting)
+                if state.get("blocked_when") is not None:
+                    _collect_expression(registry, state["blocked_when"], source_path + (f"states.{state_name}.blocked_when",), occurrence_path, facts, deferred, visiting)
         elif entry.kind == "participation_policy":
             for mode_name, mode in (entry.payload.get("modes") or {}).items():
                 if mode.get("requires") is not None:

@@ -6,6 +6,7 @@ from pathlib import Path
 import pytest
 
 from idpr.v2.compile import CompiledOffense, compile_offense
+from idpr.v2.expressions import canonical_leaf_refs
 from idpr.v2.gold_factual_identity import GoldOccurrence
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.article263_grounding import (
@@ -20,6 +21,10 @@ from idpr.v2.runtime.article263_grounding import (
 )
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.scallop_backend import run_article_263_liability_parity_program
+from idpr.v2.runtime.statutory import (
+    Article263AuthorityError,
+    article_263_deeming_expression,
+)
 from idpr.v2.runtime.truths import CaseTruths
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -199,3 +204,26 @@ def test_dedicated_article263_backend_scopes_case_truths_and_establishes_liabili
     assert result.completion is not None and result.completion.state == "completed"
     assert result.elements.gate_state == "passes"
     assert result.liability_result is not None
+
+
+def test_article263_wire_order_matches_the_authored_statutory_deeming_constraint() -> None:
+    """The wire tuples order what the definition owns -- they may not add or drop a predicate.
+
+    Article 263's deeming condition used to be written out in four places: the offense YAML, the
+    dedicated Call 2 route, the direct resolver, and the Scallop backend.  The resolver and the
+    backend now read the authored constraint, so this only has to pin the remaining mirror: the
+    request/response wire order.
+    """
+    registry = load_definitions(ROOT / "data/v2/definitions")
+    expression = article_263_deeming_expression(registry, "offense.injury")
+
+    assert canonical_leaf_refs(expression) == frozenset(
+        (*ARTICLE263_PREDICATE_REFS, *ARTICLE263_SHARED_RESULT_REFS)
+    )
+
+
+def test_article263_reader_rejects_an_offense_without_the_authored_constraint() -> None:
+    registry = load_definitions(ROOT / "data/v2/definitions")
+
+    with pytest.raises(Article263AuthorityError, match="statutory_deeming"):
+        article_263_deeming_expression(registry, "offense.theft")

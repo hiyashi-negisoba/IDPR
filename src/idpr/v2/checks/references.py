@@ -117,6 +117,32 @@ def _check_bundle_attachment(
     return findings
 
 
+def _check_candidate_materialization(
+    registry: DefinitionRegistry, entry: DefinitionEntry
+) -> list[Finding]:
+    """`binding_sets` / `distinct_actor_binding_sets` are executable: they open the candidate.
+
+    An unresolvable ref here does not raise anywhere -- materialization simply finds no matching
+    binding and the candidate disappears as though the case never contained it.  That is the one
+    failure mode this axis exists to catch, so the refs are typed like any other.
+    """
+    metadata = entry.payload.get("candidate_materialization")
+    if not isinstance(metadata, Mapping):
+        return []
+    findings: list[Finding] = []
+    for field in ("binding_sets", "distinct_actor_binding_sets"):
+        for set_index, binding_set in enumerate(metadata.get(field) or ()):
+            for ref_index, ref in enumerate(binding_set or ()):
+                findings.extend(_check_ref(
+                    registry,
+                    entry,
+                    f"candidate_materialization.{field}[{set_index}][{ref_index}]",
+                    ref,
+                    frozenset({"offense", "derived_offense"}),
+                ))
+    return findings
+
+
 def _check_legal_element(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:
     findings: list[Finding] = []
     for index, ref in enumerate(entry.payload.get("grounded_by") or []):
@@ -138,7 +164,7 @@ def _check_exported_component(registry: DefinitionRegistry, entry: DefinitionEnt
 
 
 def _check_offense(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:
-    findings: list[Finding] = []
+    findings: list[Finding] = _check_candidate_materialization(registry, entry)
     elements = entry.payload.get("elements") or {}
     for slot in expressions.SLOT_NAMES:
         findings.extend(_check_expression(registry, entry, f"elements.{slot}", elements.get(slot)))
@@ -201,7 +227,7 @@ def _check_offense(registry: DefinitionRegistry, entry: DefinitionEntry) -> list
 
 
 def _check_derived_offense(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:
-    findings: list[Finding] = []
+    findings: list[Finding] = _check_candidate_materialization(registry, entry)
     flattened = entry.payload.get("flattened_elements") or {}
     for slot in expressions.SLOT_NAMES:
         findings.extend(_check_expression(registry, entry, f"flattened_elements.{slot}", flattened.get(slot)))

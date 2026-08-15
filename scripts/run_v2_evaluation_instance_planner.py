@@ -30,7 +30,11 @@ from idpr.v2.runtime.evaluation_instance_planner import (
 )
 
 FROZEN_STEP7_COMMIT = "62759879019dbcb894f7e274977b07f41957fd45"
-FROZEN_CLOSURE_SHA256 = "6f40feba2f03b973209ea44c5fd2c7619760ebed6179b92108f12f79bb2ddf9a"
+# 2026-08-15 재봉인. `blocked_when` leaf를 dependency traversal의 정식 입력으로 넣으면서
+# closure.py가 바뀌었다. 그 변경으로 실제로 늘어난 것은 defeat doctrine 5개의 blocker 전용
+# predicate뿐이고(자초한 심신장애 등), completion 쪽 frontier fact 집합과 planner가 읽는
+# `candidate_offense_refs`는 변경 전과 동일함을 대조로 확인했다.
+FROZEN_CLOSURE_SHA256 = "e19186b8129be2dc94cbee0438c1a1f5a6f975bc3658495e959f96cf7635a256"
 DEFAULT_DEFINITIONS = ROOT / "data/v2/definitions"
 DEFAULT_INVENTORY = ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
 DEFAULT_CASE_LIST = ROOT / "data/eval/kcl_substantive_case_ids.txt"

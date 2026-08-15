@@ -30,6 +30,10 @@ from idpr.v2.runtime import pipeline
 from idpr.v2.runtime.excess import ExcessAssessment
 from idpr.v2.runtime.identity import OffenseInstanceKey, RuntimeRelationKey
 from idpr.v2.runtime.indirect_principal_grounding import IndirectPrincipalDependency
+from idpr.v2.runtime.statutory import (
+    Article263AuthorityError,
+    article_263_deeming_expression,
+)
 from idpr.v2.runtime.stages import (
     AppliedEffect,
     CompletionRequirementObligation,
@@ -73,12 +77,6 @@ INDIRECT_PRINCIPAL_DEPENDENCY_QUERY_RELATION = "v2_indirect_principal_dependency
 ACCESSORY_EXCESS_QUERY_RELATION = "v2_accessory_excess_effect"
 _TRUTHS = frozenset({"TRUE", "FALSE", "UNKNOWN"})
 _DERIVATIVE_MODES = frozenset({"instigator", "aider"})
-_ARTICLE_263_PROBE_REFS = frozenset({
-    "legal_element.concurrent_independent_acts",
-    "legal_element.same_object_of_result",
-    "legal_element.causal_origin_unascertained",
-})
-_ARTICLE_263_RESULT_REF = "legal_element.injury_result"
 _STAGE_NAMES = ("unlawfulness", "culpability", "punishability")
 _STAGE_LEGAL_STATES = {
     "unlawfulness": frozenset({"preserved", "defeated", "unresolved"}),
@@ -2029,17 +2027,12 @@ def run_indirect_principal_liability_parity_program(
 def _article_263_expression(
     registry: DefinitionRegistry, compiled: CompiledOffense
 ) -> CanonicalExpr:
-    offense = registry.get(compiled.id)
-    constraints = (offense.payload.get("participation_constraints") or {}) if offense else {}
-    statutory = constraints.get("statutory_deeming")
-    if statutory is None:
-        raise ScallopBackendContractError(
-            f"{compiled.id!r} has no approved Article 263 statutory_deeming constraint"
-        )
-    requires = expressions.canonicalize(statutory.get("requires"))
-    if requires is None or canonical_leaf_refs(requires) != _ARTICLE_263_PROBE_REFS:
-        raise ScallopBackendContractError("Article 263 statutory_deeming constraint is not the checked probe")
-    return expressions.combine_all(requires, ("ref", _ARTICLE_263_RESULT_REF))
+    # The authored constraint is read through the one statutory reader; only the error type is
+    # local, so a backend caller still sees a backend contract failure.
+    try:
+        return article_263_deeming_expression(registry, compiled.id)
+    except Article263AuthorityError as error:
+        raise ScallopBackendContractError(str(error)) from error
 
 
 def _integrated_prestage_queries() -> tuple[str, ...]:
