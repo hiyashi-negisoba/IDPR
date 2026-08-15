@@ -42,6 +42,13 @@ class AccessoryExcessCandidate:
     """실현된 죄의 factual episode. 가담자의 episode가 아니다 -- 교사는 앞선 episode에서
     일어나므로 둘은 정상적으로 다르다."""
 
+    same_execution: bool = True
+    """실현된 죄가 링크된 정범의 **그 실행**에서 나온 것인가.
+
+    거짓이면 정범이 그 실행 뒤 다른 자리에서 저지른 죄다. 그것이 교사받은 실행이 더 나아간
+    것인지, 교사와 무관한 별개 범행인지는 이 단계가 가진 provenance로 판정할 수 없다.
+    후보는 열되 최종 책임 단계가 unresolved로 올린다."""
+
     @property
     def instigated_offense_ref(self) -> str:
         return self.accessory_instance.offense_ref
@@ -65,6 +72,7 @@ class AccessoryExcessCandidate:
                 "occurrence_id": self.principal_instance.occurrence_id,
             },
             "factual_episode_id": self.factual_episode_id,
+            "same_execution": self.same_execution,
             INSTIGATED_PROVENANCE_REF: self.instigated_offense_ref,
             REALIZED_PROVENANCE_REF: self.realized_offense_ref,
         }
@@ -93,6 +101,20 @@ def plan_accessory_excess_candidates(
       넘어선 것일 수 없다;
     * 교사 대상과 다른 offense ref -- 교사한 그대로를 실현한 것은 초과가 아니고, 여기서
       내보내면 `classify_excess`가 아무도 묻지 않은 질문에 답하게 된다.
+
+    두 번째 join은 **"교사받은 그 실행이 더 나아간 것"과 "정범이 나중에 따로 저지른 죄"를
+    구별하지 못한다.** 甲이 절도를 교사하고 乙이 절도를 실행한 뒤 별개 사건에서 특수절도를
+    저질렀다면 그것은 첫 교사의 초과가 아닌데, 지금 join은 그것도 후보로 연다.
+
+    구별에 필요한 것은 "교사받은 그 실현"의 신원인데, 상류가 그것을 주지 않는다 -- 참가
+    링크는 정범 instance를 가리킬 뿐 그 실행이 어디까지 이어졌는지는 기록하지 않는다.
+    그렇다고 episode 동일성으로 좁히면 반대로 틀린다: 교사한 절도(episode 4)와 정범이 저지른
+    상해(episode 5)의 질적 초과는 실제 판례 형태이고, 좁히면 그 후보가 닫힌다.
+
+    그래서 여기서 정하지 않는다. 후보는 열되 :attr:`AccessoryExcessCandidate.same_execution`
+    으로 그 후보가 **한 실행 안의 초과인지, 정범의 다른 실행에 걸친 것인지**를 함께 나른다.
+    후자는 최종 책임 단계가 unresolved로 올린다. host가 둘 중 하나로 접으면 그것은 저작되지
+    않은 법리를 코드로 쓰는 일이다.
     """
     links = tuple(dict.fromkeys(derivative_links))
     established = tuple(dict.fromkeys(established_instances))
@@ -109,7 +131,7 @@ def plan_accessory_excess_candidates(
 
     output: list[AccessoryExcessCandidate] = []
     for accessory, principal, _mode in links:
-        principal_rank = rank[episode_by_instance[principal]]
+        principal_episode = episode_by_instance[principal]
         for realized in established:
             if realized.case_id != accessory.case_id:
                 continue
@@ -117,11 +139,14 @@ def plan_accessory_excess_candidates(
                 continue
             if realized.offense_ref == accessory.offense_ref:
                 continue
-            if rank[episode_by_instance[realized]] < principal_rank:
+            if rank[episode_by_instance[realized]] < rank[principal_episode]:
                 continue
             output.append(
                 AccessoryExcessCandidate(
-                    accessory, realized, episode_by_instance[realized]
+                    accessory,
+                    realized,
+                    episode_by_instance[realized],
+                    same_execution=episode_by_instance[realized] == principal_episode,
                 )
             )
     return tuple(dict.fromkeys(output))

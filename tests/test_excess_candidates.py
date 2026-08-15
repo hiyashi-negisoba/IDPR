@@ -32,8 +32,45 @@ def _plan(links, established, episodes, order=ORDER):
 
 
 def test_the_instigation_and_the_execution_may_sit_in_different_episodes() -> None:
-    """이것이 검수로 바뀐 지점이다. 예전 same-episode join은 여기서 후보를 닫았다."""
+    """이것이 검수로 바뀐 지점이다. 예전 same-episode join은 여기서 후보를 닫았다.
+
+    닫히면 안 되는 것은 **교사행위와 실행** 사이의 간격이다. 실행과 그 실행이 넘어선 죄는
+    한 실현이므로 같은 episode에 있다.
+    """
     candidates = _plan(
+        (LINK,),
+        (PRINCIPAL, REALIZED),
+        {
+            ACCESSORY: "factual_episode:001",
+            PRINCIPAL: "factual_episode:002",
+            REALIZED: "factual_episode:002",
+        },
+    )
+    assert len(candidates) == 1
+    assert candidates[0].instigated_offense_ref == "offense.theft"
+    assert candidates[0].realized_offense_ref == "derived_offense.special_theft"
+
+
+def test_a_crime_outside_the_linked_execution_is_marked_not_asserted() -> None:
+    """정범이 그 실행 뒤 다른 자리에서 저지른 죄는 근거가 다르다.
+
+    파생 경로(절도 → 특수절도)가 저작되어 있다는 것만으로 별개 실현을 앞선 교사에 묶으면
+    아무도 주장하지 않은 사실을 host가 짓는 것이 된다. 그렇다고 닫으면 교사한 절도와 정범의
+    상해 사이의 질적 초과 -- 실제 판례 형태 -- 가 함께 닫힌다. 판정에 필요한 "교사받은 그
+    실현"의 신원을 상류가 주지 않으므로, 여기서 정하지 않고 근거의 차이를 실어 나른다.
+    """
+    same_execution = _plan(
+        (LINK,),
+        (PRINCIPAL, REALIZED),
+        {
+            ACCESSORY: "factual_episode:001",
+            PRINCIPAL: "factual_episode:002",
+            REALIZED: "factual_episode:002",
+        },
+    )
+    assert [value.same_execution for value in same_execution] == [True]
+
+    later = _plan(
         (LINK,),
         (PRINCIPAL, REALIZED),
         {
@@ -42,9 +79,7 @@ def test_the_instigation_and_the_execution_may_sit_in_different_episodes() -> No
             REALIZED: "factual_episode:003",
         },
     )
-    assert len(candidates) == 1
-    assert candidates[0].instigated_offense_ref == "offense.theft"
-    assert candidates[0].realized_offense_ref == "derived_offense.special_theft"
+    assert [value.same_execution for value in later] == [False]
 
 
 def test_the_provenance_feeds_the_classifier_without_any_new_judgment() -> None:

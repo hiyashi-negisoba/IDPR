@@ -440,6 +440,7 @@ def resolve_final_responsibility(
     unresolved = [
         *status_redirection_findings,
         *_multiple_excess_findings(excess_findings),
+        *_cross_execution_excess_findings(excess_findings),
         *_probe_gap_findings(
             registry,
             # derivative link의 mode는 이미 저작된 이름(instigator/aider)이다.
@@ -571,6 +572,38 @@ def _multiple_excess_findings(
         )
         for accessory, values in sorted(grouped.items(), key=lambda item: repr(item[0]))
         if len(values) > 1
+    )
+
+
+EXCESS_ACROSS_EXECUTIONS = "EXCESS_ACROSS_EXECUTIONS"
+"""초과 후보의 실현이 링크된 정범의 그 실행에서 나온 것이 아니다.
+
+교사받은 실행이 더 나아간 것인지, 정범이 나중에 따로 저지른 별개 범행인지를 구별하려면
+"교사받은 그 실현"의 신원이 필요한데 상류가 그것을 주지 않는다. 어느 쪽으로 접어도 host가
+저작되지 않은 법리를 코드로 쓰는 것이 되므로, 후보는 살리고 그 약한 근거를 드러낸다.
+"""
+
+
+def _cross_execution_excess_findings(
+    findings: tuple[ExcessFinding, ...],
+) -> tuple[UnresolvedFinding, ...]:
+    return tuple(
+        UnresolvedFinding(
+            marker=EXCESS_ACROSS_EXECUTIONS,
+            policy_id="excess_policy",
+            scope=(
+                f"{finding.candidate.accessory_instance.actor_id}/"
+                f"{finding.candidate.accessory_instance.occurrence_id}"
+            ),
+            detail=(
+                f"{finding.candidate.realized_offense_ref} was realized in "
+                f"{finding.candidate.factual_episode_id}, not in the execution this "
+                "participation link points at; whether the instigated execution went "
+                "that far is not decided by the provenance available here"
+            ),
+        )
+        for finding in findings
+        if not finding.candidate.same_execution
     )
 
 

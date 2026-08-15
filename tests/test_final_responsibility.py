@@ -14,6 +14,7 @@ from idpr.v2.runtime.excess import (
     UNRESOLVED_EXCESS_RELATION,
 )
 from idpr.v2.runtime.final_responsibility import (
+    EXCESS_ACROSS_EXECUTIONS,
     MULTIPLE_EXCESS_CANDIDATES,
     NOT_ATTRIBUTABLE_BY_EXCESS,
     UNRESOLVED_EXCESS_ATTRIBUTION,
@@ -375,3 +376,35 @@ def test_an_unresolved_excess_neither_convicts_nor_acquits(registry) -> None:
     ]
     assert view.excess_attributions[0].blocked_instance is None
     assert instigated in view.concurrence.retained_instances
+
+
+def test_an_excess_outside_the_linked_execution_is_raised_as_unresolved(registry) -> None:
+    """근거가 약한 join을 조용히 단정하지 않는다.
+
+    甲이 절도를 교사하고 乙이 절도를 실행한 뒤 다른 자리에서 또 죄를 저질렀을 때, 그것이
+    교사받은 실행이 더 나아간 것인지 별개 범행인지는 여기 있는 provenance로 갈리지 않는다.
+    후보는 살리되 그 사실을 표시한다 -- 접는 쪽이든 여는 쪽이든 host가 정하면 저작되지 않은
+    법리를 코드로 쓰는 것이다.
+    """
+    accessory = _instance("offense.theft", "participation_binding:001", actor="甲")
+    principal = _instance("offense.theft", "binding:001", actor="乙")
+    injury = _instance("offense.injury", "binding:003", actor="乙")
+    view = _view(
+        registry,
+        results={
+            accessory: _established(accessory),
+            principal: _established(principal),
+            injury: _established(injury),
+        },
+        provenance={
+            accessory: ("factual_episode:001", ()),
+            principal: ("factual_episode:004", ()),
+            injury: ("factual_episode:005", ()),
+        },
+        links=((accessory, principal, "instigator"),),
+    )
+    assert len(view.excess_findings) == 1
+    assert not view.excess_findings[0].candidate.same_execution
+    assert any(
+        value.marker == EXCESS_ACROSS_EXECUTIONS for value in view.unresolved
+    ), view.unresolved
