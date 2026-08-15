@@ -3,6 +3,22 @@
 기준: 2026-08-15 · 대상: v2 registry의 offense 38 + derived_offense 25 = **63개**
 설치 대상 필드: `article151_penalty_threshold.class` ∈ {`fine_or_greater`, `below_fine`}
 
+## 이 문서의 지위 — review evidence이지 runtime metadata가 아니다
+
+DSL에 들어가는 것은 **한 비트뿐**이다.
+
+```yaml
+article151_penalty_threshold:
+  class: fine_or_greater
+  authority_refs: [...]
+```
+
+아래 표의 「법정형(초안)」 열은 그 한 비트를 **법률검수하기 위한 근거**이고, 징역 몇 년·벌금
+몇 만원 같은 숫자는 runtime에 들어가지 않는다. 형량 데이터베이스를 만드는 것이 아니다 —
+runtime이 묻는 질문은 오직 "선행범죄가 제151조의 threshold를 통과하는가" 하나다.
+
+새 offense가 이 필드 없이 추가되면 fail-closed로 UNKNOWN이 맞다.
+
 ## 이 워크시트가 판정을 요구하는 것
 
 형법 제151조 제1항은 은닉·도피의 **대상자**가 "벌금 이상의 형에 해당하는 죄를 범한 자"일 것을

@@ -181,10 +181,11 @@
           "items": {
             "$ref": "https://schemas.idpr.local/v2/common#/$defs/authority_ref"
           },
-          "minItems": 1
+          "minItems": 1,
+          "description": "Where the classification was verified, so a later amendment has a place to be checked against. Not the penalty itself."
         }
       },
-      "description": "Authored Article 151 threshold classification for this offense. Deliberately Article-151-specific rather than general sentencing metadata: nothing else in the layer consumes a penalty class today. Absence is UNKNOWN, never an implied pass -- the host must not assume that every offense reaches the threshold."
+      "description": "Authored Article 151 threshold classification for this offense: one bit, not a sentencing record. The runtime only ever asks whether a predecessor offense clears 형법 제151조 제1항's '벌금 이상의 형에 해당하는 죄'. Concrete 법정형 figures (형기, 벌금액) deliberately do not live here -- they are review evidence for the classification and belong in the legal worksheet, not in runtime metadata. Absence is UNKNOWN, never an implied pass: the host must not assume that every offense reaches the threshold, because the one place that assumption fails would be invisible."
     }
   },
   "$defs": {

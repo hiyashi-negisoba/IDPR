@@ -1,17 +1,21 @@
 # 다음 세션 시작점
 
 기준: 2026-08-15 · 브랜치 `deadline_v2_0808` · 데드라인 2026-08-19 21:00
-검증: `528 passed, 16 skipped` (conda **base**, `/data5/jaehoonjeong/miniconda3/bin/python -m pytest -q`)
+검증: `557 passed, 16 skipped` (conda **base**, `/data5/jaehoonjeong/miniconda3/bin/python -m pytest -q`)
 
 ## 읽는 순서
 
 1. **이 문서** — 지금 어디에 있고 다음에 뭘 하는가
-2. [`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md) — **다음 세션의 작업 지시서.** 사용자 저작.
-   Phase A/B/C가 그대로 할 일이다.
-3. [`AXIS_CLOSURE.md`](AXIS_CLOSURE.md) — 구조 감사의 정본. 맨 뒤
+2. [`PHASE_A12_DESIGN.md`](PHASE_A12_DESIGN.md) — **2026-08-15 결재된 A1·A2 계약과 시공 기록.**
+   §1~§5는 결정 기록, §6이 A1의 남은 구조(ROUTE 재사용)다.
+   승인 대기 중인 것: [`ROUTE_DEPENDENCY_PROMPT.md`](ROUTE_DEPENDENCY_PROMPT.md)(프롬프트),
+   [`ARTICLE151_PENALTY_WORKSHEET.md`](ARTICLE151_PENALTY_WORKSHEET.md)(법률 검수).
+3. [`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md) — 사용자 저작 지시서. §11-bis에 2026-08-15
+   갱신(감사 시점에 보이지 않던 세 건)이 있다. B2·B3·B4는 닫혔고 A3·A4가 남았다.
+4. [`AXIS_CLOSURE.md`](AXIS_CLOSURE.md) — 구조 감사의 정본. 맨 뒤
    「production E2E 관통 (2026-08-15 06:00)」 절이 최신 상태다.
-4. [`CODEBASE_AUDIT.md`](CODEBASE_AUDIT.md) — 닫힌 pipeline 감사 10건. 참조용.
-5. `NEXT_SESSION.md` — append-only 역사 로그. **그 안의 "다음 작업" 지시는 전부 만료**했다.
+5. [`CODEBASE_AUDIT.md`](CODEBASE_AUDIT.md) — 닫힌 pipeline 감사 10건. 참조용.
+6. `NEXT_SESSION.md` — append-only 역사 로그. **그 안의 "다음 작업" 지시는 전부 만료**했다.
 
 ## 한 줄 상태
 
