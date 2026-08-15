@@ -8,8 +8,8 @@
 1. **이 문서** — 지금 어디에 있고 다음에 뭘 하는가
 2. [`PHASE_A12_DESIGN.md`](PHASE_A12_DESIGN.md) — **2026-08-15 결재된 A1·A2 계약과 시공 기록.**
    §1~§5는 결정 기록, §6이 A1의 남은 구조(ROUTE 재사용)다.
-   승인 대기 중인 것: [`ROUTE_DEPENDENCY_PROMPT.md`](ROUTE_DEPENDENCY_PROMPT.md)(프롬프트),
-   [`ARTICLE151_PENALTY_WORKSHEET.md`](ARTICLE151_PENALTY_WORKSHEET.md)(법률 검수).
+   A1·A2는 결재 완료. 승인 대기: [`A3_ASSAULT_FAMILY_WORKSHEET.md`](A3_ASSAULT_FAMILY_WORKSHEET.md),
+   [`A4_STOLEN_PROPERTY_WORKSHEET.md`](A4_STOLEN_PROPERTY_WORKSHEET.md) 둘 다 법률 저작 검수다.
 3. [`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md) — 사용자 저작 지시서. §11-bis에 2026-08-15
    갱신(감사 시점에 보이지 않던 세 건)이 있다. B2·B3·B4는 닫혔고 A3·A4가 남았다.
 4. [`AXIS_CLOSURE.md`](AXIS_CLOSURE.md) — 구조 감사의 정본. 맨 뒤
