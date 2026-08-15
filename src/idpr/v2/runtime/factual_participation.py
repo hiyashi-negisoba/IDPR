@@ -15,6 +15,7 @@ from idpr.v2.registry import DefinitionRegistry
 from idpr.v2.runtime.identity import (
     PARTICIPATION_OCCURRENCE_PREFIX,
     OffenseInstanceKey,
+    realization_identity,
 )
 from idpr.v2.runtime.participation_grounding import ParticipationLocalTarget
 
@@ -369,6 +370,8 @@ def materialize_factual_participation_candidates(
 def derived_co_principal_targets(
     registry: DefinitionRegistry,
     targets: Iterable[ParticipationLocalTarget],
+    *,
+    realization_occurrences: Mapping[tuple[str, str], str] | None = None,
 ) -> tuple[ParticipationLocalTarget, ...]:
     """Open authored same-episode derived groups after a base co-group is discovered.
 
@@ -376,6 +379,17 @@ def derived_co_principal_targets(
     have direct theft bindings.  Call 1.5-P may create the missing member later.  This
     function closes exactly that ordering gap from the derived definition's
     ``distinct_actor_binding_sets``; it performs no case-text or liability inference.
+
+    `realization_occurrences` maps `(actor_id, offense_ref)` to that actor's legal realization
+    of the offense.  It is required because a member whose occurrence names a realization cannot
+    simply have its `offense_ref` rewritten: that produced instances declaring `special_theft`
+    while pointing at a `theft` realization -- an identity that resolves to two different
+    offenses at once.  Participation candidates are different; their occurrence is an evidence
+    identifier rather than a realization identity, so it carries over unchanged.
+
+    When a member has no realization of the derived offense, the group is not opened at all.
+    Opening it would assert that this actor realized an offense the plan never materialized
+    for them.
     """
     values = tuple(targets)
     existing = set(values)
@@ -394,18 +408,26 @@ def derived_co_principal_targets(
             derivation = entry.payload.get("derivation") or {}
             if derivation.get("base") != target.offense_ref:
                 continue
-            candidate = ParticipationLocalTarget(
-                "co_principal_group",
-                tuple(
-                    OffenseInstanceKey(
-                        member.case_id,
-                        member.actor_id,
-                        entry.id,
-                        member.occurrence_id,
+            members: list[OffenseInstanceKey] = []
+            for member in target.members:
+                if realization_identity(member) is None:
+                    # 참가 후보의 occurrence는 증거 식별자다. 그대로 나른다.
+                    occurrence_id = member.occurrence_id
+                else:
+                    occurrence_id = (realization_occurrences or {}).get(
+                        (member.actor_id, entry.id), ""
                     )
-                    for member in target.members
-                ),
-            )
+                    if not occurrence_id:
+                        members = []
+                        break
+                members.append(
+                    OffenseInstanceKey(
+                        member.case_id, member.actor_id, entry.id, occurrence_id
+                    )
+                )
+            if not members:
+                continue
+            candidate = ParticipationLocalTarget("co_principal_group", tuple(members))
             if candidate not in existing:
                 existing.add(candidate)
                 output.append(candidate)

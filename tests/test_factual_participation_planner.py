@@ -16,7 +16,10 @@ from idpr.v2.runtime.factual_participation import (
     derived_co_principal_targets,
     materialize_factual_participation_candidates,
 )
-from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.identity import (
+    PARTICIPATION_OCCURRENCE_PREFIX,
+    OffenseInstanceKey,
+)
 from idpr.v2.runtime.participation_grounding import ParticipationLocalTarget
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -325,18 +328,75 @@ def test_necessary_counterpart_metadata_suppresses_ordinary_probe() -> None:
     assert result.targets == ()
 
 
-def test_base_co_group_opens_authored_special_theft_group_after_participation() -> None:
-    base = ParticipationLocalTarget(
+def _base_theft_group() -> ParticipationLocalTarget:
+    return ParticipationLocalTarget(
         "co_principal_group",
         (
             OffenseInstanceKey(CASE_ID, "甲", "offense.theft", "realization:001"),
             OffenseInstanceKey(CASE_ID, "乙", "offense.theft", "realization:002"),
         ),
     )
-    expanded = derived_co_principal_targets(REGISTRY, (base,))
+
+
+def test_base_co_group_opens_authored_special_theft_group_after_participation() -> None:
+    """파생 group의 member는 그 파생죄의 실현을 가리켜야 한다.
+
+    base 실현의 occurrence를 들고 `offense_ref`만 바꾸면 `special_theft`를 선언하면서
+    `theft` 실현을 가리키는 instance가 나온다 -- 하나의 identity가 두 죄로 resolve된다.
+    실측에서 26문항 중 3건이 그 상태였다.
+    """
+    expanded = derived_co_principal_targets(
+        REGISTRY,
+        (_base_theft_group(),),
+        realization_occurrences={
+            ("甲", "derived_offense.special_theft"): "realization:003",
+            ("乙", "derived_offense.special_theft"): "realization:004",
+        },
+    )
+
     assert len(expanded) == 1
     assert expanded[0].offense_ref == "derived_offense.special_theft"
     assert [value.occurrence_id for value in expanded[0].members] == [
-        "realization:001",
-        "realization:002",
+        "realization:003",
+        "realization:004",
+    ]
+
+
+def test_no_derived_realization_means_the_group_is_not_opened() -> None:
+    """그 행위자에게 파생죄 실현이 없으면 group을 열지 않는다.
+
+    열면 plan이 만들지 않은 죄를 그 사람이 실현했다고 주장하게 된다.
+    """
+    assert (
+        derived_co_principal_targets(
+            REGISTRY,
+            (_base_theft_group(),),
+            realization_occurrences={("甲", "derived_offense.special_theft"): "realization:003"},
+        )
+        == ()
+    )
+
+
+def test_participation_candidate_occurrences_carry_over_unchanged() -> None:
+    """참가 후보의 occurrence는 실현 신원이 아니라 증거 식별자다. 그대로 나른다."""
+    base = ParticipationLocalTarget(
+        "co_principal_group",
+        (
+            OffenseInstanceKey(CASE_ID, "甲", "offense.theft", "realization:001"),
+            OffenseInstanceKey(
+                CASE_ID, "乙", "offense.theft", f"{PARTICIPATION_OCCURRENCE_PREFIX}001:001:乙:abc"
+            ),
+        ),
+    )
+
+    expanded = derived_co_principal_targets(
+        REGISTRY,
+        (base,),
+        realization_occurrences={("甲", "derived_offense.special_theft"): "realization:003"},
+    )
+
+    assert len(expanded) == 1
+    assert [value.occurrence_id for value in expanded[0].members] == [
+        "realization:003",
+        f"{PARTICIPATION_OCCURRENCE_PREFIX}001:001:乙:abc",
     ]

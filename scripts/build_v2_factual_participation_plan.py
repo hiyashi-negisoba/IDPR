@@ -167,7 +167,17 @@ def main() -> None:
                 registry=registry,
             )
             post_participation_derived = derived_co_principal_targets(
-                registry, compiled.targets
+                registry,
+                compiled.targets,
+                # 파생 group의 정범 member는 그 파생죄의 실현을 가리켜야 한다. base 실현의
+                # occurrence를 들고 offense_ref만 바꾸면 `special_theft`를 선언하면서
+                # `theft` 실현을 가리키는 instance가 나온다.
+                realization_occurrences={
+                    (str(value["actor_id"]), str(value["offense_ref"])): str(
+                        value["realization_id"]
+                    )
+                    for value in plans[case_id].get("legal_realizations", [])
+                },
             )
         except (
             IssueBindingContractError,

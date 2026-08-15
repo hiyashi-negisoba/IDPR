@@ -412,11 +412,6 @@ def compile_participation_bindings(
             for value in group_values
             if value.truth == "TRUE" and value.target.kind == "co_principal_group"
         )
-        maximal_co = tuple(
-            group
-            for group in true_co
-            if not any(group < other for other in true_co)
-        )
         # 같은 사람들 사이의 같은 관계가 두 상호작용에서 각각 확인되면 후보 instance가
         # 상호작용마다 따로 만들어진다. 甲과 乙의 특수절도 공동정범은 그렇게 두 번 나와도
         # 하나의 관계이지 서로 다투는 두 주장이 아니다.
@@ -426,11 +421,17 @@ def compile_participation_bindings(
         # 가르는 것은 그 group이 가리키는 **realization**이다. 후보 instance의 occurrence는
         # 증거 식별자라 관계의 신원이 되지 못하지만(그래서 `None`으로 접힌다), 실현 instance의
         # occurrence는 신원이 된다.
+        #
+        # 정규화가 subset 억제보다 **먼저** 와야 한다. raw instance로 먼저 억제하면, 같은
+        # 관계의 더 좁은 주장이 상호작용별 후보 occurrence 때문에 subset으로 보이지 않아
+        # 살아남고, 그 뒤 정규화해도 이미 늦어 실현 instance에서 겹쳐 계약 위반으로 죽는다.
+        # `r13_p1_q1`이 그랬다 -- {甲,乙,丙}과 {甲,丙}이 서로 다른 상호작용에서 나와
+        # 丙의 후보 occurrence가 달랐고, 행위자로 보면 후자가 전자의 부분집합이었다.
         by_relation: dict[
             frozenset[tuple[str, str | None]], frozenset[OffenseInstanceKey]
         ] = {}
         for group in sorted(
-            maximal_co,
+            true_co,
             key=lambda value: sorted(
                 (i.case_id, i.actor_id, i.offense_ref, i.occurrence_id) for i in value
             ),
@@ -441,10 +442,16 @@ def compile_participation_bindings(
                 ),
                 group,
             )
-        maximal_co = tuple(by_relation.values())
+        relations = tuple(by_relation)
+        maximal_relations = tuple(
+            relation
+            for relation in relations
+            if not any(relation < other for other in relations)
+        )
+        maximal_co = tuple(by_relation[relation] for relation in maximal_relations)
         # 여기 남은 겹침은 행위자 구성 자체가 다른 두 주장이다. 어느 쪽이 옳은지는 이
         # 단계가 정할 수 없으므로 양보시키지 않고 계약 위반으로 올린다.
-        for left, right in combinations(maximal_co, 2):
+        for left, right in combinations(maximal_relations, 2):
             if left & right:
                 raise ParticipationGroundingError(
                     [f"{key}: overlapping co-principal group truths"]

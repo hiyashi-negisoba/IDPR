@@ -12,7 +12,10 @@ from idpr.v2.participation import (
     participation_policy_for,
 )
 from idpr.v2.registry import load_definitions
-from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.identity import (
+    PARTICIPATION_OCCURRENCE_PREFIX,
+    OffenseInstanceKey,
+)
 from idpr.v2.runtime.participation import apply_attribution
 from idpr.v2.runtime.participation_grounding import (
     ParticipationGroundingError,
@@ -295,4 +298,60 @@ def test_overlapping_maximal_co_groups_hard_fail() -> None:
     with pytest.raises(ParticipationGroundingError, match="overlapping"):
         compile_participation_bindings(
             _assessments(instances, groups), expected_targets=targets
+        )
+
+
+def test_a_narrower_group_from_another_interaction_collapses_instead_of_conflicting() -> None:
+    """정규화가 subset 억제보다 먼저 와야 한다.
+
+    같은 관계가 두 상호작용에서 확인되면 참가 후보의 occurrence가 상호작용마다 다르다.
+    그 raw instance로 먼저 subset 억제를 하면 {甲,丙}이 {甲,乙,丙}의 부분집합으로 보이지
+    않아 살아남고, 그 뒤 정규화해도 이미 늦어 甲의 실현에서 겹쳐 계약 위반으로 죽는다.
+    `r13_p1_q1`이 정확히 그 모양이었다 -- 丙의 후보 occurrence만 달랐고 행위자 구성으로는
+    한쪽이 다른 쪽에 포함되어 있었다.
+    """
+    principal = OffenseInstanceKey("case", "甲", "offense.theft", "realization:001")
+    first = OffenseInstanceKey(
+        "case", "乙", "offense.theft", f"{PARTICIPATION_OCCURRENCE_PREFIX}001:001:乙:aa"
+    )
+    third_a = OffenseInstanceKey(
+        "case", "丙", "offense.theft", f"{PARTICIPATION_OCCURRENCE_PREFIX}001:001:丙:aa"
+    )
+    third_b = OffenseInstanceKey(
+        "case", "丙", "offense.theft", f"{PARTICIPATION_OCCURRENCE_PREFIX}001:003:丙:bb"
+    )
+    wide = ParticipationLocalTarget("co_principal_group", (first, principal, third_a))
+    narrow = ParticipationLocalTarget("co_principal_group", (third_b, principal))
+
+    bindings = compile_participation_bindings(
+        (
+            ParticipationLocalAssessment(wide, "TRUE"),
+            ParticipationLocalAssessment(narrow, "TRUE"),
+        ),
+        expected_targets=(wide, narrow),
+    )
+
+    actors = {left.actor_id for left, _right in bindings.co_principal_sources}
+    assert actors == {"甲", "乙", "丙"}
+
+
+def test_genuinely_conflicting_groups_still_fail_closed() -> None:
+    """접히는 것은 부분집합뿐이다. 행위자 구성이 서로 다투면 여전히 계약 위반이다."""
+    principal = OffenseInstanceKey("case", "甲", "offense.theft", "realization:001")
+    with_b = OffenseInstanceKey(
+        "case", "乙", "offense.theft", f"{PARTICIPATION_OCCURRENCE_PREFIX}001:001:乙:aa"
+    )
+    with_c = OffenseInstanceKey(
+        "case", "丙", "offense.theft", f"{PARTICIPATION_OCCURRENCE_PREFIX}001:002:丙:bb"
+    )
+    left = ParticipationLocalTarget("co_principal_group", (with_b, principal))
+    right = ParticipationLocalTarget("co_principal_group", (with_c, principal))
+
+    with pytest.raises(ParticipationGroundingError, match="overlapping co-principal"):
+        compile_participation_bindings(
+            (
+                ParticipationLocalAssessment(left, "TRUE"),
+                ParticipationLocalAssessment(right, "TRUE"),
+            ),
+            expected_targets=(left, right),
         )
