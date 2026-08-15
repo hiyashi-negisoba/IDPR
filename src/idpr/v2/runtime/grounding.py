@@ -10,6 +10,7 @@ from idpr.v2.evaluate import TruthValue
 from idpr.v2.gold_factual_identity import GoldOccurrence
 from idpr.v2.question_assumptions import QuestionAssumption
 from idpr.v2.registry import DefinitionRegistry
+from idpr.v2.runtime.carrier_contract import effective_evidence_scope
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.truths import CaseTruths
 
@@ -33,7 +34,9 @@ class PredicateDefinition:
     arguments: tuple[Mapping[str, Any], ...]
     legal_standard: str | None = None
     semantic_exclusions: tuple[str, ...] = ()
-    evidence_scope: str = "exact_actor_action"
+    #: 폭은 carrier 계약이 소유한다. 여기 기본값을 따로 두면 그것이 두 번째 권위가 되므로,
+    #: 값을 반드시 받아 적는다.
+    evidence_scope: str = "offense_realization"
     temporal_anchor: str | None = None
 
     def as_dict(self) -> dict[str, Any]:
@@ -107,9 +110,9 @@ def predicate_definitions(
         exclusions = tuple(
             str(value) for value in entry.payload.get("semantic_exclusions", ())
         )
-        evidence_scope = str(
-            entry.payload.get("evidence_scope", "exact_actor_action")
-        )
+        # 미저작 predicate의 폭은 carrier 계약이 정한다. 여기서 옛 기본값을 따로 들고 있으면
+        # 모델이 받는 지시와 실제로 받는 증거의 폭이 갈라진다.
+        evidence_scope = effective_evidence_scope(registry, ref)
         temporal_anchor = entry.payload.get("temporal_anchor")
         values.append(
             PredicateDefinition(

@@ -106,6 +106,39 @@ def test_a_missing_carrier_kind_fails_instead_of_silently_widening() -> None:
         )
 
 
+def test_an_anchored_predicate_is_never_given_an_unanchored_carrier() -> None:
+    """`@focal` variant가 없을 때 고정되지 않은 carrier로 대신하지 않는다.
+
+    대신하면 물리적으로는 초점 이후의 사실까지 들어간 carrier가 `_at_focal` label을 달고
+    나간다. 모델은 label을 읽고 "초점시점 기준"으로 판단하는데 본문에는 그 뒤의 사실이
+    들어 있으니, 계약은 이름만 남고 깨진다. 좁힐 수 없으면 넓히지 말고 멈춘다.
+    """
+    anchored = "legal_element.knowledge_of_bribery_destination"
+    assert carrier_kind_for(REGISTRY, anchored, actor_in_focal=True)[1] is True
+    with pytest.raises(CarrierContractError, match="realization carrier"):
+        resolve_carrier(
+            REGISTRY,
+            anchored,
+            provenance={"carrier_ids": {"realization": "carrier:realization:甲"}},
+            occurrence_id="realization:001",
+        )
+
+
+def test_an_anchored_predicate_takes_the_anchored_carrier_when_it_exists() -> None:
+    carrier_id, label = resolve_carrier(
+        REGISTRY,
+        "legal_element.knowledge_of_bribery_destination",
+        provenance={
+            "carrier_ids": {
+                "realization": "carrier:realization:甲",
+                "realization@focal": "carrier:realization_at_focal:甲",
+            }
+        },
+        occurrence_id="realization:001",
+    )
+    assert (carrier_id, label) == ("carrier:realization_at_focal:甲", "realization_at_focal")
+
+
 # --------------------------------------------------------------------------
 # plan 불변식
 # --------------------------------------------------------------------------

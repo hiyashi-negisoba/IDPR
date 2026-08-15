@@ -880,7 +880,15 @@ def _plan_action_atomic_binding_instances(
         ids = carrier_ids_by_realization.setdefault(realization.realization_id, {})
         if cache_key in ids:
             return ids[cache_key]
-        if carrier_kind == "focal_action" and realization.focal_action_id is not None:
+        if carrier_kind == "focal_action":
+            if realization.focal_action_id is None:
+                # 좁히라고 한 폭을 넓혀서 내주면 label과 물리 carrier가 갈라진다.
+                # 모델은 label을 읽고 판단 범위를 정하므로, 그 갈라짐은 "증거는 넓게 줄 테니
+                # 좁게 판단하라"는 모순된 지시가 된다. 줄 수 없으면 여기서 멈춘다.
+                raise EvaluationInstancePlannerError(
+                    f"{case_id}: {realization.realization_id} has no focal action to carry "
+                    "a focal_action-scoped predicate"
+                )
             action_ids = (realization.focal_action_id,)
         elif carrier_kind == "actor_episode":
             # `same_actor_episode` is the widest authored scope: every action of this
@@ -900,16 +908,14 @@ def _plan_action_atomic_binding_instances(
                 )
             )
             if not action_ids:
-                action_ids = tuple(
-                    dict.fromkeys(
-                        (
-                            (realization.focal_action_id, *realization.supporting_action_ids)
-                            if realization.focal_action_id is not None
-                            else realization.supporting_action_ids
-                        )
-                    )
+                # 이 행위자가 참여한 행위가 이 episode에 하나도 없으면 `same_actor_episode`가
+                # 가리키는 사실 자체가 없다. realization으로 갈아 끼우면 폭이 달라진 것을
+                # label이 감추므로, 없는 것은 없다고 말한다.
+                raise EvaluationInstancePlannerError(
+                    f"{case_id}: {realization.actor_id} has no action in "
+                    f"{realization.factual_episode_id} to carry an actor_episode-scoped "
+                    "predicate"
                 )
-                carrier_kind = "realization"
         else:
             action_ids = tuple(
                 dict.fromkeys(
@@ -921,7 +927,14 @@ def _plan_action_atomic_binding_instances(
                 )
             )
             carrier_kind = "realization"
-        if anchored_at_focal and realization.focal_action_id is not None:
+        if anchored_at_focal:
+            if realization.focal_action_id is None:
+                # 초점행위가 없으면 자를 시점이 없다. 그대로 두면 carrier는 초점 이후 사실까지
+                # 담은 채 `_at_focal`로 이름 붙고, 소급 사용 금지 계약이 이름만 남는다.
+                raise EvaluationInstancePlannerError(
+                    f"{case_id}: {realization.realization_id} has no focal action to anchor "
+                    "a temporally anchored predicate"
+                )
             # `temporal_anchor: focal_action` fixes the moment being judged, not the width
             # of the record.  Dropping only what happens after the focal action keeps a
             # later consumption or flight out of a receipt-time question while still

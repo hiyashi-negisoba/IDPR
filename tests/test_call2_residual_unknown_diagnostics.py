@@ -202,7 +202,15 @@ def test_source_binding_context_does_not_admit_same_actor_episode_sibling():
     assert context["same_actor_action_evidence"] == ["甲이 가방을 들었다."]
 
 
-def test_unknown_fallback_requires_definition_authored_evidence_scope():
+def test_unknown_fallback_is_bounded_by_the_carrier_contract():
+    """폭은 저작 여부가 아니라 carrier 계약이 정한다.
+
+    예전 이 테스트는 "`evidence_scope`를 적지 않았으면 fallback 없음"을 정답으로 고정했다.
+    그 사이 계약이 바뀌었다 -- 미저작 predicate의 폭은 행위자 결박 여부가 정하고, 결박되지
+    않은 요소의 carrier는 realization 전체다. 그러면 realization을 fallback으로 주는 것은
+    넓히는 것이 아니라 그 predicate가 원래 받는 폭을 주는 것이다. 좁은 쪽(행위자 결박 사실)만
+    fallback 없이 남는다.
+    """
     registry = load_definitions(Path("data/v2/definitions"))
     appropriation = registry.get("legal_element.unlawful_appropriation_intent")
     assert appropriation is not None
@@ -228,9 +236,16 @@ def test_unknown_fallback_requires_definition_authored_evidence_scope():
         "plan_row": {"derived_binding_candidates": []},
         "issue_row": issue,
     }
+    # 행위자 결박 ground fact는 초점행위가 carrier다. 넓힐 자리가 없으므로 fallback도 없다.
     assert authored_unknown_fallback_context(
-        target=AssessmentTarget(instance, "legal_element.possession"), **common
+        target=AssessmentTarget(instance, "ground_fact.taking_conduct"), **common
     ) is None
+    # 결박되지 않은 요소는 realization이 원래 자기 carrier다.
+    realization_scoped = authored_unknown_fallback_context(
+        target=AssessmentTarget(instance, "legal_element.possession"), **common
+    )
+    assert realization_scoped is not None
+    assert realization_scoped["carrier_policy"] == "source_binding_realization_v1"
     context = authored_unknown_fallback_context(
         target=AssessmentTarget(
             instance, "legal_element.dwelling_or_managed_premises_object"

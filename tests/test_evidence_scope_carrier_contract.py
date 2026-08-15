@@ -27,6 +27,7 @@ from pathlib import Path
 import pytest
 
 from idpr.v2.registry import load_definitions
+from idpr.v2.runtime.grounding import predicate_definitions
 from idpr.v2.runtime.grounding_evidence import actor_bound_ground_fact
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -174,3 +175,28 @@ def test_participation_targets_use_their_own_typed_carrier() -> None:
         if kind != PARTICIPATION_CARRIER:
             continue
         assert str(carrier["carrier_id"]), (case_id, carrier)
+
+
+def test_the_scope_told_to_the_model_is_the_scope_it_is_carried_at() -> None:
+    """축 테스트가 초록인데 neural 경계에서 split-brain이던 자리.
+
+    planner는 미저작 predicate에 realization carrier를 붙이면서, Call 2 payload의 predicate
+    정의에는 옛 기본값 `exact_actor_action`을 적어 보냈다. 모델은 realization 전체를 받고
+    "그 행위만 보고 판단하라"는 지시를 함께 받는다 -- 사실이 있어도 UNKNOWN이 나올 수 있는
+    모순된 요청이다. 두 값은 한 계약에서 나와야 한다.
+    """
+    refs = sorted(
+        entry.id
+        for kind in ("ground_fact", "legal_element")
+        for entry in REGISTRY.by_kind.get(kind, ())
+    )
+    serialized = {
+        value.predicate_ref: value.evidence_scope
+        for value in predicate_definitions(REGISTRY, refs)
+    }
+    mismatches = [
+        (ref, serialized[ref], _expected_carrier(ref))
+        for ref in refs
+        if CARRIER_FOR_SCOPE[serialized[ref]] != _expected_carrier(ref)
+    ]
+    assert not mismatches, mismatches

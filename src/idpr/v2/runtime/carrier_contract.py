@@ -89,6 +89,29 @@ def carrier_kind_for(
     return carrier_kind, entry.payload.get("temporal_anchor") == "focal_action"
 
 
+#: carrier 종류와 그것을 부르는 `evidence_scope` 이름은 같은 하나를 두 자리에서 부르는
+#: 말이다. 두 자리가 다른 기본값을 쓰면 모델은 "증거는 realization 전체를 줄 테니 너는 그
+#: 행위만 보고 판단하라"는 모순된 지시를 받는다.
+_SCOPE_BY_CARRIER_KIND = {
+    "actor_episode": "same_actor_episode",
+    "focal_action": "exact_actor_action",
+    "realization": "offense_realization",
+}
+
+
+def effective_evidence_scope(registry: DefinitionRegistry, predicate_ref: str) -> str:
+    """이 predicate가 실제로 받게 될 carrier의 폭을, 모델에게 말하는 이름으로.
+
+    저작된 `evidence_scope`가 있으면 그것이고, 없으면 :func:`carrier_kind_for`의 일반 규칙이
+    고른 폭이다. Call 2 payload의 predicate 정의는 이 값을 실어야 한다 -- 미저작 predicate에
+    옛 기본값(`exact_actor_action`)을 적어 보내면 물리 carrier와 갈라진다.
+    """
+    carrier_kind, _anchored = carrier_kind_for(
+        registry, predicate_ref, actor_in_focal=True
+    )
+    return _SCOPE_BY_CARRIER_KIND[carrier_kind]
+
+
 def carrier_kind_label(carrier_kind: str, anchored_at_focal: bool) -> str:
     return f"{carrier_kind}_at_focal" if anchored_at_focal else carrier_kind
 
@@ -120,10 +143,12 @@ def resolve_carrier(
         actor_in_focal=bool(provenance.get("actor_in_focal_action")),
     )
     label = carrier_kind_label(carrier_kind, anchored_at_focal)
+    # 초점시점으로 고정된 predicate는 고정된 carrier만 받는다. 없을 때 고정되지 않은
+    # carrier로 대신하면 물리적으로는 초점 이후의 사실까지 들어간 것을 `_at_focal` label이
+    # 덮는다. 그것은 "초점 이후를 소급해 쓰지 않는다"는 계약을 이름만 남기고 깨는 일이고,
+    # 조용히 넓히느니 여기서 멈추는 것이 맞다.
     carrier_id = carrier_ids.get(f"{carrier_kind}@focal" if anchored_at_focal else carrier_kind)
-    if not carrier_id and anchored_at_focal:
-        carrier_id = carrier_ids.get(carrier_kind)
-    if not carrier_id and carrier_kind == "realization":
+    if not carrier_id and carrier_kind == "realization" and not anchored_at_focal:
         # 참가 후보처럼 realization 자체가 물리 carrier인 경우.
         carrier_id = occurrence_id
     if not isinstance(carrier_id, str) or not carrier_id:
@@ -208,6 +233,7 @@ __all__ = [
     "CarrierContractError",
     "carrier_kind_for",
     "carrier_kind_label",
+    "effective_evidence_scope",
     "resolve_carrier",
     "validate_plan_carriers",
 ]

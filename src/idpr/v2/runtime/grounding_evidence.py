@@ -10,6 +10,7 @@ from __future__ import annotations
 from collections.abc import Mapping, Sequence
 
 from idpr.v2.registry import DefinitionRegistry
+from idpr.v2.runtime.carrier_contract import effective_evidence_scope
 from idpr.v2.runtime.grounding import (
     AssessmentTarget,
     GroundingContractError,
@@ -37,11 +38,15 @@ def actor_bound_ground_fact(
 def predicate_evidence_scope(
     registry: DefinitionRegistry, predicate_ref: str
 ) -> str:
-    """Largest authored carrier allowed for an UNKNOWN fallback."""
+    """Largest authored carrier allowed for an UNKNOWN fallback.
+
+    폭의 권위는 carrier 계약 하나다. 여기서 옛 기본값을 따로 들고 있었기 때문에, 같은
+    미저작 predicate를 planner는 realization으로 싣고 이 진단은 exact action으로 읽었다.
+    """
     entry = registry.get(predicate_ref)
     if entry is None or entry.kind not in {"ground_fact", "legal_element"}:
         return "exact_actor_action"
-    return str(entry.payload.get("evidence_scope", "exact_actor_action"))
+    return effective_evidence_scope(registry, predicate_ref)
 
 
 def direct_bindings(issue_row: Mapping[str, object]) -> dict[str, Mapping[str, object]]:
