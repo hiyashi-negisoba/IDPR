@@ -294,6 +294,56 @@ def article151_predecessor_status(
     return Article151PredecessorStatus(participant, offense_ref, status)
 
 
+def linked_offender_request_payload(
+    registry: DefinitionRegistry,
+    *,
+    participant_evidence: Mapping[str, Any],
+    offense_ref: str,
+    predicate_targets: Iterable[LinkedOffenderPredicateTarget],
+) -> dict[str, Any]:
+    """participant 수준 predicate 요청. 제34조의 payload builder를 재사용하지 않는다.
+
+    그쪽은 `has_authored_indirect_principal_capability` 게이트를 통과해야 하고 completion을
+    가진 죄를 거부하는데, 선행범죄는 거의 전부 completion을 가진다. 게이트를 우회하려고
+    억지로 통과시키면 그 게이트가 막으려던 것을 그대로 하는 셈이다.
+
+    wire 형태는 같게 유지한다. 물어보는 일이 같기 때문이다 -- 한 사람과 하나의 exact offense에
+    대해 predicate 각각의 truth. 그래서 이미 승인된 participant assessor 프롬프트와
+    `utilized_participant_schema` / `validate_utilized_participant_output`을 그대로 쓴다.
+    """
+    from idpr.v2.runtime.grounding import predicate_definitions
+
+    target_values = tuple(predicate_targets)
+    if not target_values:
+        raise ValueError("linked offender request needs at least one predicate target")
+    if any(value.offense_ref != offense_ref for value in target_values):
+        raise ValueError("linked offender predicate targets span more than one offense")
+    definitions = predicate_definitions(
+        registry, (value.predicate_ref for value in target_values)
+    )
+    return {
+        "utilized_participant_evidence": dict(participant_evidence),
+        "exact_offense_ref": offense_ref,
+        "predicate_definitions": [value.as_dict() for value in definitions],
+        "assessment_targets": [
+            {
+                "participant": {
+                    "case_id": value.participant.case_id,
+                    "participant_id": value.participant.participant_id,
+                },
+                "offense_ref": value.offense_ref,
+                "predicate_ref": value.predicate_ref,
+            }
+            for value in target_values
+        ],
+        "assessment_contract": {
+            "task": "assess_each_predicate_from_participant_evidence",
+            "truth_values": ["TRUE", "FALSE", "UNKNOWN"],
+            "legal_effect": "none_until_host_status_fold",
+        },
+    }
+
+
 def article151_status_truths(
     registry: DefinitionRegistry,
     pairs: Iterable[tuple[LinkedOffenderDependency, "Article151PredecessorStatus"]],
@@ -327,6 +377,7 @@ def article151_status_truths(
 __all__ = [
     "LinkedOffenderDependency",
     "article151_status_truths",
+    "linked_offender_request_payload",
     "LinkedOffenderPredicateTarget",
     "PredecessorCandidateGate",
     "article151_predecessor_status",

@@ -17,6 +17,9 @@
 # 그 단계만 빼고 이어서 돌릴 수 있다.
 #
 #   IDPR_AXIS_SKIP="call15p call15d" ... --execution-approved
+#
+# 단계 이름: call15p call15d plan_participation plan_doctrine dependency_route call2
+#            absorption symbolic answer_plan call3
 
 set -euo pipefail
 
@@ -122,6 +125,22 @@ step plan_doctrine "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/build_v2_doctrine_tar
     --plan-artifact "$PLAN_P" \
     --call15d-artifact "$CUES_OUT" \
     --out "$PLAN_D"
+
+# 4-b. dependency ROUTE -- 질문이 죄책을 묻지 않은 사람에 대한 offense routing.
+#      Call 1과 같은 ROUTE operation이고, 다른 것은 누구를 어느 범위로 라우팅하는가뿐이다.
+#      plan의 `linked_offender_dependencies`가 비어 있으면 아무것도 하지 않으므로, 이 단계가
+#      없어도 나머지 체인은 정상으로 돈다 -- 대신 제151조만 조용히 UNKNOWN으로 남는다.
+#
+#      산출물의 `predicate_targets`를 소비하는 participant 수준 Call 2는 아직 없다.
+#      제34조의 `run_v2_indirect_principal_call2.py`가 같은 자리의 선례이고, 그쪽 payload
+#      builder는 간접정범 capability 게이트를 타므로 그대로 재사용할 수 없다.
+DEPENDENCY_ROUTE="$RUN_ROOT/dependency_route/predecessor_candidates.jsonl"
+mkdir -p "$RUN_ROOT/dependency_route"
+step dependency_route "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_dependency_route.py" \
+    --base-url "$BASE_URL" --model "$SERVED_MODEL" --api-key "$API_KEY" \
+    --plan "$PLAN_D" \
+    --inventory "$PROJECT_ROOT/data/inventory/kcl_criminal_v1_draft.jsonl" \
+    --out "$DEPENDENCY_ROUTE"
 
 # 5. Call 2 -- 사실 판단. 재실행에는 planner occurrence evidence가 필수다.
 CALL2="$RUN_ROOT/call2/grounding_output.jsonl"

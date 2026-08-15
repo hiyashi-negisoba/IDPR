@@ -236,3 +236,46 @@ def test_a_qualifying_status_supplies_the_element_as_a_truth() -> None:
 
     key = (dependency.dependent_instance, "legal_element.offender_status_of_object")
     assert truths[key] == "TRUE"
+
+
+def test_the_predicate_request_reuses_the_participant_wire_without_the_article34_gate() -> None:
+    """묻는 일이 같으므로 wire도 같다 -- 다만 제34조의 payload builder는 쓸 수 없다.
+
+    그쪽은 간접정범 capability를 요구하고 completion 있는 죄를 거부하는데, 선행범죄는 거의
+    전부 completion을 가진다. 게이트를 우회하려고 억지로 통과시키면 그 게이트가 막으려던
+    것을 그대로 하게 된다.
+    """
+    from idpr.v2.runtime.linked_offender import (
+        gate_predecessor_candidates,
+        linked_offender_predicate_targets,
+        linked_offender_request_payload,
+    )
+    from idpr.v2.runtime.utilized_participant_outcome import (
+        utilized_participant_schema,
+        validate_utilized_participant_output,
+    )
+
+    dependency = _dependencies("offense.harboring_or_escape", "乙")[0]
+    gate = gate_predecessor_candidates(REGISTRY, dependency, ("offense.theft",))
+    targets = linked_offender_predicate_targets(REGISTRY, gate)
+
+    payload = linked_offender_request_payload(
+        REGISTRY,
+        participant_evidence={"participant_label": "乙", "source_text": CASE_TEXT},
+        offense_ref="offense.theft",
+        predicate_targets=targets,
+    )
+    assert payload["exact_offense_ref"] == "offense.theft"
+    assert len(payload["assessment_targets"]) == len(targets)
+
+    # 승인된 participant assessor의 schema/validator가 그대로 맞는다.
+    schema = utilized_participant_schema(targets)
+    assert schema["properties"]["assessments"]["minItems"] == len(targets)
+    response = {
+        "assessments": [
+            {"predicate_ref": value.predicate_ref, "truth": "TRUE"} for value in targets
+        ]
+    }
+    assert len(validate_utilized_participant_output(response, predicate_targets=targets)) == len(
+        targets
+    )

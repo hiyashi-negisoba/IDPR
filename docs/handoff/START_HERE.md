@@ -1,7 +1,7 @@
 # 다음 세션 시작점
 
 기준: 2026-08-15 · 브랜치 `deadline_v2_0808` · 데드라인 2026-08-19 21:00
-검증: `570 passed, 16 skipped` (conda **base**, `/data5/jaehoonjeong/miniconda3/bin/python -m pytest -q`)
+검증: `571 passed, 16 skipped` (conda **base**, `/data5/jaehoonjeong/miniconda3/bin/python -m pytest -q`)
 
 ## 한 줄 상태
 
@@ -108,27 +108,35 @@ Call 1 (1회)   ← 필수. offense 6개가 늘어 routing universe가 바뀌었
 * **758 target은 invariant가 아니다.** offense 6개와 사실 3개가 늘었으므로 늘어나는 것이 정상.
 * Call 2는 **마지막에 한 번만.**
 
-### 착수 전에 해야 할 한 가지 — 체인에 단계가 빠져 있다
+### 제151조 경로 — 어디까지 배선되었나
 
-dependency ROUTE는 스크립트와 계약이 모두 있고 테스트도 있지만,
-[`scripts/slurm/run_v2_axis_closure_e2e.sh`](../../scripts/slurm/run_v2_axis_closure_e2e.sh)에
-**단계가 추가되어 있지 않다.** 넣지 않으면 제151조는 재생성을 돌려도 UNKNOWN 그대로다.
-
-넣어야 할 자리와 흐름:
+체인에 `dependency_route` 단계가 들어갔다(`plan_doctrine`과 `call2` 사이). 흐름은 이렇다.
 
 ```text
-planner 산출 (linked_offender_dependencies 포함)
-→ scripts/run_v2_dependency_route.py
-     --plan <planner 산출> --inventory data/inventory/kcl_criminal_v1_draft.jsonl
-     --base-url ... --model ... --out <경로>
-→ 산출물의 predicate_targets 를 Call 2에 태운다
+planner 산출 (linked_offender_dependencies)
+→ [체인] scripts/run_v2_dependency_route.py     ← 들어감
+     ROUTE 재호출 → threshold pre-gate → predicate_targets
+→ [미배선] participant 수준 Call 2                ← 아래 참조
 → linked_offender.article151_predecessor_status()
 → linked_offender.article151_status_truths()
-→ symbolic 러너가 plan row의 `article151_status_truths`로 읽는다
+→ [배선됨] symbolic 러너가 `article151_status_truths` 행으로 읽는다
 ```
 
-마지막 줄은 이미 배선되어 있다(`scripts/run_v2_scallop_e2e.py`). 비어 있으면 아무 일도
-하지 않으므로, 단계를 넣기 전에도 나머지 재생성은 정상으로 돈다 — 제151조만 닫히지 않는다.
+**남은 한 칸은 participant 수준 Call 2 러너다.** 필요한 조각은 다 있다.
+
+* payload: `linked_offender_request_payload()` — 제34조 builder를 쓸 수 없어 따로 만들었다
+  (그쪽은 간접정범 capability를 요구하고 completion 있는 죄를 거부하는데, 선행범죄는 거의
+  전부 completion을 가진다)
+* 프롬프트: `v2_call2_utilized_participant_outcome` **재사용**. 이미 승인된 것이고, 묻는 일이
+  같다(한 사람 × 하나의 exact offense × predicate별 truth). 새 프롬프트 승인이 필요 없다
+* schema·validator: `utilized_participant_schema` / `validate_utilized_participant_output`
+  그대로 — `predicate_ref`만 읽으므로 타입이 달라도 맞는다 (테스트로 확인)
+
+`scripts/run_v2_indirect_principal_call2.py`가 같은 자리의 선례다. 그것을 본떠 러너 하나를
+쓰고 체인에 한 단계 더 넣으면 제151조가 닫힌다.
+
+그 전까지도 나머지 재생성은 정상으로 돈다 — `linked_offender_dependencies`가 비어 있으면
+아무 일도 하지 않고, 제151조만 UNKNOWN으로 남는다.
 
 ---
 
