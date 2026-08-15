@@ -18,14 +18,18 @@ check이고, 정확히 compiler의 일이다.
 
 from __future__ import annotations
 
-from collections.abc import Iterable, Mapping, Sequence
+from collections.abc import Iterable, Mapping, MutableMapping, Sequence
 from dataclasses import dataclass
 from typing import Any
 
 from idpr.v2.runtime.doctrine_raising import RaisedDoctrine
 from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.target_scheduling import ALSO_OPENED_BY_KEY
 
 NOT_MATERIALIZED = "NOT_MATERIALIZED_NO_MATCHING_LEGAL_INSTANCE"
+
+#: 이 producer의 이름. 행에 적히는 값과 여기서 쓰는 값이 갈라지지 않도록 한 곳에서 정한다.
+DOCTRINE_OPENER = "doctrine_raising_cue"
 
 
 @dataclass(frozen=True, slots=True)
@@ -34,6 +38,15 @@ class DoctrineLeafTarget:
     predicate_ref: str
     doctrine_ref: str
     raised_by_cue_id: str
+
+    reuses_existing_target: bool = False
+    """이 leaf가 이미 다른 이유로 열려 있던 target인가.
+
+    참이면 새 행을 만들지 않는다. 그렇다고 조용히 버려도 되는 것은 아니다 -- 이 doctrine이
+    그 사실을 필요로 한다는 것은 기존 행의 `opened_by`가 말해 주지 않고, 그 정보가 사라지면
+    scheduler는 죄 쪽 사정만 보고 그 target을 지워도 된다고 판단한다. 호출자는 기존 행에
+    이 opener를 합쳐야 한다.
+    """
 
     def as_dict(self) -> dict[str, Any]:
         return {
@@ -44,7 +57,7 @@ class DoctrineLeafTarget:
                 "occurrence_id": self.instance.occurrence_id,
             },
             "predicate_ref": self.predicate_ref,
-            "opened_by": "doctrine_raising_cue",
+            "opened_by": DOCTRINE_OPENER,
             "doctrine_ref": self.doctrine_ref,
             "raised_by_cue_id": self.raised_by_cue_id,
         }
@@ -70,9 +83,14 @@ def materialize_doctrine_leaf_targets(
 
     `instances`는 이 사건에서 실제로 평가되는 instance와 그 episode다. 호출자가 top-level만
     넘기면 top-level에만 열린다(2026-08-13 검수: 참가 후보는 link 확정 후로 미룬다).
+
+    이미 열려 있는 `(instance, leaf)`도 **결과에서 빼지 않는다.** 빼면 "이 doctrine이 그
+    사실을 필요로 한다"는 provenance가 그 자리에서 사라지고, 하류는 그 target을 죄의 일반
+    요소로만 보게 된다. 대신 `reuses_existing_target`으로 표시해서 호출자가 기존 행에 opener를
+    합치도록 한다.
     """
     universe = tuple(instances)
-    already = frozenset(existing_targets)
+    already = set(existing_targets)
     targets: list[DoctrineLeafTarget] = []
     unmaterialized: list[UnmaterializedRaising] = []
     for value in raised:
@@ -91,17 +109,71 @@ def materialize_doctrine_leaf_targets(
             continue
         for instance in matched:
             for leaf in leaves:
-                if (instance, leaf) in already:
-                    continue
+                # 두 doctrine이 같은 leaf를 필요로 할 수도 있다. 두 번째부터는 재사용이므로
+                # `already`를 여기서도 키운다 -- 그러지 않으면 같은 `(instance, leaf)`에 대해
+                # 행이 둘 생기고, carrier는 하나뿐이라 plan이 계약 위반으로 거부된다.
+                reused = (instance, leaf) in already
+                already.add((instance, leaf))
                 targets.append(
-                    DoctrineLeafTarget(instance, leaf, value.doctrine_ref, value.raised_by_cue_id)
+                    DoctrineLeafTarget(
+                        instance,
+                        leaf,
+                        value.doctrine_ref,
+                        value.raised_by_cue_id,
+                        reuses_existing_target=reused,
+                    )
                 )
     return tuple(dict.fromkeys(targets)), tuple(dict.fromkeys(unmaterialized))
 
 
+def merge_reused_openers(
+    assessment_targets: Sequence[MutableMapping[str, Any]],
+    reused: Iterable[DoctrineLeafTarget],
+) -> int:
+    """재사용된 leaf의 opener를 기존 target 행에 합친다. 합쳐진 행 수를 돌려준다.
+
+    행을 새로 만들지 않는 것과 그 이유를 기록하지 않는 것은 다르다. 기록하지 않으면 행에는
+    `opened_by: unspecified` 하나만 남고, Call 2 scheduler는 그 죄 쪽 사정만 보고 "더 이상
+    결정적이지 않다"며 지워도 된다고 판단한다 -- doctrine은 여전히 답이 필요한데 아무도
+    그쪽에 묻지 않은 채로. 개방 이유를 넘기기로 한 계약이 producer 쪽에서 무효가 되는 자리다.
+    """
+    rows = {
+        (
+            str(item["instance_key"]["actor_id"]),
+            str(item["instance_key"]["offense_ref"]),
+            str(item["instance_key"]["occurrence_id"]),
+            str(item["predicate_ref"]),
+        ): item
+        for item in assessment_targets
+    }
+    merged = 0
+    for value in reused:
+        item = rows.get(
+            (
+                value.instance.actor_id,
+                value.instance.offense_ref,
+                value.instance.occurrence_id,
+                value.predicate_ref,
+            )
+        )
+        if item is None:
+            raise ValueError(
+                "reused doctrine leaf has no existing target row: "
+                f"{value.instance.occurrence_id}/{value.predicate_ref}"
+            )
+        openers = list(item.get(ALSO_OPENED_BY_KEY) or ())
+        if DOCTRINE_OPENER not in openers:
+            openers.append(DOCTRINE_OPENER)
+            merged += 1
+        item[ALSO_OPENED_BY_KEY] = openers
+    return merged
+
+
 __all__ = [
+    "DOCTRINE_OPENER",
     "NOT_MATERIALIZED",
     "DoctrineLeafTarget",
     "UnmaterializedRaising",
     "materialize_doctrine_leaf_targets",
+    "merge_reused_openers",
 ]

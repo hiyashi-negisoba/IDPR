@@ -31,7 +31,10 @@ from idpr.v2.doctrine_cues import DoctrineCueAssessment, load_doctrine_cues
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.doctrine_raising import raise_doctrines
 from idpr.v2.runtime.carrier_contract import resolve_carrier, validate_plan_carriers
-from idpr.v2.runtime.doctrine_targets import materialize_doctrine_leaf_targets
+from idpr.v2.runtime.doctrine_targets import (
+    materialize_doctrine_leaf_targets,
+    merge_reused_openers,
+)
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.plan_lineage import (
     LINEAGE_KEY,
@@ -94,6 +97,7 @@ def main() -> None:
 
     output: list[dict[str, Any]] = []
     total_targets = 0
+    total_reused = 0
     total_unmaterialized = 0
     for case_id, plan in plans.items():
         cue_row = cue_rows[case_id]
@@ -153,13 +157,22 @@ def main() -> None:
             )
             for item in row["assessment_targets"]
         ]
-        targets, unmaterialized = materialize_doctrine_leaf_targets(
+        materialized, unmaterialized = materialize_doctrine_leaf_targets(
             raised,
             instances=universe,
             leaves_by_doctrine=leaves_by_doctrine,
             existing_targets=existing,
         )
+        targets = tuple(
+            value for value in materialized if not value.reuses_existing_target
+        )
+        reused = tuple(value for value in materialized if value.reuses_existing_target)
         row["assessment_targets"].extend(value.as_dict() for value in targets)
+        # 이미 열려 있던 target을 이 doctrine도 필요로 한다면, 새 행을 만들지 않되 그 사실을
+        # 기존 행에 남긴다. 규칙은 runtime이 소유한다 -- 여기서 다시 구현하면 그것이 두 번째
+        # 권위가 되고, 이 감사가 반복해서 잡아낸 결함 클래스가 하나 더 생긴다.
+        merge_reused_openers(row["assessment_targets"], reused)
+
         # 새로 연 target에는 물리적 carrier가 함께 있어야 한다. 없으면 Call 2가 target 목록과
         # carrier 목록의 불일치로 사건 전체를 거부한다 -- 실제로 첫 관통에서 여기서 멈췄다.
         # 법리는 그 instance가 실현된 행위에 대해 묻는 것이므로 realization이 그 carrier다.
@@ -223,6 +236,7 @@ def main() -> None:
         row["assessment_carrier_count"] = len(row.get("assessment_carriers", ()))
         row["final_assessment_target_count"] = len(row["assessment_targets"])
         row["doctrine_target_count"] = len(targets)
+        row["doctrine_reused_target_count"] = len(reused)
         row["raised_doctrines"] = [value.as_dict() for value in raised]
         row["not_materialized_raisings"] = [
             value.as_dict() for value in unmaterialized
@@ -243,6 +257,7 @@ def main() -> None:
         row["selected_predicate_refs"] = selected
         row["selected_predicate_count"] = len(selected)
         total_targets += len(targets)
+        total_reused += len(reused)
         total_unmaterialized += len(unmaterialized)
         output.append(row)
 
@@ -265,6 +280,7 @@ def main() -> None:
         ),
         "case_count": len(output),
         "doctrine_target_count": total_targets,
+        "doctrine_reused_target_count": total_reused,
         "not_materialized_raising_count": total_unmaterialized,
         "final_assessment_target_count": sum(
             row["final_assessment_target_count"] for row in output

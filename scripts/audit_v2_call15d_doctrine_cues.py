@@ -153,11 +153,16 @@ def main() -> None:
             )
             for item in plan["assessment_targets"]
         ]
-        targets, blocked = materialize_doctrine_leaf_targets(
+        materialized, blocked = materialize_doctrine_leaf_targets(
             values,
             instances=universe,
             leaves_by_doctrine=leaves_by_doctrine,
             existing_targets=existing,
+        )
+        # 이 감사가 세는 것은 "새로 열리는 target"이다. 이미 열려 있던 leaf는 행이 늘지
+        # 않으므로 delta가 아니다 -- opener 병합은 빌더의 일이다.
+        targets = tuple(
+            value for value in materialized if not value.reuses_existing_target
         )
         delta.extend(targets)
         unmaterialized.extend(blocked)

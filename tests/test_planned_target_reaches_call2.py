@@ -24,12 +24,19 @@ import pytest
 from idpr.v2 import expressions
 from idpr.v2.evaluate import FALSE, TRUE, UNKNOWN
 from idpr.v2.registry import DefinitionEntry, DefinitionRegistry, load_definitions
+from idpr.v2.runtime.doctrine_raising import RaisedDoctrine
+from idpr.v2.runtime.doctrine_targets import (
+    materialize_doctrine_leaf_targets,
+    merge_reused_openers,
+)
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.target_scheduling import (
     ELEMENT_DERIVED_OPENERS,
     frontier_predicate_refs,
+    is_externally_opened,
     live_predicate_refs,
     next_round_targets,
+    target_openers,
 )
 
 DEFINITIONS = Path(__file__).resolve().parents[1] / "data/v2/definitions"
@@ -199,6 +206,19 @@ def test_scheduling_never_widens_beyond_the_planner(registry):
 DANGEROUSNESS = "legal_element.dangerousness"
 
 
+def _raised(key: OffenseInstanceKey, doctrine_ref: str) -> RaisedDoctrine:
+    return RaisedDoctrine(
+        case_id=key.case_id,
+        actor_id=key.actor_id,
+        target_episode_id="factual_episode:001",
+        doctrine_ref=doctrine_ref,
+        scope="episode",
+        source_episode_id="factual_episode:001",
+        raised_by_cue_id="cue.made_up",
+        source_quote="시험용",
+    )
+
+
 def test_an_externally_opened_ref_survives_this_offense_losing_interest(registry) -> None:
     """같은 ref를 offense/completion도 쓰고 doctrine도 쓸 수 있다.
 
@@ -252,4 +272,89 @@ def test_the_call2_runner_keeps_the_opener_when_it_calls_the_scheduler(registry)
         Path(__file__).resolve().parents[1] / "scripts/run_v2_call2_pilot.py"
     ).read_text(encoding="utf-8")
     assert "external_refs=external_refs" in source
-    assert "ELEMENT_DERIVED_OPENERS" in source
+    # 판정 규칙은 runtime이 소유한다. runner가 자기 코드로 opener를 분류하면 그것이 두 번째
+    # 권위가 되고, 재사용 target의 opener 병합 같은 수정이 한쪽에만 반영된다.
+    assert "is_externally_opened(" in source
+    assert "target_openers(" in source
+
+
+def test_a_doctrine_reusing_an_element_target_keeps_its_reason(registry) -> None:
+    """producer → plan 행 → runner → scheduler 관통.
+
+    doctrine이 필요로 하는 leaf가 마침 그 죄의 일반 요소이기도 하면 새 행을 만들 이유가
+    없다. 그런데 행을 만들지 않으면서 이유까지 버리면 행에는 `unspecified` 하나만 남고,
+    scheduler는 죄 쪽 사정만 보고 지워도 된다고 판단한다 -- 개방 이유를 넘기기로 한 수정이
+    producer 쪽에서 무효가 되는 자리다.
+
+    그래서 여기서는 scheduler에 external을 주입하지 않는다. doctrine 빌더가 쓴 행에서
+    runner가 실제로 그것을 읽어 내는지까지 간다.
+    """
+    key = instance()
+    raised = (_raised(key, "doctrine.made_up_for_this_test"),)
+    # 이 죄의 일반 요소가 이미 열려 있다. 그리고 이 doctrine의 leaf가 바로 그것이다.
+    row = {
+        "assessment_targets": [
+            {
+                "instance_key": {
+                    "case_id": key.case_id,
+                    "actor_id": key.actor_id,
+                    "offense_ref": key.offense_ref,
+                    "occurrence_id": key.occurrence_id,
+                },
+                "predicate_ref": DANGEROUSNESS,
+            }
+        ]
+    }
+    existing = [(key, DANGEROUSNESS)]
+    materialized, _unmaterialized = materialize_doctrine_leaf_targets(
+        raised,
+        instances=((key, "factual_episode:001"),),
+        leaves_by_doctrine={"doctrine.made_up_for_this_test": (DANGEROUSNESS,)},
+        existing_targets=existing,
+    )
+    assert [value.reuses_existing_target for value in materialized] == [True], (
+        "재사용은 결과에서 빠지지 않는다 -- 빠지면 호출자가 병합할 것이 없다"
+    )
+    assert merge_reused_openers(row["assessment_targets"], materialized) == 1
+
+    # runner가 읽는 자리. 하나만 읽으면 여기서 element-derived로 보인다.
+    raw_target = row["assessment_targets"][0]
+    assert target_openers(raw_target) == frozenset(
+        {"unspecified", "doctrine_raising_cue"}
+    )
+    assert is_externally_opened(raw_target)
+
+    # 그리고 그 결과가 scheduling까지 간다. 이 죄만 보면 죽은 target이다.
+    settled = {COMMENCEMENT: TRUE, DEFECT: FALSE}
+    planned = {DANGEROUSNESS}
+    assert frontier_predicate_refs(
+        registry, key, settled, candidate_refs=planned
+    ) == ()
+    external = {key: {DANGEROUSNESS}} if is_externally_opened(raw_target) else {}
+    assert next_round_targets(
+        registry,
+        (key,),
+        {key: settled},
+        candidate_refs={key: planned},
+        external_refs=external,
+    ) == ((key, DANGEROUSNESS),)
+
+
+def test_two_doctrines_needing_one_leaf_do_not_duplicate_the_row(registry) -> None:
+    """같은 leaf를 두 doctrine이 요구해도 행은 하나다.
+
+    행이 둘 생기면 carrier는 하나뿐이라 plan이 carrier 계약 위반으로 거부된다.
+    """
+    key = instance()
+    raised = tuple(
+        _raised(key, ref) for ref in ("doctrine.first", "doctrine.second")
+    )
+    materialized, _ = materialize_doctrine_leaf_targets(
+        raised,
+        instances=((key, "factual_episode:001"),),
+        leaves_by_doctrine={
+            "doctrine.first": (DANGEROUSNESS,),
+            "doctrine.second": (DANGEROUSNESS,),
+        },
+    )
+    assert [value.reuses_existing_target for value in materialized] == [False, True]

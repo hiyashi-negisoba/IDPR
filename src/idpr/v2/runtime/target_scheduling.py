@@ -29,7 +29,9 @@ that ground facts tend to come before legal elements.  A policy whose blocker is
 Both rules narrow the planner's own target set and never widen it, and narrowing needs a
 reason this module can state.  Predicates it has no expression for -- doctrine leaves,
 participation mode requirements -- are not moot, they are unmodelled, and they pass
-through untouched; see `unmodelled_refs`.
+through untouched.  Neither is a predicate this offence *does* model when some other
+producer opened it too: liveness then speaks only for the offence.  See `unprunable_refs`,
+and `target_openers` for how a target's openers are read.
 
 The caller loops: ask the frontier, add the answers, recompute, stop when the frontier is
 empty.  Because every round either learns a truth or terminates, the loop reaches a
@@ -138,6 +140,29 @@ def _live_expressions(
 ELEMENT_DERIVED_OPENERS = frozenset(
     {"", "unspecified", "post_participation_derived_group"}
 )
+
+#: 이미 있는 target을 재사용하는 producer가 자기 이름을 덧붙이는 자리.
+#:
+#: `opened_by` 하나로는 겹침을 표현할 수 없다. doctrine이 필요로 하는 leaf가 마침 그 죄의
+#: 일반 요소이기도 하면 doctrine 빌더는 새 target을 만들지 않고 기존 것을 쓰는데, 그러면
+#: 행에는 `unspecified` 하나만 남아 doctrine이 그것을 필요로 한다는 사실이 사라진다. 그 뒤
+#: scheduler는 죄 쪽 사정만 보고 지워도 된다고 판단한다 -- 개방 이유를 넘기기로 한 수정이
+#: producer 쪽에서 무효가 되는 자리다.
+ALSO_OPENED_BY_KEY = "also_opened_by"
+
+
+def target_openers(raw_target: Mapping[str, Any]) -> frozenset[str]:
+    """이 target을 연 producer 전부. 하나를 골라 쓰지 않는다."""
+    openers = {str(raw_target.get("opened_by") or "unspecified")}
+    extra = raw_target.get(ALSO_OPENED_BY_KEY) or ()
+    if isinstance(extra, (list, tuple)):
+        openers |= {str(value) for value in extra if value}
+    return frozenset(openers)
+
+
+def is_externally_opened(raw_target: Mapping[str, Any]) -> bool:
+    """이 target을 연 producer 중 하나라도 이 모듈이 모르는 요구를 싣고 있는가."""
+    return bool(target_openers(raw_target) - ELEMENT_DERIVED_OPENERS)
 
 
 def unprunable_refs(
@@ -332,11 +357,14 @@ def next_round_targets(
 
 
 __all__ = [
+    "ALSO_OPENED_BY_KEY",
     "TargetSchedulingError",
     "frontier_predicate_refs",
     "is_decisive",
     "live_predicate_refs",
     "ELEMENT_DERIVED_OPENERS",
+    "is_externally_opened",
     "next_round_targets",
+    "target_openers",
     "unprunable_refs",
 ]

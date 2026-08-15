@@ -80,8 +80,9 @@ from idpr.v2.runtime.relation_grounding import (
     validate_relation_output,
 )
 from idpr.v2.runtime.target_scheduling import (
-    ELEMENT_DERIVED_OPENERS,
+    is_externally_opened,
     next_round_targets,
+    target_openers,
 )
 from idpr.v2.runtime.utilized_participant_outcome import (
     UtilizedParticipantOutcomeTarget,
@@ -179,13 +180,19 @@ def _recorded_request_counts(
 
 def _count_by_opener(
     targets: Sequence[AssessmentTarget],
-    opened_by_target: Mapping[tuple[Any, str], str],
+    opened_by_target: Mapping[tuple[Any, str], frozenset[str]],
 ) -> dict[str, int]:
-    """`{누가 열었는가: 몇 건}` -- planned/asked 회계를 producer 단위로 읽게 한다."""
+    """`{누가 열었는가: 몇 건}` -- planned/asked 회계를 producer 단위로 읽게 한다.
+
+    한 target을 둘이 열었으면 양쪽에 센다. 합계가 target 수를 넘을 수 있고 그것이 맞다 --
+    이 표가 답하는 질문은 "각 producer가 연 것이 실제로 물어졌는가"이지 target 분할이 아니다.
+    """
     counts: dict[str, int] = {}
     for value in targets:
-        key = opened_by_target.get((value.instance_key, value.predicate_ref), "unspecified")
-        counts[key] = counts.get(key, 0) + 1
+        for opener in opened_by_target.get(
+            (value.instance_key, value.predicate_ref), frozenset({"unspecified"})
+        ):
+            counts[opener] = counts.get(opener, 0) + 1
     return dict(sorted(counts.items()))
 
 
@@ -548,13 +555,18 @@ def main() -> None:
         # 누가 이 target을 열었는지. 계획된 target이 끝내 물어지지 않았을 때 그것이 어느
         # producer의 것인지 알 수 없으면, "doctrine leaf가 통째로 빠졌다" 같은 사고가
         # 산출물 안에서 조용히 지나간다.
-        opened_by_target: dict[tuple[Any, str], str] = {}
+        opened_by_target: dict[tuple[Any, str], frozenset[str]] = {}
+        externally_opened: set[tuple[Any, str]] = set()
         for raw_target, target in zip(
             plan_row["assessment_targets"], planned_targets, strict=True
         ):
-            opened_by_target[(target.instance_key, target.predicate_ref)] = str(
-                raw_target.get("opened_by") or "unspecified"
-            )
+            key = (target.instance_key, target.predicate_ref)
+            # 한 target을 여럿이 열 수 있다. 하나만 읽으면 doctrine이 기존 요소 target을
+            # 재사용한 경우가 일반 요소로만 보이고, 그 provenance 손실이 scheduler에서
+            # pruning으로 나타난다.
+            opened_by_target[key] = target_openers(raw_target)
+            if is_externally_opened(raw_target):
+                externally_opened.add(key)
             if target.instance_key in instance_set:
                 continue
             probe_key = (target.instance_key, target.predicate_ref)
@@ -599,10 +611,7 @@ def main() -> None:
         external_refs: dict[Any, set[str]] = {}
         for target in targets:
             candidate_refs.setdefault(target.instance_key, set()).add(target.predicate_ref)
-            opener = opened_by_target.get(
-                (target.instance_key, target.predicate_ref), "unspecified"
-            )
-            if opener not in ELEMENT_DERIVED_OPENERS:
+            if (target.instance_key, target.predicate_ref) in externally_opened:
                 external_refs.setdefault(target.instance_key, set()).add(
                     target.predicate_ref
                 )

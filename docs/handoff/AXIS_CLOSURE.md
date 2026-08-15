@@ -251,7 +251,10 @@ Call 3 프롬프트는 두 곳을 조인 상태로 설치했다 — 새 죄명·
   doctrine이 따로 열기도 하면 같은 ref 하나로 보이고, 이 죄가 그것을 더 이상 필요로 하지
   않게 된 순간 지워진다. 그 판단은 이 죄에 대해서만 옳다. 개방 이유를 함께 넘기고, 기본
   요소 opener(`ELEMENT_DERIVED_OPENERS`)만 pruning 대상으로 둔다 -- 목록에 없는 opener는
-  등록되기 전부터 보호된다.
+  등록되기 전부터 보호된다. 같은 결함의 producer 쪽 절반도 함께 닫았다 -- doctrine이
+  필요로 하는 leaf가 마침 그 죄의 일반 요소이면 빌더가 기존 target을 재사용하면서 이유를
+  버렸고, 그러면 행에는 `unspecified` 하나만 남아 runner가 그것을 element-derived로 읽는다.
+  재사용도 결과에서 빼지 않고 `also_opened_by`로 합친다.
 * 참가 빌더가 읽는 상호작용·inventory·case list가 `plan_inputs` 밖에 있어 기록만 되고
   freshness 검증에서는 빠졌다. 기록하는 목록과 검증하는 목록을 하나로 맞췄고, 빌더가 읽는
   Path 인자가 전부 그 안에 있는지 테스트가 확인한다.
