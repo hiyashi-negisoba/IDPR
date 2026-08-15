@@ -1489,3 +1489,55 @@ binding 기반 occurrence 체계가 action·realization 개편으로 대체되�
 작업 방식도 바뀌었다. 답안 하나가 이상할 때마다 아래층을 여는 대신, 축마다 룰베이스 구조를
 전수 감사해 구조적 결함만 고치고 종료 테스트를 남긴 뒤 닫는다. 판정 기준과 닫은 축, 남은 축
 순서는 모두 정본 문서에 있다.
+
+---
+
+## 2026-08-16 -- Phase A~C를 닫고 Call 2 재생성까지
+
+정본 진입점은 [`START_HERE.md`](START_HERE.md)다. 이 절은 역사 기록이며, 여기서 무엇을
+하라고 지시하지 않는다.
+
+### 이 세션이 한 일
+
+지시서(`RULEBASE_AUDIT.md`)의 Phase A·B·C를 닫고, Call 1부터 최종 Call 2까지 한 사이클을
+돌렸다. A1(제151조 linked offender), A2(객체 동일성), A3(폭행죄 family), A4(장물죄 family),
+B2·B3·B4·B5, C가 모두 들어갔고 결과는 `experiments/v2_rulebase_regen_26/`에 있다.
+
+새 baseline과 축별 판정은 `START_HERE.md` §4, 원인 사슬은 `RULEBASE_AUDIT.md` §11-quater에
+있다. 여기서 반복하지 않는다.
+
+### 다음 사람에게 실제로 필요한 것 -- 세 가지
+
+**1. baseline을 먼저 얼리고 시작해라.**
+UNKNOWN이 59.7%에서 48.4%로 내려간 것은 모델이 좋아진 것이 아니다. 잘못 열리던 target이
+빠지고(제151조 신분 6건 등) 새로 도달 가능해진 target이 실제로 답해진 결과다. 여기서
+`intent`나 `means_or_object_defect` 저작을 건드리면 "구조 수정으로 좋아진 것"과 "저작 개선으로
+좋아진 것"이 섞여 다시 못 가른다. 그래서 이 세션은 residual UNKNOWN을 손대지 않고 끝냈다.
+
+**2. A1을 만졌으면 기반 planner부터 다시 돌려라.**
+이 세션이 한 번 속았다. `linked_offender_dependencies`는 축 체인이 아니라
+`run_v2_full_regeneration.sh`의 `plan` 단계가 만들고, 축 체인의 `plan_participation`은 그것을
+`deepcopy`해 나른다. 축 체인만 돌리면 **고친 코드가 반영되지 않은 채 조용히 통과한다.**
+scope를 고쳤는데 결과가 그대로여서 진단이 틀린 줄 알았고, 실제로는 옛 plan을 보고 있었다.
+
+**3. 증상이 "이상하게 좁다"면 원인 사슬 표부터 봐라.**
+이 세션에서 고친 다섯 건은 전부 같은 실수였다 -- 서사 분할(episode)이나 추출 필드
+(`factual_targets`, base realization occurrence, carried evidence)를 법적 요건처럼 쓰고 있었다.
+증상은 매번 달랐지만(계약 위반, pair 0, 자기순환) 진단은 같았다. `RULEBASE_AUDIT.md`
+§11-quater의 표가 다섯 건 전부와 각각의 조치를 담고 있다.
+
+### 이 세션이 의도적으로 하지 않은 것
+
+* **residual UNKNOWN 저작 개선** -- 위 1번 이유. 순서와 각 항목의 함정은 `START_HERE.md` §5.
+* **cue 16건 저작** -- 미검수 cue를 한꺼번에 써 넣는 것이 구멍보다 나쁘다고 보았다.
+  구멍 자체는 typed gap과 테스트로 막아 두었으므로 조용히 죽지는 않는다(`START_HERE.md` §6).
+* **symbolic 이후** -- 이번 사이클의 범위가 최종 Call 2까지였다.
+* **B1 (qualifier menu single-source)** -- 결함이 아니라 계약 선택이고 KCL 결과를 바꾸지 않는다.
+
+### 검수자에게 남은 판단 (전부 문안 대기 상태)
+
+1. `legal_element.intent`의 결과적 가중범 scope -- 실측 UNKNOWN 1위(28/42)
+2. `ground_fact.means_or_object_defect`의 exclusion 재저작 -- 2위(25/31)
+3. FALSE 희소성(3.5%)의 failure mode 분해 -- **비율을 올리는 것을 목표로 삼지 말 것**
+4. cue 16건
+5. typed gap 다섯 건 (`START_HERE.md` §2)
