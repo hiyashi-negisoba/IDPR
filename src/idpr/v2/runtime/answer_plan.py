@@ -1490,6 +1490,52 @@ def missing_required_final_conclusions(
     return tuple(missing)
 
 
+def parse_required_final_conclusions(
+    serialized: str,
+) -> tuple[RequiredFinalConclusion, ...]:
+    """`serialize_required_final_conclusions`가 쓴 줄을 앵커로 되읽는다.
+
+    Call 3 runner와 오프라인 감사는 둘 다 plan **행**을 읽지 `AnswerPlan` 객체를 들고 있지
+    않다. 각자 이 줄을 자기 방식으로 파싱하면 같은 불변식의 두 번째 구현이 생기고, 한쪽만
+    고쳐지는 그 결함 클래스로 되돌아간다.
+    """
+    output: list[RequiredFinalConclusion] = []
+    for line in serialized.splitlines():
+        body = line.strip()
+        if not body.startswith("·"):
+            continue
+        body = body[1:].strip()
+        if "—" not in body or ":" not in body:
+            continue
+        actor, rest = body.split("—", 1)
+        offense, state = rest.split(":", 1)
+        output.append(
+            RequiredFinalConclusion(actor.strip(), offense.strip(), state.strip())
+        )
+    return tuple(output)
+
+
+def missing_final_conclusions(
+    answer_text: str, serialized_required: str
+) -> tuple[RequiredFinalConclusion, ...]:
+    """직렬화된 요구목록 기준의 완결성 감사. 답안을 고치지 않는다.
+
+    `missing_required_final_conclusions`와 같은 규칙을 plan 행에 대해 적용한다. 이것이
+    production runner가 부를 수 있는 형태이고, 함수만 있고 아무도 부르지 않아 "프롬프트는
+    빠뜨리지 말라고 하고, 모델은 빠뜨리고, host는 그대로 저장"이 가능했던 자리다.
+    """
+    if not serialized_required.strip() or serialized_required.strip() == "없음":
+        return ()
+    section = extract_final_conclusion_section(answer_text)
+    normalized = _normalize_offense_text(section)
+    return tuple(
+        item
+        for item in parse_required_final_conclusions(serialized_required)
+        if item.actor not in section
+        or not any(name in normalized for name in offense_label_variants(item.offense_label))
+    )
+
+
 #: Particles a writer inserts into an offence name without changing which offence it is:
 #: `위계공무집행방해죄` and `위계에 의한 공무집행방해죄` are the same crime.
 _OFFENSE_PARTICLES = ("에의한", "에의하여", "에관한")

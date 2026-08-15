@@ -19,9 +19,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from idpr.v2.runtime.answer_plan import (
-    _normalize_offense_text,
     extract_final_conclusion_section,
-    offense_label_variants,
+    missing_final_conclusions,
+    parse_required_final_conclusions,
 )
 
 
@@ -33,27 +33,12 @@ def _rows(path: Path) -> dict[str, dict[str, Any]]:
     }
 
 
-def _anchors(serialized: str) -> list[dict[str, str]]:
-    """Parse back the `· actor — offense: state ...` lines the plan serialized."""
-    out: list[dict[str, str]] = []
-    for line in serialized.splitlines():
-        line = line.strip()
-        if not line.startswith("·"):
-            continue
-        body = line[1:].strip()
-        if "—" not in body or ":" not in body:
-            continue
-        actor, rest = body.split("—", 1)
-        offense, state = rest.split(":", 1)
-        out.append(
-            {
-                "actor": actor.strip(),
-                "offense_label": offense.strip(),
-                "state": state.strip(),
-                "line": line,
-            }
-        )
-    return out
+def _as_dict(anchor) -> dict[str, str]:
+    return {
+        "actor": anchor.actor,
+        "offense_label": anchor.offense_label,
+        "state": anchor.state,
+    }
 
 
 def main() -> None:
@@ -73,19 +58,11 @@ def main() -> None:
             raise SystemExit(f"{case_id}: no answer plan")
         answer_text = str(answer_row["answer"])
         section = extract_final_conclusion_section(answer_text)
-        # Same rule the builder's own check applies, so the two cannot disagree about
-        # whether an anchor was named.  Matching the plan's label literally would score
-        # how closely the answer echoes the plan rather than whether it named the crime.
-        normalized = _normalize_offense_text(section)
-        anchors = _anchors(str(plan_row.get("required_final_conclusions", "")))
-        missing = [
-            anchor
-            for anchor in anchors
-            if anchor["actor"] not in section
-            or not any(
-                name in normalized for name in offense_label_variants(anchor["offense_label"])
-            )
-        ]
+        # 규칙은 runtime이 소유한다. Call 3 runner도 같은 함수를 부르므로 두 감사가 "이
+        # 앵커가 언급되었는가"를 두고 다른 답을 낼 수 없다.
+        required = str(plan_row.get("required_final_conclusions", ""))
+        anchors = parse_required_final_conclusions(required)
+        missing = [_as_dict(value) for value in missing_final_conclusions(answer_text, required)]
         findings.append(
             {
                 "case_id": case_id,

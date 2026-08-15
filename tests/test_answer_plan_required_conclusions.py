@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import replace
+from pathlib import Path
 
 import pytest
 
@@ -17,8 +18,10 @@ from idpr.v2.runtime.answer_plan import (
     RequiredFinalConclusion,
     _required_final_conclusions,
     extract_final_conclusion_section,
+    missing_final_conclusions,
     missing_required_authorities,
     missing_required_final_conclusions,
+    parse_required_final_conclusions,
     serialize_required_authorities,
     serialize_required_final_conclusions,
 )
@@ -213,3 +216,43 @@ def test_a_conclusion_sentence_containing_a_keyword_is_not_a_heading() -> None:
     section = extract_final_conclusion_section(answer_text)
     assert section.startswith("IV. 결론")
     assert "丙" in section
+
+
+def test_the_serialized_form_round_trips_into_the_same_audit() -> None:
+    """runner와 오프라인 감사는 plan 객체가 아니라 직렬화된 줄을 읽는다.
+
+    두 경로가 같은 답을 내야 한다. 각자 그 줄을 파싱하면 같은 불변식의 두 번째 구현이 되고,
+    한쪽만 고쳐지는 결함 클래스로 돌아간다.
+    """
+    issues = (
+        _issue("i1", "丙", "횡령죄", ESTABLISHED),
+        _issue("i2", "乙", "사기죄", NOT_ESTABLISHED),
+    )
+    plan = _plan(issues)
+    serialized = serialize_required_final_conclusions(plan)
+    assert [item.actor for item in parse_required_final_conclusions(serialized)] == [
+        item.actor for item in plan.required_final_conclusions
+    ]
+    answer_text = (
+        "II. 각 행위자의 죄책\n"
+        "乙의 사기죄는 기망행위가 인정되지 않아 성립하지 않는다.\n\n"
+        "III. 최종 죄책\n"
+        "丙의 최종 죄책은 횡령죄이다."
+    )
+    assert [item.actor for item in missing_final_conclusions(answer_text, serialized)] == [
+        item.actor for item in missing_required_final_conclusions(answer_text, plan)
+    ] == ["乙"]
+    assert missing_final_conclusions(answer_text, "없음") == ()
+
+
+def test_the_call3_runner_actually_runs_the_completeness_audit() -> None:
+    """함수가 있는데 아무도 부르지 않는 것이 이 결함의 형태였다.
+
+    프롬프트는 "하나도 빠뜨리지 마"라고 하고, 모델은 하나 빠뜨리고, host는 그대로 저장했다.
+    감사 함수는 이미 정확히 쓰여 있었고 테스트도 있었는데 production runner가 부르지 않았다.
+    """
+    source = (
+        Path(__file__).resolve().parents[1] / "scripts/run_v2_call3.py"
+    ).read_text(encoding="utf-8")
+    assert "missing_final_conclusions(" in source
+    assert "required_final_conclusion_audit" in source

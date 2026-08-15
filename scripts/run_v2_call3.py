@@ -24,6 +24,7 @@ from idpr.prompts import load_prompt, prompt_path
 from idpr.v2.runtime.answer_plan import (
     assert_no_internal_markers,
     assert_no_rubric_fields,
+    missing_final_conclusions,
     missing_required_authorities,
 )
 
@@ -85,6 +86,8 @@ def main() -> None:
     errors: list[dict[str, str]] = []
     authority_missing_case_count = 0
     authority_missing_count = 0
+    conclusion_missing_case_count = 0
+    conclusion_missing_count = 0
 
     with answers_path.open("w", encoding="utf-8") as handle:
         for plan in plans:
@@ -127,6 +130,13 @@ def main() -> None:
             )
             authority_missing_case_count += bool(missing_authorities)
             authority_missing_count += len(missing_authorities)
+            # 프롬프트가 요구한 최종 결론이 실제로 마지막 절에 있는지. 답안은 그대로 두고
+            # 어긋남만 기록한다 -- rewrite loop를 만들면 답안이 모델의 것이 아니게 된다.
+            missing_conclusions = missing_final_conclusions(
+                answer, required_final_conclusions
+            )
+            conclusion_missing_case_count += bool(missing_conclusions)
+            conclusion_missing_count += len(missing_conclusions)
             handle.write(
                 json.dumps(
                     {
@@ -136,6 +146,17 @@ def main() -> None:
                         "prompt_chars": len(system_prompt) + len(user_content),
                         "missing_required_authorities": list(missing_authorities),
                         "missing_required_authority_count": len(missing_authorities),
+                        "missing_required_final_conclusions": [
+                            {
+                                "actor": value.actor,
+                                "offense_label": value.offense_label,
+                                "state": value.state,
+                            }
+                            for value in missing_conclusions
+                        ],
+                        "missing_required_final_conclusion_count": len(
+                            missing_conclusions
+                        ),
                         "elapsed_seconds": round(time.monotonic() - started, 1),
                     },
                     ensure_ascii=False,
@@ -162,6 +183,11 @@ def main() -> None:
             "missing_authority_count": authority_missing_count,
             "answer_rewritten": False,
         },
+        "required_final_conclusion_audit": {
+            "missing_case_count": conclusion_missing_case_count,
+            "missing_conclusion_count": conclusion_missing_count,
+            "answer_rewritten": False,
+        },
     }
     (args.out / "answers.manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
@@ -169,6 +195,14 @@ def main() -> None:
     print(json.dumps(manifest, ensure_ascii=False, indent=2))
     if errors:
         sys.exit(1)
+    if conclusion_missing_count:
+        # 답안은 이미 저장됐다. 여기서 종료 상태를 실패로 두는 것은 체인이 그 사실을 모른 채
+        # 다음 단계로 넘어가지 않게 하기 위한 것이고, 답안을 고치는 것과는 다른 일이다.
+        print(
+            f"required final conclusions missing in {conclusion_missing_case_count} case(s)",
+            file=sys.stderr,
+        )
+        sys.exit(2)
 
 
 if __name__ == "__main__":
