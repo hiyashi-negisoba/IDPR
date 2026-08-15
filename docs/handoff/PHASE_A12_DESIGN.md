@@ -222,20 +222,25 @@ A1 나머지 + A3 + A4 + B/C
 | 라우터 프롬프트 basis-neutral화 | 완료 |
 | B2·B3·B4 | 완료 |
 
-### 남은 것 하나 — symbolic 체인에서 resolver를 부르는 자리
+### Scallop parity path는 만들지 않는다 (2026-08-15 결재)
 
-`resolve_article_151_liability()`는 아직 production 체인이 부르지 않는다. 입력은 전부
-준비되었다 — dependency route artifact가 outcome을 내고, `Article151QualifyingLink`가 그것을
-받는 타입이며, threshold는 저작되었다.
+제263조가 별도 경로를 가진 것은 그 조문이 **책임 자체를 의제**하기 때문이다. 제151조는
+`offender_status_of_object` 하나만 공급하고 최종 죄책은 기존 offense program이 그대로
+소유하므로, 신분 계산 결과를 predicate truth로 넘기는 것으로 충분하다. 경로를 늘리면 같은
+죄에 두 개의 책임 계산이 생긴다.
 
-남은 판단은 **제263조와 같은 Scallop parity가 필요한가**다. 제263조는
-`run_article_263_liability_parity_program()`으로 symbolic 쪽에도 같은 경로를 두었다.
-제151조도 그래야 하는지, 아니면 element override만으로 충분한지는 symbolic 계약을 보고
-정해야 하고, 이 세션에서 확인하지 못했다.
+`article151_status_truths()`가 그 공급자이고, symbolic 러너가 truth 조립 구간에서 얹는다.
+`qualifying`이 아닌 값은 FALSE로 내리지 않고 UNKNOWN으로 둔다 — 이 좁은 조회는 "자격 있는
+선행범죄가 존재하지 않는다"를 증명하지 못한다.
+
+`resolve_article_151_liability()`는 Scallop을 타지 않는 직접 런타임 경로로 남는다.
 
 ### authoring-review로 남긴 것 (승인된 상태로 유지)
 
 1. `intent_toward_intended_object`를 generic `legal_element.intent`로 읽는 것
    — UNKNOWN 작업 마지막 단계에서 병목으로 드러나면 재검수.
-2. linked-offender fold가 completion을 평가하지 않는 것
-   — 미수도 "벌금 이상의 형에 해당하는 죄"라는 전제. 코드 주석에도 기록.
+2. ~~linked-offender fold가 completion을 평가하지 않는 것~~ — **해소됨.** 근거가
+   "미수도 죄"가 아니라 **제151조 고유의 범인 개념**(범죄 혐의로 수사대상이 된 자를 포함)임이
+   확정되었다. 그 개념은 대상자의 죄책을 완결적으로 확정할 것을 요구하지 않으므로 completion은
+   애초에 이 신분의 요소가 아니다. 결과 타입도 `Article151PredecessorStatus`로 분리해
+   ordinary liability와 섞이지 않게 했다.
