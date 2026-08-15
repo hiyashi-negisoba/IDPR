@@ -45,6 +45,19 @@ def check_participation(registry: DefinitionRegistry) -> list[Finding]:
                 ))
         return findings
 
+    for entry in (*offenses, *registry.by_kind.get("derived_offense", ())):
+        constraints = entry.payload.get("participation_constraints") or {}
+        if constraints.get("disabled_modes"):
+            # 일반 계약에는 있으나 Call1.5-P factual participation 경로가 이것을 읽지 않는다.
+            # 저작하면 "이 죄에는 이 mode가 적용되지 않는다"고 선언해 놓고 런타임은 그대로
+            # 그 mode를 여는 상태가 된다. 사용량이 0인 지금 막는 것이 가장 싸다.
+            findings.append(Finding(
+                _AXIS, "unsupported_executable_field", entry.id,
+                "participation_constraints.disabled_modes",
+                "disabled_modes has no production consumer; the factual participation path would "
+                "still open the mode this field says does not apply",
+            ))
+
     modes = policy.payload.get("modes") or {}
     subsumptions = participation.derivative_mode_subsumptions(policy)
     for dominant, subsumed_modes in subsumptions.items():

@@ -1,114 +1,153 @@
 # 다음 세션 시작점
 
 기준: 2026-08-15 · 브랜치 `deadline_v2_0808` · 데드라인 2026-08-19 21:00
-검증: `557 passed, 16 skipped` (conda **base**, `/data5/jaehoonjeong/miniconda3/bin/python -m pytest -q`)
-
-## 읽는 순서
-
-1. **이 문서** — 지금 어디에 있고 다음에 뭘 하는가
-2. [`PHASE_A12_DESIGN.md`](PHASE_A12_DESIGN.md) — **2026-08-15 결재된 A1·A2 계약과 시공 기록.**
-   §1~§5는 결정 기록, §6이 A1의 남은 구조(ROUTE 재사용)다.
-   A1·A2는 결재 완료. 승인 대기: [`A3_ASSAULT_FAMILY_WORKSHEET.md`](A3_ASSAULT_FAMILY_WORKSHEET.md),
-   [`A4_STOLEN_PROPERTY_WORKSHEET.md`](A4_STOLEN_PROPERTY_WORKSHEET.md) 둘 다 법률 저작 검수다.
-3. [`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md) — 사용자 저작 지시서. §11-bis에 2026-08-15
-   갱신(감사 시점에 보이지 않던 세 건)이 있다. B2·B3·B4는 닫혔고 A3·A4가 남았다.
-4. [`AXIS_CLOSURE.md`](AXIS_CLOSURE.md) — 구조 감사의 정본. 맨 뒤
-   「production E2E 관통 (2026-08-15 06:00)」 절이 최신 상태다.
-5. [`CODEBASE_AUDIT.md`](CODEBASE_AUDIT.md) — 닫힌 pipeline 감사 10건. 참조용.
-6. `NEXT_SESSION.md` — append-only 역사 로그. **그 안의 "다음 작업" 지시는 전부 만료**했다.
+검증: `570 passed, 16 skipped` (conda **base**, `/data5/jaehoonjeong/miniconda3/bin/python -m pytest -q`)
 
 ## 한 줄 상태
 
-pipeline stage 간 연결 축은 닫혔다. production E2E가 Call 2 → Call 3까지 26/26 관통했고
-경로 손실 0이다. 남은 위험은 **저작했다고 믿는 규칙이 실제 runtime에 존재하는가**로 이동했고,
-그 감사가 `RULEBASE_AUDIT.md`다. **structural freeze는 그 문서의 Phase A를 닫은 뒤에 선언한다.**
+**Phase A·B·C가 전부 닫혔다.** 다음 작업은 **전체 재생성 한 사이클**이고, 설계 결재가 남은
+항목은 없다. 재생성 순서와 함정은 §4에 있다.
 
-## 닫힌 것 (다시 열지 말 것)
+## 읽는 순서
 
-- 코드베이스 감사 10건 + 재검수 3+1건 — 커밋 `02f3253`…`64fecbf`
-- P0-A external opener: doctrine 39/39 · participation mode 27/27 · candidate probe 4/4 asked
-- participation TRUE relation 17건, active doctrine 5건 — downstream 경로 손실 0
-- completion semantics — 법률 검수 완료. `attempted.when = commencement AND NOT(completion)`은
-  **유지**한다(형법 제25조 제1항이 비기수성을 미수범 구성요건으로 규정). `commencement=TRUE +
-  completion UNKNOWN` 16건은 결함이 아니라 정당한 3-valued unresolved state다.
+1. **이 문서** — 무엇이 닫혔고 다음에 무엇을 도는가
+2. [`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md) — 사용자 저작 지시서. §11-bis에 2026-08-15
+   갱신(감사 시점에 보이지 않던 세 건)이 있다.
+3. 결재 기록 5건 — 재검수 대상이 아니라 **왜 그렇게 되었는지**를 찾을 때 본다.
+   [`PHASE_A12_DESIGN.md`](PHASE_A12_DESIGN.md) ·
+   [`ROUTE_DEPENDENCY_PROMPT.md`](ROUTE_DEPENDENCY_PROMPT.md) ·
+   [`A3_ASSAULT_FAMILY_WORKSHEET.md`](A3_ASSAULT_FAMILY_WORKSHEET.md) ·
+   [`A4_STOLEN_PROPERTY_WORKSHEET.md`](A4_STOLEN_PROPERTY_WORKSHEET.md) ·
+   [`ARTICLE151_PENALTY_WORKSHEET.md`](ARTICLE151_PENALTY_WORKSHEET.md)
+4. [`AXIS_CLOSURE.md`](AXIS_CLOSURE.md) · [`CODEBASE_AUDIT.md`](CODEBASE_AUDIT.md) — 이전 축의 감사 정본
+5. `NEXT_SESSION.md` — append-only 역사 로그. 그 안의 "다음 작업" 지시는 전부 만료다.
 
-## 다음 세션이 할 일
+---
 
-`RULEBASE_AUDIT.md` §9의 Phase A → B → C. 요약:
+## 1. 2026-08-15에 닫힌 것 (다시 열지 말 것)
 
-| | 항목 | 성격 | 직접 영향 사례 |
-|---|---|---|---|
-| A1 | 제151조 linked-liability route | 배선 + typed representation | `r10_p2_q2` |
-| A2 | intended-object factual representation | 새 factual representation | `r10_p2_q1`, `r12_p2_q1_ga` 외 9 |
-| A3 | 폭행죄 family 저작 | Definition Layer | `r11_p1_q1` |
-| A4 | 장물죄 family 저작 | Definition Layer | `r10_p2_q1` |
-| B1–B5 | single-source·checker·traversal hardening | 결정론적 | — |
-| C | unsupported schema field fail-closed 처리 | 계약 | — |
+### Phase A
 
-A1은 이번 세션의 0-TRUE 감사에서 코드로 확인했다 — `resolve_article_151_liability()`는
-[`statutory.py:42`](../../src/idpr/v2/runtime/statutory.py#L42)에 있는데 **레포 전체에 호출부가
-없다**. 제263조 경로만 `orchestration.py`가 부른다. `data/v2/definitions/offenses.yaml`에
-폭행죄·장물죄 family가 없는 것도 확인했다(A3·A4).
+| | 내용 |
+|---|---|
+| A1 | 제151조 linked-offender. ROUTE를 재사용 가능한 operation으로 일반화하고, Call 1.5가 사람을 결박한 뒤 dependency planner가 재호출한다. 신분은 participant 수준 `Article151PredecessorStatus`이고 ordinary liability가 아니다. Scallop parity path는 **만들지 않았다** — 최종 죄책은 기존 offense program 소유 |
+| A2 | 객체 동일성. `directed_action_target`/`actual_result_bearer`에서 host가 structural divergence를 세고, TRUE인 instance에서만 `object_misidentification`을 연다. 착오 정책 production 호출부 연결됨 |
+| A3 | 폭행죄 family (폭행·특수폭행·폭행치상·폭행치사) + 질적 초과 pair |
+| A4 | 장물죄 family (취득·보관) + 불가벌적 사후행위 흡수 규칙 (`ordered_cross_episode`) |
+
+### Phase B·C
+
+| | 내용 |
+|---|---|
+| B2 | 제263조 authority 단일화 — 감사는 2중이라 했으나 실제 **4중**이었다 |
+| B3 | `blocked_when` traversal — latent이 아니라 **active blocker**였다. defeat doctrine 5개가 영원히 발동 불가였다 |
+| B4 | `candidate_materialization` ref checker |
+| B5 | 제33조 co-principal — 구현하지 않고 `gap.co_principal_status_redirection`으로 승격 |
+| C | `grounded_by` / `disabled_modes`를 저작하면 checker가 실패한다. 둘 다 사용량 0인 지금이 막기 가장 싼 시점이었다 |
+
+### 새로 저작된 정의 — **Call 1 routing universe가 바뀌었다**
+
+```text
+offense.assault / derived_offense.special_assault
+derived_offense.assault_causing_injury / derived_offense.assault_causing_death
+offense.stolen_property_acquisition / offense.stolen_property_custody
+```
+
+predicate 6건, qualifier 1건, 흡수 규칙 1건, 질적 초과 pair 1건, seed cue 6건이 함께 들어갔다.
+`article151_penalty_threshold`는 63개 offense 전부에 저작되었다(법률 검수 완료).
+
+---
+
+## 2. 남은 gap — 다섯 건, 전부 typed
+
+큰 "범죄군 없음" gap은 사라졌고 실제 미지원 법리만 남았다. **각 항목의 `consequence`를 읽어라**
+— 어떤 KCL 문항이 왜 부분적으로만 닫히는지가 거기 적혀 있다.
+
+| gap | 영향 |
+|---|---|
+| `gap.co_principal_qualitative_excess` | `r11_p1_q1`의 丙 갈래. 甲(교사)은 닫혔다 |
+| `gap.special_assault_aggravated_result` | 제262조의 특수폭행 갈래. KCL-26에 해당 사안 미확인 |
+| `gap.stolen_property_self_principal_exclusion` | `r13_p2_q1`이 지금 맞는 답을 내는 것은 **우연이지 규칙이 아니다** |
+| `gap.co_principal_status_redirection` | 제33조 단서를 공동정범에 적용 불가 |
+| `gap.justifying_premise_vs_object_identity` | 의도적으로 닫아 둔 cue (검수 ②) |
+
+---
+
+## 3. authoring-review로 남긴 것 — 재생성 결과를 보고 판단한다
+
+1. **결과적 가중범의 generic `intent`** — `legal_element.intent`가 "기본범죄 고의"인지
+   "중한 결과 고의"인지 Call 2가 스스로 정한다. 폭행치상에서 후자로 읽히면 성립이 뒤집힌다.
+   기존 결과적 가중범 전체가 같은 구조라 개별 수정하지 않았다.
+2. **`intent_toward_intended_object`** — 착오 정책이 instance의 generic intent를 읽는다.
+   Call 2가 "실제 피해자에 대한 고의"로 읽으면 정책이 침묵한다(틀린 귀속보다 안전한 방향).
+3. **`ground_fact.means_or_object_defect`** — 45 asked / TRUE 1 · FALSE 0. 이전 세션 이월분.
+
+셋 다 **재생성 후 실제 병목으로 드러날 때** 검수한다. 지금 고치면 근거 없이 고치는 것이다.
+그리고 1·2는 UNKNOWN이 아니라 **잘못된 방향의 TRUE/FALSE**로 나타나므로 UNKNOWN 통계만
+보면 놓친다.
+
+---
+
+## 4. 다음 작업 — 전체 재생성 한 사이클
+
+```text
+Call 1 (1회)   ← 필수. offense 6개가 늘어 routing universe가 바뀌었다
+→ Call 1.5 (1회)  ← 필수. binding 계약에 사실 3개가 늘었다
+→ dependency ROUTE  ← 신규. linked_offender가 결박된 case에서만 돈다
+→ deterministic planner
+→ rule→target accounting
+→ Call 2 (1회)
+→ symbolic → AnswerPlan → Call 3
+```
 
 ### 반드시 지킬 것
 
-- **758 target을 invariant로 보지 않는다.** A2~A4가 들어가면 target universe가 바뀌는 것이
-  정상이다. 변경을 전부 모은 뒤 **Call 2는 마지막에 한 번만** 돌린다.
-- 특정 KCL 정답을 host heuristic으로 박아 넣지 않는다. 기존 DSL의 offense/derivation 구조로만
-  처리한다.
-- 순수 결정론적 hardening(B1·B2·B4)만으로는 neural 단계를 재실행하지 않는다. 새 offense family가
-  Call 1 routing universe를 바꾸거나 새 factual identity가 Call 1.5 schema를 바꾸면 그
-  upstream부터 재생성한다.
+* **Call 1을 건너뛰지 마라.** 옛 router manifest는 이제 lineage 검증에서 실패하고 그것이
+  의도된 동작이다(`tests/test_call1_catalog_lineage.py`). 재사용하면 존재하지 않던 죄로
+  라우팅된 seed 위에 새 rulebase를 얹게 된다.
+* **758 target은 invariant가 아니다.** offense 6개와 사실 3개가 늘었으므로 늘어나는 것이 정상.
+* Call 2는 **마지막에 한 번만.**
 
-## 넘기지 않는 것 — 검수·미측정으로 남긴 항목
+### 착수 전에 해야 할 한 가지 — 체인에 단계가 빠져 있다
 
-- `ground_fact.means_or_object_defect` — 45 asked / TRUE 1 · UNKNOWN 44 · **FALSE 0**.
-  `legal_standard`가 없고 exclusion 둘이 흔한 TRUE·FALSE 경로를 각각 막는다. schema 위반은
-  아니므로 **법률/definition authoring review**로 남긴다. 승인 없이 정의·프롬프트를 고치지 않았다.
-- 나머지 0-TRUE predicate(`bribe_promise` 0/10, `dangerous_weapon_carriage`, `job_relatedness`)
-  — 사실 부재냐 Call 2 판독 실패냐를 sealed-59 없이 가를 수 없다. **미측정**.
-- `AXIS_CLOSURE.md` 「검수가 남은 항목」 5건 (상상적 경합 저작 0개 포함).
+dependency ROUTE는 스크립트와 계약이 모두 있고 테스트도 있지만,
+[`scripts/slurm/run_v2_axis_closure_e2e.sh`](../../scripts/slurm/run_v2_axis_closure_e2e.sh)에
+**단계가 추가되어 있지 않다.** 넣지 않으면 제151조는 재생성을 돌려도 UNKNOWN 그대로다.
 
-## 실행 환경
+넣어야 할 자리와 흐름:
 
-- pytest: conda **base** — `/data5/jaehoonjeong/miniconda3/bin/python`. 레포 `.venv`는 빈 껍데기.
-- 긴 작업·GPU 작업은 **길이 무관 항상 sbatch**. nohup은 고아 프로세스가 된다.
-- sbatch에 `IDPR_HF_HOME` 필수. 안 넘기면 빈 홈캐시로 새서 job이 실패한다.
-- 체인: [`scripts/slurm/run_v2_axis_closure_e2e.sh`](../../scripts/slurm/run_v2_axis_closure_e2e.sh)
-  (9단계, `IDPR_AXIS_SKIP`으로 이어 돌린다). vLLM allocation 안에서 CPU job step으로 돈다.
-- job 진행상황 백그라운드 폴링 금지.
+```text
+planner 산출 (linked_offender_dependencies 포함)
+→ scripts/run_v2_dependency_route.py
+     --plan <planner 산출> --inventory data/inventory/kcl_criminal_v1_draft.jsonl
+     --base-url ... --model ... --out <경로>
+→ 산출물의 predicate_targets 를 Call 2에 태운다
+→ linked_offender.article151_predecessor_status()
+→ linked_offender.article151_status_truths()
+→ symbolic 러너가 plan row의 `article151_status_truths`로 읽는다
+```
 
-## 정본 artifact
+마지막 줄은 이미 배선되어 있다(`scripts/run_v2_scallop_e2e.py`). 비어 있으면 아무 일도
+하지 않으므로, 단계를 넣기 전에도 나머지 재생성은 정상으로 돈다 — 제151조만 닫히지 않는다.
 
-production E2E 루트: `experiments/v2_final_e2e_26/`
+---
 
-| 단계 | 경로 |
-|---|---|
-| plan (758 target) | `plan_doctrine/evaluation_instance_plan.jsonl` |
-| Call 2 | `call2/grounding_output.jsonl` |
-| symbolic | `scallop/results.jsonl` |
-| AnswerPlan | `answer_plan/answer_plans.jsonl` |
-| Call 3 | `call3/` |
-| 체인 로그 | `chain.log` |
+## 5. 실행 환경 (변경 없음)
 
-Call 1.5 binding 95 · action 215는 직전 정본 `experiments/v2_action_realization_26_e2e/`에서
-그대로 입력으로 쓴다.
+* pytest: conda **base** — `/data5/jaehoonjeong/miniconda3/bin/python`. 레포 `.venv`는 빈 껍데기
+* 긴 작업·GPU 작업은 **길이 무관 항상 sbatch**. nohup은 고아 프로세스가 된다
+* sbatch에 `IDPR_HF_HOME` 필수. 안 넘기면 빈 홈캐시로 새서 job이 실패한다
+* job 진행상황 백그라운드 폴링 금지
+* 체인은 `IDPR_AXIS_SKIP`으로 이어 돌린다
 
-Call 3 단계가 exit 2로 끝난 것은 실패가 아니라 **감사 게이트**다 —
-`required_final_conclusion_audit` 1건, `required_authority_audit` 2건 미충족을 fidelity 결함으로
-보고한 것이고 답안은 26/26 생성되었다.
+## 6. 정본 artifact (직전 사이클 — 재생성하면 대체된다)
 
-## 측정 유의점
+`experiments/v2_final_e2e_26/` · plan 758 target · Call 2 26/26 · Call 3 26/26
+Call 3의 exit 2는 실패가 아니라 감사 게이트다.
 
-- 동일 입력·동일 프롬프트에서도 Call 2 결과가 약 9% 흔들린다. 20~30건 규모 총계 변화는
-  노이즈와 구분되지 않는다. 판단은 결정론적인 symbolic 출력으로 한다.
-- 현재 76% unresolved와 rulebase coverage는 **별개 축**이다. 없는 offense family는 UNKNOWN을
-  늘리는 게 아니라 평가할 branch 자체를 없애므로 UNKNOWN 통계 바깥에 있다.
+## 7. 정책 (변경 불가)
 
-## 정책 (변경 불가)
-
-- **sealed-59**: `kcl_criminal_r10_p1_q1_ga`와 `kcl_criminal_r14_p1_q2` 두 dev case만 디버깅용으로
-  열 수 있다. 나머지 59건은 채점 전용. 새 dev case는 사용자 명시 승인 필요.
-  **sealed-59를 열어 UNKNOWN을 분류하지 않는다.**
-- **프롬프트 승인 게이트**: 활성 프롬프트·정의 전문은 사용자 승인 후에만 설치·실험한다.
-- 새 정적 감사를 임의로 열지 않는다. 실제 E2E 결과에서 문제가 나온 지점만 본다.
+* **sealed-59**: `kcl_criminal_r10_p1_q1_ga`와 `kcl_criminal_r14_p1_q2` 두 dev case만 열 수 있다.
+  나머지 59건은 채점 전용. **sealed-59를 열어 UNKNOWN을 분류하지 않는다.**
+* **프롬프트·정의 승인 게이트**: 활성 프롬프트와 정의 전문은 사용자 승인 후에만 설치한다.
+* 새 정적 감사를 임의로 열지 않는다. 실제 E2E 결과에서 문제가 나온 지점만 본다.

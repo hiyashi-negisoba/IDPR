@@ -810,6 +810,28 @@ authored executable rule
 
 ---
 
+# 11-ter. Phase A/B/C 종결 (2026-08-15)
+
+지시서의 세 Phase가 모두 닫혔다. 상태는 [`START_HERE.md`](START_HERE.md)가 정본이고,
+여기에는 **지시서 대비 무엇이 달라졌는지만** 적는다.
+
+| 지시서 | 결과 |
+|---|---|
+| A1 | 지시서의 "caller 한 줄"보다 컸다. case가 문항 단위라 linked offender에게 instance 자체가 없었고, ROUTE를 재사용 가능한 operation으로 일반화해 해결했다 |
+| A2 | 표현 공백 하나가 아니라 **두 겹**이었다 — `offense_instance` probe에 target producer가 없어 정책이 발화할 수 없었다 |
+| A3 | gap 파일의 ref 두 개가 틀렸다. 특수폭행은 derived, 폭행치사상은 결과별로 둘 |
+| A4 | gap 파일의 "카드는 이미 존재한다"가 사실이 아니었다(art362 카드 0건). 조문·판례에서 직접 저작 |
+| B1 | **처리하지 않았다.** qualifier menu single-source는 계약 선택이 필요하고 KCL 결과를 바꾸지 않는다 |
+| B2·B3·B4 | 닫힘. §11-bis 참조 |
+| B5 | 구현 대신 typed gap 승격 |
+| C | `grounded_by`·`disabled_modes` fail-closed. structural relation은 `intended_object_divergence`에 host 공급자가 생겨 해소 |
+
+**B1만 남았다.** `OffenseDef.qualifiers[]`는 2곳만 선언하는데 실제 QUALIFY 파생은 11건이다.
+둘 중 하나를 골라야 한다 — menu를 완전 저작하고 checker가 강제하거나, 그 필드를 normative
+menu로 설명하지 않도록 계약을 바꾸거나. 결과를 바꾸지 않으므로 재생성 뒤로 미뤘다.
+
+---
+
 # 12. 최종 판정
 
 현재 pipeline 자체는 이전보다 훨씬 안정화되었다.

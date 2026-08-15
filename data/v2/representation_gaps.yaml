@@ -81,6 +81,29 @@ gaps:
       provenance가 추가로 필요하다.
     affects_kcl26: 1
 
+  - id: gap.co_principal_status_redirection
+    kind: unsupported_legal_relation
+    marker: UNRESOLVED_STATUS_REDIRECTION
+    blocks:
+      - participation_policy.standard
+    summary: >-
+      형법 제33조 단서의 신분관계 전환을 공동정범에게 적용할 수 없다. 저작은 instigator·
+      aider·co_principal 셋을 모두 지원한다고 말하지만, 실제 redirection 경로는 derivative
+      link만 걷는다.
+    why_not_reinterpreted: >-
+      공동정범은 derivative link가 아니라 group node로 컴파일된다. 그 group의 각 구성원에게
+      status target을 여는 것은 "가담자 위치가 하나로 정해진다"는 derivative 경로의 전제를
+      깨고, 읽는 곳 없는 neural 작업을 사는 일이 된다.
+      `policy_probe_targets.unreachable_mode_findings()`가 이 불일치를 이미 기록하고 있다 --
+      숨기는 대신 드러내는 쪽이 먼저였다.
+    consequence: >-
+      KCL-26에서 이 branch가 반드시 필요한 사례는 확인되지 않았다. 그러나 저작이 지원한다고
+      말하는 이상 silent capability mismatch이고, 그 상태 자체가 금지 대상이다(감사 §11의
+      네 번째 상태). 그래서 미지원이라고 명시한다.
+    future_design: >-
+      공동정범 group에서 신분자·비신분자를 구별하는 typed 표현이 먼저다. 그것 없이 경로만
+      이으면 group 전체에 같은 신분을 적용하게 된다.
+
   - id: gap.justifying_premise_vs_object_identity
     kind: factual_representation
     marker: NOT_RAISED_REPRESENTATION_GAP

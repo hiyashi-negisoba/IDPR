@@ -176,3 +176,38 @@ def test_blocker_only_predicates_enter_the_dependency_closure() -> None:
 
     assert blocker_leaves, "저작된 blocker가 없으면 이 테스트는 아무것도 지키지 않는다"
     assert blocker_leaves <= collected, sorted(blocker_leaves - collected)
+
+
+def test_unsupported_executable_fields_fail_closed() -> None:
+    """"schema에는 있는데 아무도 안 읽음"은 허용하지 않는다 (감사 §11의 네 번째 상태).
+
+    두 필드 모두 현재 사용량이 0이다. 그래서 지금 막는 것이 가장 싸고, 막지 않으면 언젠가
+    누군가 저작한 뒤 아무 일도 일어나지 않는 것을 한참 뒤에 알게 된다.
+    """
+    registry = load_definitions(ROOT / "data/v2/definitions")
+
+    element = next(
+        entry for entry in registry.by_kind["legal_element"] if not entry.payload.get("grounded_by")
+    )
+    findings = run_type_checks(
+        _mutated(
+            registry,
+            element.id,
+            {**element.payload, "grounded_by": ["ground_fact.taking_conduct"]},
+        )
+    )
+    assert any(
+        value.code == "unsupported_executable_field" and value.field_path == "grounded_by"
+        for value in findings
+    ), findings
+
+    offense = registry.get("offense.theft")
+    constraints = {**(offense.payload.get("participation_constraints") or {}), "disabled_modes": ["aider"]}
+    findings = run_type_checks(
+        _mutated(registry, offense.id, {**offense.payload, "participation_constraints": constraints})
+    )
+    assert any(
+        value.code == "unsupported_executable_field"
+        and value.field_path == "participation_constraints.disabled_modes"
+        for value in findings
+    ), findings

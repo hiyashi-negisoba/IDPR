@@ -52,6 +52,8 @@ def test_the_family_gaps_are_closed_without_dropping_what_they_covered(gaps) -> 
     assert "gap.co_principal_qualitative_excess" in recorded
     assert "gap.special_assault_aggravated_result" in recorded
     assert "gap.stolen_property_self_principal_exclusion" in recorded
+    # B5: 저작이 지원한다고 말하는데 경로가 없는 상태는 그 자체로 금지 대상이다.
+    assert "gap.co_principal_status_redirection" in recorded
 
 
 def test_the_intended_object_gap_is_closed_by_representation_not_reinterpretation(

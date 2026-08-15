@@ -144,9 +144,26 @@ def _check_candidate_materialization(
 
 
 def _check_legal_element(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:
+    """`grounded_by` refs are typed -- and, for now, rejected outright.
+
+    The schema says a GroundFact assessment feeds this LegalElement's evaluation, but no runtime
+    consumer reads it: authoring it would produce a field that looks executable and changes
+    nothing. Registry usage is currently zero, so failing closed costs nothing today and prevents
+    the one thing that must not happen -- someone relying on it and getting silence.
+    """
     findings: list[Finding] = []
-    for index, ref in enumerate(entry.payload.get("grounded_by") or []):
+    refs = entry.payload.get("grounded_by") or []
+    for index, ref in enumerate(refs):
         findings.extend(_check_ref(registry, entry, f"grounded_by[{index}]", ref, frozenset({"ground_fact"})))
+    if refs:
+        findings.append(Finding(
+            _AXIS,
+            "unsupported_executable_field",
+            entry.id,
+            "grounded_by",
+            "grounded_by has no runtime consumer; a GroundFact assessment authored here would "
+            "never reach this element's evaluation",
+        ))
     return findings
 
 
