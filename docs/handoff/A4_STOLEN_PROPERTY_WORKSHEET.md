@@ -1,7 +1,36 @@
-# A4 장물죄 family 저작 워크시트 — **v1 (2026-08-15 재검수 반영)**
+# A4 장물죄 family — 결재 완료 · 설치됨
 
-> **v0는 미승인되었다.** 아래는 지적된 네 곳을 고친 재검수본이다. 바뀐 카드에는 「v0에서
-> 무엇이 틀렸나」를 함께 적었다 — 무엇을 고쳤는지 보이지 않으면 재검수가 처음부터 다시 된다.
+> **2026-08-15 v1 결재: 여섯 항목 승인, ⑤만 한 번 더 조여 설치 완료.**
+> 아래는 v1 검수 원문이며, 최종 반영은 이렇다.
+>
+> | | v1 판정 | 설치 결과 |
+> |---|---|---|
+> | ① | 승인 | 취득·보관만 저작. 양도·운반은 미저작 scope |
+> | ② | 승인 | `legal_element.stolen_property_status` — 경제적 동일성 예외 포함, 판례 authority 3건 |
+> | ③ | 승인 | 두 행위태양을 `legal_element`로 저작 |
+> | ⑥ | 신설 승인 + **중복 제거 지시** | 아래 참조 |
+> | ④ | typed gap 승인 | `gap.stolen_property_self_principal_exclusion` |
+> | ⑤ | 승인 + **condition 재조임** | 아래 참조 |
+>
+> **⑥ — generic intent와 conjunct로 걸지 않았다.** v1 초안은
+> `all(intent, knowledge_of_stolen_property_status)`였는데, generic intent의 계약이 이미
+> 장물성 인식을 포함하므로 같은 명제를 두 target이 각각 답하게 된다. 지시대로 장물죄용
+> mental predicate **하나**가 취득·보관 의사와 장물성의 미필적 인식을 함께 소유하도록
+> 저작했다 — `legal_element.stolen_property_dealing_intent`. 취득 시점 기준(2004도6084)도
+> 그 안에 들어갔고, 왜 generic intent를 함께 걸지 않는지는 정의 주석에 남겼다.
+>
+> **⑤ — episode 순서는 candidate join만 소유한다.** 지적대로 순서만으로는 "선행 보관이
+> 후행 시점까지 계속되었는가"가 보장되지 않는다(중간에 반환되었다가 다른 원인으로 다시
+> 점유한 경우). 그래서 두 층으로 나눴다.
+>
+> * join: `ordered_cross_episode` — same actor + 선행 episode가 후행보다 이르거나 같음.
+>   순서는 `factual_episode_order`로만 읽고, 그 목록에 없는 episode는 비교하지 않는다
+>   (모르는 것을 "앞선다"로 읽으면 순서 제약이 사실상 무제약이 된다).
+> * condition: "후행 영득·처분의 대상이 **선행 장물보관으로 계속 보관 중이던** 바로 그
+>   재물인가" — 계속성은 여기가 진다.
+>
+> 런타임 확장 범위는 비교 함수 하나였고, 평가 시점과 해소 시점이 같은 join을 쓰도록 두
+> 호출부에 모두 순서를 넘겼다.
 
 기준: 2026-08-15 · 지시서 [`RULEBASE_AUDIT.md`](RULEBASE_AUDIT.md) §4 P0-R4
 직접 영향: `r10_p2_q1` (장물보관죄 성립 → 이후 영득 → 횡령은 불가벌적 사후행위)

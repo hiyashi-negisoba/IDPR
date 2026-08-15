@@ -14,7 +14,7 @@ or guesses the condition from card text.
 from __future__ import annotations
 
 from collections import Counter
-from collections.abc import Iterable, Mapping
+from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -61,6 +61,18 @@ RESOLUTION_TYPES = frozenset({ALTERNATIVE_SUBTYPE, INTENT_DISPLACEMENT})
 SAME_EPISODE = "same_episode"
 
 SAME_REALIZATION = "same_realization"
+
+ORDERED_CROSS_EPISODE = "ordered_cross_episode"
+"""선행 죄가 후행 죄보다 이른 factual episode에 있고, 행위자가 같은 join.
+
+`same_episode`로 표현할 수 없는 법리가 있다. 불가벌적 사후행위가 대표인데, 그 전형이 바로
+"먼저 성립하고 → 시간이 흐르고 → 나중에 영득"이다. episode 경계는 법적 요건이 아니라 Call
+1.5가 서사를 나눈 결과이므로, 그것을 규칙의 요건으로 쓰면 아는 false negative를 규칙에
+저작하게 된다.
+
+**그렇다고 이 값이 계속성을 뜻하지는 않는다.** 순서는 후보를 안전하게 좁히는 결정론적 자료일
+뿐이고, "선행 상태가 후행 시점까지 이어졌는가"는 규칙의 condition이 따로 진다. 순서만으로
+계속성을 읽으면 중간에 종료되었다가 다른 원인으로 다시 시작된 경우까지 통과한다."""
 """Both instances must rest on the same realized conduct, not merely the same episode.
 
 One episode can carry the same actor injuring one victim and killing another.  Displacing an
@@ -126,7 +138,11 @@ class ConcurrenceRule:
             raise ValueError(
                 f"{self.rule_id}: resolution_type belongs to definitional resolutions only"
             )
-        if self.occurrence_constraint not in {SAME_EPISODE, SAME_REALIZATION}:
+        if self.occurrence_constraint not in {
+            SAME_EPISODE,
+            SAME_REALIZATION,
+            ORDERED_CROSS_EPISODE,
+        }:
             raise ValueError(
                 f"unsupported occurrence_constraint: {self.occurrence_constraint!r}"
             )
@@ -195,6 +211,22 @@ def load_concurrence_rules(
     return tuple(output)
 
 
+def _episode_precedes_or_equals(
+    earlier: str, later: str, order: Sequence[str]
+) -> bool:
+    """선언된 서사 순서에서 `earlier`가 `later`보다 앞서거나 같은가.
+
+    순서에 없는 episode는 비교하지 않는다. 모르는 것을 "앞선다"로 읽으면 순서 제약이 사실상
+    무제약이 된다.
+    """
+    if earlier == later:
+        return True
+    values = list(order)
+    if earlier not in values or later not in values:
+        return False
+    return values.index(earlier) < values.index(later)
+
+
 @dataclass(frozen=True, slots=True)
 class ConcurrenceCandidate:
     rule: ConcurrenceRule
@@ -220,6 +252,7 @@ def plan_concurrence_candidates(
     episode_by_instance: Mapping[OffenseInstanceKey, str],
     rules: Iterable[ConcurrenceRule],
     focal_action_by_instance: Mapping[OffenseInstanceKey, str] | None = None,
+    factual_episode_order: Sequence[str] = (),
 ) -> tuple[ConcurrenceCandidate, ...]:
     """Join exact authored offense pairs only inside one factual episode.
 
@@ -249,7 +282,16 @@ def plan_concurrence_candidates(
             for first in first_values:
                 for second in second_values:
                     first_episode = episode_by_instance[first]
-                    if first_episode != episode_by_instance[second]:
+                    second_episode = episode_by_instance[second]
+                    if rule.occurrence_constraint == ORDERED_CROSS_EPISODE:
+                        # 선행 죄(second)가 후행 죄(first)보다 늦으면 후보가 아니다. 순서는
+                        # 상류가 정한 `factual_episode_order`로만 읽는다 -- episode id가 사실상
+                        # 순번이더라도 그 우연에 기대면 id 규칙이 바뀌는 날 조용히 틀린다.
+                        if not _episode_precedes_or_equals(
+                            second_episode, first_episode, factual_episode_order
+                        ):
+                            continue
+                    elif first_episode != second_episode:
                         continue
                     if (
                         rule.actor_constraint == ACTOR_SAME
@@ -578,6 +620,7 @@ __all__ = [
     "IMAGINATIVE_CONCURRENCE",
     "INTENT_DISPLACEMENT",
     "RESOLUTION_TYPES",
+    "ORDERED_CROSS_EPISODE",
     "SAME_EPISODE",
     "SAME_REALIZATION",
     "SPECIALTY",

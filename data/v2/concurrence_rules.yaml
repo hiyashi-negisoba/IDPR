@@ -105,3 +105,34 @@ rules:
       상해치사(제259조)와 살인(제250조)은 같은 조문의 하위유형이 아니라 별개 구성요건이다. 살인의
       고의가 인정되어 살인죄가 성립하면 같은 사망 결과를 상해치사로 중복 분류하지 않는다. 살인
       고의의 부존재를 상해치사의 성립요건으로 요구하지는 않는다.
+
+  - rule_id: absorption.embezzlement_by_stolen_property_custody
+    status: approved
+    kind: absorption
+    # ABSORPTION에서 first가 흡수되는 쪽(child)이다.
+    first_offense_ref: offense.embezzlement
+    second_offense_ref: offense.stolen_property_custody
+    # `same_episode`가 아니다. 이 법리의 전형 자체가 "보관 성립 → 시간 경과 → 나중 영득"이라
+    # episode 경계를 요건으로 쓰면 아는 false negative를 규칙에 저작하게 된다. 다만 순서는
+    # 후보를 좁히는 결정론적 자료일 뿐이고, 보관상태의 계속성은 아래 condition이 따로 진다 --
+    # 중간에 반환되어 보관이 끝났다가 다른 원인으로 다시 점유한 경우까지 순서만으로 통과하면
+    # 안 되기 때문이다.
+    occurrence_constraint: ordered_cross_episode
+    actor_constraint: same
+    condition_ref: condition.later_appropriation_of_property_still_held_under_the_earlier_custody
+    condition_statement: >-
+      후행 영득·처분의 대상이 선행 장물보관으로 계속 보관 중이던 바로 그 재물인가.
+    legal_standard: >-
+      선행 장물보관의 목적물이 후행 영득 시점까지 그 보관관계 아래 계속 있었고, 후행 영득의
+      대상이 바로 그 재물인지만 본다. 보관이 적법하였는지, 영득의사가 언제 생겼는지는 여기서
+      판단하지 않는다.
+    source_card_ids: []
+    basis: >-
+      절도범으로부터 장물보관을 의뢰받아 장물임을 알면서 보관한 경우 장물보관죄가 성립하는
+      때에 이미 소유자의 소유물추구권이 침해되었으므로, 그 후 보관 중인 장물을 임의로
+      처분·영득하였더라도 이는 불가벌적 사후행위이고 별도의 횡령죄를 구성하지 않는다.
+      (대법원 76도3067, 2004년 재확인)
+    review_notes: >-
+      `r10_p2_q1`이 이 규칙의 대상이다. 그 사안은 보관과 이후 영득이 시간적으로 떨어져 있어
+      `same_episode`로는 후보조차 열리지 않는다.
+

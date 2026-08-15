@@ -50,21 +50,36 @@ gaps:
       사안은 확인되지 않았으므로 지금 저작하지 않되, 두 카드가 제262조 전부를 덮는다고
       말하지 않기 위해 여기에 남긴다.
 
-  - id: gap.stolen_property_offense_family
-    kind: unauthored_offense_family
-    marker: UNRESOLVED_ABSORPTION_PAIR
-    missing_articles: ["형법 제362조"]
-    absent_offense_refs:
+  # gap.stolen_property_offense_family는 2026-08-15에 닫혔다. 장물취득죄·장물보관죄가
+  # 저작되었고 불가벌적 사후행위 흡수 규칙도 approved로 들어갔다. v0 검수에서 이 항목의
+  # "카드는 이미 존재한다"가 사실이 아님이 확인되었다 -- card_catalog_v2.json에 art362·art365
+  # 항목이 없다. 정의는 조문과 판례에서 직접 저작했다.
+  #
+  # 그 gap이 덮고 있던 것 중 하나가 남아 typed gap으로 승격한다.
+
+  - id: gap.stolen_property_self_principal_exclusion
+    kind: unsupported_legal_relation
+    marker: UNRESOLVED_SELF_PRINCIPAL_RELATION
+    blocks:
       - offense.stolen_property_acquisition
       - offense.stolen_property_custody
     summary: >-
-      장물취득죄·장물보관죄가 v2에 없다. 2026-08-06에 장물죄 트랙이 보류된 이후 그대로다.
-      카드는 이미 존재한다.
+      본범자는 장물죄의 주체가 될 수 없고 그 정범에는 공동정범·합동범이 포함되는데, 그 배제를
+      표현할 수 없다.
+    why_not_reinterpreted: >-
+      두 우회로가 모두 거부되었다(2026-08-15 검수 ④). Call 2에 "이 사람이 본범인가"를 묻는
+      것은 다른 사람의 법적 지위를 사실인 것처럼 묻는 것이고 -- 제151조에서 방금 제거한
+      결함과 같다 -- binding이 안 생기는 것에 맡기는 것은 법적 exclusion을 candidate
+      generation에 숨기는 것이다.
     consequence: >-
-      `r10_p2_q1`의 불가벌적 사후행위(장물보관죄 성립 후 횡령)를 흡수 규칙으로 저작할 수
-      없다. `r13_p2_q1`은 반대로 현재 상태가 정답이다 -- 본범의 장물취득죄 불성립은
-      후보가 아예 생기지 않는 것으로 충족되고, 절취 카드 사용 사기죄가 불가벌적
-      사후행위가 아니라는 결론도 흡수 규칙 부재가 그대로 정답이다.
+      `r13_p2_q1`은 현재 맞는 답을 내지만 그것은 후보가 생기지 않은 **우연이지 규칙이 아니다.**
+      본범자에게 장물 binding이 만들어지는 사안에서는 배제가 발동하지 않는다.
+    future_design: >-
+      A1의 cross-actor dependency를 재사용하되 그대로는 안 된다. 필요한 것은 "이 사람이 어떤
+      재산범죄를 범했는가"가 아니라 "이 장물을 발생시킨 바로 그 선행 재산범죄에서 정범·
+      공동정범·합동범이었는가"이므로, property ↔ 선행범죄 ↔ 가담형태라는 object-specific
+      provenance가 추가로 필요하다.
+    affects_kcl26: 1
 
   - id: gap.justifying_premise_vs_object_identity
     kind: factual_representation

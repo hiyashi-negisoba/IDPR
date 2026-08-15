@@ -435,6 +435,7 @@ def resolve_final_responsibility(
         episode_by_instance=attributed_episodes,
         rules=concurrence_rules,
         focal_action_by_instance=focal_action_by_instance,
+        factual_episode_order=tuple(episode_order),
     )
     resolution = propagate_absorption_to_accessories(
         resolve_concurrence(

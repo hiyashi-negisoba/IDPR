@@ -87,6 +87,9 @@ def main() -> None:
             planned,
             episode_by_instance=episode_by_instance,
             rules=rules,
+            # 순서 있는 흡수 규칙(불가벌적 사후행위)이 이것 없이는 후보를 열지 못한다.
+            # 평가 시점과 해소 시점이 같은 join을 써야 하므로 양쪽에 같은 값을 넘긴다.
+            factual_episode_order=tuple(plan.get("factual_episode_order", ())),
         )
 
         row = copy.deepcopy(plan)

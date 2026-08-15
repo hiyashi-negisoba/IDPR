@@ -329,3 +329,115 @@ def test_specialty_does_not_fire_when_the_derived_offense_is_not_established() -
     )
 
     assert candidates == ()
+
+
+def test_ordered_cross_episode_opens_a_candidate_the_episode_boundary_would_hide() -> None:
+    """불가벌적 사후행위의 전형은 "먼저 성립 → 시간 경과 → 나중 영득"이다.
+
+    episode 경계는 법적 요건이 아니라 Call 1.5가 서사를 나눈 결과다. 그것을 규칙의 요건으로
+    쓰면 아는 false negative를 규칙에 저작하게 된다.
+    """
+    from idpr.v2.runtime.concurrence import (
+        ORDERED_CROSS_EPISODE,
+        ConcurrenceRule,
+        plan_concurrence_candidates,
+    )
+    from idpr.v2.runtime.identity import OffenseInstanceKey
+
+    custody = OffenseInstanceKey("case", "甲", "offense.stolen_property_custody", "r1")
+    embezzlement = OffenseInstanceKey("case", "甲", "offense.embezzlement", "r2")
+    rule = ConcurrenceRule(
+        "absorption.test",
+        "absorption",
+        "offense.embezzlement",
+        "offense.stolen_property_custody",
+        "condition.test",
+        occurrence_constraint=ORDERED_CROSS_EPISODE,
+    )
+    episodes = {custody: "factual_episode:001", embezzlement: "factual_episode:002"}
+    order = ("factual_episode:001", "factual_episode:002")
+
+    candidates = plan_concurrence_candidates(
+        (custody, embezzlement),
+        episode_by_instance=episodes,
+        rules=(rule,),
+        factual_episode_order=order,
+    )
+    assert len(candidates) == 1
+
+    # 같은 입력이라도 `same_episode`로는 후보가 열리지 않는다.
+    same_episode_rule = ConcurrenceRule(
+        "absorption.test",
+        "absorption",
+        "offense.embezzlement",
+        "offense.stolen_property_custody",
+        "condition.test",
+    )
+    assert (
+        plan_concurrence_candidates(
+            (custody, embezzlement),
+            episode_by_instance=episodes,
+            rules=(same_episode_rule,),
+            factual_episode_order=order,
+        )
+        == ()
+    )
+
+
+def test_ordered_cross_episode_refuses_the_reverse_order_and_unknown_episodes() -> None:
+    """순서는 후보를 좁히는 자료다. 모르는 것을 "앞선다"로 읽으면 무제약이 된다."""
+    from idpr.v2.runtime.concurrence import (
+        ORDERED_CROSS_EPISODE,
+        ConcurrenceRule,
+        plan_concurrence_candidates,
+    )
+    from idpr.v2.runtime.identity import OffenseInstanceKey
+
+    custody = OffenseInstanceKey("case", "甲", "offense.stolen_property_custody", "r1")
+    embezzlement = OffenseInstanceKey("case", "甲", "offense.embezzlement", "r2")
+    rule = ConcurrenceRule(
+        "absorption.test",
+        "absorption",
+        "offense.embezzlement",
+        "offense.stolen_property_custody",
+        "condition.test",
+        occurrence_constraint=ORDERED_CROSS_EPISODE,
+    )
+    # 횡령이 보관보다 앞선다 -- 사후행위가 아니다.
+    reversed_episodes = {custody: "factual_episode:002", embezzlement: "factual_episode:001"}
+    order = ("factual_episode:001", "factual_episode:002")
+    assert (
+        plan_concurrence_candidates(
+            (custody, embezzlement),
+            episode_by_instance=reversed_episodes,
+            rules=(rule,),
+            factual_episode_order=order,
+        )
+        == ()
+    )
+
+    # 선언된 순서에 없는 episode는 비교하지 않는다.
+    assert (
+        plan_concurrence_candidates(
+            (custody, embezzlement),
+            episode_by_instance={custody: "factual_episode:001", embezzlement: "factual_episode:009"},
+            rules=(rule,),
+            factual_episode_order=order,
+        )
+        == ()
+    )
+
+
+def test_the_stolen_property_absorption_rule_is_approved_and_ordered() -> None:
+    """설치된 규칙이 실제로 그 제약을 쓰는지 -- 저작만 하고 same_episode로 남으면 무의미하다."""
+    from pathlib import Path
+
+    from idpr.v2.runtime.concurrence import ORDERED_CROSS_EPISODE, load_concurrence_rules
+
+    root = Path(__file__).resolve().parents[1]
+    rules = {rule.rule_id: rule for rule in load_concurrence_rules(root / "data/v2/concurrence_rules.yaml")}
+    rule = rules["absorption.embezzlement_by_stolen_property_custody"]
+
+    assert rule.occurrence_constraint == ORDERED_CROSS_EPISODE
+    assert rule.first_offense_ref == "offense.embezzlement"
+    assert rule.second_offense_ref == "offense.stolen_property_custody"

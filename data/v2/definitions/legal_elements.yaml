@@ -570,6 +570,64 @@
   legal_standard: "업무상 타인의 재물을 보관하거나 사무를 처리하는 지위인지 여부"
   authority_refs: [{authority_basis: statute_text, citation: "형법 제356조"}]
 
+- id: legal_element.stolen_property_status
+  arguments: [{name: property, type: entity}]
+  canonical_meaning: "재산죄인 범죄행위에 의하여 영득된 재물"
+  legal_standard: >-
+    그 재물이 재산죄인 범죄행위에 의하여 영득된 재물 자체인지 여부.
+  semantic_exclusions:
+    - "재산상 이익은 재물이 아니므로 장물이 될 수 없다."
+    - >-
+      원장물과 경제적 동일성이 인정되지 않는 처분대가나 대체물은 장물이 아니다. 다만 금전이나
+      자기앞수표처럼 동일한 금전적 가치가 유지되는 경우에는 물리적 동일성이 없어도 장물성이
+      유지될 수 있다.
+  authority_refs:
+    - {authority_basis: statute_text, citation: "형법 제362조 제1항"}
+    - {authority_basis: judicial_precedent, citation: "대법원 2004도5904"}
+    - {authority_basis: judicial_precedent, citation: "대법원 98도2579"}
+
+- id: legal_element.stolen_property_acquisition_conduct
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "점유를 이전받아 사실상 처분권을 획득"
+  semantic_sort: conduct
+  legal_standard: >-
+    그 재물의 점유를 이전받아 자기에게 독립적인 사실상 처분권을 획득하였는지 여부.
+    타인을 위하여 맡아 점유·관리하는 데 그치는 경우는 보관이지 취득이 아니다.
+  # GroundFactDef가 아니라 LegalElementDef인 이유는 `assault_conduct`와 같다. 묻는 것이 raw
+  # factual event가 아니라 제362조가 말하는 '취득'이라는 법적 행위 개념에 해당하는가이고,
+  # "사실상 처분권"은 조문 문언이 아니라 판례법리다.
+  authority_refs:
+    - {authority_basis: statute_text, citation: "형법 제362조 제1항"}
+    - {authority_basis: judicial_precedent, citation: "대법원 2004도5904"}
+
+- id: legal_element.stolen_property_custody_conduct
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "타인을 위하여 장물을 맡아 사실상 점유·관리"
+  semantic_sort: conduct
+  legal_standard: >-
+    타인을 위하여 그 재물을 맡아 사실상 점유·관리하고 있는지 여부. 위탁자가 본범인 경우로
+    한정되지 않는다.
+  authority_refs:
+    - {authority_basis: statute_text, citation: "형법 제362조 제1항"}
+    - {authority_basis: judicial_precedent, citation: "대법원 98도2579"}
+
+- id: legal_element.stolen_property_dealing_intent
+  arguments: [{name: actor, type: entity}, {name: property, type: entity}]
+  canonical_meaning: "장물성의 인식 아래 취득·보관하려는 의사"
+  legal_standard: >-
+    행위 당시 그 재물이 장물임을 인식하면서 이를 취득하거나 보관하려는 의사가 있었는지 여부.
+    장물임을 확정적으로 알 필요는 없고 장물일지도 모른다는 미필적 인식으로 충분하다.
+    취득의 경우 그 인식은 취득 시점에 있어야 하며, 취득한 뒤에 비로소 장물임을 알게 된 것은
+    이미 끝난 취득행위를 장물취득으로 만들지 않는다.
+  # 이 죄들의 `mental`은 이 predicate **하나**가 진다. generic `legal_element.intent`와 함께
+  # 걸지 않는다 -- 그쪽의 저작된 계약이 이미 "객관적 구성요건요소 인식 + 실현 용인"이므로
+  # 장물성 인식을 포함하고, 둘을 conjunct로 두면 같은 명제를 두 target이 각각 답하게 된다.
+  # 대신 여기서만 장물죄 고유의 기준(미필적 인식 충분, 취득 시점 기준)을 진다.
+  authority_refs:
+    - {authority_basis: statute_text, citation: "형법 제362조 제1항"}
+    - {authority_basis: judicial_precedent, citation: "대법원 2004도5904"}
+    - {authority_basis: judicial_precedent, citation: "대법원 2004도6084"}
+
 - id: legal_element.lost_or_stray_property_status
   arguments: [{name: property, type: entity}]
   canonical_meaning: "유실물·표류물 등 점유이탈 재물"

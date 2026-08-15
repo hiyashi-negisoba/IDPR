@@ -33,6 +33,28 @@
     conduct: {op: ref, ref: legal_element.embezzlement_manifestation}
     mental: {op: ref, ref: legal_element.unlawful_appropriation_intent}
 
+- id: offense.stolen_property_acquisition
+  identity: {name: "장물취득죄", statutory_refs: ["형법 제362조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제362조 제1항"}]
+  # 본범자는 장물죄의 주체가 될 수 없으나(공동정범·합동범 포함) 그 배제는 여기 저작하지
+  # 않는다. `gap.stolen_property_self_principal_exclusion` 참조.
+  elements:
+    object: {op: ref, ref: legal_element.stolen_property_status}
+    conduct: {op: ref, ref: legal_element.stolen_property_acquisition_conduct}
+    mental: {op: ref, ref: legal_element.stolen_property_dealing_intent}
+
+- id: offense.stolen_property_custody
+  identity: {name: "장물보관죄", statutory_refs: ["형법 제362조 제1항"]}
+  article151_penalty_threshold:
+    class: fine_or_greater
+    authority_refs: [{authority_basis: statute_text, citation: "형법 제362조 제1항"}]
+  elements:
+    object: {op: ref, ref: legal_element.stolen_property_status}
+    conduct: {op: ref, ref: legal_element.stolen_property_custody_conduct}
+    mental: {op: ref, ref: legal_element.stolen_property_dealing_intent}
+
 - id: offense.property_damage
   identity: {name: "재물손괴죄", statutory_refs: ["형법 제366조"]}
   article151_penalty_threshold:

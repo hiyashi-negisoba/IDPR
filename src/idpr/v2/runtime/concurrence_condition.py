@@ -71,6 +71,7 @@ def plan_concurrence_condition_pairs(
     *,
     episode_by_instance: Mapping[OffenseInstanceKey, str],
     rules: Iterable[ConcurrenceRule],
+    factual_episode_order: Sequence[str] = (),
 ) -> tuple[ConcurrenceConditionPair, ...]:
     """Open one pair per authored rule join, using the resolution-time join itself.
 
@@ -87,6 +88,7 @@ def plan_concurrence_condition_pairs(
         planned_instances,
         episode_by_instance=episode_by_instance,
         rules=(rule for rule in rules if rule.kind in ASSESSABLE_KINDS),
+        factual_episode_order=tuple(factual_episode_order),
     )
     output: list[ConcurrenceConditionPair] = []
     for candidate in candidates:
