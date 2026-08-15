@@ -162,3 +162,51 @@ def test_an_unauthored_threshold_is_not_folded_into_non_qualifying() -> None:
 
     assert gate.non_qualifying == ()
     assert gate.unauthored == ("offense.nope",)
+
+
+def test_predicate_targets_open_only_for_qualifying_candidates() -> None:
+    from idpr.v2.runtime.linked_offender import (
+        gate_predecessor_candidates,
+        linked_offender_predicate_targets,
+    )
+
+    dependency = _dependencies("offense.harboring_or_escape", "乙")[0]
+    gate = gate_predecessor_candidates(REGISTRY, dependency, ("offense.theft", "offense.nope"))
+    targets = linked_offender_predicate_targets(REGISTRY, gate)
+
+    assert {value.offense_ref for value in targets} == {"offense.theft"}
+    assert all(value.participant == FactualParticipantKey(CASE, "乙") for value in targets)
+    assert "ground_fact.taking_conduct" in {value.predicate_ref for value in targets}
+
+
+def test_the_fold_stays_at_participant_level_and_never_makes_an_instance() -> None:
+    from idpr.v2.runtime.linked_offender import fold_linked_offender_outcome
+
+    truths = {
+        "legal_element.possession": "TRUE",
+        "ground_fact.taking_conduct": "TRUE",
+        "legal_element.unlawful_appropriation_intent": "TRUE",
+    }
+    outcome = fold_linked_offender_outcome(
+        REGISTRY,
+        participant=FactualParticipantKey(CASE, "乙"),
+        offense_ref="offense.theft",
+        predicate_truths=truths,
+    )
+
+    assert outcome.participant == FactualParticipantKey(CASE, "乙")
+    assert outcome.status == "liable_exact_offense"
+    assert not hasattr(outcome, "instance")
+
+
+def test_an_unresolved_predecessor_does_not_establish_the_status() -> None:
+    from idpr.v2.runtime.linked_offender import fold_linked_offender_outcome
+
+    outcome = fold_linked_offender_outcome(
+        REGISTRY,
+        participant=FactualParticipantKey(CASE, "乙"),
+        offense_ref="offense.theft",
+        predicate_truths={"legal_element.possession": "TRUE"},
+    )
+
+    assert outcome.status == "unresolved"

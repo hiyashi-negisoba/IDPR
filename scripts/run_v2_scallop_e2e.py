@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
 
 from idpr.v2.compile import CompiledOffense, compile_offense
-from idpr.v2.registry import load_definitions
+from idpr.v2.registry import DefinitionEntry, DefinitionRegistry, load_definitions
 from idpr.v2.relations import RelationInstanceKey
 from idpr.v2.runtime.concurrence import load_concurrence_rules, same_realization_keys
 from idpr.v2.runtime.doctrine_activation import raised_active_doctrines
@@ -35,6 +35,8 @@ from idpr.v2.runtime.identity import (
     RuntimeRelationKey,
 )
 from idpr.v2.runtime.indirect_principal_grounding import IndirectPrincipalDependency
+from idpr.v2.runtime.intended_object import IntendedObjectDivergence, mistake_findings
+from idpr.v2.runtime.mistake import apply_mistake_policy
 from idpr.v2.runtime.participation_grounding import (
     ParticipationLocalAssessment,
     ParticipationLocalTarget,
@@ -99,6 +101,22 @@ def _instance(value: dict[str, Any]) -> OffenseInstanceKey:
         str(value["offense_ref"]),
         str(value["occurrence_id"]),
     )
+
+
+def _intended_object_divergence(value: dict[str, Any]) -> IntendedObjectDivergence:
+    return IntendedObjectDivergence(
+        _instance(value["instance_key"]),
+        str(value["directed_action_target"]),
+        str(value["actual_result_bearer"]),
+    )
+
+
+def _mistake_policy(registry: DefinitionRegistry) -> DefinitionEntry | None:
+    """저작된 착오 정책. profile 교체는 사안별 선택이 아니라 정책 교체로만 이루어진다."""
+    policies = registry.by_kind.get("mistake_policy", ())
+    if len(policies) > 1:
+        raise ValueError("more than one authored mistake policy; the profile must be singular")
+    return policies[0] if policies else None
 
 
 def _article263_instances(row: dict[str, Any]) -> tuple[OffenseInstanceKey, ...]:
@@ -451,6 +469,21 @@ def main() -> None:
             _relation_assessment(value) for value in row["case_relation_truths"]
         )
         truths = add_relation_assessments(truths, relation_assessments)
+        # 구성요건적 착오는 Call 2를 다시 부르지 않는다. 이미 받은 truth 위에 저작된 정책을
+        # 얹는 view transformation이고, 불일치 자체는 host가 두 사실에서 센 structural 값이다.
+        # 이 호출부가 없던 동안 정책은 저작·런타임·Scallop 경로를 다 갖춘 채로 한 번도
+        # 발화하지 못했다.
+        divergences = tuple(
+            _intended_object_divergence(value)
+            for value in row.get("intended_object_divergences", [])
+        )
+        mistake_policy = _mistake_policy(registry)
+        if divergences and mistake_policy is not None:
+            truths = apply_mistake_policy(
+                truths,
+                mistake_findings(divergences, truths, policy=mistake_policy),
+                policy=mistake_policy,
+            )
         instances = tuple(_instance(value) for value in row["assessment_instances"])
         top_level_instances = tuple(_instance(value) for value in row["top_level_instances"])
         if not instances:

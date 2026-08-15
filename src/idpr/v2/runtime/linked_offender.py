@@ -28,12 +28,15 @@ from __future__ import annotations
 
 from collections.abc import Iterable, Mapping, Sequence
 from dataclasses import dataclass
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from idpr.v2.issue_binding import FactualAction, IssueBinding
 from idpr.v2.registry import DefinitionRegistry
 from idpr.v2.routing import LINKED_OFFENDER_ROUTING, RouteRequest
 from idpr.v2.runtime.identity import FactualParticipantKey, OffenseInstanceKey
+
+if TYPE_CHECKING:  # pragma: no cover - typing only
+    from idpr.v2.runtime.stages import UtilizedParticipantOutcome
 
 
 @dataclass(frozen=True, slots=True)
@@ -201,9 +204,99 @@ def gate_predecessor_candidates(
     )
 
 
+@dataclass(frozen=True, slots=True)
+class LinkedOffenderPredicateTarget:
+    """`(participant, offense_ref, predicate_ref)` -- Call 2가 물을 하나의 사실.
+
+    `OffenseInstanceKey`가 아니다. 이 사람의 죄책은 답안에 나가지 않고, 다른 사람의 구성요건
+    하나를 채우기 위해서만 평가된다.
+    """
+
+    participant: FactualParticipantKey
+    offense_ref: str
+    predicate_ref: str
+
+    def as_dict(self) -> dict[str, Any]:
+        return {
+            "participant": {
+                "case_id": self.participant.case_id,
+                "participant_id": self.participant.participant_id,
+            },
+            "offense_ref": self.offense_ref,
+            "predicate_ref": self.predicate_ref,
+        }
+
+
+def linked_offender_predicate_targets(
+    registry: DefinitionRegistry, gate: PredecessorCandidateGate
+) -> tuple[LinkedOffenderPredicateTarget, ...]:
+    """threshold를 통과한 후보의 구성요건 leaf만.
+
+    통과하지 못한 후보에는 하나도 열지 않는다. 자격 없는 죄를 neural하게 평가할 이유가 없다는
+    것이 threshold를 Call 2 앞으로 옮긴 이유 그대로다.
+    """
+    from idpr.v2 import expressions
+    from idpr.v2.compile import CompiledOffense, compile_offense
+
+    output: list[LinkedOffenderPredicateTarget] = []
+    for offense_ref in gate.qualifying:
+        compiled = compile_offense(registry, offense_ref)
+        if not isinstance(compiled, CompiledOffense):
+            raise ValueError(f"predecessor offense does not compile: {offense_ref!r}")
+        refs: set[str] = set()
+        for slot in expressions.SLOT_NAMES:
+            refs.update(expressions.canonical_leaf_refs(compiled.slots[slot]))
+        output.extend(
+            LinkedOffenderPredicateTarget(gate.dependency.participant, offense_ref, ref)
+            for ref in sorted(refs)
+        )
+    return tuple(output)
+
+
+def fold_linked_offender_outcome(
+    registry: DefinitionRegistry,
+    *,
+    participant: FactualParticipantKey,
+    offense_ref: str,
+    predicate_truths: Mapping[str, str],
+) -> "UtilizedParticipantOutcome":
+    """구성요건 truth를 participant 수준 outcome 하나로 접는다.
+
+    제34조의 fold를 재사용하지 않는다. 그쪽은 `has_authored_indirect_principal_capability`를
+    요구하고 **completion을 가진 죄를 명시적으로 거부**하는데, 선행범죄는 절도·상해처럼 거의
+    전부 completion policy를 가진다. 계약이 다른 것을 억지로 통과시키면 그 계약이 막으려던
+    것을 우회하게 된다.
+
+    completion을 여기서 평가하지 않는 것은 의도적이다. 제151조가 묻는 것은 "벌금 이상의 형에
+    해당하는 죄를 범한 사람인가"이고, 미수도 처벌규정이 있으면 죄다 -- 기수 여부는 이 신분
+    판단의 요소가 아니라고 보았다. **이 점은 authoring-review item으로 남긴다.**
+    """
+    from idpr.v2 import expressions
+    from idpr.v2.compile import CompiledOffense, compile_offense
+    from idpr.v2.evaluate import FALSE, UNKNOWN, evaluate, fold_all
+    from idpr.v2.runtime.stages import UtilizedParticipantOutcome
+
+    compiled = compile_offense(registry, offense_ref)
+    if not isinstance(compiled, CompiledOffense):
+        raise ValueError(f"predecessor offense does not compile: {offense_ref!r}")
+    elements_truth = fold_all(
+        [evaluate(compiled.slots[slot], predicate_truths) for slot in expressions.SLOT_NAMES]
+    )
+    if elements_truth == FALSE:
+        status = "elements_failure"
+    elif elements_truth == UNKNOWN:
+        status = "unresolved"
+    else:
+        status = "liable_exact_offense"
+    return UtilizedParticipantOutcome(participant, offense_ref, status)
+
+
 __all__ = [
     "LinkedOffenderDependency",
+    "LinkedOffenderPredicateTarget",
     "PredecessorCandidateGate",
+    "fold_linked_offender_outcome",
     "gate_predecessor_candidates",
     "linked_offender_dependencies",
+    "linked_offender_predicate_targets",
 ]
