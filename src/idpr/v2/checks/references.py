@@ -256,6 +256,13 @@ def _check_derived_offense(registry: DefinitionRegistry, entry: DefinitionEntry)
 
 def _check_doctrine(registry: DefinitionRegistry, entry: DefinitionEntry) -> list[Finding]:
     findings = _check_expression(registry, entry, "requires", entry.payload["requires"])
+    # `blocked_when` is fail-open by design: it defeats the doctrine only when TRUE, so a ref
+    # that does not resolve stays UNKNOWN and the blocker silently never fires.  A typo in a
+    # blocker therefore reads as "no exception in this case" rather than as an error, which
+    # is exactly the failure mode a type check exists to prevent.
+    findings.extend(
+        _check_expression(registry, entry, "blocked_when", entry.payload.get("blocked_when"))
+    )
     offense_scope = entry.payload.get("offense_scope")
     if offense_scope is not None:
         findings.extend(_check_ref(
@@ -285,6 +292,12 @@ def _check_completion_policy(registry: DefinitionRegistry, entry: DefinitionEntr
         findings.extend(_check_expression(registry, entry, f"states.{state_name}.when", state.get("when")))
         if "requires" in state:
             findings.extend(_check_expression(registry, entry, f"states.{state_name}.requires", state["requires"]))
+        # A blocker only blocks when TRUE, so an unresolvable ref leaves it UNKNOWN and the
+        # state is never defeated -- fail-open.  Checked like any other expression.
+        if "blocked_when" in state:
+            findings.extend(_check_expression(
+                registry, entry, f"states.{state_name}.blocked_when", state["blocked_when"]
+            ))
         for index, disposition in enumerate(state.get("relations") or ()):
             findings.extend(_check_ref(registry, entry, f"states.{state_name}.relations[{index}].relation", disposition["relation"], frozenset({"relation"})))
     return findings
