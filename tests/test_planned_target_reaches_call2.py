@@ -9,6 +9,10 @@ scheduler에서 그대로 재현될 수 있었다.
 여기서 고정하는 것은 하나다 -- **scheduling은 planner의 target을 줄이기만 하고, 줄일 때는
 이 모듈이 소유한 표현식으로 그 이유를 댈 수 있어야 한다.** 표현식이 없는 target은 무의미한
 것이 아니라 이 모듈이 모르는 것이고, 모르는 것은 지우지 않는다.
+
+표현식이 **있는** 경우도 그것만으로 부족하다. 한 predicate를 이 죄의 요소로도 쓰고 doctrine이
+따로 열기도 하면 scheduler에게는 같은 ref 하나이고, 이 죄가 더 이상 그것을 필요로 하지 않게
+된 순간 지워진다. 그 판단은 이 죄에 대해서만 옳다. 그래서 개방 이유를 함께 넘긴다.
 """
 
 from __future__ import annotations
@@ -22,6 +26,7 @@ from idpr.v2.evaluate import FALSE, TRUE, UNKNOWN
 from idpr.v2.registry import DefinitionEntry, DefinitionRegistry, load_definitions
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.target_scheduling import (
+    ELEMENT_DERIVED_OPENERS,
     frontier_predicate_refs,
     live_predicate_refs,
     next_round_targets,
@@ -185,3 +190,66 @@ def test_scheduling_never_widens_beyond_the_planner(registry):
     ):
         assert value in planned
     assert UNKNOWN  # 세 값 논리를 쓰는 모듈임을 명시한다
+
+
+# --------------------------------------------------------------------------
+# 겹치는 경우: 이 offense도 쓰고, 외부 producer도 연 predicate
+# --------------------------------------------------------------------------
+
+DANGEROUSNESS = "legal_element.dangerousness"
+
+
+def test_an_externally_opened_ref_survives_this_offense_losing_interest(registry) -> None:
+    """같은 ref를 offense/completion도 쓰고 doctrine도 쓸 수 있다.
+
+    그러면 scheduler에게는 그냥 하나의 ref이고, 이 offense에서 더 이상 결정적이지 않다는
+    이유로 지울 수 있다. 그 판단은 offense에 대해서만 옳다 -- 그 ref를 함께 연 doctrine은
+    여전히 답을 필요로 하고, 아무도 그쪽에 묻지 않았다. 개방 이유를 버린 채 pruning하면
+    묻지 않은 producer를 대신해 답하는 일이 된다.
+    """
+    key = instance()
+    settled = {COMMENCEMENT: TRUE, DEFECT: FALSE}
+    planned = {DANGEROUSNESS}
+
+    # 이 offense만 보면 죽은 target이 맞다. 그래서 평소에는 묻지 않는다.
+    assert DANGEROUSNESS in _modelled_refs(registry)
+    assert frontier_predicate_refs(
+        registry, key, settled, candidate_refs=planned
+    ) == ()
+
+    # doctrine이 같은 ref를 열었다면 그 이유는 아직 살아 있다.
+    assert DANGEROUSNESS in frontier_predicate_refs(
+        registry, key, settled, candidate_refs=planned, external_refs=planned
+    )
+    assert DANGEROUSNESS in live_predicate_refs(
+        registry, key, settled, candidate_refs=planned, external_refs=planned
+    )
+    assert next_round_targets(
+        registry,
+        (key,),
+        {key: settled},
+        candidate_refs={key: planned},
+        external_refs={key: planned},
+    ) == ((key, DANGEROUSNESS),)
+
+
+def test_an_unknown_opener_is_protected_before_anyone_registers_it(registry) -> None:
+    """기본값이 방어 쪽이다. 새 producer는 이 목록에 이름을 올리기 전부터 보호된다.
+
+    옛 코드의 실패 형태가 정확히 "이 모듈이 들어 본 적 없는 producer"였다. 목록에 없는
+    opener를 prunable로 두면 같은 사고가 새 producer마다 한 번씩 반복된다.
+    """
+    assert "doctrine_raising_cue" not in ELEMENT_DERIVED_OPENERS
+    assert "participation_mode_requirement" not in ELEMENT_DERIVED_OPENERS
+    assert "a_producer_that_does_not_exist_yet" not in ELEMENT_DERIVED_OPENERS
+    # 기본 planner의 일반 요소 target만 pruning 대상이다.
+    assert {"", "unspecified"} <= ELEMENT_DERIVED_OPENERS
+
+
+def test_the_call2_runner_keeps_the_opener_when_it_calls_the_scheduler(registry) -> None:
+    """계약은 runner가 개방 이유를 실제로 넘길 때만 성립한다."""
+    source = (
+        Path(__file__).resolve().parents[1] / "scripts/run_v2_call2_pilot.py"
+    ).read_text(encoding="utf-8")
+    assert "external_refs=external_refs" in source
+    assert "ELEMENT_DERIVED_OPENERS" in source

@@ -79,7 +79,10 @@ from idpr.v2.runtime.relation_grounding import (
     shard_relation_targets_by_occurrence,
     validate_relation_output,
 )
-from idpr.v2.runtime.target_scheduling import next_round_targets
+from idpr.v2.runtime.target_scheduling import (
+    ELEMENT_DERIVED_OPENERS,
+    next_round_targets,
+)
 from idpr.v2.runtime.utilized_participant_outcome import (
     UtilizedParticipantOutcomeTarget,
     UtilizedParticipantPredicateTarget,
@@ -590,8 +593,19 @@ def main() -> None:
         # whose `means_or_object_defect` was already FALSE, and that UNKNOWN then read as
         # legal uncertainty in the written answer.
         candidate_refs: dict[Any, set[str]] = {}
+        # 개방 이유를 버리면 scheduler는 "이 offense에서 더 이상 결정적이지 않다"는 이유로
+        # doctrine이 여전히 필요로 하는 predicate를 지울 수 있다. 그 판단은 offense에 대해서만
+        # 옳고, 묻지 않은 producer를 대신해 답하는 일이 된다.
+        external_refs: dict[Any, set[str]] = {}
         for target in targets:
             candidate_refs.setdefault(target.instance_key, set()).add(target.predicate_ref)
+            opener = opened_by_target.get(
+                (target.instance_key, target.predicate_ref), "unspecified"
+            )
+            if opener not in ELEMENT_DERIVED_OPENERS:
+                external_refs.setdefault(target.instance_key, set()).add(
+                    target.predicate_ref
+                )
         scheduled_instances = tuple(dict.fromkeys(target.instance_key for target in targets))
         known_truths: dict[Any, dict[str, str]] = {}
         asked_refs: dict[Any, set[str]] = {}
@@ -612,6 +626,7 @@ def main() -> None:
                     known_truths,
                     already_asked=asked_refs,
                     candidate_refs=candidate_refs,
+                    external_refs=external_refs,
                 )
             if not batch:
                 break

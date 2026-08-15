@@ -126,26 +126,49 @@ def _live_expressions(
     return tuple(values)
 
 
-def unmodelled_refs(
-    allowed: set[str] | None, modelled: Sequence[str]
+#: `opened_by` values whose targets are ordinary offence elements -- the need they express
+#: *is* the offence's slots and completion policy, which is exactly what this module reads.
+#: Only these may be pruned for non-decisiveness.
+#:
+#: The empty entries are the base evaluation planner, which writes no `opened_by` at all.
+#: Every other opener, **including one that does not exist yet**, is presumed to carry a
+#: requirement this module cannot see.  That default is the point: a new producer is
+#: protected before anyone remembers to add it here, and the failure mode of the old code
+#: was precisely a producer this module had never heard of.
+ELEMENT_DERIVED_OPENERS = frozenset(
+    {"", "unspecified", "post_participation_derived_group"}
+)
+
+
+def unprunable_refs(
+    allowed: set[str] | None,
+    modelled: Sequence[str],
+    external_refs: Iterable[str] = (),
 ) -> tuple[str, ...]:
-    """Planner targets this module owns no expression for, in stable order.
+    """Planned targets this module may not drop, in stable order.
 
     Scheduling may only *remove* a planned target, and only for a reason it can state: an
-    expression of this offence that says the same thing whatever the answer.  A predicate
-    that appears in no such expression is not moot -- it is outside what this module
-    models.  The doctrine leaves and the `participation_mode_requirement` targets are
-    exactly that: the planner opened them from a DoctrineDef or a participation mode, and
-    neither is reachable from an offence's slots or its completion policy.
+    expression of this offence that says the same thing whatever the answer.  Two kinds of
+    target are outside that reason.
 
-    Dropping them was the participation defect all over again.  `instigator_intent` was
-    given a target and a carrier, and the scheduler then intersected it away, so nobody
-    was ever asked and Kleene left every accessory permanently UNKNOWN.  They pass through
-    here instead, and the caller's `already_asked` keeps them from being asked twice.
+    A predicate that appears in no such expression is not moot -- it is outside what this
+    module models.  The doctrine leaves and the `participation_mode_requirement` targets
+    are exactly that: opened from a DoctrineDef or a participation mode, neither reachable
+    from an offence's slots or its completion policy.  Dropping them was the participation
+    defect all over again -- `instigator_intent` had a target and a carrier, the scheduler
+    intersected it away, and Kleene left every accessory permanently UNKNOWN.
+
+    `external_refs` is the subtler half.  A predicate can be opened by an external producer
+    **and** appear in this offence's own expressions.  Then it is modelled, so liveness has
+    an opinion about it -- but that opinion is only about the offence.  The doctrine that
+    also needs it may still need it once the offence stops caring, and pruning on the
+    offence's say-so silently answers for a producer that was never asked.  Whoever knows
+    the opener tells us; here we only refuse to drop it.
     """
     if allowed is None:
         return ()
-    return tuple(sorted(allowed - set(modelled)))
+    external = allowed & set(external_refs)
+    return tuple(sorted((allowed - set(modelled)) | external))
 
 
 def _compiled_and_policy(
@@ -163,6 +186,7 @@ def live_predicate_refs(
     truths: Mapping[str, TruthValue] = {},
     *,
     candidate_refs: Iterable[str] | None = None,
+    external_refs: Iterable[str] = (),
 ) -> tuple[str, ...]:
     """Predicates whose answer could still change something for this instance.
 
@@ -180,7 +204,7 @@ def live_predicate_refs(
         for ref in modelled
         if (allowed is None or ref in allowed)
         and any(is_decisive(expr, ref, truths) for expr in live)
-    ) + unmodelled_refs(allowed, modelled)
+    ) + unprunable_refs(allowed, modelled, external_refs)
 
 
 def _frontier_of_raw(
@@ -223,6 +247,7 @@ def frontier_predicate_refs(
     *,
     candidate_refs: Iterable[str] | None = None,
     settled_refs: Iterable[str] = (),
+    external_refs: Iterable[str] = (),
 ) -> tuple[str, ...]:
     """The live predicates worth asking in this round, in stable order.
 
@@ -263,7 +288,7 @@ def frontier_predicate_refs(
         if ref in ready
         and (allowed is None or ref in allowed)
         and any(is_decisive(expr, ref, truths) for expr in live)
-    ) + unmodelled_refs(allowed, modelled)
+    ) + unprunable_refs(allowed, modelled, external_refs)
 
 
 def next_round_targets(
@@ -273,6 +298,7 @@ def next_round_targets(
     *,
     already_asked: Mapping[OffenseInstanceKey, Iterable[str]] = {},
     candidate_refs: Mapping[OffenseInstanceKey, Iterable[str]] | None = None,
+    external_refs: Mapping[OffenseInstanceKey, Iterable[str]] = {},
 ) -> tuple[tuple[OffenseInstanceKey, str], ...]:
     """One round's worth of (instance, predicate) targets, or empty at the fixpoint.
 
@@ -283,6 +309,9 @@ def next_round_targets(
 
     `candidate_refs` carries the planner's own per-instance scope; see
     `live_predicate_refs`.  Scheduling only ever removes targets from it.
+
+    `external_refs` names, per instance, the refs some producer other than the offence's
+    own elements opened.  Those are never pruned -- see `unprunable_refs`.
     """
     targets: list[tuple[OffenseInstanceKey, str]] = []
     for instance in instances:
@@ -295,6 +324,7 @@ def next_round_targets(
             known,
             candidate_refs=allowed,
             settled_refs=asked,
+            external_refs=external_refs.get(instance) or (),
         ):
             if ref not in known and ref not in asked:
                 targets.append((instance, ref))
@@ -306,6 +336,7 @@ __all__ = [
     "frontier_predicate_refs",
     "is_decisive",
     "live_predicate_refs",
+    "ELEMENT_DERIVED_OPENERS",
     "next_round_targets",
-    "unmodelled_refs",
+    "unprunable_refs",
 ]
