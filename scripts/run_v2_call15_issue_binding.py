@@ -19,6 +19,7 @@ from idpr.prompts import load_prompt, prompt_path
 from idpr.v2.issue_binding import (
     IssueBindingContractError,
     binding_seed_cues,
+    linked_offender_seed_refs,
     issue_binding_request_payload,
     issue_binding_schema,
     load_binding_seed_cue_catalog,
@@ -249,6 +250,9 @@ def main() -> None:
                         candidate_actor_ids=question_actor_ids(
                             str(source["question_prompt"])
                         ),
+                        # 저작이 linked-offender dependency를 선언한 seed에서만 그 사실을
+                        # 받는다. 넘기지 않으면 모델이 낸 값이 전부 계약 위반으로 거부된다.
+                        linked_offender_seed_refs=linked_offender_seed_refs(registry, seeds),
                     )
                     break
                 except (IssueBindingContractError, VLLMClientError) as exc:

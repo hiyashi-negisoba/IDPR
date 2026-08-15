@@ -19,7 +19,7 @@
 #   IDPR_AXIS_SKIP="call15p call15d" ... --execution-approved
 #
 # 단계 이름: call15p call15d plan_participation plan_doctrine dependency_route call2
-#            absorption symbolic answer_plan call3
+#            linked_offender_call2 absorption symbolic answer_plan call3
 
 set -euo pipefail
 
@@ -131,9 +131,7 @@ step plan_doctrine "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/build_v2_doctrine_tar
 #      plan의 `linked_offender_dependencies`가 비어 있으면 아무것도 하지 않으므로, 이 단계가
 #      없어도 나머지 체인은 정상으로 돈다 -- 대신 제151조만 조용히 UNKNOWN으로 남는다.
 #
-#      산출물의 `predicate_targets`를 소비하는 participant 수준 Call 2는 아직 없다.
-#      제34조의 `run_v2_indirect_principal_call2.py`가 같은 자리의 선례이고, 그쪽 payload
-#      builder는 간접정범 capability 게이트를 타므로 그대로 재사용할 수 없다.
+#      산출물의 `predicate_targets`는 5-b에서 소비한다.
 DEPENDENCY_ROUTE="$RUN_ROOT/dependency_route/predecessor_candidates.jsonl"
 mkdir -p "$RUN_ROOT/dependency_route"
 step dependency_route "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_dependency_route.py" \
@@ -157,6 +155,16 @@ step call2 "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_call2_pilot.py" \
     --out "$CALL2" \
     --prompt-approved
 
+# 5-b. linked offender participant Call 2 -- 선행범죄 predicate를 그 사람에게 묻고 신분으로
+#      접는다. Call 2 아티팩트를 보강하므로 symbolic은 이 산출물을 읽는다. dependency가 없는
+#      사건은 원본 행이 그대로 지나간다.
+CALL2_ENRICHED="$RUN_ROOT/call2/grounding_output_with_article151.jsonl"
+step linked_offender_call2 "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_linked_offender_call2.py" \
+    --base-url "$BASE_URL" --model "$SERVED_MODEL" --api-key "$API_KEY" \
+    --dependency-route "$DEPENDENCY_ROUTE" \
+    --call2 "$CALL2" \
+    --out "$CALL2_ENRICHED"
+
 # 6. 흡수조건 -- 저작된 흡수규칙의 조건을 사건별로 평가한다. 이것이 없으면 조건이 영구
 #    UNKNOWN이라 흡수가 한 번도 발화하지 못한다.
 CONDITIONS="$RUN_ROOT/absorption/concurrence_condition_assessments.jsonl"
@@ -172,7 +180,7 @@ step absorption "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_absorption_condit
 SYMBOLIC="$RUN_ROOT/scallop/results.jsonl"
 mkdir -p "$RUN_ROOT/scallop"
 step symbolic "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_scallop_e2e.py" \
-    --call2-artifact "$CALL2" \
+    --call2-artifact "$CALL2_ENRICHED" \
     --plan "$PLAN_D" \
     --concurrence-condition-assessments "$CONDITIONS" \
     --work-dir "$RUN_ROOT/scallop/work" \
@@ -182,7 +190,7 @@ step symbolic "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_scallop_e2e.py" \
 PLANS="$RUN_ROOT/answer_plan"
 step answer_plan "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/build_v2_answer_plan.py" \
     --e2e-results "$SYMBOLIC" \
-    --call2-artifact "$CALL2" \
+    --call2-artifact "$CALL2_ENRICHED" \
     --issue-bindings "$CALL15" \
     --plan-artifact "$PLAN_D" \
     --out "$PLANS"

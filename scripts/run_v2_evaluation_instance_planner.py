@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT / "src"))
 from idpr.eval.input_formatter import target_fact_source_spans
 from idpr.v2.closure import compile_closure
 from idpr.v2.issue_binding import (
+    linked_offender_seed_refs,
     IssueBindingContractError,
     parse_issue_binding_result,
     question_actor_ids,
@@ -205,6 +206,8 @@ def build_plan_rows(
                     "seed_results": call15_row.get("seed_results"),
                 },
                 seeds=seeds,
+                # planner는 registry를 들고 있으므로 생성 시점 게이트를 다시 강제한다.
+                linked_offender_seed_refs=linked_offender_seed_refs(registry, seeds),
                 case_text=str(source["question_text"]),
                 candidate_actor_ids=question_actor_ids(str(source["question_prompt"])),
             )

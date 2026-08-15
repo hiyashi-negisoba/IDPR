@@ -1065,7 +1065,7 @@ def _parse_action_atomic_issue_binding_result(
     seeds: Iterable[str],
     case_text: str,
     candidate_actor_ids: Iterable[str] | None = None,
-    linked_offender_seed_refs: Iterable[str] = (),
+    linked_offender_seed_refs: Iterable[str] | None = None,
 ) -> IssueBindingResult:
     if set(payload) != {"factual_episodes", "seed_results"}:
         raise IssueBindingContractError(["persisted result has unexpected fields"])
@@ -1189,7 +1189,9 @@ def _parse_action_atomic_issue_binding_result(
         seeds=seed_values,
         case_text=case_text,
         candidate_actor_ids=candidate_actor_ids,
-        linked_offender_seed_refs=linked_offender_seed_refs,
+        linked_offender_seed_refs=(
+            seed_values if linked_offender_seed_refs is None else linked_offender_seed_refs
+        ),
     )
 
 
@@ -1199,15 +1201,25 @@ def parse_issue_binding_result(
     seeds: Iterable[str],
     case_text: str,
     candidate_actor_ids: Iterable[str] | None = None,
-    linked_offender_seed_refs: Iterable[str] = (),
+    linked_offender_seed_refs: Iterable[str] | None = None,
 ) -> IssueBindingResult:
-    """Revalidate a host-enriched persisted Call 1.5 artifact."""
+    """Revalidate a host-enriched persisted Call 1.5 artifact.
+
+    `linked_offender_seed_refs=None` means "trust the gate that ran when this artifact was
+    created".  That gate belongs at the wire boundary, where a model answer is first accepted;
+    re-deriving it here would make every downstream reader carry a registry just to re-decide a
+    question already decided.  A caller that does hold a registry may pass the refs to enforce it
+    again, and the planner does exactly that.
+    """
+    seed_values = tuple(seeds)
     return _parse_action_atomic_issue_binding_result(
         payload,
-        seeds=seeds,
+        seeds=seed_values,
         case_text=case_text,
         candidate_actor_ids=candidate_actor_ids,
-        linked_offender_seed_refs=linked_offender_seed_refs,
+        linked_offender_seed_refs=(
+            seed_values if linked_offender_seed_refs is None else linked_offender_seed_refs
+        ),
     )
 
 
