@@ -67,28 +67,43 @@ gold/model_inputs id 순서가 원본과 완전히 일치함을 확인했고, ou
 
 ### 4.1 LBOX Call 1
 
-| method | N | raw survival | closure survival | case full-hit | closure micro-F1 |
-|---|---:|---:|---:|---:|---:|
-| **ours (production, 전체)** | 3375 | 0.952 | 0.952 | 0.943 | 0.322 |
-| **ours (production, 300-subset)** | 300 | 0.994 | 0.994 | 0.993 | 0.312 |
+ours의 "raw"(닫힌 seed 집합, closure 컴파일 이전)와 baseline의 "언급"(mentioned, catalog
+이름이 텍스트에 등장)은 둘 다 "gold 죄명이 그 방법의 1차 예측 집합에 들어있는가"라는 같은
+질문이라 recall/case full-hit/precision/F1 네 열을 그대로 통일해서 한 표로 비교한다.
+ours만 갖는 closure(정적 컴파일로 후보를 넓힌 뒤의 집합, 이 데이터셋에선 0건 recovery라
+recall/full-hit은 raw와 동일하고 precision만 떨어짐 — §4.1 하단 참조)는 baseline에
+대응 개념이 없어 별도로만 표기한다.
 
-baseline은 아래 "언급 기반"(mentioned) 지표로 잰다 — production의 raw/closure 구분이 없다(§2).
-
-| baseline | N | case full-hit(언급 기준) | micro-precision | micro-recall | micro-F1 |
+| method | N | recall(=survival/mention) | case full-hit | precision | F1 |
 |---|---:|---:|---:|---:|---:|
+| **ours (production, 전체, raw)** | 3375 | 0.952 | 0.943 | 0.456 | 0.617 |
+| **ours (production, 300-subset, raw)** | 300 | 0.994 | 0.993 | 0.431 | 0.601 |
 | vanilla_zero_shot | 진행 중 (job 225242) | — | — | — | — |
 | chain_of_thought | 진행 중 (job 225242, vanilla 이후 시작) | — | — | — | — |
-| acal | **완료** | 0.950 | 0.399 | 0.956 | 0.563 |
-| leprec | **완료** | 0.967 | 0.743 | 0.971 | 0.842 |
-| legal_chain_reasoner | **완료** | 0.973 | 0.655 | 0.977 | 0.784 |
+| acal | **완료** | 0.956 | 0.950 | 0.399 | 0.563 |
+| leprec | **완료** | 0.971 | 0.967 | 0.743 | 0.842 |
+| legal_chain_reasoner | **완료** | 0.977 | 0.973 | 0.655 | 0.784 |
 | fol_autoformalizer_solver | 진행 중 (job 225240) | — | — | — | — |
 | standard_rag | 진행 중 (job 225241) | — | — | — | — |
 
+**closure(참고, baseline 대응 없음):** 전체 closure recall/full-hit = raw와 동일(0.952/0.943,
+closure_recoveries 0건), closure precision/F1 = 0.194/0.322 (raw 0.456/0.617보다 낮음 — 정적
+컴파일이 후보를 넓히며 정밀도를 희생). 300-subset도 동일 패턴(closure recall/full-hit
+0.994/0.993, precision/F1 0.185/0.312).
+
 ### 4.2 KBL Call 2
 
-| method | N | accuracy | macro-F1 (관측 gold, TRUE/FALSE) | coverage | unknown rate |
+baseline은 전부 unknown_rate 0.0이라(§4.2 하단) `accuracy`/`macro-F1` 자체가 이미 "답한
+것만으로 잰" 수치다. ours는 UNKNOWN을 정직하게 반환하므로 전체-93 기준(UNKNOWN을 오답
+취급)과, UNKNOWN을 제외하고 답한 61건만으로 잰 기준을 별도 행으로 둔다 — 후자가 baseline과
+비교 가능한 값이다. UNKNOWN 제외 macro-F1은 production 스코어러가 출력하는 `cases`
+배열(id/gold/prediction)에서 `prediction != UNKNOWN`인 61건만 추려 다시 계산한 것으로,
+`evaluate_call2` 자체는 건드리지 않았다.
+
+| method | N | accuracy | macro-F1 (TRUE/FALSE) | coverage | unknown rate |
 |---|---:|---:|---:|---:|---:|
-| **ours (production)** | 93 | 0.581 | 0.489 | 0.656 | 0.344 |
+| **ours (production, 전체 93건, UNKNOWN=오답)** | 93 | 0.581 | 0.489 | 0.656 | 0.344 |
+| **ours (production, UNKNOWN 제외 61건만)** | 61 | 0.885 | 0.650 | 1.0 | 0.0 |
 | vanilla_zero_shot | 진행 중 (job 225242) | — | — | — | — |
 | chain_of_thought | 진행 중 (job 225242) | — | — | — | — |
 | acal | **완료** | 0.817 | 0.796 | 1.0 | 0.0 |
@@ -97,12 +112,11 @@ baseline은 아래 "언급 기반"(mentioned) 지표로 잰다 — production의
 | fol_autoformalizer_solver | 진행 중 (job 225240) | — | — | — | — |
 | standard_rag | 진행 중 (job 225241) | — | — | — | — |
 
-KBL에서 결정론적 매칭의 `unknown_rate`가 셋 다 0.0인 점은 주목할 만하다 — 고정 결론 문구
-프롬프트(§2)를 baseline들이 실제로 잘 따랐다는 뜻이고, ours(production)의 unknown_rate
-0.344보다 훨씬 낮다. 다만 이건 production Call2가 진짜 UNKNOWN(근거 부족)을 정직하게
-반환하는 것과, baseline이 결론 문구만 강제로 따르는 것의 차이라 직접 비교는 조심해야
-한다 — production의 UNKNOWN은 "모른다"는 답이고, baseline의 낮은 unknown_rate는 매칭기가
-문구를 못 찾을 때만 발생하는 것이라 실제 불확실성 표현이 아니다.
+baseline의 unknown_rate 0.0은 실제 확신이 아니라 "고정 결론 문구를 강제한 프롬프트를
+잘 따랐다"는 것뿐이다 — production의 UNKNOWN은 근거 부족을 스스로 판단해 반환하는 정직한
+답이고, baseline은 애초에 abstain(판단 보류) 옵션 자체가 없다. 그래서 위 "UNKNOWN 제외
+61건" 행은 ours가 답을 낸 부분집합만의 실력이지, ours가 baseline만큼 확신을 갖고 답한다는
+뜻은 아니다.
 
 ## 5. 레이턴시
 
