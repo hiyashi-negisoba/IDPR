@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import json
 from pathlib import Path
 
 import pytest
@@ -88,10 +87,9 @@ def test_lbox_materialization_filters_before_model_input_and_hides_gold() -> Non
     assert prepared["summary"]["excluded_N"] == 1
     assert prepared["gold_rows"][0]["gold_definition_refs"] == ["offense.theft"]
     payload = prepared["model_inputs"][0]["payload"]
-    encoded = json.dumps(payload, ensure_ascii=False)
     assert "casename" not in payload
     assert "statutes" not in payload
-    assert "형법 제329조" not in encoded
+    assert set(payload) == {"question_prompt", "case_text", "offense_catalog"}
 
 
 def _kbl_row(doc_id: int, *, label: str, a: str, b: str) -> dict[str, object]:
