@@ -25,6 +25,7 @@ from idpr.prompts import load_prompt, prompt_path
 from idpr.v2.closure import ClosureError, compile_candidate_offenses, compile_closure
 from idpr.v2.registry import KIND_TO_EXAMPLE_FILE, load_definitions
 from idpr.v2.routing import (
+    MAX_RAW_SEED_ITEMS,
     MAX_SEEDS_PER_CASE,
     RouterContractError,
     normalize_router_seeds,
@@ -211,7 +212,10 @@ def main() -> None:
     manifest_path.write_text(json.dumps({
         "step": "v2_call1_router_pilot",
         "seed_normalization": "stable_unique_first_occurrence_after_raw_contract_validation",
-        "router": {"max_seeds_per_case": MAX_SEEDS_PER_CASE},
+        "router": {
+            "max_distinct_seeds_per_case": MAX_SEEDS_PER_CASE,
+            "max_raw_seed_items": MAX_RAW_SEED_ITEMS,
+        },
         "git_commit": _git_commit(),
         "source_fingerprint": _source_fingerprint(),
         "model": args.model,

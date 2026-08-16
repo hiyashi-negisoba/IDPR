@@ -18,6 +18,23 @@ from typing import Any
 from idpr.v2.registry import DefinitionRegistry
 
 MAX_SEEDS_PER_CASE = 10
+"""Routing budget, counted in **distinct** offense refs.
+
+A repeated ref names the same Definition type and therefore adds no seed
+information, so it must not consume budget.  The raw array is bounded
+separately by :data:`MAX_RAW_SEED_ITEMS`.
+"""
+
+MAX_RAW_SEED_ITEMS = 2 * MAX_SEEDS_PER_CASE
+"""Slack bound on the raw array so duplicates cannot crowd out distinct refs.
+
+``uniqueItems`` in the schema is only a generation hint and the guidance
+backend does not enforce it: an observed Call 1 response filled six of ten
+slots with one repeated ref, which silently cut that case's budget to four.
+The bound stays finite so a degenerate response still fails the contract
+instead of running unbounded.
+"""
+
 _OFFENSE_KINDS = frozenset({"offense", "derived_offense"})
 
 
@@ -114,6 +131,10 @@ def router_schema(catalog: Iterable[RouterCatalogEntry]) -> dict[str, Any]:
     ``uniqueItems`` remains a generation hint.  Host semantics do not rely on
     every vLLM structured-output backend enforcing it: valid duplicate refs are
     recorded and normalized explicitly below.
+
+    ``maxItems`` therefore bounds the *raw* array, not the routing budget.  If
+    it were the budget, an unenforced ``uniqueItems`` would let repeated refs
+    consume slots that distinct candidates never get to use.
     """
     ids = [entry.definition_id for entry in catalog]
     return {
@@ -124,7 +145,7 @@ def router_schema(catalog: Iterable[RouterCatalogEntry]) -> dict[str, Any]:
             "seeds": {
                 "type": "array",
                 "minItems": 1,
-                "maxItems": MAX_SEEDS_PER_CASE,
+                "maxItems": MAX_RAW_SEED_ITEMS,
                 "uniqueItems": True,
                 "items": {"type": "string", "enum": ids},
             },
@@ -235,8 +256,8 @@ def validate_router_output(
         raise RouterContractError(errors)
     if not raw_seeds:
         errors.append("seeds must contain at least one definition id")
-    if len(raw_seeds) > MAX_SEEDS_PER_CASE:
-        errors.append(f"seeds must contain at most {MAX_SEEDS_PER_CASE} definition ids")
+    if len(raw_seeds) > MAX_RAW_SEED_ITEMS:
+        errors.append(f"seeds must contain at most {MAX_RAW_SEED_ITEMS} array items")
 
     allowed = {entry.definition_id for entry in catalog}
     seeds: list[str] = []
@@ -249,6 +270,15 @@ def validate_router_output(
             errors.append(f"{where} is not a closed offense definition id: {seed!r}")
             continue
         seeds.append(seed)
+
+    # The budget is spent on distinct refs, so it is checked after the repeated
+    # ones have collapsed. Only valid refs are counted -- an unknown id is
+    # already its own error above and must not also inflate the budget.
+    distinct_count = len(dict.fromkeys(seeds))
+    if distinct_count > MAX_SEEDS_PER_CASE:
+        errors.append(
+            f"seeds must contain at most {MAX_SEEDS_PER_CASE} distinct definition ids"
+        )
 
     if errors:
         raise RouterContractError(errors)
@@ -279,6 +309,7 @@ def normalize_router_seeds(raw_seeds: Sequence[str]) -> RouterSeedNormalization:
 
 
 __all__ = [
+    "MAX_RAW_SEED_ITEMS",
     "MAX_SEEDS_PER_CASE",
     "RouterCatalogEntry",
     "RouterContractError",
