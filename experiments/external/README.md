@@ -32,7 +32,9 @@ KBL converts the selected A/B option by option meaning rather than by fixed lett
 `인과관계있음` → `TRUE`, `인과관계없음` → `FALSE`. The external instance key exists only to satisfy
 the production typed Call 2 boundary; it is not added to the registry and is never passed to the
 symbolic runtime. The assessed predicate itself is the authored
-`legal_element.result_causation` definition.
+`legal_element.result_causation` definition. KBL's primary `macro_f1` is computed over labels
+observed in gold (TRUE/FALSE for this dataset); fixed TRUE/FALSE/UNKNOWN macro F1 is retained only
+as a three-way diagnostic.
 
 ## Execution
 
