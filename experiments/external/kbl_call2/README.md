@@ -9,6 +9,7 @@ meaning of the selected A/B option, so option-order reversal cannot change label
 No offense selection, participation, completion, planner, Scallop execution, or final liability
 judgment is performed.
 
-Metrics are accuracy, fixed three-way macro F1, observed-gold macro F1, per-class
-precision/recall/F1, UNKNOWN rate, coverage, selective accuracy, and the full
-TRUE/FALSE/UNKNOWN confusion matrix.
+Primary metrics are accuracy, macro F1 over labels observed in gold, and UNKNOWN rate. For KBL,
+the gold labels are TRUE/FALSE, so this macro F1 is the ordinary binary macro F1 and has a ceiling
+of 1.0. Fixed three-way macro F1 over TRUE/FALSE/UNKNOWN is retained only as a diagnostic, along
+with per-class precision/recall/F1, coverage, selective accuracy, and the full confusion matrix.
