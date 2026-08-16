@@ -88,9 +88,15 @@ class CompletionRequirementObligation:
 @dataclass(frozen=True)
 class ParticipationDependencyObligation:
     """Step 6C: the typed principal-realization gate a derivative participant's (instigator/aider)
-    Elements starts from -- `principal_realization_truth()` in `runtime/participation.py`."""
+    Elements starts from -- `principal_realization_truth()` in `runtime/participation.py`.
+
+    The exact principal instance is part of the obligation identity.  Dropping it leaves the
+    downstream writer knowing only that an actor was an instigator/aider, but not whose offense
+    realization the derivative liability depended on.
+    """
 
     mode: Literal["instigator", "aider"]
+    principal_instance: OffenseInstanceKey
 
 
 @dataclass(frozen=True)

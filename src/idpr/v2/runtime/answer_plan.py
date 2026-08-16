@@ -637,27 +637,49 @@ def _episode_quotes(
 
 
 def _participation_route(
-    registry: DefinitionRegistry, result: Mapping[str, Any]
+    registry: DefinitionRegistry,
+    result: Mapping[str, Any],
+    offense_labels: Mapping[str, str] | None = None,
 ) -> ParticipationRoute | None:
-    """Recover the accessory route from the stage provenance.
+    """Recover the exact derivative route from typed stage provenance.
 
-    Losing this turns an instigator into a principal in the written answer, so a mode
-    without its principal is refused rather than emitted half-formed.
+    A ParticipationRequirementObligation also carries ``mode`` but has no principal endpoint.
+    Only the dependency obligation carries ``principal_instance``; that makes the producer's typed
+    identity authoritative and prevents AnswerPlan from reconstructing a principal from actor or
+    offense names.
     """
-    mode: str | None = None
+    dependency: Mapping[str, Any] | None = None
     for stage_name in ("elements", "unlawfulness", "culpability", "punishability"):
         stage = result.get(stage_name) or {}
         for outcome in stage.get("provenance") or []:
             obligation = outcome.get("obligation") or {}
-            if "mode" in obligation:
-                mode = str(obligation["mode"])
-    if mode is None:
+            if obligation.get("principal_instance") is not None:
+                if dependency is not None and obligation != dependency:
+                    raise AnswerPlanError("multiple participation dependency identities in one liability result")
+                dependency = obligation
+    if dependency is None:
+        has_derivative_mode = any(
+            "mode" in (outcome.get("obligation") or {})
+            for stage_name in ("elements", "unlawfulness", "culpability", "punishability")
+            for outcome in ((result.get(stage_name) or {}).get("provenance") or [])
+        )
+        if has_derivative_mode:
+            raise AnswerPlanError(
+                "derivative participation provenance is missing its principal instance; rerun symbolic evaluation"
+            )
         return None
+
+    mode = str(dependency.get("mode", ""))
+    principal = dependency.get("principal_instance") or {}
+    required = ("actor_id", "offense_ref", "occurrence_id")
+    if mode not in {"instigator", "aider"} or any(not principal.get(field) for field in required):
+        raise AnswerPlanError("malformed participation dependency provenance")
+    principal_offense_ref = str(principal["offense_ref"])
     return ParticipationRoute(
         mode=mode,
-        principal_actor=None,
-        principal_offense=None,
-        principal_realization=None,
+        principal_actor=str(principal["actor_id"]),
+        principal_offense=offense_label(registry, principal_offense_ref, offense_labels),
+        principal_realization=str(principal["occurrence_id"]),
     )
 
 
@@ -843,7 +865,7 @@ def build_answer_plan(
         )
         state = _final_state(result, ref, retained, absorbed, withheld, bool(blocking))
         completion = result.get("completion") or {}
-        route = _participation_route(registry, result)
+        route = _participation_route(registry, result, offense_labels)
         issue = AnchoredIssue(
             issue_id=ref,
             actor=str(instance.get("actor_id", "")),
