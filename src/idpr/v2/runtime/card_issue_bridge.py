@@ -88,6 +88,60 @@ def project_offense_articles(
     )
 
 
+#: 죄명에서 갈래를 가리키는 어간만 남긴다. "횡령죄" -> "횡령".
+_OFFENSE_SUFFIX = re.compile(r"죄$")
+
+
+def _offense_stem(registry: DefinitionRegistry, offense_ref: str) -> str:
+    entry = registry.get(offense_ref)
+    identity = entry.payload.get("identity") if entry is not None else None
+    name = identity.get("name") if isinstance(identity, Mapping) else None
+    return _OFFENSE_SUFFIX.sub("", str(name)) if name else ""
+
+
+def paragraph_sibling_stems(
+    registry: DefinitionRegistry, offense_ref: str
+) -> tuple[str, ...]:
+    """같은 조문을 쓰지만 **다른 항**에 있는 죄의 이름 어간.
+
+    카드 코퍼스의 장(章)은 주석서를 그대로 따라와서 제355조가 "횡령·배임" 하나로 묶여 있다.
+    조문 키(`art355`)만으로 issue family를 잡으면 횡령죄 논증에 배임죄 판시가 붙는다 --
+    26문항 payload에서 실제로 그랬다. 항이 다르면 다른 죄이므로, 그 죄의 이름을 여기서
+    돌려주고 회수 범위에서 뺀다.
+
+    항 정보가 없어 두 죄의 `statutory_refs`가 완전히 같으면 형제로 보지 않는다. 그런
+    조문에서는 갈래를 나눌 근거가 저작에 없고, 억지로 나누면 공통 판시까지 잃는다.
+    """
+    projection = project_offense_articles(registry, offense_ref)
+    if not projection.article_keys:
+        return ()
+    own_refs = set(projection.statutory_refs)
+    own_stem = _offense_stem(registry, offense_ref)
+    stems: list[str] = []
+    for entry in registry.by_id.values():
+        if entry.id == offense_ref or entry.kind not in {"offense", "derived_offense"}:
+            continue
+        try:
+            sibling = project_offense_articles(registry, entry.id)
+        except ValueError:
+            continue
+        if not set(sibling.article_keys) & set(projection.article_keys):
+            continue
+        if set(sibling.statutory_refs) & own_refs:
+            continue
+        stem = _offense_stem(registry, entry.id)
+        if stem and stem != own_stem and stem not in own_stem and own_stem not in stem:
+            stems.append(stem)
+    return tuple(dict.fromkeys(stems))
+
+
+def names_other_paragraph(text: str, own_stem: str, sibling_stems: Sequence[str]) -> bool:
+    """이 문장이 형제 죄만 이름으로 부르고 이 죄는 부르지 않는가."""
+    if own_stem and own_stem in text:
+        return False
+    return any(stem in text for stem in sibling_stems)
+
+
 @dataclass(frozen=True, slots=True)
 class InstanceIssueCandidate:
     instance: OffenseInstanceKey

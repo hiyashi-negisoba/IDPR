@@ -19,7 +19,7 @@
 #   IDPR_AXIS_SKIP="call15p call15d" ... --execution-approved
 #
 # 단계 이름: call15p call15d plan_participation plan_doctrine dependency_route call2
-#            linked_offender_call2 absorption symbolic answer_plan call3
+#            linked_offender_call2 concurrence_pairs absorption symbolic answer_plan call3
 
 set -euo pipefail
 
@@ -165,13 +165,20 @@ step linked_offender_call2 "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_linked
     --call2 "$CALL2" \
     --out "$CALL2_ENRICHED"
 
-# 6. 흡수조건 -- 저작된 흡수규칙의 조건을 사건별로 평가한다. 이것이 없으면 조건이 영구
-#    UNKNOWN이라 흡수가 한 번도 발화하지 못한다.
+# 6-a. 흡수 pair 개방 -- 저작된 흡수규칙과 계획된 top-level instance를 join해 후보 쌍을
+#      연다. 이 단계가 없으면 plan에 `concurrence_condition_pairs` 자체가 없어서 6-b가
+#      매번 0행을 쓰고, 흡수가 한 번도 발화하지 못한다. 결정론적 단계다.
+PLAN_C="$RUN_ROOT/plan_concurrence/evaluation_instance_plan.jsonl"
+step concurrence_pairs "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/build_v2_concurrence_condition_pairs.py" \
+    --plan-artifact "$PLAN_D" \
+    --out "$PLAN_C"
+
+# 6-b. 흡수조건 -- 저작된 흡수규칙의 조건을 사건별로 평가한다.
 CONDITIONS="$RUN_ROOT/absorption/concurrence_condition_assessments.jsonl"
 mkdir -p "$RUN_ROOT/absorption"
 step absorption "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_absorption_condition_pairs.py" \
     --base-url "$BASE_URL" --model "$SERVED_MODEL" --api-key "$API_KEY" \
-    --pair-plan "$PLAN_D" \
+    --pair-plan "$PLAN_C" \
     --call15-artifact "$CALL15" \
     --out "$CONDITIONS" \
     --prompt-approved
@@ -181,18 +188,29 @@ SYMBOLIC="$RUN_ROOT/scallop/results.jsonl"
 mkdir -p "$RUN_ROOT/scallop"
 step symbolic "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/run_v2_scallop_e2e.py" \
     --call2-artifact "$CALL2_ENRICHED" \
-    --plan "$PLAN_D" \
+    --plan "$PLAN_C" \
     --concurrence-condition-assessments "$CONDITIONS" \
     --work-dir "$RUN_ROOT/scallop/work" \
     --out "$SYMBOLIC"
 
 # 8. AnswerPlan -- 아는 것만 정확한 단위로 넘긴다.
+#
+#    `--rule-statements`는 SPEC §5.5 카드 회수 산출물(P 조건)이고, 같은 파일이
+#    `--dispute-triggers`로 저작된 학설 대립 의무를 연다. 파일이 없으면 N 조건으로 돈다 --
+#    이 두 인자가 빠져 있던 동안 판례 법리와 학설이 26문항 내내 0건이었다.
+RULE_STATEMENTS="${IDPR_RULE_STATEMENTS:-$RUN_ROOT/card_rule_statements/rule_statements.jsonl}"
+if [ ! -s "$RULE_STATEMENTS" ]; then
+    echo "!!! rule_statements 없음 -- N 조건으로 돈다: $RULE_STATEMENTS" >&2
+    RULE_STATEMENTS="/dev/null"
+fi
 PLANS="$RUN_ROOT/answer_plan"
 step answer_plan "$CLIENT_PYTHON" "$PROJECT_ROOT/scripts/build_v2_answer_plan.py" \
     --e2e-results "$SYMBOLIC" \
     --call2-artifact "$CALL2_ENRICHED" \
     --issue-bindings "$CALL15" \
-    --plan-artifact "$PLAN_D" \
+    --plan-artifact "$PLAN_C" \
+    --rule-statements "$RULE_STATEMENTS" \
+    --dispute-triggers "$RULE_STATEMENTS" \
     --out "$PLANS"
 
 # 9. Call 3 -- 답안.

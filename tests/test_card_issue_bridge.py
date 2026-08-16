@@ -7,6 +7,8 @@ from idpr.rulebase.issue_catalog_v2 import compile_issue_catalog_v2
 from idpr.v2.registry import DefinitionEntry, DefinitionRegistry, load_definitions
 from idpr.v2.runtime.answer_plan import _episode_quotes
 from idpr.v2.runtime.card_issue_bridge import (
+    names_other_paragraph,
+    paragraph_sibling_stems,
     EXACT_AUTHORED_IDENTITY,
     UNMAPPED_DERIVED_ARTICLE,
     criminal_act_article_key,
@@ -284,3 +286,34 @@ def test_authored_derived_instance_opens_its_exact_article_candidates() -> None:
     assert plan.projection.article_keys == ("art347",)
     assert plan.candidates
     assert all(value.article == "art347" for value in plan.candidates)
+
+
+def test_paragraph_siblings_come_from_authored_paragraphs() -> None:
+    """제355조 제1항과 제2항은 같은 조문 키를 쓰지만 서로 다른 죄다."""
+    registry = load_definitions(DEFINITIONS)
+    assert paragraph_sibling_stems(registry, "offense.embezzlement") == ("배임",)
+    assert paragraph_sibling_stems(registry, "offense.breach_of_trust") == ("횡령",)
+    # 항이 갈리지 않는 죄에는 형제가 없다. 없는 갈래를 만들어 회수를 좁히지 않는다.
+    assert paragraph_sibling_stems(registry, "offense.theft") == ()
+
+
+def test_sibling_proposition_is_rejected_regardless_of_tier() -> None:
+    """형제 죄만 부르는 명제는 항으로 좁힌 target에서만 걸러지는 것이 아니다.
+
+    항으로 좁히지 못해 조문 전체로 되돌아간 target이야말로 배임 명제가 횡령 논증에 붙는
+    자리다. 이 불변식이 깨지면 fallback 경로에서 오염이 그대로 되살아난다.
+    """
+    siblings = ("배임",)
+    assert names_other_paragraph(
+        "배임죄는 이득죄이므로 고의와 별도로 불법이득의 의사가 있어야 한다.",
+        "횡령",
+        siblings,
+    )
+    # 두 죄를 함께 부르는 명제는 이 죄에 대한 것이기도 하므로 남긴다.
+    assert not names_other_paragraph(
+        "횡령죄와 배임죄는 신임관계를 침해한다는 점에서 공통된다.", "횡령", siblings
+    )
+    # 어느 죄도 부르지 않는 일반 명제는 공통 판시이므로 남긴다.
+    assert not names_other_paragraph(
+        "불법영득의사는 객관적으로 외부에 표현되어야 한다.", "횡령", siblings
+    )

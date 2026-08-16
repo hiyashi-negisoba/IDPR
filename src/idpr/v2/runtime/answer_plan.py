@@ -191,6 +191,9 @@ class RequiredFinalConclusion:
     state: str
     completion_state: str | None = None
     participation_mode: str | None = None
+    #: 같은 행위자의 같은 죄가 서로 다른 행위로 두 번 열렸을 때, 어느 행위에 대한 결론인지.
+    #: 죄명 자체는 손대지 않는다 -- 완결성 감사가 죄명으로 답안을 찾기 때문이다.
+    occurrence_hint: str | None = None
 
 
 @dataclass(frozen=True, slots=True)
@@ -306,6 +309,58 @@ def predicate_provision(registry: DefinitionRegistry, predicate_ref: str) -> str
     return None
 
 
+#: 형법 총칙의 마지막 조문. 고의(제13조)·미수(제25조)·독립행위경합(제19조)처럼 총칙 조문은
+#: 어느 죄를 논하든 그 요건의 근거가 맞으므로 죄명 범위 밖이라는 이유로 떼지 않는다.
+_GENERAL_PART_LAST_ARTICLE = 86
+
+_ARTICLE_NUMBER = re.compile(r"제(\d+)조")
+
+
+def offense_article_scope(registry: DefinitionRegistry, offense_ref: str) -> frozenset[int]:
+    """이 죄가 자기 이름으로 댈 수 있는 각칙 조문 번호.
+
+    자기 `statutory_refs`와, `derivation.base`를 따라 올라간 기초범죄의 것을 함께 센다.
+    특수절도죄가 제329조를, 강간치상죄가 제297조를 대는 것은 누출이 아니라 그 죄의 구성이다.
+    """
+    numbers: set[int] = set()
+    seen: set[str] = set()
+    frontier = [offense_ref]
+    while frontier:
+        ref = frontier.pop()
+        if not ref or ref in seen:
+            continue
+        seen.add(ref)
+        entry = registry.by_id.get(ref)
+        if entry is None:
+            continue
+        identity = entry.payload.get("identity") or {}
+        for citation in identity.get("statutory_refs") or []:
+            numbers.update(int(n) for n in _ARTICLE_NUMBER.findall(str(citation)))
+        base = (entry.payload.get("derivation") or {}).get("base")
+        if base:
+            frontier.append(str(base))
+    return frozenset(numbers)
+
+
+def scope_provision(provision: str | None, scope: frozenset[int]) -> str | None:
+    """요건에 저작된 조문 가운데 이 죄가 댈 수 있는 것만 남긴다.
+
+    `legal_element.unlawful_appropriation_intent`는 절도죄 밑에서 저작돼 제329조를 달고
+    다니는데, 같은 요건이 사기·횡령·강도에도 쓰인다. 그대로 내보내면 사기죄 논증에서
+    절도죄 조문을 인용하게 된다 -- 26문항에서 각칙 조문 110건이 그랬다. 떼는 것은 조문뿐이고
+    `legal_standard`는 그대로 간다. 요건의 뜻은 저작된 자리에 그대로 있다.
+    """
+    kept = [
+        citation
+        for citation in _split_citations(provision)
+        if all(
+            int(number) <= _GENERAL_PART_LAST_ARTICLE or int(number) in scope
+            for number in _ARTICLE_NUMBER.findall(citation)
+        )
+    ]
+    return "; ".join(kept) if kept else None
+
+
 def authored_precedent_statements(
     registry: DefinitionRegistry, predicate_ref: str
 ) -> tuple[RuleStatement, ...]:
@@ -344,6 +399,7 @@ def _findings_for_instance(
     ref: str,
     quotes_by_predicate: Mapping[str, tuple[str, ...]],
     card_statements: Mapping[tuple[str, str], Sequence[RuleStatement]] | None = None,
+    offense_ref: str = "",
 ) -> tuple[tuple[Finding, ...], tuple[Finding, ...], tuple[Finding, ...]]:
     """Findings for one already-selected instance, from the authoritative truth store.
 
@@ -364,6 +420,7 @@ def _findings_for_instance(
     its truth alone (SPEC 4-10).
     """
     card_statements = card_statements or {}
+    scope = offense_article_scope(registry, offense_ref)
     satisfied: list[Finding] = []
     failed: list[Finding] = []
     blocking: list[Finding] = []
@@ -379,7 +436,9 @@ def _findings_for_instance(
             truth=str(row.get("truth", "")),
             predicate_ref=predicate_ref,
             legal_standard=predicate_standard(registry, predicate_ref),
-            governing_provision=predicate_provision(registry, predicate_ref),
+            governing_provision=scope_provision(
+                predicate_provision(registry, predicate_ref), scope
+            ),
             rule_statements=(
                 authored_precedent_statements(registry, predicate_ref)
                 + tuple(card_statements.get((ref, predicate_ref), ()))
@@ -775,7 +834,7 @@ def build_answer_plan(
         ref = instance_ref(instance)
         offense_ref = str(instance.get("offense_ref", ""))
         satisfied, failed, blocking = _findings_for_instance(
-            registry, truths, ref, {}, rule_statements
+            registry, truths, ref, {}, rule_statements, offense_ref
         )
         # 결론을 실제로 막고 있는 것만 남긴다. 전체 UNKNOWN closure를 넘기면 사안에서
         # 제기되지도 않은 예비·불능미수까지 쟁점으로 서술된다.
@@ -1103,6 +1162,36 @@ _COMPLETION_PROSE = {
 }
 
 
+def occurrence_hints(issues: Sequence[AnchoredIssue]) -> dict[str, str]:
+    """같은 행위자의 같은 죄가 두 번 열렸을 때 둘을 갈라 부르는 우리말 표지.
+
+    occurrence를 합치지 않는 것은 서로 다른 행위이기 때문이다. 그런데 답안에는 죄명만
+    나가므로 결론 목록에 "甲 — 강간죄"가 상반된 상태로 두 번 실리고, 채점자에게는 하나의
+    죄에 대한 모순으로 읽힌다. 갈라 부르되 죄명은 건드리지 않는다.
+
+    표지는 그 행위의 사건 원문 인용에서 가져온다 -- 지어내지 않고, 내부 식별자도 쓰지
+    않는다. 두 행위가 같은 인용을 공유해 구별이 서지 않으면 등장 순서로 부른다.
+    """
+    grouped: dict[tuple[str, str], list[AnchoredIssue]] = {}
+    for issue in issues:
+        grouped.setdefault((issue.actor, issue.offense_label), []).append(issue)
+    hints: dict[str, str] = {}
+    for members in grouped.values():
+        if len(members) < 2:
+            continue
+        for position, issue in enumerate(members, start=1):
+            others = {
+                quote for other in members if other is not issue for quote in other.episode_quotes
+            }
+            distinctive = next(
+                (quote for quote in issue.episode_quotes if quote not in others), ""
+            )
+            hints[issue.issue_id] = (
+                f'"{distinctive}" 행위' if distinctive else f"{position}번째 행위"
+            )
+    return hints
+
+
 def _required_final_conclusions(
     issues: Sequence[AnchoredIssue],
 ) -> tuple[RequiredFinalConclusion, ...]:
@@ -1112,12 +1201,14 @@ def _required_final_conclusions(
     purpose -- an anchor list in different words than the body would just relocate the
     drift this list exists to prevent, rather than remove it.
     """
+    hints = occurrence_hints(issues)
     out: list[RequiredFinalConclusion] = []
     for issue in issues:
         out.append(
             RequiredFinalConclusion(
                 actor=issue.actor,
                 offense_label=issue.offense_label,
+                occurrence_hint=hints.get(issue.issue_id),
                 state=_STATE_PROSE.get(issue.final_state, issue.final_state),
                 completion_state=_COMPLETION_PROSE.get(issue.completion_state)
                 if issue.completion_state in _COMPLETION_PROSE
@@ -1139,12 +1230,13 @@ def serialize_analysis(plan: AnswerPlan) -> str:
     content, in the discussion order the plan fixed.
     """
     by_id = {issue.issue_id: issue for issue in plan.anchored_issues}
+    hints = occurrence_hints(plan.anchored_issues)
     lines: list[str] = []
     for position, issue_id in enumerate(plan.discussion_order, start=1):
         issue = by_id.get(issue_id)
         if issue is None:
             continue
-        lines.extend(_serialize_issue(position, issue))
+        lines.extend(_serialize_issue(position, issue, hints.get(issue.issue_id)))
         lines.append("")
     lines.extend(_serialize_final(plan.final_responsibility))
     payload = "\n".join(lines).strip() + "\n"
@@ -1153,10 +1245,15 @@ def serialize_analysis(plan: AnswerPlan) -> str:
     return payload
 
 
-def _serialize_issue(position: int, issue: AnchoredIssue) -> list[str]:
+def _serialize_issue(
+    position: int, issue: AnchoredIssue, occurrence_hint: str | None = None
+) -> list[str]:
     head = f"[{position}] {issue.actor} — {issue.offense_label}"
     if issue.governing_provision:
         head += f" ({issue.governing_provision})"
+    # 같은 죄가 두 행위로 열렸으면 어느 행위에 대한 항목인지 여기서 갈라 부른다.
+    if occurrence_hint:
+        head += f" — {occurrence_hint}"
     lines = [head, f"    결론: {_STATE_PROSE.get(issue.final_state, issue.final_state)}"]
     if issue.absorbed_into:
         lines.append(f"        흡수되는 죄: {issue.absorbed_into}")
@@ -1293,11 +1390,24 @@ def serialize_required_final_conclusions(plan: AnswerPlan) -> str:
     """
     lines: list[str] = []
     for item in plan.required_final_conclusions:
-        line = f"· {item.actor} — {item.offense_label}: {item.state}"
+        # 결박된 성립·불성립은 그대로 다시 말하게 하고, 결박하지 못한 것은 그 사실만 알린다.
+        # 유보 문장을 앵커로 주면 프롬프트가 논증 뒤 결론을 요구하는 것과 정면으로 어긋나고,
+        # 모델은 둘 중 앵커를 따른다. 이 줄은 "무엇을 빠뜨리지 말라"만 정하고 결론은 정하지
+        # 않는다 -- 완결성 감사도 행위자와 죄명만 본다.
+        state = (
+            "성부는 본문의 논증에 따라 결론낸다. 그 결론을 결론 문단에도 반드시 올린다."
+            if item.state == _STATE_PROSE[UNRESOLVED]
+            else item.state
+        )
+        line = f"· {item.actor} — {item.offense_label}: {state}"
         if item.completion_state:
             line += f" ({item.completion_state})"
         if item.participation_mode:
             line += f" [{item.participation_mode}]"
+        # 표지는 죄명 뒤가 아니라 줄 끝에 붙인다. 죄명 토큰을 건드리면 완결성 감사가 답안에서
+        # 그 죄를 찾지 못해 멀쩡한 결론을 누락으로 신고한다.
+        if item.occurrence_hint:
+            line += f" [{item.occurrence_hint}에 관한 결론]"
         lines.append(line)
     payload = "\n".join(lines) if lines else "없음"
     assert_no_internal_markers(payload)

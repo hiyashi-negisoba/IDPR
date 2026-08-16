@@ -28,6 +28,11 @@ from idpr.v2.runtime.concurrence_condition import (
     plan_concurrence_condition_pairs,
 )
 from idpr.v2.runtime.identity import OffenseInstanceKey
+from idpr.v2.runtime.plan_lineage import (
+    LINEAGE_KEY,
+    lineage_for_manifest,
+    provenance as plan_provenance,
+)
 
 DEFAULT_RULES = ROOT / "data/v2/concurrence_rules.yaml"
 
@@ -119,6 +124,11 @@ def main() -> None:
     )
     manifest = {
         "step": "v2_concurrence_condition_pairs",
+        # 이 단계도 plan을 새로 만드는 것이 아니라 증강한다. 계보를 이어받지 않으면 하류
+        # 가드가 참가 병합을 거친 plan인지 알 수 없고, symbolic이 이 plan을 거부한다.
+        LINEAGE_KEY: list(
+            lineage_for_manifest(args.plan_artifact, "v2_concurrence_condition_pairs")
+        ),
         "status": "SUCCEEDED",
         "rule": (
             "approved rule + both planned top-level instances + same factual episode + the "
@@ -135,6 +145,7 @@ def main() -> None:
         "plan_artifact": str(args.plan_artifact),
         "plan_artifact_sha256": _sha256(args.plan_artifact),
         "rules_sha256": _sha256(args.rules),
+        **plan_provenance({"plan": args.plan_artifact, "rules": args.rules}),
     }
     args.out.with_suffix(".manifest.json").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",

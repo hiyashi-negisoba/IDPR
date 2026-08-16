@@ -118,6 +118,17 @@ def _dispute_registry(path: Path) -> dict[str, ContestedPoint]:
     return output
 
 
+def _is_real_dispute(point: ContestedPoint) -> bool:
+    """갈래가 실제로 갈리는가.
+
+    등록된 대립 가운데 일부는 같은 명제를 말만 바꿔 두 번 싣고 있다 -- "표현된 때 기수"와
+    "표현될 정도로 실현된 때 기수"처럼. 그런 항목을 학설 대립으로 내보내면 채점자에게는
+    대립을 못 세운 답안으로 읽힌다. 서로 다른 입장이 둘 이상일 때만 내보내고, 아니면
+    비워 둔다 -- SPEC 2.2가 "대립을 표현할 자산이 없으면 비워 둔다"고 정한 그대로다.
+    """
+    return len({value.strip() for value in point.positions if value.strip()}) >= 2
+
+
 def _case_contested_points(
     statements: dict[tuple[str, str], tuple[RuleStatement, ...]],
     registry: dict[str, ContestedPoint],
@@ -130,6 +141,8 @@ def _case_contested_points(
             if point is None or (instance_ref, point.source_id) in seen:
                 continue
             seen.add((instance_ref, point.source_id))
+            if not _is_real_dispute(point):
+                continue
             output.setdefault(instance_ref, []).append(point)
     return {key: tuple(value) for key, value in output.items()}
 

@@ -43,7 +43,12 @@ from idpr.rulebase.cards import card_corpus
 from idpr.rulebase.issue_catalog_v2 import compile_issue_catalog_v2
 from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.answer_plan import _episode_quotes, instance_ref
-from idpr.v2.runtime.card_issue_bridge import project_offense_articles
+from idpr.v2.runtime.card_issue_bridge import (
+    _offense_stem,
+    names_other_paragraph,
+    paragraph_sibling_stems,
+    project_offense_articles,
+)
 from idpr.v2.runtime.grounding import predicate_definitions
 
 BE_SNAPSHOT = Path(
@@ -58,6 +63,7 @@ DENSE_CACHE = ROOT / "data/eval/cache/cards_embeddinggemma-300m_7512d150955707d6
 
 TIER_BRIDGE = "bridge_route"
 TIER_ARTICLE = "article_family"
+TIER_PARAGRAPH = "article_paragraph"
 TIER_NONE = "no_grounds"
 
 
@@ -151,13 +157,32 @@ def assign_tier(
 
     projection = project_offense_articles(registry, target["offense_ref"])
     family = [
-        issue.issue_id
+        issue
         for key in projection.article_keys
         for issue in issues_by_article.get(key, ())
     ]
     if not family:
         return {**target, "tier": TIER_NONE, "issue_ids": [], "reason": projection.status}
-    return {**target, "tier": TIER_ARTICLE, "issue_ids": family}
+    # 항이 다르면 다른 죄다. 조문 키가 같다는 이유로 배임 issue를 횡령 회수 범위에 넣지
+    # 않는다. 어느 항의 것도 아닌 공통 issue는 남으므로, 좁힌 결과가 비면 그때만 조문
+    # 전체로 되돌아간다 -- 갈래를 못 나누는 조문에서 공통 판시까지 잃지 않기 위해서다.
+    own_stem = _offense_stem(registry, target["offense_ref"])
+    siblings = paragraph_sibling_stems(registry, target["offense_ref"])
+    narrowed = [
+        issue
+        for issue in family
+        # 장 라벨(`issue.offense`)은 "횡령·배임"처럼 두 죄를 함께 달고 있어서 어느 항인지를
+        # 가리지 못한다. 갈래가 드러나는 것은 절 제목뿐이므로 그것만 본다.
+        if not names_other_paragraph(issue.title, own_stem, siblings)
+    ]
+    if siblings and narrowed and len(narrowed) < len(family):
+        return {
+            **target,
+            "tier": TIER_PARAGRAPH,
+            "issue_ids": [issue.issue_id for issue in narrowed],
+            "excluded_sibling_stems": list(siblings),
+        }
+    return {**target, "tier": TIER_ARTICLE, "issue_ids": [issue.issue_id for issue in family]}
 
 
 def main() -> None:
@@ -224,7 +249,7 @@ def main() -> None:
         "tiers": dict(tiers),
         "tier_by_truth": dict(truths),
         "no_grounds_reasons": dict(reasons),
-        "searched": tiers[TIER_BRIDGE] + tiers[TIER_ARTICLE],
+        "searched": tiers[TIER_BRIDGE] + tiers[TIER_ARTICLE] + tiers[TIER_PARAGRAPH],
     }
 
     if args.dry_run:
@@ -326,6 +351,20 @@ def main() -> None:
         window = scores[offset : offset + len(shortlist)]
         offset += len(shortlist)
         ranked = sorted(zip(shortlist, window), key=lambda pair: (-pair[1], cards[pair[0]].id))
+        # issue 범위를 항으로 좁혀도 명제 자체가 형제 죄를 부르는 카드는 남는다 -- 주석서가
+        # 한 장에서 두 죄를 함께 서술하기 때문이다. 그 문장이 답안에 실리면 횡령 논증에서
+        # 배임 법리를 대는 것이 되므로, 이 죄를 부르지 않고 형제 죄만 부르는 명제는 뺀다.
+        #
+        # **tier와 무관하게 건다.** 항으로 좁히지 못해 조문 전체로 되돌아간 target이야말로
+        # 형제 죄 명제가 들어올 자리이므로, 이 필터를 좁히기 성공 시에만 걸면 fallback에서
+        # 오염이 그대로 되살아난다. bridge_route도 같은 이유로 예외가 아니다.
+        own_stem = _offense_stem(registry, value["offense_ref"])
+        siblings = paragraph_sibling_stems(registry, value["offense_ref"])
+        ranked = [
+            (index, score)
+            for index, score in ranked
+            if not names_other_paragraph(cards[index].proposition, own_stem, siblings)
+        ]
         chosen = [
             (index, score)
             for index, score in ranked
@@ -365,7 +404,9 @@ def main() -> None:
                 + "\n"
             )
 
-    summary["targets_with_cards"] = sum(selected_counts[tier] for tier in (TIER_BRIDGE, TIER_ARTICLE))
+    summary["targets_with_cards"] = sum(
+        selected_counts[tier] for tier in (TIER_BRIDGE, TIER_ARTICLE, TIER_PARAGRAPH)
+    )
     summary["selected_by_tier"] = dict(selected_counts)
     summary["cards_per_target"] = args.top_k_cards
     args.out.with_suffix(".summary.json").write_text(
