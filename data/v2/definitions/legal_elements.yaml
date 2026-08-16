@@ -336,6 +336,9 @@
   arguments: [{name: actor, type: entity}, {name: act, type: entity}]
   canonical_meaning: "자의에 의한 중지·결과방지(중지범)"
   legal_standard: "행위자가 외부 장애가 아닌 자의로 실행을 중지하거나 결과 발생을 방지하였는지 여부"
+  # 중지는 실행행위를 그만둔 것이므로 실행행위 조각 안에 있을 수 없고 항상 그 뒤에
+  # 온다. realization 폭에서는 구조적으로 답할 수 없어 UNKNOWN만 나온다.
+  evidence_scope: same_actor_episode
   authority_refs: [{authority_basis: statute_text, citation: "형법 제26조"}]
 
 - id: legal_element.dangerousness
