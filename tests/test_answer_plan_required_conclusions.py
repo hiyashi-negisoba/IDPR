@@ -256,3 +256,25 @@ def test_the_call3_runner_actually_runs_the_completeness_audit() -> None:
     ).read_text(encoding="utf-8")
     assert "missing_final_conclusions(" in source
     assert "required_final_conclusion_audit" in source
+
+
+@pytest.mark.parametrize(
+    ('state', 'prose'),
+    [
+        ('attempted', '미수'),
+        ('abandoned_attempt', '중지미수'),
+        ('impossible_attempt', '불능미수'),
+    ],
+)
+def test_runtime_completion_state_survives_required_conclusion_handoff(
+    state: str, prose: str
+) -> None:
+    issue = _issue(
+        'i-completion',
+        '甲',
+        '살인죄',
+        ESTABLISHED,
+        completion_state=state,
+    )
+    anchor = _required_final_conclusions((issue,))[0]
+    assert anchor.completion_state == prose

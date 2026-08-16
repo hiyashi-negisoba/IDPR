@@ -30,7 +30,7 @@ from typing import Any
 
 from idpr.v2 import expressions
 from idpr.v2.registry import DefinitionRegistry
-from idpr.v2.runtime.completion import completion_policy_for
+from idpr.v2.runtime.completion import DERIVABLE_STATES, completion_policy_for
 
 #: Internal vocabulary that must never survive serialization into the Call 3 payload.
 #: A leak here does not merely look untidy -- it teaches the writer to quote machine state
@@ -807,7 +807,7 @@ def build_answer_plan(
     retained = frozenset(instance_ref(i) for i in final.get("retained_instances") or [])
     absorbed_records = final.get("absorbed_instances") or []
     absorbed = frozenset(
-        instance_ref(record.get("instance", record)) for record in absorbed_records
+        instance_ref(record["instance"]) for record in absorbed_records
     )
     withheld = frozenset(
         instance_ref(i) for i in final.get("attribution_withheld_instances") or []
@@ -932,8 +932,8 @@ def _absorption_records(
     """
     out: list[Mapping[str, Any]] = []
     for record in records:
-        absorbed_instance = record.get("instance") or record.get("absorbed") or {}
-        absorbing_instance = record.get("absorbed_by") or record.get("absorbing") or {}
+        absorbed_instance = record.get("instance") or {}
+        absorbing_instance = record.get("absorbed_by") or {}
         out.append(
             {
                 "absorbed_offense": offense_label(
@@ -1022,8 +1022,8 @@ def _pair_records(
 ) -> list[Mapping[str, Any]]:
     out: list[Mapping[str, Any]] = []
     for record in records:
-        first = record.get("first") or record.get("left") or {}
-        second = record.get("second") or record.get("right") or {}
+        first = record.get("first_instance") or {}
+        second = record.get("second_instance") or {}
         out.append(
             {
                 "first_offense": offense_label(
@@ -1045,18 +1045,18 @@ def _redirection_records(
     """Article 33 proviso: the participant answers under a different offence."""
     out: list[Mapping[str, Any]] = []
     for record in records:
-        instance = record.get("instance") or record.get("participant_instance") or {}
+        instance = record.get("accessory_instance") or {}
+        base_offense_ref = str(record.get("base_offense_ref", ""))
+        aggravated_offense_ref = str(record.get("aggravated_offense_ref", ""))
         out.append(
             {
                 "actor": str(instance.get("actor_id", "")),
                 "from_offense": offense_label(
-                    registry, str(instance.get("offense_ref", "")), offense_labels
+                    registry, base_offense_ref, offense_labels
                 ),
                 "to_offense": offense_label(
-                    registry, str(record.get("redirected_offense_ref", "")), offense_labels
-                )
-                if record.get("redirected_offense_ref")
-                else None,
+                    registry, aggravated_offense_ref, offense_labels
+                ),
             }
         )
     return out
@@ -1072,7 +1072,7 @@ def _discussion_order(
     """
     order = [issue.issue_id for issue in issues]
     absorbed_first = {
-        instance_ref(record.get("instance") or {}): instance_ref(record.get("absorbed_by") or {})
+        instance_ref(record["instance"]): instance_ref(record["absorbed_by"])
         for record in absorbed_records
     }
     for absorbed_ref, absorbing_ref in absorbed_first.items():
@@ -1156,8 +1156,9 @@ _MODE_PROSE = {
 
 _COMPLETION_PROSE = {
     "completed": "기수",
-    "attempt": "미수",
-    "abandonment": "중지미수",
+    "attempted": "미수",
+    "abandoned_attempt": "중지미수",
+    "impossible_attempt": "불능미수",
     "preparation": "예비",
 }
 

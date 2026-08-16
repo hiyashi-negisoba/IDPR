@@ -252,8 +252,11 @@ class FinalResponsibilityView:
                 for value in sorted(self.concurrence.retained_instances, key=repr)
             ],
             "absorbed_instances": [
-                instance(value)
-                for value in sorted(self.concurrence.absorbed_instances, key=repr)
+                {"instance": instance(absorbed), "absorbed_by": instance(absorbing)}
+                for absorbed, absorbing in sorted(
+                    self.concurrence.absorbed_into,
+                    key=lambda pair: (repr(pair[0]), repr(pair[1])),
+                )
             ],
             "imaginative_concurrence_pairs": [
                 {"first_instance": instance(left), "second_instance": instance(right)}
