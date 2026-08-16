@@ -227,6 +227,13 @@ def main() -> None:
         "--inventory", type=Path, default=ROOT / "data/inventory/kcl_criminal_v1_draft.jsonl"
     )
     parser.add_argument("--name-review", type=Path, default=DEFAULT_NAME_REVIEW)
+    parser.add_argument(
+        "--answers",
+        action="append",
+        default=[],
+        metavar="ID=PATH",
+        help="method id and its answers jsonl (`answer` or `generated_response`)",
+    )
     parser.add_argument("--show", type=int, default=30)
     args = parser.parse_args()
 
@@ -246,6 +253,7 @@ def main() -> None:
     unresolved: collections.Counter[str] = collections.Counter()
     known_missing: collections.Counter[str] = collections.Counter()
     authored_unrouted: collections.Counter[str] = collections.Counter()
+    gold_units_by_case: dict[str, set[tuple[str, ...]]] = {}
 
     for cid in case_ids:
         resolved_units: dict[tuple[str, ...], str] = {}
@@ -267,6 +275,7 @@ def main() -> None:
             # canonical ref 집합이 단위다. 표기가 둘이어도 같은 죄면 여기서 하나로 접힌다.
             resolved_units[result.refs] = result.surface
 
+        gold_units_by_case[cid] = set(resolved_units)
         for refs, surface in resolved_units.items():
             counts["total"] += 1
             counts["resolved"] += 1
@@ -328,6 +337,39 @@ def main() -> None:
         print(
             "\nUNRESOLVED_NAME은 저작X로 계산하지 않는다. "
             "offense_name_review.yaml 검토 후 다시 집계한다."
+        )
+
+    # 답안 쪽도 같은 canonicalization을 거친다. 이름을 canonical ref로 접지 않으면 표기가
+    # 다른 같은 죄가 두 번 세어지고, 판정하지 못한 이름이 오답처럼 계산된다.
+    for spec in args.answers:
+        method_id, raw_path = spec.split("=", 1)
+        rows: dict[str, str] = {}
+        for line in Path(raw_path).read_text(encoding="utf-8").splitlines():
+            if not line.strip():
+                continue
+            row = json.loads(line)
+            rows[row["sub_question_id"]] = str(
+                row.get("answer") or row.get("generated_response") or ""
+            )
+        covered = said_total = said_unresolved = 0
+        gold_total = sum(len(value) for value in gold_units_by_case.values())
+        for cid in case_ids:
+            said: set[tuple[str, ...]] = set()
+            for name in offense_names(rows.get(cid, "")):
+                result = resolve_name(
+                    name, authored_surfaces, aliases, known_unauthored, ignore
+                )
+                if result.status in {"AUTHORED", "ALIAS"}:
+                    said.add(result.refs)
+                elif result.status == "UNRESOLVED_NAME":
+                    said_unresolved += 1
+            said_total += len(said)
+            covered += len(said & gold_units_by_case.get(cid, set()))
+        print(
+            f"\n[{method_id}] resolved gold unit {gold_total}건 기준 "
+            f"재현율 {covered / max(gold_total, 1):5.1%} · "
+            f"정밀도 {covered / max(said_total, 1):5.1%} "
+            f"(답안이 부른 canonical 죄 {said_total}건, 판정불가 이름 {said_unresolved}건)"
         )
 
 
