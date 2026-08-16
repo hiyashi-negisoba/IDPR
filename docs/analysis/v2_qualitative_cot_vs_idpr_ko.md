@@ -298,3 +298,89 @@ r14_p1_q1      4슬롯 중 1개 (arson_of_occupied_structure)
 binding이 두 개(`binding:001`, `binding:002`) 나왔다. 하나의 강간 실행행위이므로 답안의
 "강간죄 2건"은 이 이중 binding이 끝까지 흘러간 결과다. ③의 수정 지점은 Call 1.5의
 동일 episode/동일 actor/동일 offense 중복 binding이다.
+
+---
+
+## 7. 우선순위 ② 추적 결과 -- 중지 사실이 요청에 실리지 않는다
+
+### 결론
+
+모델 undercall이 아니다. **자의적 중지를 묻는 요청에 중지 문장이 들어 있지 않다.**
+
+`completion_policy.rape`에는 `abandoned_attempt`(중지미수)가 이미 저작돼 있고 leaf 세 개를
+요구한다. Call 2가 답한 값은 이렇다.
+
+```
+legal_element.commencement_of_execution      TRUE
+ground_fact.vaginal_intercourse_conduct      FALSE
+legal_element.voluntary_cessation_or_prevention  UNKNOWN   <- 여기서 멈춘다
+```
+
+앞의 둘만으로 `attempted`가 성립하지만 `attempted`는 `defeated_by_state:
+[abandoned_attempt]`이므로, 중지 여부가 UNKNOWN인 한 두 상태를 가를 수 없다. 답안의
+"미수 여부는 확정할 수 없다"는 이 unresolved가 산문으로 나온 것이다.
+
+### 증거는 있는데 폭이 다르다
+
+`voluntary_cessation_or_prevention` 요청이 실제로 본 텍스트다:
+
+```
+carrier:realization:甲:factual_action:002:003:factual_action:002:002   span 257-349
+  "A가 엘리베이터를 타자 따라 들어가 주먹으로 A의 얼굴을 2회 때리고
+   5층에서 내린 다음 계단으로 끌고 가 미리 준비한 청테이프로 A의 양손을 묶어 반항을 억압한 후"
+```
+
+**"A가 그만두라고 애원하자 자신의 행동을 뉘우치고 범행을 단념하였다"(span 363-400)가 없다.**
+이 텍스트만 보면 UNKNOWN이 맞는 답이다.
+
+같은 instance의 actor_episode 폭 carrier에는 그 문장이 들어 있다:
+
+```
+carrier:actor_episode:甲:factual_action:002:003:factual_action:002:002   span 215-469
+  ... A를 간음하려 하였으나
+      A가 그만두라고 애원하자 자신의 행동을 뉘우치고 범행을 단념하였다. ...
+```
+
+Call 1.5는 이 문장을 `binding:002`의 `context_fragments`로 정확히 잡아 두었다. 소실이
+아니라 **배분 문제**다. 같은 사건에서 predicate마다 폭이 갈린다:
+
+| 폭 | predicate |
+|---|---|
+| `same_actor_episode` | intent, vaginal_intercourse_conduct, natural_person_victim_status, means_or_object_defect |
+| `offense_realization` (기본값) | commencement_of_execution, coercive_conduct, **voluntary_cessation_or_prevention**, dangerousness |
+
+### 원인
+
+`data/v2/definitions/legal_elements.yaml:335`의 정의에 `evidence_scope` 필드가 **없어서**
+기본값 `offense_realization`으로 떨어진다.
+
+중지는 정의상 "하려던 것을 그만둔 것"이라 실행행위 조각(`factual_action`) 안에 있을 수
+없다. 항상 그 다음 문장에 온다. 즉 이 leaf는 realization 폭에서는 **구조적으로 답할 수
+없고**, 지금까지 UNKNOWN이 나온 것은 모델이 아니라 폭 설정의 결과다.
+
+이것은 [[evidence-scope-lever-conditions]]가 듣는 조건과 정확히 일치한다 -- 사실이 같은
+행위자 에피소드 안의 **다른 행위**에 있고, 법적 평가가 아니라 사실이다.
+
+### 제안하는 수정 (정의 변경, 승인 대기)
+
+`legal_element.intent`(57a8271), `offense.dwelling_intrusion`(4acf973)과 같은 형태의 한 줄이다.
+
+```yaml
+- id: legal_element.voluntary_cessation_or_prevention
+  arguments: [{name: actor, type: entity}, {name: act, type: entity}]
+  canonical_meaning: "자의에 의한 중지·결과방지(중지범)"
+  legal_standard: "행위자가 외부 장애가 아닌 자의로 실행을 중지하거나 결과 발생을 방지하였는지 여부"
+  evidence_scope: same_actor_episode          # <- 추가
+  authority_refs: [{authority_basis: statute_text, citation: "형법 제26조"}]
+```
+
+같은 이유가 걸리는 이웃 leaf가 하나 더 있다. `legal_element.dangerousness`(불능미수의
+위험성, 제27조)도 realization 폭인데, 수단·대상의 착오는 실행행위 조각 밖의 사정으로
+드러나는 경우가 많다. 다만 KCL-26에서 실제로 결정적인 문항이 확인되지 않았으므로 함께
+바꾸지 않고 별도 판단으로 남긴다.
+
+### 확인하지 않은 것
+
+이 수정이 실제로 TRUE를 끌어내는지는 Call 2 재실행 전까지 알 수 없다. 폭을 넓히면
+모델이 답할 수 있게 될 뿐이고, 답이 맞는지는 별개다. 유보 상위 6개 사례 중 나머지
+5건이 같은 원인인지도 아직 대조하지 않았다.
