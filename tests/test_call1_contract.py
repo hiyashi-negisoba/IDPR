@@ -47,15 +47,20 @@ def test_router_normalization_is_stable_unique() -> None:
     assert normalized.duplicate_refs == ("offense.b",)
 
 
-def test_repeated_refs_do_not_consume_the_routing_budget() -> None:
+def test_repeated_refs_within_the_raw_cap_do_not_consume_the_budget() -> None:
     """The observed Call 1 failure: six of ten slots were one repeated ref.
 
-    Under a raw-length cap that response silently cut the case's budget to
-    four distinct candidates. The budget is spent on distinct refs, so a
-    duplicate-heavy array stays valid and keeps room for real candidates.
+    Widening the raw cap to give duplicates room was tried and made nothing
+    better (job ``v2_router_budget_26``, 2026-08-16): the model just repeated
+    more instead of naming more distinct candidates, and a different case that
+    the old cap used to truncate silently started failing outright once it
+    could ask for more than ten distinct refs. The raw cap is back at the
+    budget value. This test only pins the surviving, narrower guarantee: a
+    duplicate-heavy array *within* the raw cap still validates and its
+    distinct count is what actually matters, not raw length.
     """
-    seeds = ["offense.a"] + ["offense.b"] * MAX_SEEDS_PER_CASE
-    assert len(seeds) > MAX_SEEDS_PER_CASE
+    seeds = ["offense.a"] + ["offense.b"] * (MAX_SEEDS_PER_CASE - 1)
+    assert len(seeds) == MAX_SEEDS_PER_CASE
     validated = validate_router_output({"seeds": seeds}, catalog=CATALOG)
     assert validated == tuple(seeds)
     assert normalize_router_seeds(validated).normalized_seeds == (
@@ -64,10 +69,16 @@ def test_repeated_refs_do_not_consume_the_routing_budget() -> None:
     )
 
 
-def test_schema_bounds_the_raw_array_not_the_budget() -> None:
+def test_schema_bounds_the_raw_array_at_the_budget_value() -> None:
+    """The raw cap and the distinct budget are numerically equal again.
+
+    They remain conceptually separate checks (validate_router_output enforces
+    both independently), but widening the raw cap past the budget was tried
+    and did not help distinct recall -- see the docstring on
+    :data:`idpr.v2.routing.MAX_RAW_SEED_ITEMS`.
+    """
     seeds = router_schema(CATALOG)["properties"]["seeds"]
-    assert seeds["maxItems"] == MAX_RAW_SEED_ITEMS
-    assert MAX_RAW_SEED_ITEMS > MAX_SEEDS_PER_CASE
+    assert seeds["maxItems"] == MAX_RAW_SEED_ITEMS == MAX_SEEDS_PER_CASE
     # uniqueItems stays a generation hint; the host must not depend on it.
     assert seeds["uniqueItems"] is True
 

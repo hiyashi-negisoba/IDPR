@@ -25,14 +25,22 @@ information, so it must not consume budget.  The raw array is bounded
 separately by :data:`MAX_RAW_SEED_ITEMS`.
 """
 
-MAX_RAW_SEED_ITEMS = 2 * MAX_SEEDS_PER_CASE
-"""Slack bound on the raw array so duplicates cannot crowd out distinct refs.
+MAX_RAW_SEED_ITEMS = MAX_SEEDS_PER_CASE
+"""Bound on the raw array. Kept equal to the distinct budget deliberately.
 
 ``uniqueItems`` in the schema is only a generation hint and the guidance
 backend does not enforce it: an observed Call 1 response filled six of ten
 slots with one repeated ref, which silently cut that case's budget to four.
-The bound stays finite so a degenerate response still fails the contract
-instead of running unbounded.
+Widening this bound to give duplicates room was tried (job
+``v2_router_budget_26``, 2026-08-16) and made nothing better: the same case's
+raw array still came back as one ref repeated to fill the new slack (distinct
+count unchanged at four), while a different case that had previously been
+silently truncated to ten distinct refs asked for fourteen and started failing
+the distinct-budget check outright. Degenerate repetition is not a slot-
+starvation problem, so a slack bound does not fix it -- it only hides a
+different case's over-budget request that the old cap used to truncate
+silently. The distinct-ref check right below is kept anyway: it is the
+correct budget semantics even though loosening the raw bound wasn't the lever.
 """
 
 _OFFENSE_KINDS = frozenset({"offense", "derived_offense"})
@@ -134,7 +142,9 @@ def router_schema(catalog: Iterable[RouterCatalogEntry]) -> dict[str, Any]:
 
     ``maxItems`` therefore bounds the *raw* array, not the routing budget.  If
     it were the budget, an unenforced ``uniqueItems`` would let repeated refs
-    consume slots that distinct candidates never get to use.
+    consume slots that distinct candidates never get to use.  The two bounds
+    happen to share a value (see :data:`MAX_RAW_SEED_ITEMS`) but remain
+    conceptually distinct checks.
     """
     ids = [entry.definition_id for entry in catalog]
     return {
