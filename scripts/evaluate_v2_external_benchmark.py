@@ -73,6 +73,13 @@ def main() -> None:
         result = evaluate_call1(gold, predictions)
     else:
         result = evaluate_call2(gold, predictions)
+        summary = result["summary"]
+        summary["macro_f1"] = summary["macro_f1_observed_gold"]
+        summary["macro_f1_labels"] = [
+            label
+            for label, metrics in summary["per_class"].items()
+            if metrics["support"]
+        ]
     result["benchmark"] = args.benchmark
     result["dataset_scope"] = {
         "source": manifest.get("source"),
