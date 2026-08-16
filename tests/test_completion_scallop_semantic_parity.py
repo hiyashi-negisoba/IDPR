@@ -7,6 +7,7 @@ from idpr.v2.registry import load_definitions
 from idpr.v2.runtime.completion import completion_policy_for
 from idpr.v2.runtime.identity import OffenseInstanceKey
 from idpr.v2.runtime.scallop_backend import (
+    _compile_liability_chain_program,
     _completion_helper_name,
     compile_completion_program,
     validate_completion_query_rows,
@@ -49,6 +50,33 @@ def test_compiler_emits_authored_defeated_by_state_yield() -> None:
     assert 'abandoned_attempt' in (states['attempted'].get('defeated_by_state') or ())
 
     lines = compile_completion_program(REGISTRY, [compiled]).program.splitlines()
+    attempted = _completion_helper_name('candidate', offense_ref, 'attempted')
+    abandoned = _completion_helper_name('candidate', offense_ref, 'abandoned_attempt')
+    surviving = _completion_helper_name('surviving', offense_ref, 'attempted')
+    rule = next(line for line in lines if line.startswith(f'rel {surviving}('))
+
+    assert f'{attempted}_true(c, a, i)' in rule
+    assert f'not {abandoned}_true(c, a, i)' in rule
+
+
+def test_production_liability_chain_compiler_also_wires_the_yield() -> None:
+    """`compile_completion_program` (above) exercises `_emit_policy_completion`, a path no
+    production script calls.  `run_v2_scallop_e2e.py` compiles through
+    `_compile_liability_chain_program` -> `_emit_integrated_completion` instead, which is a
+    separate emitter with its own copy of the candidate/selection wiring.  It used to crash
+    outright on any policy with `blocked_when` (stale `_emit_completion_candidate` call arity)
+    and silently drop `defeated_by_state` (stale `_emit_completion_selection` call arity) --
+    neither was caught because no test compiled through this entry point.
+    """
+    offense_ref = 'offense.homicide'
+    compiled = _compiled(offense_ref)
+    policy = completion_policy_for(REGISTRY, offense_ref)
+    assert policy is not None
+    states = policy.payload['states']
+    assert 'abandoned_attempt' in (states['attempted'].get('defeated_by_state') or ())
+
+    program = _compile_liability_chain_program(REGISTRY, [compiled])
+    lines = program.splitlines()
     attempted = _completion_helper_name('candidate', offense_ref, 'attempted')
     abandoned = _completion_helper_name('candidate', offense_ref, 'abandoned_attempt')
     surviving = _completion_helper_name('surviving', offense_ref, 'attempted')

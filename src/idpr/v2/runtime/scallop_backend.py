@@ -2583,16 +2583,27 @@ def _emit_integrated_completion(
         expression = expressions.canonicalize(state["when"])
         assert expression is not None
         helper = _emit_attribution_aware_expression(expression, lines, emitted)
+        blocker = expressions.canonicalize(state.get("blocked_when"))
+        blocker_helper = (
+            _emit_attribution_aware_expression(blocker, lines, emitted)
+            if blocker is not None
+            else None
+        )
         candidate = _completion_helper_name("candidate", compiled.id, name)
         _emit_completion_candidate(
-            candidate, compiled.id, _state_scope_ref(compiled, state), helper, lines
+            candidate,
+            compiled.id,
+            _state_scope_ref(compiled, state),
+            helper,
+            blocker_helper,
+            lines,
         )
         candidates[name] = candidate
         for truth, suffix in (("TRUE", "true"), ("FALSE", "false"), ("UNKNOWN", "unknown")):
             lines.append(
                 f"rel {COMPLETION_CANDIDATE_QUERY_RELATION}(c, a, {_scl_string(compiled.id)}, i, {_scl_string(name)}, {_scl_string(truth)}) = {candidate}_{suffix}(c, a, i)"
             )
-    selected = _emit_completion_selection(compiled.id, names, candidates, lines)
+    selected = _emit_completion_selection(compiled.id, names, candidates, states, lines)
     for name in names:
         state = states[name]
         label = "TRUE" if state["punishable"] else "FALSE"
@@ -2987,7 +2998,7 @@ def _adapt_phased_symbolic_chain(
             if aggregate != fold_all((principal_truth, requirement)):
                 raise ScallopBackendContractError("derivative obligation fold disagrees with derivative Elements truth")
             elements[instance] = _elements_stage(aggregate, (
-                ObligationOutcome(ParticipationDependencyObligation(mode), principal_truth),
+                ObligationOutcome(ParticipationDependencyObligation(mode, principal), principal_truth),
                 ObligationOutcome(ParticipationRequirementObligation(mode), requirement),
             ))
         element = elements[instance]
@@ -3114,7 +3125,9 @@ def _validate_and_adapt_integrated_chain(
         if derivative_elements[(accessory, principal, mode)] != aggregate:
             raise ScallopBackendContractError("derivative obligation fold disagrees with derivative Elements truth")
         outcomes = (
-            ObligationOutcome(ParticipationDependencyObligation(mode=mode), dependency),
+            ObligationOutcome(
+                ParticipationDependencyObligation(mode=mode, principal_instance=principal), dependency
+            ),
             ObligationOutcome(ParticipationRequirementObligation(mode=mode), requirement),
         )
         elements[accessory] = _elements_stage(aggregate, outcomes)
