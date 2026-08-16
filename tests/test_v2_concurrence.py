@@ -441,3 +441,78 @@ def test_the_stolen_property_absorption_rule_is_approved_and_ordered() -> None:
     assert rule.occurrence_constraint == ORDERED_CROSS_EPISODE
     assert rule.first_offense_ref == "offense.embezzlement"
     assert rule.second_offense_ref == "offense.stolen_property_custody"
+
+
+def test_three_node_absorption_cycle_is_rejected_as_one_conflict() -> None:
+    from idpr.v2.runtime.concurrence import ConcurrenceCandidate
+
+    first = _instance('offense.injury', 'binding:cycle-a')
+    second = _instance('offense.homicide', 'binding:cycle-b')
+    third = _instance('offense.robbery', 'binding:cycle-c')
+    rules = (
+        ConcurrenceRule(
+            'rule.cycle-a', ABSORPTION, first.offense_ref, second.offense_ref, 'condition.a'
+        ),
+        ConcurrenceRule(
+            'rule.cycle-b', ABSORPTION, second.offense_ref, third.offense_ref, 'condition.b'
+        ),
+        ConcurrenceRule(
+            'rule.cycle-c', ABSORPTION, third.offense_ref, first.offense_ref, 'condition.c'
+        ),
+    )
+    candidates = tuple(
+        ConcurrenceCandidate(rule, child, parent, 'episode:1')
+        for rule, child, parent in zip(
+            rules,
+            (first, second, third),
+            (second, third, first),
+            strict=True,
+        )
+    )
+    truths = {
+        (candidate.rule.rule_id, candidate.first, candidate.second): TRUE
+        for candidate in candidates
+    }
+
+    result = resolve_concurrence(
+        (first, second, third), candidates, condition_truths=truths
+    )
+
+    assert result.absorbed_instances == frozenset()
+    assert result.retained_instances == frozenset({first, second, third})
+    assert set(result.rejected_conflicts) == set(candidates)
+    assert set(result.unresolved_candidates) == set(candidates)
+    assert result.absorbed_into == ()
+
+
+def test_acyclic_absorption_chain_still_applies_transitively_as_authored_edges() -> None:
+    from idpr.v2.runtime.concurrence import ConcurrenceCandidate
+
+    first = _instance('offense.injury', 'binding:chain-a')
+    second = _instance('offense.homicide', 'binding:chain-b')
+    third = _instance('offense.robbery', 'binding:chain-c')
+    rules = (
+        ConcurrenceRule(
+            'rule.chain-a', ABSORPTION, first.offense_ref, second.offense_ref, 'condition.a'
+        ),
+        ConcurrenceRule(
+            'rule.chain-b', ABSORPTION, second.offense_ref, third.offense_ref, 'condition.b'
+        ),
+    )
+    candidates = (
+        ConcurrenceCandidate(rules[0], first, second, 'episode:1'),
+        ConcurrenceCandidate(rules[1], second, third, 'episode:1'),
+    )
+    truths = {
+        (candidate.rule.rule_id, candidate.first, candidate.second): TRUE
+        for candidate in candidates
+    }
+
+    result = resolve_concurrence(
+        (first, second, third), candidates, condition_truths=truths
+    )
+
+    assert result.absorbed_instances == frozenset({first, second})
+    assert result.retained_instances == frozenset({third})
+    assert result.rejected_conflicts == ()
+    assert result.absorbed_into == ((first, second), (second, third))
