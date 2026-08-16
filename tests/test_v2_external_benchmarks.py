@@ -170,6 +170,20 @@ def test_call2_reports_three_way_unknown_and_selective_metrics() -> None:
     assert result["confusion_matrix"]["FALSE"]["UNKNOWN"] == 1
 
 
+def test_kbl_primary_macro_f1_uses_observed_gold_labels() -> None:
+    gold = [
+        {"id": "a", "label": "TRUE"},
+        {"id": "b", "label": "FALSE"},
+    ]
+    predictions = [
+        {"id": "a", "label": "TRUE"},
+        {"id": "b", "label": "FALSE"},
+    ]
+    result = evaluate_call2(gold, predictions)["summary"]
+    assert result["macro_f1_observed_gold"] == 1.0
+    assert result["macro_f1_fixed_3way"] == pytest.approx(2 / 3)
+
+
 def test_external_scorers_require_exact_id_alignment() -> None:
     with pytest.raises(ValueError, match="id mismatch"):
         evaluate_call2(
