@@ -384,3 +384,97 @@ Call 1.5는 이 문장을 `binding:002`의 `context_fragments`로 정확히 잡�
 이 수정이 실제로 TRUE를 끌어내는지는 Call 2 재실행 전까지 알 수 없다. 폭을 넓히면
 모델이 답할 수 있게 될 뿐이고, 답이 맞는지는 별개다. 유보 상위 6개 사례 중 나머지
 5건이 같은 원인인지도 아직 대조하지 않았다.
+
+---
+
+## 8. 우선순위 ② 정적 대조와 ③ 원인 -- 2026-08-16 후속
+
+### ②-1. 유보 상위 나머지 5건은 같은 결함이 아니다
+
+`scripts/audit_v2_unknown_evidence_scope.py`로 정적 대조했다. UNKNOWN 중 같은 instance의
+actor_episode carrier가 더 넓었던 것을 찾고, 그중 **실행행위 뒤 텍스트가 빠진 것**만
+(`trailing_gap > 0`) 따로 센다. 중지처럼 뒤에 오는 사실은 trailing 폭에서만 답할 수 있다.
+
+전체로는 79건/19사건, trailing만으로 좁혀도 60건/15사건이 걸린다. **이 스크리닝은 판별력이
+없다** -- 26문항 중 15개에서 뜨므로 "떴다"는 것이 결함의 증거가 되지 못한다. 후보 목록이다.
+
+유보 상위 6건의 내역은 이렇다.
+
+| 사례 | trailing 건수 | predicate (최대 gap) |
+|---|---:|---|
+| `r10_p1_q1_ga` | 5 | voluntary_cessation ×2, coercion_induced_causation ×2, coercion_sufficiency (+120자) |
+| `r10_p1_q3_ga` | 8 | concealment_or_escape_conduct, act_directed_at_another_offender 등 (+234자) |
+| `r13_p1_q3` | 3 | injury_result ×2, aggravated_result_attribution (+98자) |
+| `r10_p1_q2` | 3 | injury_result ×2, aggravated_result_attribution (+9자) |
+| `r10_p2_q1` | 2 | disposition_authority, property_disposition (+19자) |
+| `r11_p2_q1_ga` | **0** | -- |
+
+읽을 것 셋.
+
+1. **`r11_p2_q1_ga`는 trailing 결함이 하나도 없다.** 유보가 6회인데 폭 문제가 아니다.
+   원인이 다르고 별도 추적이 필요하다.
+2. **`r10_p1_q2`(+9자)와 `r10_p2_q1`(+19자)의 gap은 무의미하게 작다.** 폭을 넓혀도 새로
+   들어올 문장이 없다. 이 둘도 폭 결함으로 보기 어렵다.
+3. **구조적 형제는 결과 predicate 하나뿐이다.** `injury_result`(4)와
+   `aggravated_result_attribution`(3)은 중지와 같은 이유로 실행행위 뒤에 온다 -- 중한 결과는
+   정의상 행위 다음이다. `r13_p1_q3`의 +98자는 실질적인 폭이다. 그러나 **원문 대조 없이는
+   근거가 아니므로 이번에 바꾸지 않는다.** `dangerousness`와 같은 취급이다.
+
+따라서 이번 수정은 `voluntary_cessation_or_prevention` 하나로 끝낸다. 26문항 중 이 predicate가
+UNKNOWN인 곳은 `r10_p1_q1_ga`, `r11_p2_q1_da`, `r12_p2_q1_ga` 세 사건이다.
+
+### ②-2. 회귀 가드가 붉게 켜졌다 (의도된 것)
+
+정의를 바꾼 뒤 `test_carrier_contract`와 `test_evidence_scope_carrier_contract` 2건이 실패한다.
+커밋된 plan artifact가 옛 정의 아래 생성돼 이 predicate를 realization 폭으로 나르기 때문이다.
+가드가 artifact/정의 괴리를 정확히 보고한 것이고, **Call 1부터의 재실행으로 해소된다.**
+그 전까지 전체 스위트는 `600 passed, 2 failed`다.
+
+### ③. Call 1.5 이중 binding의 원인
+
+같은 `(사건, episode, actor, offense)`에 binding이 둘 이상인 그룹은 **6개 / 92개 그룹**이고
+초과 binding은 6개(전체 98개의 6.1%), 영향 사건은 5/26이다. 호스트에는 병합·중복제거 로직이
+없다 -- `issue_binding.py`는 identity 정합성만 검증한다.
+
+```
+r10_p1_q1_ga  ep:002  rape                    focal 002:003 / 002:004   CHAINED
+r10_p1_q3_ga  ep:001  bribe_delivery_receipt  focal 001:003 / 001:005   CHAINED
+r14_p1_q2     ep:002  bribe_delivery_receipt  focal 002:003 / 002:005   CHAINED
+r10_p1_q2     ep:001  assault                 focal 001:001 / 001:002
+r11_p2_q1_ga  ep:001  bribe_giving            focal 001:004 / 001:005
+r11_p2_q1_ga  ep:001  bribe_delivery_receipt  focal 001:004 / 001:005
+```
+
+**절반(3건)이 CHAINED다** -- 한 binding의 focal action이 다른 binding의 supporting action에
+들어 있다. dev 케이스가 그 형태다.
+
+```
+binding:001  focal 002:003 "…계단으로 끌고 가 청테이프로 A의 양손을 묶어 반항을 억압한 후"
+             supporting 002:002 "…엘리베이터를 타자 따라 들어가 주먹으로 A의 얼굴을 2회 때리고"
+binding:002  focal 002:004 "A를 간음하려 하였으나"
+             supporting 002:003  (= binding:001의 focal)
+```
+
+강간의 폭행과 간음 시도를 **두 개의 강간 realization**으로 연 것이다. 하나의 실행행위다.
+답안의 "강간죄 2건"이 여기서 나온다.
+
+나머지 3건은 focal이 서로 겹치지 않는다. 뇌물을 두 차례 준 경우처럼 실제로 두 죄일 수
+있으므로 같은 결함으로 묶지 않는다.
+
+### ③의 범위 -- 답안 중복의 일부만 설명한다
+
+§2에서 답안에 죄명 중복이 있던 사건은 7개인데, binding 이중화가 있는 사건은 5개이고
+**겹치는 것은 `r10_p1_q1_ga`와 `r11_p2_q1_ga` 둘뿐이다.** `r11_p1_q1`(특수절도죄 3),
+`r14_p2_q1`(3종 ×2), `r13_p2_q1`, `r12_p1_q4`, `r14_p1_q1`의 중복은 binding 단계에서 오지
+않는다. 행위자가 여럿이거나 파생죄 쌍일 수 있다. **③을 고쳐도 답안 중복의 대부분은 남는다.**
+
+### ③에 대한 판단 요청
+
+CHAINED 3건에 대한 결정론적 병합 규칙은 이렇게 쓸 수 있다: 같은
+`(episode, actor, offense)` 안에서 A의 focal이 B의 supporting에 있으면 하나의 realization으로
+보고, **어느 binding의 supporting에도 focal로 등장하지 않는 것**(체인의 끝)을 남기고 나머지
+action을 supporting으로 흡수한다. 호스트 코드이고 모델을 부르지 않는다.
+
+다만 "체인의 끝이 그 죄의 실행행위다"는 것은 법적 판단이다. 강간에서는 맞지만
+(간음 행위가 실행행위이고 폭행은 수단), 뇌물 계열 2건에도 같은 방향인지는 확인이 필요하다.
+그래서 구현하지 않고 남긴다.
