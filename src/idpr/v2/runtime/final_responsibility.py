@@ -21,6 +21,7 @@ Scallop 결함이 아니라 아무도 leaf를 planner target으로 만들지 않
 
 from __future__ import annotations
 
+from collections import Counter
 from collections.abc import Iterable, Mapping
 from dataclasses import dataclass
 from typing import Any
@@ -178,10 +179,17 @@ def plan_excess_attributions(
     derivative_links: Iterable[tuple[OffenseInstanceKey, OffenseInstanceKey, str]],
 ) -> tuple[ExcessAttribution, ...]:
     """각 초과 판정을 하나의 귀속 결정으로 바꾼다. 다른 죄책은 건드리지 않는다."""
-    accessory_instances = {
-        (accessory.actor_id, accessory.offense_ref): accessory
-        for accessory, _principal, _mode in derivative_links
-    }
+    links = tuple(derivative_links)
+    source_edges: dict[OffenseInstanceKey, tuple[OffenseInstanceKey, str]] = {}
+    for accessory, principal, mode in links:
+        edge = (principal, mode)
+        prior = source_edges.get(accessory)
+        if prior is not None and prior != edge:
+            raise FinalResponsibilityError(
+                f"accessory instance has multiple derivative edges: {accessory!r}"
+            )
+        source_edges[accessory] = edge
+
     output: list[ExcessAttribution] = []
     for finding in findings:
         accessory = finding.candidate.accessory_instance
@@ -191,13 +199,32 @@ def plan_excess_attributions(
             raise FinalResponsibilityError(
                 f"unhandled excess effect: {finding.assessment.effect!r}"
             )
+        source_edge = source_edges.get(accessory)
+        if source_edge is None:
+            raise FinalResponsibilityError(
+                f"excess finding lost its derivative source edge: {accessory!r}"
+            )
+        _source_principal, source_mode = source_edge
+        blocked_candidates = tuple(
+            linked_accessory
+            for linked_accessory, linked_principal, linked_mode in links
+            if linked_accessory.case_id == accessory.case_id
+            and linked_accessory.actor_id == accessory.actor_id
+            and linked_principal == finding.candidate.principal_instance
+            and linked_mode == source_mode
+        )
+        if len(blocked_candidates) > 1:
+            raise FinalResponsibilityError(
+                "multiple exact derivative attribution targets for excess finding: "
+                f"{accessory!r} -> {finding.candidate.principal_instance!r}/{source_mode}"
+            )
         output.append(
             ExcessAttribution(
                 accessory_instance=accessory,
                 excess_offense_ref=excess_ref,
                 decision=decision,
                 effect=finding.assessment.effect,
-                blocked_instance=accessory_instances.get((accessory.actor_id, excess_ref)),
+                blocked_instance=blocked_candidates[0] if blocked_candidates else None,
             )
         )
     return tuple(dict.fromkeys(output))
@@ -414,7 +441,19 @@ def resolve_final_responsibility(
         episode_order=tuple(episode_order),
         truths=truths,
     )
-    attributions = plan_excess_attributions(excess_findings, derivative_links=links)
+    ambiguous_excess_accessories = frozenset(
+        accessory
+        for accessory, count in Counter(
+            finding.candidate.accessory_instance for finding in excess_findings
+        ).items()
+        if count > 1
+    )
+    attributable_findings = tuple(
+        finding
+        for finding in excess_findings
+        if finding.candidate.accessory_instance not in ambiguous_excess_accessories
+    )
+    attributions = plan_excess_attributions(attributable_findings, derivative_links=links)
     withheld = frozenset(
         attribution.blocked_instance
         for attribution in attributions
