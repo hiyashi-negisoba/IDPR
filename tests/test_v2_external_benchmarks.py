@@ -13,6 +13,13 @@ from idpr.v2.benchmarks.external_data import (
     resolve_lbox_statute,
 )
 from idpr.v2.registry import DefinitionEntry, DefinitionRegistry, load_definitions
+from idpr.v2.runtime.grounding import (
+    AssessmentTarget,
+    GroundingContractError,
+    call2_schema,
+    validate_call2_output,
+)
+from idpr.v2.runtime.identity import OffenseInstanceKey
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -188,3 +195,64 @@ def test_external_scorers_require_exact_id_alignment() -> None:
             [{"id": "gold", "label": "TRUE"}],
             [{"id": "pred", "label": "TRUE"}],
         )
+
+
+def test_call2_binary_mode_restricts_schema_to_true_false() -> None:
+    """Binary mode schema should only allow TRUE and FALSE, not UNKNOWN."""
+    instance = OffenseInstanceKey(
+        case_id="test_case",
+        actor_id="actor1",
+        offense_ref="offense.test",
+        occurrence_id="occ1",
+    )
+    target = AssessmentTarget(instance, "test_predicate")
+    
+    # Standard schema should include UNKNOWN
+    standard_schema = call2_schema([target], binary=False)
+    standard_enum = standard_schema["properties"]["truths"]["items"]["enum"]
+    assert set(standard_enum) == {"FALSE", "TRUE", "UNKNOWN"}
+    
+    # Binary schema should exclude UNKNOWN
+    binary_schema = call2_schema([target], binary=True)
+    binary_enum = binary_schema["properties"]["truths"]["items"]["enum"]
+    assert set(binary_enum) == {"FALSE", "TRUE"}
+    assert "UNKNOWN" not in binary_enum
+
+
+def test_call2_binary_mode_rejects_unknown() -> None:
+    """Binary mode validation should reject UNKNOWN responses."""
+    instance = OffenseInstanceKey(
+        case_id="test_case",
+        actor_id="actor1",
+        offense_ref="offense.test",
+        occurrence_id="occ1",
+    )
+    target = AssessmentTarget(instance, "test_predicate")
+    
+    # Standard mode accepts UNKNOWN
+    payload_with_unknown = {"truths": ["UNKNOWN"]}
+    result = validate_call2_output(payload_with_unknown, targets=[target], binary=False)
+    assert result[0].truth == "UNKNOWN"
+    
+    # Binary mode rejects UNKNOWN
+    with pytest.raises(GroundingContractError, match="must be one of"):
+        validate_call2_output(payload_with_unknown, targets=[target], binary=True)
+
+
+def test_call2_binary_mode_accepts_true_false() -> None:
+    """Binary mode validation should accept TRUE and FALSE."""
+    instance = OffenseInstanceKey(
+        case_id="test_case",
+        actor_id="actor1",
+        offense_ref="offense.test",
+        occurrence_id="occ1",
+    )
+    targets = [
+        AssessmentTarget(instance, "pred1"),
+        AssessmentTarget(instance, "pred2"),
+    ]
+    
+    payload = {"truths": ["TRUE", "FALSE"]}
+    result = validate_call2_output(payload, targets=targets, binary=True)
+    assert result[0].truth == "TRUE"
+    assert result[1].truth == "FALSE"

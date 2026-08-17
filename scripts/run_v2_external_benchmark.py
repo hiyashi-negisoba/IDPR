@@ -244,9 +244,13 @@ def _run_kbl(
     client: VLLMClient,
     max_tokens: int,
     temperature: float,
+    binary: bool = False,
 ) -> dict[str, Any]:
     manifest = _read_json(input_dir / "manifest.json")
-    prompt_names = ("v2_call2_grounding", "v2_call2_grounding_user")
+    prompt_names = (
+        "v2_call2_grounding_binary" if binary else "v2_call2_grounding",
+        "v2_call2_grounding_binary_user" if binary else "v2_call2_grounding_user",
+    )
     _verify_manifest(
         manifest,
         benchmark="kbl_call2",
@@ -287,12 +291,12 @@ def _run_kbl(
                     system_prompt=system_prompt,
                     payload=payload,
                     schema_name="v2_external_kbl_result_causation",
-                    schema=call2_schema((target,)),
+                    schema=call2_schema((target,), binary=binary),
                     max_tokens=max_tokens,
                     temperature=temperature,
                     user_template=user_prompt,
                 )
-                assessment = validate_call2_output(raw, targets=(target,))[0]
+                assessment = validate_call2_output(raw, targets=(target,), binary=binary)[0]
                 usage = metadata.get("usage", {})
                 for key in usage_total:
                     usage_total[key] += int(usage.get(key, 0) or 0)
@@ -328,6 +332,8 @@ def main() -> None:
     parser.add_argument("--max-tokens", type=int, default=1024)
     parser.add_argument("--temperature", type=float, default=0.0)
     parser.add_argument("--prompt-approved", action="store_true")
+    parser.add_argument("--binary-mode", action="store_true",
+                        help="Restrict output to TRUE/FALSE only (no UNKNOWN)")
     args = parser.parse_args()
     if not args.prompt_approved:
         parser.error("--prompt-approved is required before external model execution")
@@ -350,6 +356,7 @@ def main() -> None:
             client=client,
             max_tokens=args.max_tokens,
             temperature=args.temperature,
+            binary=args.binary_mode,
         )
     run_manifest = {
         **summary,
@@ -359,6 +366,7 @@ def main() -> None:
         "sampling": {"temperature": args.temperature, "max_tokens": args.max_tokens},
         "input_manifest_sha256": _file_hash(args.input_dir / "manifest.json"),
         "predictions_sha256": _file_hash(args.out),
+        "binary_mode": args.binary_mode,
     }
     manifest_path = args.out.with_suffix(".manifest.json")
     manifest_path.write_text(

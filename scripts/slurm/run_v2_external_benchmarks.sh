@@ -17,6 +17,7 @@ MODEL_SNAPSHOT="${IDPR_EXTERNAL_MODEL_SNAPSHOT:?set IDPR_EXTERNAL_MODEL_SNAPSHOT
 SERVED_MODEL="${IDPR_EXTERNAL_SERVED_MODEL:-idpr-external-model}"
 LOCAL_API_KEY="${IDPR_EXTERNAL_API_KEY:-local-idpr}"
 BENCHMARK="${IDPR_EXTERNAL_BENCHMARK:-all}"
+BINARY_MODE="${IDPR_EXTERNAL_BINARY_MODE:-0}"
 RUN_ROOT="${IDPR_EXTERNAL_RUN_ROOT:-$PROJECT_ROOT/experiments/external/runs/${SLURM_JOB_ID}}"
 MATERIALIZED="$RUN_ROOT/materialized"
 SERVER_DIR="$RUN_ROOT/server"
@@ -116,14 +117,20 @@ run_benchmark() {
     local input_dir="$MATERIALIZED/$benchmark"
     local out="$RUN_ROOT/$benchmark/predictions.jsonl"
     mkdir -p "$(dirname "$out")"
-    "$CLIENT_PYTHON" scripts/run_v2_external_benchmark.py \
-        --benchmark "$benchmark" \
-        --input-dir "$input_dir" \
-        --out "$out" \
-        --base-url "http://127.0.0.1:${PORT}" \
-        --model "$SERVED_MODEL" \
-        --api-key "$LOCAL_API_KEY" \
+    local cmd=(
+        "$CLIENT_PYTHON" scripts/run_v2_external_benchmark.py
+        --benchmark "$benchmark"
+        --input-dir "$input_dir"
+        --out "$out"
+        --base-url "http://127.0.0.1:${PORT}"
+        --model "$SERVED_MODEL"
+        --api-key "$LOCAL_API_KEY"
         --prompt-approved
+    )
+    if [ "$benchmark" = "kbl_call2" ] && [ "$BINARY_MODE" = "1" ]; then
+        cmd+=(--binary-mode)
+    fi
+    "${cmd[@]}"
 }
 
 if [ "$BENCHMARK" = "all" ] || [ "$BENCHMARK" = "lbox_call1" ]; then

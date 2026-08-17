@@ -164,3 +164,135 @@ experiments/external/runs/baselines/{225237,225238,225239,225240,225241}/    # a
 `scripts/slurm/run_v2_external_benchmark_baselines.sh`. 테스트 수정:
 `tests/test_v2_external_benchmarks.py`(존재 불가능한 leakage 단언 수정, §부록 없음 — 별도
 커밋 메시지 참조).
+
+## 8. Binary Mode: TRUE/FALSE Only 비교
+
+### 8.1 동기
+
+KBL Call 2에서 baseline들은 모두 `{"truths": ["TRUE", "FALSE"]}` 2-way 출력만 내는 반면, ours는
+`{"truths": ["TRUE", "FALSE", "UNKNOWN"]}` 3-way를 반환한다. UNKNOWN이 자동으로 오답 취급되므로, ours가
+불공정하게 저평가되는 문제가 있다(§4.2, 전체 93건 기준 accuracy 0.581 vs baseline 0.817~0.860).
+
+공정한 비교를 위해 ours도 binary 모드에서 TRUE/FALSE만 출력하는 옵션을 추가했다. 이는 단순 라벨 매핑이 아니라
+**모델을 binary 프롬프트로 재실행**하는 것이다.
+
+### 8.2 구현 방식
+
+#### 프롬프트
+- `prompts/v2_call2_grounding_binary.md` — system prompt에서 UNKNOWN 정의 제거
+  - 기존: "세 값의 의미는 다음과 같으며 ... UNKNOWN이다"
+  - Binary: "두 값의 의미는 다음과 같으며 ... FALSE를 선택한다"
+  - UNKNOWN이 명시되지 않으므로 모델은 확신할 수 없을 때 FALSE를 선택하도록 유도
+  
+- `prompts/v2_call2_grounding_binary_user.md` — user prompt에서 UNKNOWN 언급 제거
+
+#### 코드
+- `src/idpr/v2/runtime/grounding.py`
+  - `call2_schema(targets, *, binary: bool = False)` — binary=True일 때 enum을 ["FALSE", "TRUE"]로 제한
+  - `validate_call2_output(payload, *, targets, binary: bool = False)` — binary=True일 때 UNKNOWN 거부
+  
+- `scripts/run_v2_external_benchmark.py`
+  - `--binary-mode` 플래그 추가
+  - binary 모드 시 동적으로 `v2_call2_grounding_binary` 프롬프트 로드
+  - manifest에 `"binary_mode": true` 기록
+  
+- `scripts/slurm/run_v2_external_benchmarks.sh`
+  - `IDPR_EXTERNAL_BINARY_MODE=1` 환경변수 추가
+  - KBL Call 2 실행 시 플래그 조건부 적용
+
+#### 테스트
+- `tests/test_v2_external_benchmarks.py`
+  - `test_call2_binary_mode_restricts_schema_to_true_false()` — 스키마 enum 검증
+  - `test_call2_binary_mode_rejects_unknown()` — UNKNOWN 거부 확인
+  - `test_call2_binary_mode_accepts_true_false()` — TRUE/FALSE 수용 확인
+  - 모든 테스트 통과 ✓
+
+### 8.3 실행 방법
+
+```bash
+# 3-way (기존, UNKNOWN 포함)
+sbatch --export=ALL scripts/slurm/run_v2_external_benchmarks.sh
+
+# 2-way (새로운, TRUE/FALSE만)
+sbatch --export=ALL,IDPR_EXTERNAL_BINARY_MODE=1 scripts/slurm/run_v2_external_benchmarks.sh
+```
+
+결과는 동일한 job ID 내 `kbl_call2/predictions.jsonl`에 저장되며, manifest에 binary_mode 플래그가 기록된다.
+
+### 8.4 예상 효과
+
+Binary 모드에서 ours가 baseline들과 동일한 2-way 조건에서 평가된다:
+- 기존 (3-way, UNKNOWN 포함): accuracy 0.581, coverage 0.656
+- Binary (2-way, TRUE/FALSE만): accuracy ? (재실행 필요)
+
+Binary 모드 결과와 baseline 2-way 결과를 직접 비교할 수 있게 된다.
+
+### 8.5 구현 검증
+
+#### 스키마 검증
+Binary 모드에서 JSON schema의 enum이 올바르게 제한되는지 확인:
+```python
+# Binary=False (기존, 3-way)
+call2_schema(targets, binary=False) 
+→ "enum": ["FALSE", "TRUE", "UNKNOWN"]  ✓
+
+# Binary=True (새로운, 2-way)
+call2_schema(targets, binary=True)
+→ "enum": ["FALSE", "TRUE"]  ✓ (UNKNOWN 제외)
+```
+
+#### 검증 로직 검증
+`validate_call2_output()`이 binary 모드에서 UNKNOWN을 거부하는지 확인:
+```python
+# Binary=False: UNKNOWN 수용
+validate_call2_output({"truths": ["UNKNOWN"]}, targets, binary=False)
+→ PredicateAssessment(target, "UNKNOWN")  ✓
+
+# Binary=True: UNKNOWN 거부
+validate_call2_output({"truths": ["UNKNOWN"]}, targets, binary=True)
+→ GroundingContractError("truths[0] must be one of ['FALSE', 'TRUE']")  ✓
+
+# Binary=True: TRUE/FALSE 수용
+validate_call2_output({"truths": ["TRUE", "FALSE"]}, targets, binary=True)
+→ [PredicateAssessment(..., "TRUE"), PredicateAssessment(..., "FALSE")]  ✓
+```
+
+#### 테스트 결과
+```
+tests/test_v2_external_benchmarks.py (10/10 PASSED)
+- test_lbox_shared_statute_requires_unique_casename_resolution PASSED
+- test_lbox_materialization_filters_before_model_input_and_hides_gold PASSED
+- test_kbl_label_is_derived_from_option_semantics_not_letter_position PASSED
+- test_call1_scores_raw_and_closure_recovery_separately PASSED
+- test_call2_reports_three_way_unknown_and_selective_metrics PASSED
+- test_kbl_primary_macro_f1_uses_observed_gold_labels PASSED
+- test_external_scorers_require_exact_id_alignment PASSED
+- test_call2_binary_mode_restricts_schema_to_true_false PASSED ✓ (신규)
+- test_call2_binary_mode_rejects_unknown PASSED ✓ (신규)
+- test_call2_binary_mode_accepts_true_false PASSED ✓ (신규)
+```
+
+#### 프롬프트 검증
+Binary 프롬프트 파일에서 UNKNOWN 언급이 제거되었는지 확인:
+```bash
+$ grep -c "UNKNOWN" prompts/v2_call2_grounding_binary.md
+0  ✓
+
+$ grep -c "UNKNOWN" prompts/v2_call2_grounding.md
+10  (기존, UNKNOWN 정의 포함)
+```
+
+### 8.6 구현 브랜치 및 커밋
+
+브랜치: `feature/kbl-binary-mode`  
+파일 수정:
+- `src/idpr/v2/runtime/grounding.py` — schema & validation
+- `scripts/run_v2_external_benchmark.py` — CLI & prompt selection
+- `scripts/slurm/run_v2_external_benchmarks.sh` — SLURM integration
+- `tests/test_v2_external_benchmarks.py` — 3개 테스트 추가
+
+파일 신규:
+- `prompts/v2_call2_grounding_binary.md`
+- `prompts/v2_call2_grounding_binary_user.md`
+
+변경 통계: **175 insertions, 15 deletions**

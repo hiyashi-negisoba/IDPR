@@ -418,10 +418,11 @@ def call2_request_payload(
     return payload
 
 
-def call2_schema(targets: Iterable[AssessmentTarget]) -> dict[str, Any]:
+def call2_schema(targets: Iterable[AssessmentTarget], *, binary: bool = False) -> dict[str, Any]:
     target_values = tuple(targets)
     if not target_values:
         raise GroundingContractError(["an empty target set has no response schema"])
+    enum_values = ["FALSE", "TRUE"] if binary else sorted(_TRUTHS)
     return {
         "type": "object",
         "additionalProperties": False,
@@ -431,7 +432,7 @@ def call2_schema(targets: Iterable[AssessmentTarget]) -> dict[str, Any]:
                 "type": "array",
                 "minItems": len(target_values),
                 "maxItems": len(target_values),
-                "items": {"type": "string", "enum": sorted(_TRUTHS)},
+                "items": {"type": "string", "enum": enum_values},
             },
         },
     }
@@ -451,7 +452,7 @@ def _parse_instance_key(value: Any, *, where: str, errors: list[str]) -> Offense
 
 
 def validate_call2_output(
-    payload: Any, *, targets: Iterable[AssessmentTarget]
+    payload: Any, *, targets: Iterable[AssessmentTarget], binary: bool = False
 ) -> tuple[PredicateAssessment, ...]:
     """Validate exact ordered keys; the model cannot select instances or predicates."""
     expected = tuple(targets)
@@ -466,11 +467,12 @@ def validate_call2_output(
         raw_values = []
     if len(raw_values) != len(expected):
         errors.append(f"truths must contain exactly {len(expected)} entries")
+    allowed_values = frozenset(["FALSE", "TRUE"]) if binary else _TRUTHS
     values: list[PredicateAssessment] = []
     for index, truth in enumerate(raw_values):
         where = f"truths[{index}]"
-        if not isinstance(truth, str) or truth not in _TRUTHS:
-            errors.append(f"{where} must be one of {sorted(_TRUTHS)}")
+        if not isinstance(truth, str) or truth not in allowed_values:
+            errors.append(f"{where} must be one of {sorted(allowed_values)}")
             continue
         if index < len(expected):
             values.append(PredicateAssessment(expected[index], truth))
