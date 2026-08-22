@@ -413,3 +413,71 @@ def test_an_excess_outside_the_linked_execution_produces_no_effect(registry) -> 
         excess_parity_rows(view, None, foreseeability_ref="legal_element.foreseeability")
         == ()
     )
+
+
+def test_multiple_excess_candidates_apply_no_attribution_effect(registry) -> None:
+    accessory = _instance('offense.theft', 'participation_binding:multi', actor='甲')
+    principal = _instance('offense.theft', 'binding:multi-principal', actor='乙')
+    first = _instance('derived_offense.special_theft', 'binding:multi-first', actor='乙')
+    second = _instance('offense.dwelling_intrusion', 'binding:multi-second', actor='乙')
+    view = _view(
+        registry,
+        results={
+            accessory: _established(accessory),
+            principal: _established(principal),
+            first: _established(first),
+            second: _established(second),
+        },
+        provenance={
+            accessory: ('factual_episode:001', ()),
+            principal: ('factual_episode:002', ()),
+            first: ('factual_episode:002', ()),
+            second: ('factual_episode:002', ()),
+        },
+        links=((accessory, principal, 'instigator'),),
+    )
+    assert len(view.excess_findings) == 2
+    assert any(value.marker == MULTIPLE_EXCESS_CANDIDATES for value in view.unresolved)
+    assert view.excess_attributions == ()
+    assert view.attribution_withheld_instances == frozenset()
+
+
+def test_excess_blocking_uses_exact_principal_occurrence_and_mode(registry) -> None:
+    from idpr.v2.runtime.excess import classify_excess
+    from idpr.v2.runtime.excess_candidates import AccessoryExcessCandidate
+    from idpr.v2.runtime.final_responsibility import ExcessFinding, plan_excess_attributions
+
+    source = _instance('offense.theft', 'participation_binding:source', actor='甲')
+    base_principal = _instance('offense.theft', 'binding:base', actor='乙')
+    realized_principal = _instance('derived_offense.special_theft', 'binding:realized', actor='乙')
+    other_principal = _instance('derived_offense.special_theft', 'binding:other', actor='乙')
+    correct = _instance('derived_offense.special_theft', 'participation_binding:correct', actor='甲')
+    wrong = _instance('derived_offense.special_theft', 'participation_binding:wrong', actor='甲')
+
+    policy = registry.get('excess_policy.korean_law_standard')
+    assessment = classify_excess(
+        registry,
+        policy,
+        instigated_offense_ref=source.offense_ref,
+        realized_offense_ref=realized_principal.offense_ref,
+        participant_foreseeability='UNKNOWN',
+    )
+    finding = ExcessFinding(
+        AccessoryExcessCandidate(
+            source,
+            realized_principal,
+            'factual_episode:002',
+            same_execution=True,
+        ),
+        assessment,
+    )
+    attributions = plan_excess_attributions(
+        (finding,),
+        derivative_links=(
+            (source, base_principal, 'instigator'),
+            (wrong, other_principal, 'instigator'),
+            (correct, realized_principal, 'instigator'),
+        ),
+    )
+    assert len(attributions) == 1
+    assert attributions[0].blocked_instance == correct

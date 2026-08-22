@@ -415,6 +415,29 @@ def plan_specialty_candidates(
     return tuple(output)
 
 
+def _absorption_cycle_nodes(
+    child_to_parent: Mapping[OffenseInstanceKey, OffenseInstanceKey],
+) -> frozenset[OffenseInstanceKey]:
+    """Return every instance that belongs to a directed absorption cycle of any length."""
+    cycle_nodes: set[OffenseInstanceKey] = set()
+    finished: set[OffenseInstanceKey] = set()
+    for start in child_to_parent:
+        if start in finished:
+            continue
+        path: list[OffenseInstanceKey] = []
+        index: dict[OffenseInstanceKey, int] = {}
+        node = start
+        while node in child_to_parent and node not in finished:
+            if node in index:
+                cycle_nodes.update(path[index[node]:])
+                break
+            index[node] = len(path)
+            path.append(node)
+            node = child_to_parent[node]
+        finished.update(path)
+    return frozenset(cycle_nodes)
+
+
 def resolve_concurrence(
     established_instances: Iterable[OffenseInstanceKey],
     candidates: Iterable[ConcurrenceCandidate],
@@ -458,9 +481,7 @@ def resolve_concurrence(
     conflicted_instances = {
         child for child, count in parent_counts.items() if count > 1
     }
-    for child, parent in child_to_parent.items():
-        if child_to_parent.get(parent) == child:
-            conflicted_instances.update((child, parent))
+    conflicted_instances.update(_absorption_cycle_nodes(child_to_parent))
     rejected = tuple(
         candidate
         for candidate in true_absorptions

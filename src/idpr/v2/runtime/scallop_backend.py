@@ -546,7 +546,7 @@ def validate_completion_query_rows(candidate_rows: Iterable[Sequence[str]], resu
                 for name in completion_mod.DERIVABLE_STATES
                 if name in policy.payload["states"]
             )
-            state = completion_mod._derive_state(outcomes)
+            state = completion_mod._derive_state(outcomes, policy.payload["states"])
             expected = (state, "NONE") if state in {"unresolved", "not_applicable"} else (
                 state,
                 "TRUE" if policy.payload["states"][state]["punishable"] else "FALSE",
@@ -1308,14 +1308,23 @@ def _emit_policy_completion(
         expression = expressions.canonicalize(state["when"])
         assert expression is not None
         expression_helper = _emit_expression(expression, lines, emitted)
+        blocker = expressions.canonicalize(state.get("blocked_when"))
+        blocker_helper = _emit_expression(blocker, lines, emitted) if blocker is not None else None
         helper = _completion_helper_name("candidate", compiled.id, name)
-        _emit_completion_candidate(helper, compiled.id, _state_scope_ref(compiled, state), expression_helper, lines)
+        _emit_completion_candidate(
+            helper,
+            compiled.id,
+            _state_scope_ref(compiled, state),
+            expression_helper,
+            blocker_helper,
+            lines,
+        )
         candidates[name] = helper
         for truth, suffix in (("TRUE", "true"), ("FALSE", "false"), ("UNKNOWN", "unknown")):
             lines.append(
                 f"rel {COMPLETION_CANDIDATE_QUERY_RELATION}(c, a, {_scl_string(compiled.id)}, i, {_scl_string(name)}, {_scl_string(truth)}) = {helper}_{suffix}(c, a, i)"
             )
-    selected = _emit_completion_selection(compiled.id, names, candidates, lines)
+    selected = _emit_completion_selection(compiled.id, names, candidates, states, lines)
     for name in names:
         state = states[name]
         label = "TRUE" if state["punishable"] else "FALSE"
@@ -1340,37 +1349,90 @@ def _emit_policy_completion(
     lines.append("")
 
 
-def _emit_completion_candidate(helper: str, target_ref: str, scope_ref: str, expression_helper: str, lines: list[str]) -> None:
+def _emit_completion_candidate(
+    helper: str,
+    target_ref: str,
+    scope_ref: str,
+    expression_helper: str,
+    blocker_helper: str | None,
+    lines: list[str],
+) -> None:
+    target = f"v2_completion_target_instance(c, a, {_scl_string(target_ref)}, i)"
     for suffix in ("true", "false", "unknown"):
         lines.append(f"type {helper}_{suffix}(String, String, String)")
+    if blocker_helper is None:
+        for suffix in ("true", "false", "unknown"):
+            expression = f"{expression_helper}_{suffix}(c, a, {_scl_string(scope_ref)}, i)"
+            lines.append(f"rel {helper}_{suffix}(c, a, i) = {target} and {expression}")
+    else:
+        expression_true = f"{expression_helper}_true(c, a, {_scl_string(scope_ref)}, i)"
+        expression_false = f"{expression_helper}_false(c, a, {_scl_string(scope_ref)}, i)"
+        expression_unknown = f"{expression_helper}_unknown(c, a, {_scl_string(scope_ref)}, i)"
+        blocker_true = f"{blocker_helper}_true(c, a, {_scl_string(scope_ref)}, i)"
         lines.append(
-            f"rel {helper}_{suffix}(c, a, i) = v2_completion_target_instance(c, a, {_scl_string(target_ref)}, i) and {expression_helper}_{suffix}(c, a, {_scl_string(scope_ref)}, i)"
+            f"rel {helper}_true(c, a, i) = {target} and {expression_true} and not {blocker_true}"
+        )
+        lines.append(f"rel {helper}_false(c, a, i) = {target} and {expression_false}")
+        lines.append(f"rel {helper}_false(c, a, i) = {target} and {blocker_true}")
+        lines.append(
+            f"rel {helper}_unknown(c, a, i) = {target} and {expression_unknown} and not {blocker_true}"
         )
     lines.append("")
 
 
-def _emit_completion_selection(offense_id: str, names: Sequence[str], candidates: Mapping[str, str], lines: list[str]) -> Mapping[str, str]:
+def _emit_completion_selection(
+    offense_id: str,
+    names: Sequence[str],
+    candidates: Mapping[str, str],
+    states: Mapping[str, Mapping[str, object]],
+    lines: list[str],
+) -> Mapping[str, str]:
     target = f"v2_completion_target_instance(c, a, {_scl_string(offense_id)}, i)"
+    surviving: dict[str, str] = {}
+    for name in names:
+        helper = _completion_helper_name("surviving", offense_id, name)
+        surviving[name] = helper
+        defeaters = tuple(states[name].get("defeated_by_state") or ())
+        unknown = [defeater for defeater in defeaters if defeater not in candidates]
+        if unknown:
+            raise ScallopBackendContractError(
+                f"completion state {name!r} has unknown defeated_by_state targets: {unknown!r}"
+            )
+        guards = [f"not {candidates[defeater]}_true(c, a, i)" for defeater in defeaters]
+        lines.append(f"type {helper}(String, String, String)")
+        lines.append(
+            f"rel {helper}(c, a, i) = {' and '.join([target, f'{candidates[name]}_true(c, a, i)', *guards])}"
+        )
+
     selected: dict[str, str] = {}
     for name in names:
         helper = _completion_helper_name("selected", offense_id, name)
         selected[name] = helper
-        negative = [f"not {candidates[other]}_true(c, a, i)" for other in names if other != name]
+        negative = [f"not {surviving[other]}(c, a, i)" for other in names if other != name]
         lines.append(f"type {helper}(String, String, String)")
-        lines.append(f"rel {helper}(c, a, i) = {' and '.join([target, f'{candidates[name]}_true(c, a, i)', *negative])}")
-    no_true = [f"not {candidates[name]}_true(c, a, i)" for name in names]
+        lines.append(
+            f"rel {helper}(c, a, i) = {' and '.join([target, f'{surviving[name]}(c, a, i)', *negative])}"
+        )
+
+    no_surviving = [f"not {surviving[name]}(c, a, i)" for name in names]
     unresolved = _completion_helper_name("selected", offense_id, "unresolved")
     lines.append(f"type {unresolved}(String, String, String)")
     for left, right in combinations(names, 2):
-        lines.append(f"rel {unresolved}(c, a, i) = {target} and {candidates[left]}_true(c, a, i) and {candidates[right]}_true(c, a, i)")
+        lines.append(
+            f"rel {unresolved}(c, a, i) = {target} and {surviving[left]}(c, a, i) and {surviving[right]}(c, a, i)"
+        )
     for name in names:
-        lines.append(f"rel {unresolved}(c, a, i) = {' and '.join([target, *no_true, f'{candidates[name]}_unknown(c, a, i)'])}")
+        lines.append(
+            f"rel {unresolved}(c, a, i) = {' and '.join([target, *no_surviving, f'{candidates[name]}_unknown(c, a, i)'])}"
+        )
+
     not_applicable = _completion_helper_name("selected", offense_id, "not_applicable")
     lines.append(f"type {not_applicable}(String, String, String)")
     no_unknown = [f"not {candidates[name]}_unknown(c, a, i)" for name in names]
-    lines.append(f"rel {not_applicable}(c, a, i) = {' and '.join([target, *no_true, *no_unknown])}")
+    lines.append(
+        f"rel {not_applicable}(c, a, i) = {' and '.join([target, *no_surviving, *no_unknown])}"
+    )
     return selected
-
 
 def _emit_completion_all(helper: str, offense_id: str, selected: str | None, children: Sequence[tuple[str, str]], lines: list[str]) -> None:
     for suffix in ("true", "false", "unknown"):
@@ -2521,16 +2583,27 @@ def _emit_integrated_completion(
         expression = expressions.canonicalize(state["when"])
         assert expression is not None
         helper = _emit_attribution_aware_expression(expression, lines, emitted)
+        blocker = expressions.canonicalize(state.get("blocked_when"))
+        blocker_helper = (
+            _emit_attribution_aware_expression(blocker, lines, emitted)
+            if blocker is not None
+            else None
+        )
         candidate = _completion_helper_name("candidate", compiled.id, name)
         _emit_completion_candidate(
-            candidate, compiled.id, _state_scope_ref(compiled, state), helper, lines
+            candidate,
+            compiled.id,
+            _state_scope_ref(compiled, state),
+            helper,
+            blocker_helper,
+            lines,
         )
         candidates[name] = candidate
         for truth, suffix in (("TRUE", "true"), ("FALSE", "false"), ("UNKNOWN", "unknown")):
             lines.append(
                 f"rel {COMPLETION_CANDIDATE_QUERY_RELATION}(c, a, {_scl_string(compiled.id)}, i, {_scl_string(name)}, {_scl_string(truth)}) = {candidate}_{suffix}(c, a, i)"
             )
-    selected = _emit_completion_selection(compiled.id, names, candidates, lines)
+    selected = _emit_completion_selection(compiled.id, names, candidates, states, lines)
     for name in names:
         state = states[name]
         label = "TRUE" if state["punishable"] else "FALSE"
@@ -2925,7 +2998,7 @@ def _adapt_phased_symbolic_chain(
             if aggregate != fold_all((principal_truth, requirement)):
                 raise ScallopBackendContractError("derivative obligation fold disagrees with derivative Elements truth")
             elements[instance] = _elements_stage(aggregate, (
-                ObligationOutcome(ParticipationDependencyObligation(mode), principal_truth),
+                ObligationOutcome(ParticipationDependencyObligation(mode, principal), principal_truth),
                 ObligationOutcome(ParticipationRequirementObligation(mode), requirement),
             ))
         element = elements[instance]
@@ -3052,7 +3125,9 @@ def _validate_and_adapt_integrated_chain(
         if derivative_elements[(accessory, principal, mode)] != aggregate:
             raise ScallopBackendContractError("derivative obligation fold disagrees with derivative Elements truth")
         outcomes = (
-            ObligationOutcome(ParticipationDependencyObligation(mode=mode), dependency),
+            ObligationOutcome(
+                ParticipationDependencyObligation(mode=mode, principal_instance=principal), dependency
+            ),
             ObligationOutcome(ParticipationRequirementObligation(mode=mode), requirement),
         )
         elements[accessory] = _elements_stage(aggregate, outcomes)

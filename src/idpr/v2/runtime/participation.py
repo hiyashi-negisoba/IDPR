@@ -306,7 +306,9 @@ def _resolve_derivative_elements(
     predicate_view = truths.predicate_view(instance)
     outcomes = (
         ObligationOutcome(
-            obligation=ParticipationDependencyObligation(mode=mode),
+            obligation=ParticipationDependencyObligation(
+                mode=mode, principal_instance=principal.instance
+            ),
             truth=principal_realization_truth(principal),
         ),
         ObligationOutcome(

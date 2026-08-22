@@ -30,7 +30,7 @@ from typing import Any
 
 from idpr.v2 import expressions
 from idpr.v2.registry import DefinitionRegistry
-from idpr.v2.runtime.completion import completion_policy_for
+from idpr.v2.runtime.completion import DERIVABLE_STATES, completion_policy_for
 
 #: Internal vocabulary that must never survive serialization into the Call 3 payload.
 #: A leak here does not merely look untidy -- it teaches the writer to quote machine state
@@ -637,27 +637,49 @@ def _episode_quotes(
 
 
 def _participation_route(
-    registry: DefinitionRegistry, result: Mapping[str, Any]
+    registry: DefinitionRegistry,
+    result: Mapping[str, Any],
+    offense_labels: Mapping[str, str] | None = None,
 ) -> ParticipationRoute | None:
-    """Recover the accessory route from the stage provenance.
+    """Recover the exact derivative route from typed stage provenance.
 
-    Losing this turns an instigator into a principal in the written answer, so a mode
-    without its principal is refused rather than emitted half-formed.
+    A ParticipationRequirementObligation also carries ``mode`` but has no principal endpoint.
+    Only the dependency obligation carries ``principal_instance``; that makes the producer's typed
+    identity authoritative and prevents AnswerPlan from reconstructing a principal from actor or
+    offense names.
     """
-    mode: str | None = None
+    dependency: Mapping[str, Any] | None = None
     for stage_name in ("elements", "unlawfulness", "culpability", "punishability"):
         stage = result.get(stage_name) or {}
         for outcome in stage.get("provenance") or []:
             obligation = outcome.get("obligation") or {}
-            if "mode" in obligation:
-                mode = str(obligation["mode"])
-    if mode is None:
+            if obligation.get("principal_instance") is not None:
+                if dependency is not None and obligation != dependency:
+                    raise AnswerPlanError("multiple participation dependency identities in one liability result")
+                dependency = obligation
+    if dependency is None:
+        has_derivative_mode = any(
+            "mode" in (outcome.get("obligation") or {})
+            for stage_name in ("elements", "unlawfulness", "culpability", "punishability")
+            for outcome in ((result.get(stage_name) or {}).get("provenance") or [])
+        )
+        if has_derivative_mode:
+            raise AnswerPlanError(
+                "derivative participation provenance is missing its principal instance; rerun symbolic evaluation"
+            )
         return None
+
+    mode = str(dependency.get("mode", ""))
+    principal = dependency.get("principal_instance") or {}
+    required = ("actor_id", "offense_ref", "occurrence_id")
+    if mode not in {"instigator", "aider"} or any(not principal.get(field) for field in required):
+        raise AnswerPlanError("malformed participation dependency provenance")
+    principal_offense_ref = str(principal["offense_ref"])
     return ParticipationRoute(
         mode=mode,
-        principal_actor=None,
-        principal_offense=None,
-        principal_realization=None,
+        principal_actor=str(principal["actor_id"]),
+        principal_offense=offense_label(registry, principal_offense_ref, offense_labels),
+        principal_realization=str(principal["occurrence_id"]),
     )
 
 
@@ -807,7 +829,7 @@ def build_answer_plan(
     retained = frozenset(instance_ref(i) for i in final.get("retained_instances") or [])
     absorbed_records = final.get("absorbed_instances") or []
     absorbed = frozenset(
-        instance_ref(record.get("instance", record)) for record in absorbed_records
+        instance_ref(record["instance"]) for record in absorbed_records
     )
     withheld = frozenset(
         instance_ref(i) for i in final.get("attribution_withheld_instances") or []
@@ -843,7 +865,7 @@ def build_answer_plan(
         )
         state = _final_state(result, ref, retained, absorbed, withheld, bool(blocking))
         completion = result.get("completion") or {}
-        route = _participation_route(registry, result)
+        route = _participation_route(registry, result, offense_labels)
         issue = AnchoredIssue(
             issue_id=ref,
             actor=str(instance.get("actor_id", "")),
@@ -932,8 +954,8 @@ def _absorption_records(
     """
     out: list[Mapping[str, Any]] = []
     for record in records:
-        absorbed_instance = record.get("instance") or record.get("absorbed") or {}
-        absorbing_instance = record.get("absorbed_by") or record.get("absorbing") or {}
+        absorbed_instance = record.get("instance") or {}
+        absorbing_instance = record.get("absorbed_by") or {}
         out.append(
             {
                 "absorbed_offense": offense_label(
@@ -1022,8 +1044,8 @@ def _pair_records(
 ) -> list[Mapping[str, Any]]:
     out: list[Mapping[str, Any]] = []
     for record in records:
-        first = record.get("first") or record.get("left") or {}
-        second = record.get("second") or record.get("right") or {}
+        first = record.get("first_instance") or {}
+        second = record.get("second_instance") or {}
         out.append(
             {
                 "first_offense": offense_label(
@@ -1045,18 +1067,18 @@ def _redirection_records(
     """Article 33 proviso: the participant answers under a different offence."""
     out: list[Mapping[str, Any]] = []
     for record in records:
-        instance = record.get("instance") or record.get("participant_instance") or {}
+        instance = record.get("accessory_instance") or {}
+        base_offense_ref = str(record.get("base_offense_ref", ""))
+        aggravated_offense_ref = str(record.get("aggravated_offense_ref", ""))
         out.append(
             {
                 "actor": str(instance.get("actor_id", "")),
                 "from_offense": offense_label(
-                    registry, str(instance.get("offense_ref", "")), offense_labels
+                    registry, base_offense_ref, offense_labels
                 ),
                 "to_offense": offense_label(
-                    registry, str(record.get("redirected_offense_ref", "")), offense_labels
-                )
-                if record.get("redirected_offense_ref")
-                else None,
+                    registry, aggravated_offense_ref, offense_labels
+                ),
             }
         )
     return out
@@ -1072,7 +1094,7 @@ def _discussion_order(
     """
     order = [issue.issue_id for issue in issues]
     absorbed_first = {
-        instance_ref(record.get("instance") or {}): instance_ref(record.get("absorbed_by") or {})
+        instance_ref(record["instance"]): instance_ref(record["absorbed_by"])
         for record in absorbed_records
     }
     for absorbed_ref, absorbing_ref in absorbed_first.items():
@@ -1156,8 +1178,9 @@ _MODE_PROSE = {
 
 _COMPLETION_PROSE = {
     "completed": "기수",
-    "attempt": "미수",
-    "abandonment": "중지미수",
+    "attempted": "미수",
+    "abandoned_attempt": "중지미수",
+    "impossible_attempt": "불능미수",
     "preparation": "예비",
 }
 
