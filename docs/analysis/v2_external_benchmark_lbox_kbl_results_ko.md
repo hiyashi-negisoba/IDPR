@@ -2,9 +2,9 @@
 
 브랜치 `agent/external-benchmark-takeover`. 생성 백본 `idpr-gemma-4-26b-a4b`
 (local vLLM, snapshot `.../models--google--gemma-4-26B-A4B-it/snapshots/01e5b3ee840d3a9e0b0b493c593e85398a30ef75`).
-이 문서는 진행 중 작성된 living draft다. 중간 집계 시점: baseline 7종 중 acal/leprec/
-legal_chain_reasoner **완료**, vanilla_zero_shot/chain_of_thought(job 225242)·
-fol_autoformalizer_solver(225240)·standard_rag(225241) 진행 중.
+**최종본 (2026-08-22 확정).** baseline 7종 전부 완료됐고 아래 표는 최종값이다
+(`experiments/external/runs/baselines/*/scores/`). 8/17에 living draft로 멈춰 있던
+"진행 중" 칸을 채운 것 외에 방법론·수치 해석은 바꾸지 않았다.
 
 ## 1. 목적과 설계
 
@@ -78,13 +78,19 @@ recall/full-hit은 raw와 동일하고 precision만 떨어짐 — §4.1 하단 �
 |---|---:|---:|---:|---:|---:|
 | **ours (production, 전체, raw)** | 3375 | 0.952 | 0.943 | 0.456 | 0.617 |
 | **ours (production, 300-subset, raw)** | 300 | 0.994 | 0.993 | 0.431 | 0.601 |
-| vanilla_zero_shot | 진행 중 (job 225242) | — | — | — | — |
-| chain_of_thought | 진행 중 (job 225242, vanilla 이후 시작) | — | — | — | — |
-| acal | **완료** | 0.956 | 0.950 | 0.399 | 0.563 |
-| leprec | **완료** | 0.971 | 0.967 | 0.743 | 0.842 |
-| legal_chain_reasoner | **완료** | 0.977 | 0.973 | 0.655 | 0.784 |
-| fol_autoformalizer_solver | 진행 중 (job 225240) | — | — | — | — |
-| standard_rag | 진행 중 (job 225241) | — | — | — | — |
+| vanilla_zero_shot | 300 | 0.962 | 0.957 | 0.638 | 0.767 |
+| chain_of_thought | 300 | 0.968 | 0.963 | 0.648 | 0.776 |
+| acal | 300 | 0.956 | 0.950 | 0.399 | 0.563 |
+| leprec | 300 | 0.971 | 0.967 | **0.743** | **0.842** |
+| legal_chain_reasoner | 300 | 0.977 | 0.973 | 0.655 | 0.784 |
+| fol_autoformalizer_solver | 300 | 0.898 | 0.900 | 0.762 | 0.824 |
+| standard_rag | 300 | 0.971 | 0.967 | 0.423 | 0.590 |
+
+**읽는 법.** recall은 ours가 1위(300-subset 0.994, 전체 0.952)이고 precision은 하위권이다.
+넓게 열고 하류(Call 1.5/Call 2)가 거르는 설계가 그대로 나온 것이라 이 축만으로 우열을
+말할 수 없다 — 다만 **fol_autoformalizer_solver만 recall이 0.898로 뚜렷이 낮다**(유일하게
+0.95 미만). 형식화 단계가 죄명 후보를 좁힌다는 뜻이고, 우리와 가장 가까운 계열의 baseline
+에서 반대 방향의 실패가 난 지점이라 기록해 둔다.
 
 **closure(참고, baseline 대응 없음):** 전체 closure recall/full-hit = raw와 동일(0.952/0.943,
 closure_recoveries 0건), closure precision/F1 = 0.194/0.322 (raw 0.456/0.617보다 낮음 — 정적
@@ -104,13 +110,34 @@ baseline은 전부 unknown_rate 0.0이라(§4.2 하단) `accuracy`/`macro-F1` �
 |---|---:|---:|---:|---:|---:|
 | **ours (production, 전체 93건, UNKNOWN=오답)** | 93 | 0.581 | 0.489 | 0.656 | 0.344 |
 | **ours (production, UNKNOWN 제외 61건만)** | 61 | 0.885 | 0.650 | 1.0 | 0.0 |
-| vanilla_zero_shot | 진행 중 (job 225242) | — | — | — | — |
-| chain_of_thought | 진행 중 (job 225242) | — | — | — | — |
-| acal | **완료** | 0.817 | 0.796 | 1.0 | 0.0 |
-| leprec | **완료** | 0.849 | 0.833 | 1.0 | 0.0 |
-| legal_chain_reasoner | **완료** | 0.849 | 0.833 | 1.0 | 0.0 |
-| fol_autoformalizer_solver | 진행 중 (job 225240) | — | — | — | — |
-| standard_rag | 진행 중 (job 225241) | — | — | — | — |
+| vanilla_zero_shot | 93 | 0.860 | **0.844** | 1.0 | 0.0 |
+| chain_of_thought | 93 | 0.828 | 0.803 | 1.0 | 0.0 |
+| acal | 93 | 0.817 | 0.796 | 1.0 | 0.0 |
+| leprec | 93 | 0.849 | 0.833 | 1.0 | 0.0 |
+| legal_chain_reasoner | 93 | 0.849 | 0.833 | 1.0 | 0.0 |
+| fol_autoformalizer_solver | 93 | 0.839 | 0.823 | 1.0 | 0.0 |
+| standard_rag | 93 | 0.860 | 0.844 | 1.0 | 0.0 |
+
+### 4.3 이 벤치마크의 실제 발견 — UNKNOWN은 부정 사례에 몰려 있다
+
+ours의 per-class 성적이 위 표보다 중요하다.
+
+```
+TRUE  (gold n=65): precision 0.912  recall 0.800  f1 0.852
+FALSE (gold n=28): precision 0.500  recall 0.071  f1 0.125
+confusion:  TRUE  -> TRUE 52 / FALSE  2 / UNKNOWN 11
+            FALSE -> TRUE  5 / FALSE  2 / UNKNOWN 21
+```
+
+**UNKNOWN 32건 중 21건이 gold FALSE다.** 기권이 균등하게 흩어진 것이 아니라 부정 사례에
+집중돼 있다. 즉 우리 grounding은 "인과관계가 인정된다"는 확인은 하지만 **"인정되지
+않는다"는 확인을 못 한다** — 근거 부족(epistemic)과 사실의 부존재(ontic)를 같은 값으로
+접어 버린다. 전체-93 accuracy 0.581과 baseline 0.82~0.86의 격차는 대부분 이 한 축에서
+나온다.
+
+미완의 `prompts/v2_call2_grounding_binary*.md`(candidates, 미승인)와 `wip/kbl-binary-grounding`
+브랜치가 이 문제를 겨냥한 것이다. 다만 "UNKNOWN을 없애고 FALSE로 강제한다"는 **판단 보류를
+버리는 것**이므로, 폐쇄세계 부정을 제대로 다루는 설계와는 구분해야 한다.
 
 baseline의 unknown_rate 0.0은 실제 확신이 아니라 "고정 결론 문구를 강제한 프롬프트를
 잘 따랐다"는 것뿐이다 — production의 UNKNOWN은 근거 부족을 스스로 판단해 반환하는 정직한
@@ -127,13 +154,16 @@ production Call1/Call2는 닫힌 구조 출력(짧은 JSON)이고, baseline은 �
 | method | 초/case | 근거 |
 |---|---:|---|
 | **ours (production Call1+Call2)** | **~0.36** | job 225092 구간 측정(1637→3468건 사이 marginal rate) |
-| vanilla_zero_shot | ~5.8 | 취소된 job 225195 실측(250건 평균, 재측정은 job 225242 완료 후 갱신) |
-| chain_of_thought | ~8.0 | smoke job 225159 실측(LBOX 5건, 재측정은 job 225242 완료 후 갱신) |
+| vanilla_zero_shot | ~5.8 | 취소된 job 225195 실측(250건 평균). 225242는 두 방식이 한 job이라 분리 불가 |
+| chain_of_thought | ~8.0 | smoke job 225159 실측(LBOX 5건). 225242 전체 평균은 두 방식 합산 786건 기준 ~6.8 |
 | leprec | 7.85 | job 225238 실측(393건, LBOX 300+KBL 93 전체 평균) |
 | acal | 8.51 | job 225237 실측(393건, 전체 평균) |
 | legal_chain_reasoner | 8.82 | job 225239 실측(393건, 전체 평균) |
-| fol_autoformalizer_solver | 진행 중 | job 225240 완료 후 갱신 |
-| standard_rag | 진행 중 | job 225241 완료 후 갱신 |
+| fol_autoformalizer_solver | ~8.8 | job 225240 elapsed 60:14에서 서비스 기동분 차감, 393건 기준 추정 |
+| standard_rag | ~5.1 | job 225241 elapsed 35:52에서 서비스 기동분 차감, 393건 기준 추정 |
+
+fol/rag 두 값은 실측 로그가 아니라 **job elapsed에서 서비스 기동시간(~2.5분)을 뺀 추정**
+이다(같은 방식으로 계산한 leprec 추정이 실측 7.85와 일치함을 확인했다).
 
 **production 구조화 출력이 자유서술 baseline보다 약 15~40배 빠르다.** 이건 이번 벤치마크의
 부차 소득이지 목적은 아니었지만, LBOX 300-subset 절단 판단(§3)의 직접적 근거이기도 하다.
