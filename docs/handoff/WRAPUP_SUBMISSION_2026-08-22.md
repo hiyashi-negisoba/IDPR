@@ -125,9 +125,17 @@ test_carrier_contract.py::test_the_produced_plan_satisfies_the_contract_for_ever
 test_evidence_scope_carrier_contract.py::test_every_predicate_is_carried_at_its_authored_scope
 ```
 
-**아직 하지 않은 것 (사용자 판단):** `main` fast-forward(현재 187커밋 뒤), origin push,
-잉여 브랜치·워크트리 정리(`agent/*` 2개는 머지된 브랜치와 동일/조상, `IDPR-fix`·
-`IDPR-step8-*`·`/tmp/idpr-vllm-service` 워크트리는 vLLM 서비스용 잔재).
+이어서 정리한 것:
+
+- `origin/deadline_v2_0808` 푸시, **`main`을 같은 커밋으로 전진**(이전 187커밋 뒤) 후 푸시.
+  다음 연구는 `main`에서 시작하면 된다
+- 머지로 흡수된 로컬 브랜치 3개 삭제(`feature/kbl-binary-mode`, `agent/*` 2개)
+- vLLM 서비스용 워크트리 3개 제거(473MB 회수) + 사라진 `/tmp` 워크트리 등록 정리.
+  현재 워크트리는 `/data5/jaehoonjeong/IDPR` 하나뿐이다
+- `wip/*` 두 브랜치를 origin에 백업한 뒤 중복된 stash 2건 삭제. **stash는 비어 있고
+  미완 작업은 브랜치로만 남는다**
+
+최종 검증: **`625 passed, 2 failed`**(위 가드 2건). 머지로 들어온 테스트 25개는 전부 통과.
 
 ## 3. 미해결 결함 (다음 연구의 출발점)
 
